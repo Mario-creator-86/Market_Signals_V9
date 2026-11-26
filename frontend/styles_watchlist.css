@@ -1,0 +1,1284 @@
+﻿/* Watchlist Professional Layout */
+
+.watchlist-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.watchlist-grid {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 600px !important;
+  padding-bottom: 16px;
+  scroll-padding-bottom: 16px;
+}
+
+.watchlist-main-shell {
+  border-radius: 24px;
+  box-shadow: 0 28px 48px rgba(15, 23, 42, 0.08);
+}
+
+.watchlist-page-actions {
+  gap: 14px;
+}
+
+.watchlist-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px 18px 10px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  background:
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.1), transparent 36%),
+    linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+}
+
+.watchlist-summary-card {
+  padding: 14px 16px;
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.05);
+}
+
+.watchlist-summary-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted, #8b7e6a);
+}
+
+.watchlist-summary-value {
+  margin-top: 6px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary, #1a202c);
+}
+
+.watchlist-summary-detail {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--text-muted, var(--text-muted, #8b7e6a));
+}
+
+.watchlist-summary-detail.positive {
+  color: #0f9f6e;
+}
+
+.watchlist-summary-detail.negative {
+  color: #dc2626;
+}
+
+/* Dashboard Watchlist Preview polish */
+#card-watchlist .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#card-watchlist .watchlist-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.watchlist-widget-insights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid var(--border-light);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.watchlist-widget-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+.watchlist-widget-title {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted, var(--text-muted, #8b7e6a));
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.watchlist-widget-line {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #4a5568);
+  margin-bottom: 3px;
+}
+
+.watchlist-toolbar-advanced {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95));
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
+
+.wl-filter-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted, #8b7e6a);
+  min-width: 112px;
+}
+
+.wl-filter-control {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  padding: 6px 8px;
+  background: #fff;
+  color: var(--text-primary, #1a202c);
+}
+
+.wl-filter-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-secondary, #4a5568);
+  margin: 0 6px;
+}
+
+.watchlist-header-row {
+  position: sticky;
+  top: 60px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 2.4fr 0.9fr 0.95fr 0.95fr 1.35fr 0.95fr 0.9fr;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted, #8b7e6a);
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 12px;
+}
+
+.wl-help-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wl-help-icon {
+  color: var(--text-muted, #8b7e6a);
+  font-size: 0.72rem;
+}
+
+.wl-help-card {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: 260px;
+  border-radius: 10px;
+  border: 1px solid #dbe2ef;
+  background: #ffffff;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+  padding: 10px 11px;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary, #4a5568);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease,
+    visibility 0.16s ease;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.wl-help-title {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a202c);
+  margin-bottom: 4px;
+}
+
+.wl-help-text {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--text-muted, var(--text-muted, #8b7e6a));
+}
+
+.wl-help-trigger:hover .wl-help-card,
+.wl-help-trigger:focus-within .wl-help-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.trader-watchlist-list {
+  max-height: 72vh;
+  overflow-y: auto;
+  padding-bottom: 80px;
+  scroll-padding-bottom: 80px;
+  box-sizing: border-box;
+}
+
+.wl-row.trader-row {
+  display: grid;
+  grid-template-columns: 0.5fr 0.9fr 0.5fr 0.45fr 0.5fr 0.4fr 0.45fr 0.55fr 0.45fr 0.45fr 0.5fr 0.45fr 0.4fr;
+  gap: 0.3rem;
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  align-items: center;
+  background: #fff;
+  transition: background 0.15s ease;
+}
+
+.wl-row.trader-row.enhanced {
+  grid-template-columns: 0.5fr 0.9fr 0.5fr 0.45fr 0.5fr 0.4fr 0.45fr 0.55fr 0.45fr 0.45fr 0.5fr 0.45fr 0.4fr;
+  gap: 0.3rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.wl-row.trader-row:hover {
+  background: #f8fafc;
+}
+
+.wl-ticker-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.wl-symbol-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wl-subline {
+  font-size: 0.72rem;
+  color: var(--text-muted, #8b7e6a);
+}
+
+.wl-badge-new,
+.wl-badge-hot,
+.wl-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.wl-badge-new {
+  background: #f59e0b;
+  color: #111827;
+}
+
+.wl-badge-hot {
+  background: #fb923c;
+  color: #111827;
+}
+
+.badge-open {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-news {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.badge-risk {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.badge-neutral {
+  background: #f1f5f9;
+  color: var(--text-muted, var(--text-muted, #8b7e6a));
+}
+
+.badge-earnings-soon {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.wl-insights-cell,
+.wl-price-cell,
+.wl-signal-cell,
+.wl-news-cell,
+.wl-earnings-cell,
+.wl-risk-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wl-quick-pill {
+  display: inline-block;
+  width: fit-content;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: var(--text-secondary, #4a5568);
+  font-size: 0.66rem;
+  padding: 3px 7px;
+  font-weight: 700;
+}
+
+.wl-quick-pill.is-bull {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.wl-quick-pill.is-bear {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.wl-quick-meta {
+  font-size: 0.71rem;
+  color: var(--text-muted, #8b7e6a);
+  line-height: 1.3;
+}
+
+.wl-price-main {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a202c);
+}
+
+.wl-actions-cell {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.wl-row-expand {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 16px 12px 20px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wl-expand-col {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  padding: 9px;
+}
+
+.wl-expand-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--text-muted, #8b7e6a);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.wl-expand-line {
+  font-size: 0.78rem;
+  color: var(--text-secondary, #4a5568);
+  margin-bottom: 4px;
+}
+
+.wl-expand-line span {
+  color: var(--text-muted, #8b7e6a);
+  margin-left: 4px;
+}
+
+.wl-expand-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 6px;
+}
+
+@media (max-width: 1200px) {
+  .watchlist-header-row,
+  .wl-row.trader-row {
+    grid-template-columns: 1fr 2.1fr 0.95fr 0.95fr 1fr 1.2fr 0.95fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .watchlist-widget-insights,
+  .wl-row-expand {
+    grid-template-columns: 1fr;
+  }
+
+  .watchlist-header-row,
+  .wl-row.trader-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .wl-actions-cell {
+    justify-content: flex-start;
+  }
+
+  .wl-help-card {
+    width: min(240px, 70vw);
+  }
+
+  /* Enhanced Watchlist responsive */
+  .wl-table-header,
+  .wl-row.trader-row {
+    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.8fr 1fr 1fr 1fr;
+    overflow-x: auto;
+  }
+
+  .wl-filters {
+    flex-direction: column;
+  }
+
+  .wl-filter-group {
+    width: 100%;
+  }
+}
+
+/* Enhanced Watchlist Styles - New columns - COMPACT */
+.wl-table-header {
+  display: grid;
+  grid-template-columns: 0.5fr 0.9fr 0.5fr 0.45fr 0.5fr 0.4fr 0.45fr 0.55fr 0.45fr 0.45fr 0.5fr 0.45fr 0.4fr;
+  gap: 0.3rem;
+  padding: 0.35rem 0.5rem;
+  background: linear-gradient(180deg, rgba(248,244,235,0.98), rgba(255,255,255,0.98));
+  color: var(--text-primary, #1a202c);
+  font-weight: 600;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(201,162,39,0.2);
+}
+
+/* Column sorting */
+.wl-header-cell {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s;
+}
+
+.wl-header-cell:hover {
+  color: var(--accent-color, #c9a227);
+}
+
+/* Sort indicator */
+.wl-sort-indicator {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+/* P/L column */
+.wl-pl {
+  font-weight: 600;
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+
+.wl-pl.positive {
+  color: #10b981;
+}
+
+.wl-pl.negative {
+  color: #ef4444;
+}
+
+/* Trend badges */
+.wl-trend-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.wl-trend-bull {
+  background: #065f46;
+  color: #34d399;
+}
+
+.wl-trend-bear {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+.wl-trend-neutral {
+  background: #3f3f46;
+  color: #a1a1aa;
+}
+
+/* Regime column */
+.wl-regime {
+  font-size: 0.7rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
+
+.wl-regime-trending {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+.wl-regime-range {
+  background: #3f3f46;
+  color: #a1a1aa;
+}
+
+.wl-regime-volatile {
+  background: #4a1d1d;
+  color: #f87171;
+}
+
+/* News Score */
+.wl-news-score {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.wl-news-score .score-bar {
+  width: 40px;
+  height: 4px;
+  background: #374151;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.wl-news-score .score-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
+}
+
+/* Volume indicator */
+.wl-volume {
+  font-size: 0.7rem;
+  color: var(--text-muted, #8b7e6a);
+}
+
+/* Filter bar */
+.wl-filters {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(180deg, rgba(248,244,235,0.98), rgba(255,255,255,0.96));
+  border-bottom: 1px solid rgba(201,162,39,0.2);
+  flex-wrap: wrap;
+}
+
+.wl-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wl-filter-label {
+  font-size: 0.75rem;
+  color: var(--text-muted, #8b7e6a);
+  font-weight: 500;
+}
+
+.wl-filter-select {
+  background: #fff;
+  border: 1px solid rgba(201,162,39,0.25);
+  color: var(--text-primary, #1a202c);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+}
+
+.wl-filter-select:focus {
+  outline: none;
+  border-color: var(--accent-color, #c9a227);
+}
+
+.wl-filter-select:focus-visible {
+  outline: 2px solid var(--accent-color, #c9a227);
+  outline-offset: 2px;
+}
+
+/* Signal column */
+.wl-signal-bullish {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.wl-signal-bearish {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.wl-signal-neutral {
+  color: var(--text-muted, #8b7e6a);
+}
+
+/* Score column */
+.wl-score {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.wl-score-value {
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+/* Sector badge */
+.wl-sector {
+  font-size: 0.7rem;
+  padding: 0.125rem 0.375rem;
+  background: var(--text-secondary, #4a5568);
+  color: #e2e8f0;
+  border-radius: 0.25rem;
+}
+
+/* News indicator */
+.wl-news-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.wl-news-indicator.has-news {
+  color: #f59e0b;
+}
+
+/* Name cell */
+.wl-name-cell {
+  font-size: 0.7rem;
+  color: var(--text-muted, #8b7e6a);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Price change */
+.wl-change-positive {
+  color: #10b981;
+}
+
+.wl-change-negative {
+  color: #ef4444;
+}
+
+/* New column cell styles */
+.wl-pl-cell,
+.wl-trend-cell,
+.wl-regime-cell,
+.wl-sector-cell,
+.wl-volume-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.72rem;
+  justify-content: center;
+}
+
+.wl-pl-cell {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 0.7rem;
+}
+
+.wl-pl-cell .positive {
+  color: #10b981;
+}
+
+.wl-pl-cell .negative {
+  color: #ef4444;
+}
+
+.wl-trend-cell,
+.wl-regime-cell,
+.wl-sector-cell {
+  align-items: flex-start;
+}
+
+/* ============================================================
+   Watchlist V2 — 6-Column Compact Layout
+   TradingView / Finviz inspired: clean, minimal, scannable
+   ============================================================ */
+
+/* Header row for 6-column grid */
+.wl-v2-header {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 0.6fr 0.7fr 0.7fr 0.7fr;
+  gap: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  background: linear-gradient(180deg, rgba(248,244,235,0.98), rgba(255,255,255,0.98));
+  color: var(--text-primary, #1a202c);
+  font-weight: 600;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(201,162,39,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* Data row */
+.wl-row-v2 {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 0.6fr 0.7fr 0.7fr 0.7fr;
+  gap: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 252, 0.96));
+  border-bottom: 1px solid #f1f5f9;
+  transition:
+    background 0.16s ease,
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+  min-height: 54px;
+}
+
+.wl-row-v2:hover {
+  background: #fffdf7;
+  transform: translateY(-1px);
+  box-shadow: inset 3px 0 0 rgba(212, 161, 23, 0.92);
+}
+
+/* Ticker column */
+.wl-col-ticker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.wl-symbol-v2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a202c);
+  letter-spacing: 0.01em;
+}
+
+/* Price column */
+.wl-col-price {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a202c);
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+}
+
+.wl-price-freshness {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  border-radius: 999px;
+  font-family: Inter, sans-serif;
+  font-size: 0.54rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+}
+
+.wl-price-live {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.wl-price-cached {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.wl-price-stale {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+/* Change percentage */
+.wl-chg-pos {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.8rem;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+}
+
+.wl-chg-neg {
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 0.8rem;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+}
+
+/* Signal badge */
+.wl-signal-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.wl-sig-bull {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.wl-sig-bear {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.wl-sig-neutral {
+  background: #f1f5f9;
+  color: var(--text-muted, var(--text-muted, #8b7e6a));
+}
+
+/* Trend column */
+.wl-col-trend {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+/* Earnings column */
+.wl-col-earnings {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.wl-trend-bar {
+  height: 4px;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  min-width: 4px;
+  max-width: 100%;
+  background: #94a3b8;
+}
+
+.wl-trend-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Earnings column badges */
+.wl-earn-today {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #fee2e2;
+  color: #991b1b;
+  animation: wl-earn-pulse 2s ease-in-out infinite;
+}
+
+.wl-earn-soon {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.wl-earn-week {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.wl-earn-far {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: var(--text-muted, #8b7e6a);
+}
+
+.wl-earn-na {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  background: #f8fafc;
+  color: var(--text-muted, #8b7e6a);
+}
+
+@keyframes wl-earn-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Responsive — Watchlist V2 */
+@media (max-width: 900px) {
+  .watchlist-summary-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wl-v2-header,
+  .wl-row-v2 {
+    grid-template-columns: 1fr 0.6fr 0.5fr 0.6fr 0.6fr 0.6fr;
+    gap: 0.25rem;
+    padding: 0.35rem 0.4rem;
+    font-size: 0.72rem;
+  }
+
+  .wl-symbol-v2 {
+    font-size: 0.78rem;
+  }
+
+  .wl-col-price,
+  .wl-chg-pos,
+  .wl-chg-neg {
+    font-size: 0.74rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .watchlist-summary-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .wl-v2-header,
+  .wl-row-v2 {
+    grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr;
+    gap: 0.2rem;
+  }
+
+  /* Hide Trend & Earnings on very small screens */
+  .wl-v2-header > :nth-child(5),
+  .wl-v2-header > :nth-child(6),
+  .wl-row-v2 > :nth-child(5),
+  .wl-row-v2 > :nth-child(6) {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Responsive Card Layout for Watchlist Tables (below 899px)
+   Converts multi-column grid rows into stacked label/value cards
+   ============================================================ */
+@media (max-width: 899px) {
+  /* Hide the 13-column detailed header on mobile */
+  .wl-detailed-header,
+  .wl-table-header,
+  .wl-v2-header,
+  .watchlist-header-row {
+    display: none !important;
+  }
+
+  /* Stack each row as a card */
+  .wl-row.trader-row,
+  .wl-detailed-row,
+  .wl-row-v2 {
+    display: block !important;
+    margin-bottom: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  }
+
+  .wl-row.trader-row:hover,
+  .wl-detailed-row:hover,
+  .wl-row-v2:hover {
+    background: #fffdf7;
+    transform: none;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  }
+
+  /* Each cell becomes a label/value pair */
+  .wl-row.trader-row > div,
+  .wl-detailed-row > div,
+  .wl-row-v2 > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.82rem;
+  }
+
+  .wl-row.trader-row > div:last-child,
+  .wl-detailed-row > div:last-child,
+  .wl-row-v2 > div:last-child {
+    border-bottom: none;
+  }
+
+  /* Use data-label attribute for card labels */
+  .wl-row.trader-row > div::before,
+  .wl-detailed-row > div::before,
+  .wl-row-v2 > div::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 0.74rem;
+    color: var(--text-muted, #8b7e6a);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Actions cell: full-width buttons */
+  .wl-actions-cell {
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    padding-top: 8px !important;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: none !important;
+  }
+
+  .wl-actions-cell::before {
+    display: none !important;
+  }
+
+  /* Ticker cell should be prominent */
+  .wl-ticker-cell,
+  .wl-col-ticker {
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 4px;
+  }
+
+  .wl-ticker-cell::before,
+  .wl-col-ticker::before {
+    display: none !important;
+  }
+
+  /* Price and change side by side */
+  .wl-price-cell,
+  .wl-col-price {
+    font-size: 0.88rem;
+  }
+
+  /* Watchlist toolbar wraps on mobile */
+  .wl-filters {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .wl-filter-group {
+    width: 100%;
+  }
+
+  .watchlist-toolbar-advanced {
+    gap: 6px;
+  }
+
+  .wl-filter-label {
+    min-width: 0;
+  }
+
+  /* Search box full width on mobile */
+  .watchlist-page-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .search-box-premium {
+    width: 100% !important;
+  }
+
+  /* Summary strip stacks */
+  .watchlist-summary-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Watchlist widget insights stack */
+  .watchlist-widget-insights {
+    grid-template-columns: 1fr;
+  }
+
+  /* Row expand stacks */
+  .wl-row-expand {
+    grid-template-columns: 1fr;
+  }
+
+  /* Ensure the list container doesn't clip cards */
+  .trader-watchlist-list,
+  .watchlist-grid {
+    max-height: none;
+  }
+}
+
+@media (max-width: 599px) {
+  .watchlist-summary-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .watchlist-toolbar-advanced > .btn-mini {
+    flex: 1 1 128px;
+    min-width: 120px;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+}
+
+/* Watchlist ownership and removal controls */
+.wl-v2-header.wl-manage-grid,
+.wl-row-v2.wl-manage-grid {
+  grid-template-columns: 42px minmax(128px, 1fr) 0.7fr 0.6fr 0.7fr 0.7fr 0.7fr 56px;
+}
+
+.wl-select-cell,
+.wl-actions-header,
+.wl-actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wl-select-checkbox {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent-color, #c9a227);
+  cursor: pointer;
+}
+
+.wl-select-checkbox:focus-visible,
+.wl-remove-row-btn:focus-visible,
+.wl-remove-selected-btn:focus-visible,
+.wl-clear-selection-btn:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+.wl-row-v2.is-selected {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.10), rgba(255, 255, 255, 0.98));
+  box-shadow: inset 3px 0 0 #2563eb;
+}
+
+.wl-bulk-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding-left: 8px;
+}
+
+.wl-selected-count {
+  min-width: 72px;
+  color: var(--text-muted, #64748b);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.wl-remove-selected-btn,
+.wl-remove-row-btn {
+  border: 1px solid rgba(220, 38, 38, 0.32);
+  background: rgba(254, 242, 242, 0.96);
+  color: #b91c1c;
+}
+
+.wl-remove-selected-btn:hover:not(:disabled),
+.wl-remove-row-btn:hover:not(:disabled) {
+  border-color: #dc2626;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.wl-remove-row-btn {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.wl-remove-selected-btn:disabled,
+.wl-clear-selection-btn:disabled,
+.is-removing .wl-remove-row-btn,
+.is-removing .wl-select-checkbox {
+  cursor: not-allowed;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+@media (max-width: 899px) {
+  .wl-bulk-actions {
+    width: 100%;
+    margin-left: 0;
+    padding: 8px 0 0;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .wl-selected-count {
+    margin-right: auto;
+    text-align: left;
+  }
+
+  .wl-row-v2 .wl-select-cell,
+  .wl-row-v2 .wl-actions-cell {
+    min-height: 44px;
+  }
+
+  .wl-row-v2 .wl-actions-cell {
+    justify-content: space-between !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .wl-bulk-actions {
+    flex-wrap: wrap;
+  }
+
+  .wl-remove-selected-btn {
+    min-height: 44px;
+    flex: 1 1 170px;
+  }
+}

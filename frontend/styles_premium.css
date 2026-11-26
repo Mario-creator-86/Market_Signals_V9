@@ -1,0 +1,2097 @@
+/*
+ * styles_premium.css — "Refined Premium Light" design language (v1)
+ * Approved direction: warm ivory + gold, frosted-glass depth, subtle 3D.
+ * Scope: loaded LAST so it wins the cascade. Global = background + design tokens.
+ * Component reskin is scoped to #view-home (Home first); other tabs are untouched
+ * until the language is rolled out tab-by-tab. No markup/JS/data changes required.
+ */
+
+/* Calendar day cell: layout audit shows ~140px bottom spill out of its card.
+   Cap the cell vertically and clip any excess so text stays inside the card. */
+.calendar-day-cell {
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+#view-home span.num {
+    display: inline-block;
+    max-width: 100%;
+    line-height: 1.2;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+:root {
+    /* Warmer ivory -> sand canvas with a soft gold aura (richer than flat cream).
+       Slightly deeper than the cards so the frosted panels visibly float above it. */
+    --bg-gradient:
+        radial-gradient(120% 95% at 6% -12%, rgba(201, 162, 39, 0.24), transparent 44%),
+        radial-gradient(90% 70% at 100% 0%, rgba(15, 23, 42, 0.06), transparent 40%),
+        linear-gradient(180deg, #f1e9d9 0%, #e9ddc8 55%, #e4d7bf 100%);
+
+    /* Frosted-glass surface + gold-tinted hairline. Frostier/whiter than the old
+       flat cream cards so panels clearly pop off the warm canvas. */
+    --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(253, 250, 243, 0.78));
+    --glass-bg-solid: linear-gradient(180deg, #ffffff, #fdfbf6);
+    --glass-border: rgba(201, 162, 39, 0.34);
+
+    /* Layered depth: top inner highlight + tight contact shadow + long ambient shadow.
+       The double shadow is what reads as real "3D" depth. */
+    --shadow-depth:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 1px 2px rgba(26, 32, 44, 0.06),
+        0 24px 46px -24px rgba(26, 32, 44, 0.5);
+    --shadow-depth-hover:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 3px 6px rgba(26, 32, 44, 0.08),
+        0 36px 62px -22px rgba(26, 32, 44, 0.6);
+    --ease-lift: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* ===================================================================
+   GLASS CARDS — app-wide premium surfaces (rolled out from Home)
+   Targets the shared premium card system used across tabs (Home,
+   Watchlist, Scanner, Alerts, Trade Radar, Premarket, Pre-Earnings,
+   Calendar). Custom-card tabs (Capital, News, Hotlist) are handled in
+   their own blocks below so their identity is preserved.
+   =================================================================== */
+
+.view-section .premium-card,
+.view-section .section-card,
+#view-home .home-market-pulse {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(14px) saturate(1.05);
+    backdrop-filter: blur(14px) saturate(1.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    box-shadow: var(--shadow-depth);
+    transition: transform 0.28s var(--ease-lift), box-shadow 0.28s var(--ease-lift);
+}
+
+/* Smooth lift on hover — the card floats toward the reader. */
+.view-section .premium-card:hover,
+.view-section .section-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-depth-hover);
+}
+
+/* Market Pulse keeps its gold radial but on the glass base. */
+#view-home .home-market-pulse {
+    background:
+        radial-gradient(circle at top right, rgba(212, 175, 55, 0.18), transparent 30%),
+        var(--glass-bg);
+}
+
+/* Browsers without backdrop-filter: fall back to a near-solid frosted card. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .view-section .premium-card,
+    .view-section .section-card,
+    #view-home .home-market-pulse {
+        background: var(--glass-bg-solid);
+    }
+}
+
+/* ===================================================================
+   KPI HERO — Regime / Confidence / Active Risk
+   =================================================================== */
+
+/* Three KPIs fill the row evenly (was a sparse 6-col grid). */
+#view-home .home-top-header {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0;
+}
+
+#view-home .home-top-header-item {
+    position: relative;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-depth);
+    overflow: hidden;
+    transition: transform 0.28s var(--ease-lift), box-shadow 0.28s var(--ease-lift);
+}
+
+/* Gold accent rail down the left edge of each KPI. */
+#view-home .home-top-header-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #f0d36a, #c9a227);
+    box-shadow: 0 0 12px rgba(201, 162, 39, 0.45);
+}
+
+#view-home .home-top-header-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-depth-hover);
+}
+
+#view-home .home-top-header-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+/* ===================================================================
+   TYPOGRAPHY — display font + gold accent icons in Home headers
+   =================================================================== */
+
+#view-home .card-header h3,
+#view-home .home-market-pulse-head h3,
+#view-home .active-signals-header h2,
+#view-home .section-header h2 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+}
+
+#view-home .card-header h3 > i,
+#view-home .section-header h2 > i {
+    color: var(--accent-color);
+}
+
+/* ===================================================================
+   LIVE PULSE — breathing dot on the "Signals Live" badge
+   =================================================================== */
+
+#view-home .live-dot {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+    animation: mm-pulse 1.9s ease-in-out infinite;
+}
+
+@keyframes mm-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.45); }
+    60% { box-shadow: 0 0 0 7px rgba(22, 163, 74, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+/* ===================================================================
+   ROW POLISH — signals, news, watchlist rows feel tactile
+   =================================================================== */
+
+#view-home #active-signals-list > * {
+    transition: transform 0.2s var(--ease-lift), box-shadow 0.2s var(--ease-lift);
+}
+
+#view-home #active-signals-list > *:hover {
+    transform: translateX(3px);
+}
+
+/* Gold-tinted separators echo the brand instead of plain gray. */
+#view-home .watchlist-grid > *,
+#view-home #news-feed-content > * {
+    border-color: rgba(201, 162, 39, 0.14) !important;
+}
+
+/* ===================================================================
+   SCANNER TAPE — glass strip with the 3 ranked movers columns
+   (moved from Home into the Scanner view)
+   =================================================================== */
+
+#view-scanner .home-scanner-top.section-card {
+    border-radius: 16px;
+}
+
+/* ===================================================================
+   RING GAUGE — conic-gradient progress ring (Confidence, Performance)
+   The fill % comes from inline --p (0-100), set by the renderer.
+   =================================================================== */
+
+.mm-ring {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    flex: none;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(#c9a227 calc(var(--p, 0) * 1%), rgba(201, 162, 39, 0.16) 0);
+    box-shadow: inset 0 0 0 1px rgba(201, 162, 39, 0.25), 0 4px 10px -6px rgba(201, 162, 39, 0.7);
+}
+
+.mm-ring > i {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fffdf8;
+    display: grid;
+    place-items: center;
+    font-style: normal;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 13px;
+    color: #7a5f12;
+}
+
+/* Confidence KPI laid out as ring + text, like the mockup. */
+#view-home .home-top-header-item.kpi-with-ring {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+#view-home .kpi-with-ring .kpi-value small {
+    font-size: 0.6em;
+    color: var(--text-secondary);
+    font-weight: 600;
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#view-home .home-top-header-item small {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* KPI subtitle line (mockup: "Strength 72% · risk-on", "3 open · ..."). */
+#view-home .home-top-header-item .kpi-sub {
+    margin-top: 5px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+#view-home .home-top-header-item .kpi-value {
+    font-size: 1.5rem;
+    line-height: 1.05;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Performance card: ring + win/loss bar, like the mockup. */
+#view-home .perf-ring-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+#view-home .perf-ring {
+    width: 54px;
+    height: 54px;
+}
+
+#view-home .perf-ring > i {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+}
+
+#view-home .perf-ring-meta {
+    flex: 1;
+    min-width: 0;
+}
+
+#view-home .perf-ring-title {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+#view-home .perf-ring-title span {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+#view-home .perf-ring-sub {
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+/* ===================================================================
+   UPCOMING — date-badge rows (JUL / 02), like the mockup
+   =================================================================== */
+
+#view-home .dash-earn-v2 {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 8px 4px;
+}
+
+#view-home .dash-earn-date {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 11px;
+    line-height: 1.05;
+    color: #7a5f12;
+    background: rgba(201, 162, 39, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(201, 162, 39, 0.28);
+    border-radius: 9px;
+    padding: 6px 8px;
+    text-align: center;
+    min-width: 44px;
+}
+
+#view-home .dash-earn-date span {
+    display: block;
+    font-size: 14px;
+}
+
+#view-home .dash-earn-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+#view-home .dash-earn-body .t {
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+}
+
+#view-home .dash-earn-body .s {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+/* ===================================================================
+   SIGNAL CARDS — clean mockup row: symbol + side | confidence bar | levels
+   =================================================================== */
+
+#view-home #active-signals-list .mm-signal-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 14px;
+    border-radius: 13px;
+    margin: 0 0 9px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(252, 250, 244, 0.82));
+    box-shadow: inset 0 0 0 1px rgba(201, 162, 39, 0.16), 0 10px 22px -18px rgba(26, 32, 44, 0.5);
+    cursor: pointer;
+    transition: transform 0.18s var(--ease-lift), box-shadow 0.18s;
+}
+
+#view-home #active-signals-list .mm-signal-card:hover {
+    transform: translateX(3px);
+    box-shadow: inset 0 0 0 1px rgba(201, 162, 39, 0.32), 0 14px 26px -16px rgba(26, 32, 44, 0.55);
+}
+
+/* Capped ledger: JS measures 10 rows and sets max-height; here we only style
+   the scroll behavior so the scrollbar matches the gold brand. */
+#view-home #active-signals-list.signals-scroll-capped {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 162, 39, 0.5) rgba(201, 162, 39, 0.08);
+}
+
+#view-home #active-signals-list.signals-scroll-capped::-webkit-scrollbar {
+    width: 8px;
+}
+
+#view-home #active-signals-list.signals-scroll-capped::-webkit-scrollbar-thumb {
+    background: rgba(201, 162, 39, 0.45);
+    border-radius: 8px;
+}
+
+#view-home #active-signals-list.signals-scroll-capped::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 162, 39, 0.7);
+}
+
+#view-home #active-signals-list.signals-scroll-capped::-webkit-scrollbar-track {
+    background: rgba(201, 162, 39, 0.08);
+    border-radius: 8px;
+}
+
+.mm-sig-id {
+    min-width: 84px;
+    flex: none;
+}
+
+.mm-sig-sym {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.mm-sig-side {
+    display: inline-block;
+    margin-top: 3px;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.mm-sig-side.long {
+    color: #14532d;
+    background: #dcfce7;
+    box-shadow: inset 0 0 0 1px #86efac;
+}
+
+.mm-sig-side.short {
+    color: #991b1b;
+    background: #fee2e2;
+    box-shadow: inset 0 0 0 1px #fca5a5;
+}
+
+#view-home #active-signals-list .mm-signal-card {
+    overflow: hidden;
+}
+
+.mm-sig-id .mm-sig-side {
+    max-width: 100%;
+    line-height: 1.3;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mm-sig-id {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+#view-home #active-signals-list .mm-sig-id { height: auto; max-height: none; overflow: visible; }
+#view-home #active-signals-list .mm-sig-id .mm-sig-side { flex: none; height: auto; max-height: none; overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; }
+
+#view-home #active-signals-list .mm-signal-card {
+    height: auto;
+    min-height: max-content;
+    align-items: stretch;
+}
+
+/* Age badge on signal cards — surfaces stale "active" signals so a trader
+   doesn't act on a days-old setup (directive: live/useful info only). */
+.mm-sig-age {
+    display: inline-block;
+    margin-top: 3px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 1px 5px;
+    border-radius: 4px;
+    line-height: 1.4;
+}
+.mm-sig-age.mm-age-ok { color: #166534; background: #dcfce7; box-shadow: inset 0 0 0 1px #86efac; }
+.mm-sig-age.mm-age-warn { color: #92400e; background: #fef3c7; box-shadow: inset 0 0 0 1px #fcd34d; }
+.mm-sig-age.mm-age-stale { color: #991b1b; background: #fee2e2; box-shadow: inset 0 0 0 1px #fca5a5; }
+
+.mm-sig-conf {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Confidence ring: number inside a conic ring, tier label beside it */
+.mm-conf-ring {
+    --p: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--text-primary, #1a202c);
+    background:
+        radial-gradient(closest-side, #fff 78%, transparent 79% 100%),
+        conic-gradient(var(--ring-c, #c9a227) calc(var(--p) * 1%), rgba(26, 32, 44, 0.08) 0);
+}
+
+.mm-conf-ring.hi { --ring-c: #16a34a; }
+.mm-conf-ring.mid { --ring-c: #c9a227; }
+.mm-conf-ring.lo { --ring-c: #94a3b8; }
+
+.mm-conf-txt {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.mm-conf-lbl {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted, #8b7e6a);
+    white-space: nowrap;
+}
+
+.mm-conf-tier {
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mm-conf-tier.hi { color: #15803d; }
+.mm-conf-tier.mid { color: #a3821c; }
+.mm-conf-tier.lo { color: #94a3b8; }
+
+.mm-sig-conf-lbl {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.mm-sig-bar {
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(26, 32, 44, 0.08);
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.mm-sig-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #e8c75a, #c9a227);
+}
+
+.mm-sig-levels {
+    display: flex;
+    gap: 14px;
+    text-align: right;
+    flex: none;
+}
+
+.mm-lvl span {
+    display: block;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+}
+
+.mm-lvl b {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.mm-up { color: #15803d; }
+.mm-dn { color: #dc2626; }
+.mm-rr { color: #7a5f12; }
+
+@media (max-width: 640px) {
+    #view-home #active-signals-list .mm-signal-card {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .mm-sig-levels { gap: 10px; }
+}
+
+/* Watchlist preview: ticker | trend sparkline | price · change */
+#view-home .dash-wl-row1 {
+    display: flex;
+    align-items: center;
+}
+
+#view-home .dash-wl-row1 .mm-wl-spark {
+    flex: none;
+    margin: 0 8px;
+    opacity: 0.95;
+}
+
+#view-home .dash-wl-row1 .dash-wl-price {
+    margin-left: auto;
+}
+
+/* Watchlist price cell: keep "$225.35 / LIVE" inside its card (layout audit,
+   ~23px bottom spill): shrink to the grid track, wrap, and clip any residue. */
+.wl-col-price {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+#view-watchlist .wl-col-price {
+    height: auto;
+    align-self: stretch;
+}
+
+#view-watchlist .wl-col-price > span {
+    display: block;
+    max-width: 100%;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Cockpit item line ("TUT-USD Long… · entry 0.03 · current 0.02"): keep it
+   inside its card (layout audit, ~33px bottom spill) — clip to one line. */
+.cockpit-item-main {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cockpit-item-title {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    line-height: 1.25;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.cockpit-item:has(> .cockpit-item-title) {
+    height: auto;
+}
+
+/* Hotlist countdown label ("Earnings in 2d AMC") overflows its card ~102px
+   right (layout audit): confine it to the track and ellipsize any excess. */
+#view-hotlist .countdown-label {
+    display: inline-block;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cockpit-table.cockpit-matrix {
+    display: block;
+    max-width: 100%;
+    max-height: 70vh;
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+.cockpit-table.cockpit-matrix th,
+.cockpit-table.cockpit-matrix td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+*:has(> .cockpit-table.cockpit-matrix) {
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* ===================================================================
+   NEWS TAB — professional premium redesign (#view-news)
+   =================================================================== */
+
+#view-news .news-cockpit-header,
+#view-news .news-toolbar,
+#view-news .news-pulse-strip,
+#view-news .news-breaking-inline {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-depth);
+}
+
+#view-news .news-cockpit-header {
+    padding: 18px 20px;
+    margin-bottom: 14px;
+}
+
+#view-news .news-cockpit-header h1,
+#view-news .news-cockpit-header h2,
+#view-news .news-cockpit-header h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+}
+
+/* Status bar: de-emphasize the technical clutter (OK / next refresh / age). */
+#view-news .agent-status-header {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: none;
+    opacity: 0.82;
+    font-size: 0.78rem;
+}
+
+#view-news .news-toolbar {
+    padding: 12px 14px;
+    margin-bottom: 14px;
+}
+
+/* Market-pulse strip: gold-accented glass. */
+#view-news .news-pulse-strip {
+    background:
+        radial-gradient(circle at top right, rgba(201, 162, 39, 0.16), transparent 28%),
+        var(--glass-bg);
+    margin-bottom: 14px;
+}
+
+#view-news .news-breaking-inline {
+    padding: 14px 16px;
+    margin-bottom: 14px;
+}
+
+/* Breaking items: premium rows with a red accent rail (were plain text rows). */
+#view-news .news-breaking-ticker-chip {
+    display: block;
+    padding: 9px 13px;
+    margin: 0 0 7px;
+    border: 0;
+    border-left: 3px solid #dc2626;
+    border-radius: 11px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(252, 250, 244, 0.78));
+    box-shadow: 0 8px 18px -16px rgba(26, 32, 44, 0.5);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: transform 0.15s var(--ease-lift), box-shadow 0.15s;
+}
+
+#view-news .news-breaking-ticker-chip:last-child {
+    margin-bottom: 0;
+}
+
+#view-news .news-breaking-ticker-chip:hover {
+    transform: translateX(3px);
+    box-shadow: inset 0 0 0 1px rgba(220, 38, 38, 0.25), 0 12px 22px -14px rgba(26, 32, 44, 0.55);
+}
+
+/* Feed cards: glass with an impact-colored left accent. */
+#view-news .news-card-v2 {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    box-shadow: 0 10px 22px -18px rgba(26, 32, 44, 0.5);
+    margin-bottom: 10px;
+    transition: transform 0.18s var(--ease-lift), box-shadow 0.18s;
+}
+
+#view-news .news-card-v2:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-depth-hover);
+}
+
+#view-news .news-card-v2.impact-critical { border-left: 3px solid #dc2626; }
+#view-news .news-card-v2.impact-high { border-left: 3px solid #ea580c; }
+#view-news .news-card-v2.impact-medium { border-left: 3px solid #c9a227; }
+#view-news .news-card-v2.impact-low { border-left: 3px solid #94a3b8; }
+
+#view-news .news-card-v2.selected {
+    box-shadow: inset 0 0 0 2px var(--accent-color), 0 14px 26px -16px rgba(26, 32, 44, 0.5);
+}
+
+#view-news .nc2-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+/* Modern Split-View & Multi-Mode News Layout */
+#view-news .news-cockpit-layout {
+    display: grid;
+    gap: 20px;
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    #view-news .news-cockpit-layout.news-layout-split {
+        grid-template-columns: minmax(0, 1.35fr) minmax(380px, 0.95fr) !important;
+    }
+
+    /*
+       Keep the feed and the briefing in the same page scroll context.  The
+       previous nested feed scroller made the grid end after one viewport;
+       once that short grid reached its bottom, CSS sticky correctly pulled
+       the briefing above the viewport and left an empty right column.
+    */
+    #view-news .news-layout-split .news-cockpit-feed-pane {
+        overflow: visible;
+    }
+
+    #view-news .news-layout-split #news-page-feed-content {
+        max-height: none;
+        overflow-y: visible;
+        padding-bottom: 16px;
+    }
+
+    #view-news .news-layout-split #news-insight-section.news-cockpit-insight-pane {
+        top: calc(var(--header-height, 60px) + 132px);
+        max-height: calc(100vh - var(--header-height, 60px) - 152px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+    }
+
+    #view-news .news-layout-split #news-insight-section .news-insight-expand-header {
+        position: sticky;
+        top: 0;
+        z-index: 4;
+    }
+
+    #view-news .news-layout-split #news-insight-section .news-insight-body {
+        max-height: none;
+        overflow: visible;
+    }
+
+    #view-news .news-cockpit-layout.news-layout-cards,
+    #view-news .news-cockpit-layout.news-layout-stream {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+}
+
+#view-news .news-cockpit-layout.news-layout-cards #news-insight-section,
+#view-news .news-cockpit-layout.news-layout-stream #news-insight-section {
+    display: none !important;
+}
+
+#view-news .news-cockpit-layout.news-layout-cards #news-page-feed-content {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
+    gap: 16px !important;
+    max-height: none !important;
+}
+
+@media (max-width: 1023px) {
+    #view-news .news-cockpit-layout {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    #view-news #news-page-feed-content {
+        padding-bottom: 16px;
+    }
+
+    /* On a single-column screen the selected analysis must precede the long feed. */
+    #view-news .news-cockpit-feed-pane {
+        grid-row: 2;
+    }
+
+    #view-news #news-insight-section.news-cockpit-insight-pane {
+        grid-row: 1;
+        position: static;
+        top: auto;
+        max-height: min(720px, calc(100vh - 140px));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+    }
+
+    #view-news #news-insight-section .news-insight-expand-header {
+        position: sticky;
+        top: 0;
+        z-index: 4;
+    }
+
+    #view-news #news-insight-section .news-insight-body {
+        max-height: none;
+        overflow: visible;
+    }
+}
+
+/* Left feed pane: stack Breaking News rail above the article feed */
+#view-news .news-cockpit-feed-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Breaking news rail in split mode: single column list, not a 3-col grid */
+#view-news .news-layout-split #news-breaking-list.news-breaking-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+/* Breaking news rail margin inside the feed pane */
+#view-news .news-cockpit-feed-pane .news-breaking-inline {
+    margin-bottom: 12px;
+    border-radius: 12px;
+}
+
+/* ===================================================================
+   PRE-EARNINGS — surface the "why" next to the direction call
+   =================================================================== */
+
+#view-preearnings .pe-dir-cell {
+    min-width: 190px;
+    vertical-align: top;
+}
+
+#view-preearnings .pe-dir-why {
+    margin-top: 5px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+    max-width: 280px;
+}
+
+/* ===================================================================
+   COCKPIT TABLE — keep the wide table inside its card (layout audit,
+   ~45px right spill on Home). Fixed layout forces the columns to
+   share the card width; overflowing cell text clips with an ellipsis
+   instead of crossing the card boundary.
+   =================================================================== */
+
+#view-home table.cockpit-table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 100%;
+}
+
+#view-home table.cockpit-table th,
+#view-home table.cockpit-table td {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ===================================================================
+   COCKPIT ROW ACTION — keep button text inside its card (layout audit,
+   ~42px bottom spill). One line + ellipsis: wrapping let the button
+   grow multi-line and spill below its card, so never wrap.
+   =================================================================== */
+
+#view-home button.cockpit-row-action {
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ===================================================================
+   WATCHLIST — ticker cell containment (layout audit: ~15px bottom spill)
+   =================================================================== */
+
+#view-watchlist .wl-col-ticker {
+    min-width: 0;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#view-watchlist .wl-col-ticker > * {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* ===================================================================
+   ACCESSIBILITY — honor reduced-motion
+   =================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    #view-home .home-main-content > .card,
+    #view-home .home-side-column > .card,
+    #view-home .home-market-pulse,
+    #view-home .home-top-header-item,
+    #view-home #active-signals-list > * {
+        transition: none;
+    }
+    #view-home .home-main-content > .card:hover,
+    #view-home .home-side-column > .card:hover,
+    #view-home .home-market-pulse:hover,
+    #view-home .home-top-header-item:hover,
+    #view-home #active-signals-list > *:hover {
+        transform: none;
+    }
+    #view-home .live-dot {
+        animation: none;
+    }
+}
+
+/* ===================================================================
+   NEWS TAB — PROFESSIONAL POLISH PASS (2026-08)
+   One control height (32px), one spacing rhythm (12/16px), one
+   hairline system. Scoped to #view-news; sits last in the cascade.
+   =================================================================== */
+
+#view-news {
+    --news-ctl-h: 32px;
+    --news-hairline: rgba(15, 23, 42, 0.08);
+    --news-radius: 14px;
+}
+
+/* ---------- Header card: calmer surface, aligned action row ---------- */
+#view-news .news-cockpit-header {
+    padding: 20px 24px;
+    border-radius: var(--news-radius);
+    border-color: var(--news-hairline);
+    background: var(--glass-bg-solid);
+    box-shadow: 0 18px 40px -34px rgba(15, 23, 42, 0.4);
+}
+
+#view-news .news-last-updated-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    padding: 0 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-color: var(--news-hairline);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+#view-news .news-header-actions { gap: 10px; }
+#view-news .news-header-actions .btn-auth {
+    height: 34px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ---------- Agent status strip: one baseline, hairline separators ---- */
+#view-news .agent-status-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 44px;
+    padding: 6px 16px;
+    gap: 4px 18px;
+    margin-bottom: 14px;
+    border-radius: var(--news-radius);
+    opacity: 1;
+}
+#view-news .agent-status-header > * { line-height: 1; }
+
+/* ---------- Toolbar: single row when it fits, equal control heights -- */
+#view-news .news-toolbar {
+    padding: 12px 16px;
+    gap: 14px 0;
+    row-gap: 12px;
+    border-radius: var(--news-radius);
+    border-color: var(--news-hairline);
+    background: var(--glass-bg-solid);
+    align-items: center;
+}
+
+#view-news .news-toolbar-group {
+    align-items: center;
+    min-height: var(--news-ctl-h);
+    padding: 0 14px;
+    gap: 9px;
+    border-right: 1px solid var(--news-hairline);
+}
+#view-news .news-toolbar-group:last-child,
+#view-news .news-view-switcher-group { border-right: none; }
+
+#view-news .news-toolbar .bt-input,
+#view-news .news-toolbar .bt-select {
+    height: var(--news-ctl-h);
+    padding: 0 12px;
+    border-radius: 8px;
+    border-color: #e3ebf5;
+    font-size: 0.8rem;
+    color: #1e293b;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+#view-news .news-toolbar .bt-input:focus,
+#view-news .news-toolbar .bt-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.18);
+    outline: none;
+}
+
+/* time-window chips: uniform pill strip */
+#view-news .news-toolbar-chips { gap: 4px; }
+#view-news .news-chip {
+    height: 26px;
+    padding: 0 11px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #64748b;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+#view-news .news-chip:hover { background: rgba(15, 23, 42, 0.05); color: #1e293b; }
+#view-news .news-chip.active {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #fff;
+    border-color: #0f172a;
+}
+
+/* impact checkboxes: equal-height pills */
+#view-news .news-impact-check {
+    height: 26px;
+    padding: 0 8px;
+    gap: 5px;
+}
+#view-news .news-toggle-check { min-height: 26px; }
+
+/* view switcher: matches toolbar control height */
+#view-news .news-view-switcher { height: var(--news-ctl-h); padding: 3px; align-items: center; }
+#view-news .news-view-btn { height: 26px; padding: 0 12px; }
+
+/* ---------- Ticker chips: clean rail, no native scrollbar ------------- */
+#view-news .news-ticker-chips {
+    align-items: center;
+    gap: 8px;
+    padding: 0 0 4px;
+    margin: 0 0 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#view-news .news-ticker-chips::-webkit-scrollbar { display: none; }
+#view-news .ntc-chip { height: 28px; padding: 0 12px; }
+#view-news .ntc-n { display: inline-flex; align-items: center; height: 16px; padding: 0 6px; }
+
+/* ---------- Market pulse strip: one calm line -------------------------- */
+#view-news .news-pulse-strip {
+    min-height: 44px;
+    padding: 8px 16px;
+    border-radius: var(--news-radius);
+    border-color: var(--news-hairline);
+}
+#view-news .news-pulse-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(201, 162, 39, 0.12);
+    color: #8a6b12;
+    flex-shrink: 0;
+}
+#view-news .news-regime-badge { height: 22px; display: inline-flex; align-items: center; }
+
+/* ---------- Breaking rail: strict header baseline ---------------------- */
+#view-news .news-breaking-inline { border-radius: var(--news-radius); border-color: rgba(220, 38, 38, 0.16); }
+#view-news .news-breaking-header { gap: 12px; margin-bottom: 12px; }
+#view-news .news-breaking-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #b91c1c;
+}
+#view-news .news-breaking-count { display: inline-flex; align-items: center; height: 18px; padding: 0 8px; }
+
+/* breaking + feed cards: shared internal grid */
+#view-news .nb3-card { padding: 12px 14px 12px 16px; }
+#view-news .nb3-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+    flex-wrap: wrap;
+}
+#view-news .nb3-headline {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.4;
+    margin: 7px 0 5px;
+}
+#view-news .nb3-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    min-height: 20px;
+}
+#view-news .nb3-time { margin-left: auto; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+
+/* ---------- Feed section header ---------------------------------------- */
+#view-news .news-feed-header {
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: var(--news-radius);
+    margin-bottom: 12px;
+    background: var(--glass-bg-solid);
+    border-color: var(--news-hairline);
+}
+#view-news .news-feed-sort-indicator { height: 24px; }
+
+/* mood bar keeps the same rhythm */
+#view-news .news-mood-bar { padding: 8px 16px; border-radius: var(--news-radius); border-color: var(--news-hairline); }
+#view-news .nmb-chip { height: 26px; padding: 0 12px; }
+
+/* ---------- Feed cards (v2): editorial rows ---------------------------- */
+#view-news .news-card-v2 { padding: 14px 16px 12px; }
+#view-news .nc2-row,
+#view-news .nc2-badges-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+    flex-wrap: wrap;
+}
+#view-news .nc2-headline {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    margin: 8px 0 6px;
+}
+#view-news .news-card-v2 .nc2-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 20px;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+}
+#view-news .nc2-time { margin-left: auto; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+#view-news .nc2-source { font-weight: 600; }
+#view-news .nc2-cat { color: #8a6b12; font-weight: 700; letter-spacing: 0.04em; font-size: 0.68rem; }
+
+/* pills/badges: one height, one weight */
+#view-news .nc2-ticker-pill,
+#view-news .nc2-impact-badge,
+#view-news .nc2-impact-pill,
+#view-news .nc2-sent-pill,
+#view-news .news-card-v2 .nc2-ticker-link,
+#view-news .news-card-v2 .nc2-ticker,
+#view-news .nb3-ticker,
+#view-news .nb3-impact,
+#view-news .nb3-dir {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 8px;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    border-radius: 6px;
+}
+
+/* ---------- AI Briefing pane ------------------------------------------- */
+#view-news .news-cockpit-insight-pane { border-radius: var(--news-radius); border-color: var(--news-hairline); }
+#view-news .news-insight-expand-header { min-height: 52px; padding: 0 18px; }
+#view-news .news-insight-header-title { font-family: var(--font-display); font-size: 0.95rem; color: #0f172a; }
+#view-news .news-insight-live-badge { height: 20px; display: inline-flex; align-items: center; padding: 0 9px; }
+#view-news .news-insight-body { padding: 18px; }
+
+/* ---------- Scrollbars: whisper-thin, appear on hover ------------------- */
+#view-news .news-feed-scroll::-webkit-scrollbar,
+#view-news #news-page-feed-content::-webkit-scrollbar,
+#view-news .news-insight-body::-webkit-scrollbar,
+#view-news .news-cockpit-insight-pane::-webkit-scrollbar {
+    width: 8px;
+}
+#view-news .news-feed-scroll::-webkit-scrollbar-thumb,
+#view-news #news-page-feed-content::-webkit-scrollbar-thumb,
+#view-news .news-insight-body::-webkit-scrollbar-thumb,
+#view-news .news-cockpit-insight-pane::-webkit-scrollbar-thumb {
+    background: rgba(15, 23, 42, 0.12);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+#view-news .news-feed-scroll:hover::-webkit-scrollbar-thumb,
+#view-news #news-page-feed-content:hover::-webkit-scrollbar-thumb {
+    background: rgba(15, 23, 42, 0.22);
+    background-clip: content-box;
+}
+
+/* ---------- Export dropdown: card-grade panel --------------------------- */
+#view-news .news-export-panel {
+    min-width: 320px;
+    padding: 16px;
+    gap: 10px;
+    border-radius: var(--news-radius);
+    border-color: var(--news-hairline);
+}
+#view-news .news-export-panel .bt-input,
+#view-news .news-export-panel .bt-select { height: 32px; padding: 0 10px; }
+
+/* ---------- Responsive: clean stack on narrow screens ------------------- */
+@media (max-width: 900px) {
+    #view-news .news-cockpit-header { flex-direction: column; align-items: flex-start; }
+    #view-news .news-header-actions { width: 100%; justify-content: flex-end; }
+    #view-news .news-toolbar { padding: 12px; }
+    #view-news .news-toolbar-group { padding: 0 10px; }
+    #view-news .news-view-switcher-group { margin-left: 0; }
+}
+
+/* honor reduced motion for the breaking pulse */
+@media (prefers-reduced-motion: reduce) {
+    #view-news .news-breaking-live-dot { animation: none; }
+}
+
+/* ======================================================================
+   NEWSROOM WORKSPACE V4 — clean, decision-first market intelligence
+   ====================================================================== */
+#view-news {
+    --nw-ink: #0b1220;
+    --nw-text: #243044;
+    --nw-muted: #64748b;
+    --nw-line: #e2e8f0;
+    --nw-soft: #f7f9fc;
+    --nw-surface: #ffffff;
+    --nw-blue: #2563eb;
+    --nw-blue-soft: #eff6ff;
+    --nw-teal: #0f766e;
+    --nw-danger: #dc2626;
+    --nw-warning: #d97706;
+    --nw-radius: 14px;
+    color: var(--nw-text);
+}
+
+#view-news .news-cockpit-header {
+    position: relative;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    min-height: 168px;
+    margin: 0 0 14px;
+    padding: 28px 30px;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at 84% 10%, rgba(59, 130, 246, 0.28), transparent 32%),
+        linear-gradient(118deg, #07111f 0%, #101d32 62%, #132b4d 100%);
+    box-shadow: 0 22px 50px -34px rgba(15, 23, 42, 0.7);
+}
+
+#view-news .news-cockpit-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(to right, transparent 20%, #000 100%);
+}
+
+#view-news .news-header-copy,
+#view-news .news-header-actions { position: relative; z-index: 1; }
+
+#view-news .news-header-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #93c5fd;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+#view-news .news-header-eyebrow i { color: #60a5fa; }
+
+#view-news .news-cockpit-header h2 {
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display, 'Outfit', sans-serif);
+    font-size: clamp(1.7rem, 2.5vw, 2.35rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+}
+
+#view-news .news-cockpit-header p {
+    max-width: 720px;
+    margin: 8px 0 13px;
+    color: #b9c7da;
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+#view-news .news-last-updated-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 999px;
+    color: #cbd5e1;
+    background: rgba(15, 23, 42, 0.42);
+    font-size: 0.72rem;
+    font-weight: 650;
+}
+
+#view-news .news-last-updated-badge i { font-size: 0.45rem; }
+#view-news .news-last-updated-badge.is-live i { color: #34d399; box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1); }
+#view-news .news-last-updated-badge.is-stale { color: #fed7aa; border-color: rgba(251, 146, 60, 0.32); background: rgba(124, 45, 18, 0.26); }
+#view-news .news-last-updated-badge.is-stale i { color: #fb923c; }
+
+#view-news .news-header-actions { align-self: flex-start; }
+#view-news .news-header-actions .btn-auth {
+    height: 40px;
+    padding: 0 17px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 750;
+    box-shadow: none;
+}
+#view-news .news-primary-action {
+    border: 1px solid #3b82f6 !important;
+    color: #fff !important;
+    background: #2563eb !important;
+}
+#view-news .news-primary-action:hover { background: #1d4ed8 !important; transform: translateY(-1px); }
+#view-news .news-secondary-action {
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    color: #e2e8f0 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+#view-news .news-secondary-action:hover { background: rgba(255, 255, 255, 0.14) !important; }
+
+#view-news .news-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+#view-news .news-overview-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    min-height: 86px;
+    padding: 15px 16px;
+    border: 1px solid var(--nw-line);
+    border-radius: var(--nw-radius);
+    background: var(--nw-surface);
+    box-shadow: 0 10px 28px -26px rgba(15, 23, 42, 0.55);
+}
+
+#view-news .news-overview-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border-radius: 11px;
+    font-size: 0.9rem;
+}
+#view-news .news-overview-icon.blue { color: #1d4ed8; background: #dbeafe; }
+#view-news .news-overview-icon.red { color: #b91c1c; background: #fee2e2; }
+#view-news .news-overview-icon.teal { color: #0f766e; background: #ccfbf1; }
+#view-news .news-overview-icon.violet { color: #6d28d9; background: #ede9fe; }
+#view-news .news-overview-card > div { display: grid; min-width: 0; }
+#view-news .news-overview-label {
+    color: var(--nw-muted);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+#view-news .news-overview-card strong {
+    margin: 1px 0;
+    color: var(--nw-ink);
+    font-family: var(--font-display, 'Outfit', sans-serif);
+    font-size: 1.35rem;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+#view-news .news-overview-card small {
+    overflow: hidden;
+    color: var(--nw-muted);
+    font-size: 0.68rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#view-news .agent-status-header {
+    min-height: 42px;
+    margin: 0 0 12px;
+    padding: 7px 12px;
+    gap: 6px;
+    border: 1px solid var(--nw-line);
+    border-radius: 12px;
+    background: var(--nw-soft);
+    box-shadow: none;
+}
+#view-news .agent-status-header .agent-badge {
+    min-height: 24px;
+    padding: 0 9px;
+    border-radius: 7px;
+    font-size: 0.65rem;
+    letter-spacing: 0.07em;
+}
+#view-news .agent-status-header .agent-status-chip {
+    min-height: 24px;
+    padding: 0 10px;
+    border-left: 1px solid var(--nw-line);
+    color: var(--nw-muted);
+    font-size: 0.7rem;
+}
+#view-news .agent-status-header .agent-status-chip b { color: #334155; font-weight: 700; }
+#view-news .agent-status-header .agent-status-chip--warning b { color: #b45309; }
+
+#view-news .news-focus-rail {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 48px;
+    margin-bottom: 10px;
+    padding: 7px 8px;
+    overflow-x: auto;
+    border: 1px solid var(--nw-line);
+    border-radius: 12px;
+    background: #fff;
+    scrollbar-width: none;
+}
+#view-news .news-focus-rail::-webkit-scrollbar { display: none; }
+#view-news .news-focus-label {
+    padding: 0 10px 0 6px;
+    color: #94a3b8;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+#view-news .news-focus-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: max-content;
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #536277;
+    background: transparent;
+    font-size: 0.73rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+#view-news .news-focus-btn:hover { color: #1e40af; background: #f1f5f9; }
+#view-news .news-focus-btn.active {
+    color: #fff;
+    border-color: #1d4ed8;
+    background: #1d4ed8;
+    box-shadow: 0 5px 12px -8px rgba(37, 99, 235, 0.8);
+}
+
+#view-news .news-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-bottom: 9px;
+    padding: 9px 10px;
+    border: 1px solid var(--nw-line);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: none;
+}
+#view-news .news-toolbar-group {
+    min-height: 42px;
+    padding: 3px 11px;
+    gap: 7px;
+    border-right: 1px solid var(--nw-line);
+}
+#view-news .news-search-group { flex: 1 1 230px; }
+#view-news .news-search-group .bt-input { width: min(260px, 100%); }
+#view-news .news-toolbar-label {
+    color: #94a3b8;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+#view-news .news-toolbar .bt-input,
+#view-news .news-toolbar .bt-select {
+    height: 32px;
+    border: 1px solid #dbe3ee;
+    border-radius: 8px;
+    color: #27364a;
+    background: #f9fbfd;
+    font-size: 0.74rem;
+}
+#view-news .news-toolbar .bt-select { max-width: 145px; }
+#view-news #news-source-select { min-width: 164px; max-width: 190px; }
+#view-news .news-toolbar .bt-input:focus,
+#view-news .news-toolbar .bt-select:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+#view-news .news-toolbar-options { gap: 10px; }
+#view-news .news-toggle-check { color: #526176; font-size: 0.68rem; }
+#view-news .news-reset-btn {
+    height: 28px;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 7px;
+    color: #64748b;
+    background: #f1f5f9;
+    font-size: 0.67rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+#view-news .news-reset-btn:hover { color: #b91c1c; background: #fef2f2; }
+#view-news .news-chip { color: #64748b; }
+#view-news .news-chip.active { border-color: #1d4ed8; background: #1d4ed8; }
+#view-news .news-view-switcher { border: 1px solid #dbe3ee; background: #f8fafc; }
+#view-news .news-view-btn.active { color: #fff; background: #172033; box-shadow: none; }
+
+#view-news .news-ticker-chips {
+    min-height: 36px;
+    margin: 0 0 9px;
+    padding: 2px 1px;
+}
+#view-news .ntc-chip {
+    height: 30px;
+    border: 1px solid var(--nw-line);
+    border-radius: 8px;
+    color: #526176;
+    background: #fff;
+    box-shadow: none;
+}
+#view-news .ntc-chip:hover { color: #1d4ed8; border-color: #bfdbfe; background: #eff6ff; }
+#view-news .ntc-chip.on { color: #fff; border-color: #172033; background: #172033; }
+
+#view-news .news-pulse-strip {
+    min-height: 48px;
+    margin-bottom: 14px;
+    padding: 9px 14px;
+    border: 1px solid #dbeafe;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #eff6ff 0%, #f8fafc 68%);
+    box-shadow: none;
+}
+#view-news .news-pulse-icon { color: #1d4ed8; background: #dbeafe; }
+#view-news .news-regime-badge { color: #1e3a8a; border-color: #bfdbfe; background: #fff; }
+#view-news .news-pulse-text { color: #334155; }
+
+#view-news .news-cockpit-layout { gap: 18px; }
+@media (min-width: 1024px) {
+    #view-news .news-cockpit-layout.news-layout-split {
+        grid-template-columns: minmax(0, 1.48fr) minmax(350px, 0.8fr) !important;
+    }
+}
+
+#view-news .news-breaking-inline {
+    margin-bottom: 12px;
+    padding: 14px;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    background: #fffafa;
+    box-shadow: none;
+}
+#view-news .news-breaking-header { margin-bottom: 10px; }
+#view-news .news-breaking-label { color: #b91c1c; }
+#view-news .news-breaking-hint { color: #94a3b8; }
+#view-news .nb3-card {
+    border: 1px solid #fee2e2;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: none;
+}
+#view-news .nb3-card:hover { border-color: #fca5a5; box-shadow: 0 8px 20px -18px rgba(127, 29, 29, 0.55); }
+
+#view-news .news-feed-full { min-width: 0; }
+#view-news .news-feed-header {
+    min-height: 50px;
+    margin-bottom: 9px;
+    border: 1px solid var(--nw-line);
+    border-radius: 12px;
+    background: #fff;
+}
+#view-news .news-panel-title { color: var(--nw-ink); font-size: 0.86rem; }
+#view-news .news-panel-title i { color: #2563eb; }
+#view-news .news-feed-count { color: #1d4ed8; background: #eff6ff; }
+#view-news .news-feed-sort-indicator { color: #7b8a9f; background: #f8fafc; }
+#view-news .news-mood-bar {
+    margin-bottom: 9px;
+    border: 1px solid var(--nw-line);
+    border-radius: 12px;
+    background: #fff;
+}
+#view-news .news-feed-scroll { gap: 8px; padding-right: 5px; }
+
+#view-news .news-card-v2 {
+    margin: 0;
+    padding: 14px 15px 13px;
+    border: 1px solid var(--nw-line);
+    border-left-width: 3px;
+    border-radius: 11px;
+    background: #fff;
+    box-shadow: none;
+    transform: none;
+}
+#view-news .news-card-v2:hover {
+    border-color: #cbd5e1;
+    background: #fcfdff;
+    box-shadow: 0 10px 24px -22px rgba(15, 23, 42, 0.55);
+    transform: translateY(-1px);
+}
+#view-news .news-card-v2.selected {
+    border-color: #93c5fd;
+    border-left-color: #2563eb;
+    background: #f8fbff;
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.08);
+}
+#view-news .news-card-v2.impact-critical { border-left-color: #dc2626; }
+#view-news .news-card-v2.impact-high { border-left-color: #ea580c; }
+#view-news .news-card-v2.impact-medium { border-left-color: #2563eb; }
+#view-news .news-card-v2.impact-low { border-left-color: #cbd5e1; }
+#view-news .nc2-headline { color: #111827; font-size: 0.93rem; }
+#view-news .nc2-ai-takeaway {
+    border: 0;
+    border-radius: 8px;
+    color: #3c4a5f;
+    background: #f5f8fc;
+}
+#view-news .nc2-ai-takeaway i { color: #2563eb; }
+#view-news .news-timeline-divider::after { background: var(--nw-line); }
+
+#view-news .news-cockpit-insight-pane {
+    overflow: hidden;
+    border: 1px solid var(--nw-line);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 16px 36px -30px rgba(15, 23, 42, 0.7);
+}
+#view-news .news-insight-expand-header {
+    min-height: 54px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--nw-line);
+    background: #f8fafc;
+}
+#view-news .news-insight-header-title { color: var(--nw-ink); }
+#view-news .news-insight-header-title i { color: #2563eb; }
+#view-news .news-insight-live-badge {
+    height: 20px;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    font-size: 0.56rem;
+}
+#view-news .news-insight-body { background: #fff; }
+#view-news .news-placeholder { color: #748398; }
+
+/* Three-question intelligence briefing */
+#view-news .news-insight-card { gap: 12px; }
+#view-news .news-insight-header { margin: 0; padding-bottom: 12px; }
+#view-news .news-insight-title { color: #111827; font-size: 1.03rem; line-height: 1.35; }
+#view-news .news-briefing-questions {
+    display: grid;
+    gap: 10px;
+}
+#view-news .news-briefing-answer {
+    position: relative;
+    padding: 13px 14px;
+    overflow: hidden;
+    border: 1px solid #dbe3ee;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 26px -26px rgba(15, 23, 42, 0.8);
+}
+#view-news .news-briefing-answer::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: #2563eb;
+}
+#view-news .news-briefing-answer.market::before { background: #7c3aed; }
+#view-news .news-briefing-answer.ticker::before { background: #0891b2; }
+#view-news .news-briefing-question-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+#view-news .news-briefing-number {
+    display: inline-flex;
+    flex: 0 0 27px;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 8px;
+    color: #1d4ed8;
+    background: #eff6ff;
+    font-size: 0.72rem;
+    font-weight: 900;
+}
+#view-news .news-briefing-answer.market .news-briefing-number { color: #6d28d9; background: #f5f3ff; }
+#view-news .news-briefing-answer.ticker .news-briefing-number { color: #0e7490; background: #ecfeff; }
+#view-news .news-briefing-eyebrow {
+    display: block;
+    margin-bottom: 2px;
+    color: #94a3b8;
+    font-size: 0.55rem;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+#view-news .news-briefing-answer h5 {
+    margin: 0;
+    color: #334155;
+    font-size: 0.66rem;
+    font-weight: 900;
+    letter-spacing: 0.045em;
+    line-height: 1.25;
+}
+#view-news .news-briefing-answer p {
+    margin: 10px 0 0 36px;
+    color: #1f2937;
+    font-size: 0.81rem;
+    line-height: 1.55;
+}
+#view-news .news-direction-chip {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+    padding: 5px 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    color: #475569;
+    background: #f8fafc;
+    font-size: 0.61rem;
+    font-weight: 850;
+    white-space: nowrap;
+}
+#view-news .news-direction-chip.up { color: #047857; border-color: #a7f3d0; background: #ecfdf5; }
+#view-news .news-direction-chip.down { color: #b91c1c; border-color: #fecaca; background: #fef2f2; }
+#view-news .news-direction-chip.mixed { color: #6d28d9; border-color: #ddd6fe; background: #f5f3ff; }
+#view-news .news-direction-chip.neutral,
+#view-news .news-direction-chip.unclear { color: #475569; border-color: #e2e8f0; background: #f8fafc; }
+#view-news .news-ticker-conclusion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 11px 0 0 36px;
+}
+#view-news .news-ticker-conclusion strong {
+    padding: 4px 7px;
+    border-radius: 6px;
+    color: #fff;
+    background: #172033;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+}
+#view-news .news-ticker-conclusion span { color: #7b8a9f; font-size: 0.65rem; font-weight: 700; }
+#view-news .news-briefing-answer p.news-briefing-rationale {
+    margin-top: 6px;
+    color: #526176;
+    font-size: 0.74rem;
+}
+#view-news .news-briefing-status {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 11px;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    color: #1d4ed8;
+    background: #eff6ff;
+    font-size: 0.69rem;
+    font-weight: 750;
+    text-align: left;
+}
+#view-news button.news-briefing-status { cursor: pointer; }
+#view-news .news-briefing-status.failed { color: #b45309; border-color: #fde68a; background: #fffbeb; }
+#view-news .news-briefing-footnote {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 11px;
+    border-radius: 9px;
+    color: #64748b;
+    background: #f8fafc;
+    font-size: 0.64rem;
+    line-height: 1.4;
+}
+#view-news .news-briefing-footnote i { color: #2563eb; }
+#view-news .news-briefing-footnote span { margin-left: auto; }
+#view-news .news-supporting-evidence {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+}
+#view-news .news-supporting-evidence summary {
+    padding: 11px 12px;
+    color: #526176;
+    font-size: 0.69rem;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+}
+#view-news .news-supporting-evidence summary::-webkit-details-marker { display: none; }
+#view-news .news-supporting-evidence summary i { margin-right: 6px; color: #7c3aed; }
+#view-news .news-supporting-evidence-body { display: grid; gap: 8px; padding: 0 9px 9px; }
+#view-news .news-supporting-evidence-body .news-insight-block { margin: 0; padding: 11px; box-shadow: none; }
+
+#view-news .news-export-panel {
+    right: 0;
+    z-index: 100;
+    color: var(--nw-text);
+    border: 1px solid var(--nw-line);
+    background: #fff;
+    box-shadow: 0 22px 55px -26px rgba(15, 23, 42, 0.7);
+}
+
+@media (max-width: 1180px) {
+    #view-news .news-overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #view-news .news-view-switcher-group { margin-left: 0; }
+}
+
+@media (max-width: 760px) {
+    #view-news { padding: 12px !important; }
+    #view-news .news-cockpit-header { align-items: flex-start; min-height: 0; padding: 22px 20px; }
+    #view-news .news-header-actions { align-self: auto; }
+    #view-news .news-header-actions .btn-auth { flex: 1; }
+    #view-news .news-overview-grid { gap: 8px; }
+    #view-news .news-overview-card { min-height: 78px; padding: 12px; }
+    #view-news .news-overview-card small { white-space: normal; }
+    #view-news .agent-status-header { align-items: flex-start; }
+    #view-news .agent-status-header .agent-status-chip { border-left: 0; }
+    #view-news .news-toolbar { align-items: stretch; }
+    #view-news .news-toolbar-group { width: 100%; border-right: 0; border-bottom: 1px solid #eef2f7; }
+    #view-news .news-toolbar-group:last-child { border-bottom: 0; }
+    #view-news .news-search-group .bt-input { width: 100%; }
+    #view-news .news-toolbar .bt-select { max-width: none; flex: 1; }
+    #view-news .news-toolbar-options { flex-wrap: wrap; }
+    #view-news .news-pulse-strip { align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+    #view-news .news-overview-grid { grid-template-columns: 1fr; }
+    #view-news .news-header-actions { width: 100%; }
+    #view-news .news-cockpit-header h2 { font-size: 1.65rem; }
+}
+
+/* ===== Tab audit wave 2 (2026-11-15): frontend consistency ================ */
+/* News: ingest-source health line under the agent status header */
+#view-news .news-source-health {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    margin: 6px 0 10px;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: #475569;
+}
+#view-news .news-source-health[hidden],
+#view-news .news-narrative-note[hidden] { display: none !important; }
+#view-news .news-source-health .nsh-level {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    background: #f8fafc;
+}
+#view-news .news-source-health .nsh-level-ok { color: #166534; border-color: #bbf7d0; background: #f0fdf4; }
+#view-news .news-source-health .nsh-level-degraded,
+#view-news .news-source-health .nsh-level-starting { color: #92400e; border-color: #fde68a; background: #fffbeb; }
+#view-news .news-source-health .nsh-level-error { color: #991b1b; border-color: #fecaca; background: #fef2f2; }
+#view-news .news-source-health .nsh-item {
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+#view-news .news-source-health .nsh-ok { color: #166534; border-color: #dcfce7; background: #f7fef9; }
+#view-news .news-source-health .nsh-failing { color: #991b1b; border-color: #fecaca; background: #fef2f2; }
+#view-news .news-source-health .nsh-disabled { color: #92400e; border-color: #fde68a; background: #fffbeb; }
+#view-news .news-source-health .nsh-pending { color: #475569; border-color: #e2e8f0; background: #f8fafc; }
+
+/* News: narrative provenance line (evidence, AI-vs-headline disagreement) */
+#view-news .news-narrative-note {
+    margin: -4px 0 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+#view-news .news-narrative-note.is-conflict { color: #92400e; background: #fffbeb; border-color: #fde68a; font-weight: 600; }
+#view-news .news-narrative-note.is-unavailable { color: #475569; font-style: italic; }
+/* The regime badge can now carry both tones ("mixed · AI risk-on vs headlines bearish tilt") */
+#view-news .news-regime-badge { height: auto; min-height: 22px; white-space: normal; text-align: left; }
+
+/* News: social posts are marked and visually secondary to publisher news */
+#view-news .nc2-social-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    border: 1px dashed #94a3b8;
+    color: #475569;
+    background: #f1f5f9;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+#view-news .news-card-v2.news-social { border-left-style: dashed; background: #fbfcfe; }
+#view-news .news-card-v2.news-social .nc2-headline { font-weight: 500; color: #475569; }
+#view-news .news-card-v2.news-social.selected .nc2-headline { color: #1f2937; }
+#view-news .news-social-count { font-weight: 700; color: #64748b; }
+#view-news .news-briefing-status.failed.unavailable { color: #475569; border-color: #cbd5e1; background: #f8fafc; }
+
+/* Trade Radar: a losing backtest is stated next to the readiness badge */
+.traderadar-backtest-warning {
+    margin-top: 4px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid #fde68a;
+    background: #fffbeb;
+    color: #92400e;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.traderadar-backtest-warning i { margin-right: 4px; }

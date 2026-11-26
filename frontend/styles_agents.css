@@ -1,0 +1,10 @@
+/* Agents view.
+ *
+ * The automation control plane was rebuilt on the UI v10 design system: its
+ * markup (frontend/agents.js, #view-agents in index.html) uses the ag-* classes
+ * styled in ds_view_agents.css. The previous cream/gold rules that lived here
+ * targeted class names that no longer exist in the markup and were removed.
+ * Only the page-level scroll lock for the Risk Manager editor stays global.
+ */
+
+.agents-risk-modal-open { overflow: hidden; }

@@ -1,0 +1,158 @@
+/*
+ * Layout System
+ * Grid, flexbox, and container utilities
+ */
+
+.main-container.centered-layout {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.card {
+    background: var(--surface-elevated, var(--surface-color));
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+}
+
+.premium-card {
+    border: 1px solid rgba(201, 162, 39, 0.14);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.premium-card:hover {
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-1px);
+}
+
+/* === BOTTOM SPLIT (Performance & Watchlist) === */
+.dashboard-bottom-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+@media (max-width: 900px) {
+    .dashboard-bottom-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+.trading-view-shell {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 32px 28px;
+}
+
+.trading-page-hero {
+    --hero-accent: rgba(212, 161, 23, 0.18);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+    padding: 24px 28px;
+    border: 1px solid rgba(212, 161, 23, 0.18);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at top right, var(--hero-accent), transparent 48%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(252, 248, 240, 0.96));
+    box-shadow: 0 24px 44px rgba(15, 23, 42, 0.08);
+}
+
+.trading-page-hero::before {
+    content: "";
+    position: absolute;
+    inset: auto -40px -52px auto;
+    width: 220px;
+    height: 220px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(212, 161, 23, 0.12));
+    filter: blur(6px);
+    pointer-events: none;
+}
+
+.trading-page-copy,
+.trading-page-actions {
+    position: relative;
+    z-index: 1;
+}
+
+.trading-page-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(212, 161, 23, 0.24);
+    background: rgba(255, 255, 255, 0.72);
+    color: #8a6a11;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.trading-page-hero h2 {
+    margin: 0;
+}
+
+.trading-page-hero p {
+    max-width: 760px;
+}
+
+.trading-page-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.trading-page-actions .search-box-premium input {
+    backdrop-filter: blur(10px);
+}
+
+.watchlist-page-hero {
+    --hero-accent: rgba(245, 158, 11, 0.16);
+}
+
+.scanner-page-hero {
+    --hero-accent: rgba(37, 99, 235, 0.14);
+}
+
+.traderadar-page-hero {
+    /* gold accent — consistent with the app identity (was a green tint) */
+    --hero-accent: rgba(201, 162, 39, 0.16);
+}
+
+@media (max-width: 960px) {
+    .trading-view-shell {
+        padding: 16px 18px 24px;
+    }
+
+    .trading-page-hero {
+        padding: 20px;
+    }
+
+    .trading-page-actions {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 720px) {
+    .trading-page-hero {
+        border-radius: 18px;
+    }
+
+    .trading-page-actions {
+        width: 100%;
+    }
+
+    .trading-page-actions .search-box-premium {
+        width: 100% !important;
+    }
+}

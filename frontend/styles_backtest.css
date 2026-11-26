@@ -1,0 +1,390 @@
+/*
+ * Backtest Component Styles
+ * Parameters panel, results, and KPI cards
+ */
+
+.backtest-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 32px;
+}
+
+    .backtest-layout {
+        grid-template-columns: 1fr;
+    }
+
+.backtest-premium-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    min-height: calc(100vh - 150px);
+}
+
+.bt-params-panel {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.bt-params-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.bt-params-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--gold-gradient);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.bt-params-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.bt-form-group {
+    margin-bottom: 16px;
+}
+
+.bt-form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.bt-input,
+.bt-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    background: var(--surface-alt);
+    color: var(--text-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.bt-input:focus,
+.bt-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+}
+
+.bt-input:focus-visible,
+.bt-select:focus-visible {
+    outline: 2px solid var(--accent-color, #c9a227);
+    outline-offset: 2px;
+}
+
+.bt-run-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--gold-gradient);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+.bt-run-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(201, 162, 39, 0.3);
+}
+
+.bt-run-btn.bt-btn-secondary {
+    margin-top: 8px;
+    background: var(--surface-alt);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+}
+
+.bt-run-btn.bt-btn-secondary:hover {
+    border-color: var(--accent-color);
+    background: var(--surface-color);
+    box-shadow: 0 4px 14px rgba(201, 162, 39, 0.18);
+}
+
+/* Reusable KPI / card surfaces for backtest results (Overview, Strategies, Trades) */
+.bt-kpi-mini {
+    background: var(--surface-alt);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.bt-kpi-mini-label {
+    font-size: 0.75em;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+}
+
+.bt-kpi-mini-value {
+    font-size: 1.1em;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.bt-kpi-stat {
+    background: var(--surface-alt);
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.bt-kpi-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.bt-kpi-stat-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.bt-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+}
+
+.bt-expand-panel {
+    background: var(--surface-alt);
+    border-left: 4px solid var(--accent-color);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.bt-filter-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    background: var(--surface-alt);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bt-filter-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.bt-filter-btn.active {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.bt-last-run {
+    text-align: center;
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.bt-last-run span {
+    color: var(--accent-color);
+}
+
+.bt-results-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bt-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.bt-kpi-card {
+    background: transparent;
+    padding: 20px;
+    text-align: center;
+}
+
+.bt-kpi-card:hover {
+    transform: none;
+}
+
+.bt-kpi-card.bt-kpi-highlight {
+    background: transparent;
+}
+
+.bt-kpi-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+}
+
+.bt-kpi-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.bt-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface-alt);
+    padding: 6px;
+    border-radius: var(--radius-md);
+    width: fit-content;
+}
+
+.bt-tab {
+    padding: 10px 24px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.bt-tab:hover {
+    color: var(--primary-color);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.bt-tab.active {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.bt-tab-content {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    min-height: 400px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.bt-tab-pane {
+    display: none;
+    padding: 24px;
+}
+
+.bt-tab-pane.active {
+    display: block;
+}
+
+.bt-results-container {
+    min-height: 350px;
+}
+
+.bt-placeholder {
+    text-align: center;
+    padding: 80px 40px;
+    color: var(--text-muted);
+}
+
+.bt-placeholder i {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.bt-placeholder p {
+    font-size: 1rem;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.bt-tab-content {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    min-height: 400px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.bt-tab-pane {
+    display: none;
+    padding: 24px;
+}
+
+.bt-tab-pane.active {
+    display: block;
+}
+
+.bt-results-container {
+    min-height: 350px;
+}
+
+.bt-placeholder {
+    text-align: center;
+    padding: 80px 40px;
+    color: var(--text-muted);
+}
+
+.bt-placeholder i {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.bt-placeholder p {
+    font-size: 1rem;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Backtest data rows reuse the watchlist `.wl-row` class but only set inline
+   grid-template-columns — inert without display:grid, so Strategies/Trades/
+   Walk-Forward/OOS cells stacked vertically (audit 2026-09-05 P1). Scoped to
+   the backtest containers so watchlist rows are untouched. The Strategies
+   matrix and Trades tab render into their own panes, not .bt-results-container
+   (audit v2: CSS 1.6 was partial — cells still stacked there). */
+.bt-results-container .wl-row,
+#bt-strategies-list .wl-row,
+#bt-trades-list .wl-row {
+    display: grid;
+    align-items: center;
+    gap: 0.4rem;
+}

@@ -1,0 +1,22 @@
+# What the code map (Graphify) does not read: data, media, tests, generated files.
+data/
+stickman_series/
+stickman_video/
+tests/
+tests_e2e/
+docs/
+deploy/
+gui-test-screenshots/
+logs/
+output/
+runtime/
+mlartifacts/
+audit_logs/
+backups/
+.venv/
+node_modules/
+__pycache__/
+*.db
+*.sqlite
+*.png
+*.json

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["as_of", "open", "closed", "open_count", "closed_count"],
+  "properties": {
+    "as_of": { "type": "string" },
+    "open": { "type": "object" },
+    "closed": { "type": "array" },
+    "open_count": { "type": "integer", "minimum": 0 },
+    "closed_count": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": true
+}

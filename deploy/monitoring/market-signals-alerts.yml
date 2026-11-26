@@ -1,0 +1,112 @@
+groups:
+  - name: market-signals-critical
+    rules:
+      - alert: MarketSignalsAPIDown
+        expr: up{job="market-signals"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Market Signals API is unreachable
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsOperatorAuditUnavailable
+        expr: market_signals_operator_audit_ready != 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Operator mutations are fail-closed because audit evidence is unavailable
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsRecoveryPointMissing
+        expr: market_signals_backup_enabled == 1 and market_signals_backup_snapshots < 1
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: No verified disaster-recovery snapshot is retained
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsRecoveryPointStale
+        expr: market_signals_backup_enabled == 1 and market_signals_backup_latest_age_seconds > 93600
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: Latest disaster-recovery snapshot is older than 26 hours
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsAvailabilitySLOBreached
+        expr: market_signals_slo_enough_data == 1 and market_signals_slo_availability_ratio < market_signals_slo_availability_target_ratio
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: Rolling API availability is below its configured SLO
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+  - name: market-signals-warning
+    rules:
+      - alert: MarketSignalsLatencySLOBreached
+        expr: market_signals_slo_enough_data == 1 and market_signals_slo_p95_seconds > market_signals_slo_p95_target_seconds
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Rolling API p95 latency exceeds its configured objective
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsMetricCollectionIncomplete
+        expr: market_signals_openmetrics_exporter_success != 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: One or more local metric collectors failed
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsBackupSchedulerError
+        expr: market_signals_backup_last_error == 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: The disaster-recovery scheduler reports an error
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsAgentError
+        expr: max by (agent) (market_signals_agent_enabled * market_signals_agent_error) > 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: An enabled Market Signals agent reports a runtime error
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsProviderErrorBurst
+        expr: sum by (provider) (increase(market_signals_external_errors_total[10m])) > 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: An external data provider has an elevated error burst
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsAPIConcurrencySaturated
+        expr: market_signals_api_inflight_requests / market_signals_api_inflight_limit > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: API in-flight concurrency has remained above 90 percent
+          runbook: docs/OPERATIONS_RUNBOOK.md
+
+      - alert: MarketSignalsAPIAdmissionCapacityRejected
+        expr: sum(increase(market_signals_api_admission_rejections_total{reason=~"global_concurrency|bucket_capacity"}[5m])) > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: API admission rejected work because process or bucket capacity was exhausted
+          runbook: docs/OPERATIONS_RUNBOOK.md

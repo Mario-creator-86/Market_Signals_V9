@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "state",
+    "generated_at",
+    "header",
+    "sections",
+    "strategy_lab",
+    "decision_ledger",
+    "research_factory",
+    "system_health",
+    "deferred"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "state": { "const": "SUCCESS" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "header": {
+      "type": "object",
+      "required": ["version", "market", "autonomy", "ai", "regime", "capital", "risk", "kill_switch_active", "reduce_fraction_pct"],
+      "properties": {
+        "version": { "const": "V9" },
+        "market": { "type": "object" },
+        "autonomy": { "type": "object" },
+        "ai": { "type": "object" },
+        "regime": { "type": "object" },
+        "capital": { "type": "object" },
+        "risk": { "type": "object" },
+        "kill_switch_active": { "type": "boolean" },
+        "reduce_fraction_pct": { "type": ["number", "null"], "exclusiveMinimum": 0, "exclusiveMaximum": 100 }
+      },
+      "additionalProperties": true
+    },
+    "sections": {
+      "type": "object",
+      "required": ["opportunities", "risks", "upcoming_earnings", "sentiment_shifts", "major_news", "ai_decisions", "active_positions", "strategy_degradation", "research_activity"],
+      "additionalProperties": { "$ref": "#/$defs/asyncSection" }
+    },
+    "strategy_lab": { "type": "object", "required": ["state", "champions", "challengers", "shadow", "degraded", "leaderboard", "promotion_history", "rollback_history", "ai_quant_commentary"] },
+    "decision_ledger": { "$ref": "#/$defs/asyncSection" },
+    "research_factory": { "type": "object", "required": ["state", "activity", "capabilities"] },
+    "system_health": {
+      "type": "object",
+      "required": ["state", "overall", "services", "counts", "checked_at"],
+      "properties": {
+        "state": { "const": "SUCCESS" },
+        "overall": { "enum": ["HEALTHY", "DEGRADED", "UNHEALTHY"] },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "status", "message", "checked_at", "evidence"],
+            "properties": {
+              "status": { "enum": ["HEALTHY", "DEGRADED", "UNHEALTHY", "UNVERIFIED", "UNAVAILABLE", "DISABLED", "NOT_CONFIGURED"] }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "source_errors": { "type": "object" },
+    "deferred": { "type": "object" },
+    "cockpit_state_version": { "type": "string" }
+  },
+  "$defs": {
+    "asyncSection": {
+      "type": "object",
+      "required": ["state"],
+      "properties": {
+        "state": { "enum": ["LOADING", "SUCCESS", "EMPTY", "ERROR"] },
+        "items": { "type": "array" },
+        "count": { "type": "integer", "minimum": 0 },
+        "message": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,18 @@
+{
+  "as_of": "2026-02-26T09:00:00+00:00",
+  "days": 7,
+  "earnings": [
+    {
+      "symbol": "AAPL",
+      "date": "2026-02-28T00:00:00+00:00",
+      "when": "UNKNOWN",
+      "eps_estimated": 1.23
+    },
+    {
+      "symbol": "NVDA",
+      "date": "2026-03-01T00:00:00+00:00",
+      "when": "AMC",
+      "eps_estimated": 3.75
+    }
+  ]
+}

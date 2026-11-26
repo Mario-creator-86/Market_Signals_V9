@@ -1,0 +1,14 @@
+{
+  "as_of_utc": "2026-02-26T09:00:00+00:00",
+  "items": [
+    { "symbol": "AAPL", "session": "UNKNOWN", "days_to_earnings": 2 },
+    { "symbol": "NVDA", "session": "AMC", "days_to_earnings": 3 }
+  ],
+  "status": {
+    "last_run_time": "2026-02-26T09:00:00+00:00",
+    "last_success_time": "2026-02-26T09:00:00+00:00",
+    "last_error": null,
+    "next_run_in": 300
+  },
+  "disabled": false
+}

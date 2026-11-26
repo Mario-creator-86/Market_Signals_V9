@@ -1,0 +1,717 @@
+/*
+ * MarketMuse design system — base and shared components (UI v10)
+ *
+ * Loaded after every legacy stylesheet. Two jobs:
+ *   1. primitives (.ds-*) for new markup;
+ *   2. the same recipes applied to the legacy class names that every view
+ *      shares (.card, .btn-primary, .form-input, .modal-content, ...), so a view
+ *      skin only has to handle what is specific to that view.
+ *
+ * Recipes (use these exact values in view skins):
+ *   panel      surface-1, 1px line, radius panel, no shadow, padding 16px
+ *   inset      surface-inset, 1px line-faint, radius control
+ *   label      font-tight 12px/600, text-3, sentence case, no letter-spacing tricks
+ *   value      font-num, tabular, text; 20px for a stat, 13px in a table
+ *   control    height 32px, radius control, surface-2, 1px line; focus = amber ring
+ *   row        36px min height, 1px line-faint divider, hover surface-2
+ */
+
+/* The root stays at 16px so the rem size tokens are true pixels
+   (--ds-fs-12 = 12px); only the body text is set to 14px. */
+html[data-ui="v10"] {
+    background: var(--ds-canvas);
+    font-size: 16px;
+}
+html[data-ui="v10"] body {
+    background: var(--ds-canvas);
+    color: var(--ds-text);
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-14);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "zero" 0;
+}
+
+html[data-ui="v10"] body {
+    background-image: none;
+    min-height: 100vh;
+}
+
+html[data-ui="v10"] *,
+html[data-ui="v10"] *::before,
+html[data-ui="v10"] *::after {
+    box-sizing: border-box;
+}
+
+html[data-ui="v10"] h1,
+html[data-ui="v10"] h2,
+html[data-ui="v10"] h3,
+html[data-ui="v10"] h4 {
+    font-family: var(--ds-font);
+    color: var(--ds-text);
+    letter-spacing: -0.005em;
+    font-weight: 600;
+    margin: 0;
+}
+
+html[data-ui="v10"] h1 { font-size: var(--ds-fs-26); line-height: 1.2; }
+html[data-ui="v10"] h2 { font-size: var(--ds-fs-20); line-height: 1.25; }
+html[data-ui="v10"] h3 { font-size: var(--ds-fs-16); line-height: 1.3; }
+html[data-ui="v10"] h4 { font-size: var(--ds-fs-14); line-height: 1.35; }
+
+html[data-ui="v10"] p { color: var(--ds-text-2); }
+html[data-ui="v10"] small { color: var(--ds-text-3); font-size: var(--ds-fs-12); }
+html[data-ui="v10"] a { color: var(--ds-info); text-decoration: none; }
+html[data-ui="v10"] a:hover { text-decoration: underline; }
+html[data-ui="v10"] hr { border: 0; border-top: 1px solid var(--ds-line); }
+html[data-ui="v10"] code,
+html[data-ui="v10"] kbd {
+    font-family: var(--ds-font-num);
+    font-size: 0.92em;
+    background: var(--ds-surface-3);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-chip);
+    padding: 0 4px;
+    color: var(--ds-text);
+}
+
+html[data-ui="v10"] ::selection { background: var(--ds-amber-soft); color: var(--ds-text); }
+
+html[data-ui="v10"] :focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus);
+    border-radius: var(--ds-r-control);
+}
+
+html[data-ui="v10"] * { scrollbar-width: thin; scrollbar-color: var(--ds-line-strong) transparent; }
+html[data-ui="v10"] ::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-ui="v10"] ::-webkit-scrollbar-thumb {
+    background: var(--ds-line-strong);
+    border-radius: 6px;
+    border: 2px solid var(--ds-canvas);
+}
+html[data-ui="v10"] ::-webkit-scrollbar-track { background: transparent; }
+
+/* ── numbers ─────────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-num,
+html[data-ui="v10"] .num,
+html[data-ui="v10"] .stat-value,
+html[data-ui="v10"] .kpi-value {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+}
+
+html[data-ui="v10"] .ds-pos, html[data-ui="v10"] .text-green, html[data-ui="v10"] .kpi-value--green { color: var(--ds-pos) !important; }
+html[data-ui="v10"] .ds-neg, html[data-ui="v10"] .text-red, html[data-ui="v10"] .kpi-value--red { color: var(--ds-neg) !important; }
+html[data-ui="v10"] .ds-warn-text, html[data-ui="v10"] .kpi-value--yellow { color: var(--ds-warn) !important; }
+html[data-ui="v10"] .text-gold { color: var(--ds-amber) !important; }
+html[data-ui="v10"] .text-muted, html[data-ui="v10"] .kpi-value--muted { color: var(--ds-text-3) !important; }
+html[data-ui="v10"] .kpi-value--dark { color: var(--ds-text) !important; }
+
+/* ── panel ───────────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-panel,
+html[data-ui="v10"] .card,
+html[data-ui="v10"] .stat-card,
+html[data-ui="v10"] .bt-kpi-card,
+html[data-ui="v10"] .timeline-card,
+html[data-ui="v10"] .timeline-panel {
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+    backdrop-filter: none;
+    color: var(--ds-text);
+}
+
+html[data-ui="v10"] .ds-panel { padding: var(--ds-4); }
+
+html[data-ui="v10"] .ds-panel-head,
+html[data-ui="v10"] .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    padding: var(--ds-3) var(--ds-4);
+    border-bottom: 1px solid var(--ds-line);
+    background: transparent;
+    color: var(--ds-text);
+}
+
+html[data-ui="v10"] .card-body { padding: var(--ds-4); }
+
+html[data-ui="v10"] .ds-inset {
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control);
+}
+
+html[data-ui="v10"] .ds-label,
+html[data-ui="v10"] .stat-label,
+html[data-ui="v10"] .section-title,
+html[data-ui="v10"] .sidebar-title {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    letter-spacing: 0.01em;
+    text-transform: none;
+}
+
+/* ── page head ───────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--ds-4);
+    flex-wrap: wrap;
+    padding-bottom: var(--ds-4);
+    margin-bottom: var(--ds-4);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] .ds-page-head h1 { font-size: var(--ds-fs-20); }
+html[data-ui="v10"] .ds-page-head p { margin: 2px 0 0; font-size: var(--ds-fs-13); color: var(--ds-text-3); max-width: 76ch; }
+
+/* ── stat strip ──────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    background: var(--ds-surface-1);
+    overflow: hidden;
+}
+html[data-ui="v10"] .ds-stat {
+    padding: var(--ds-3) var(--ds-4);
+    border-left: 1px solid var(--ds-line);
+    min-width: 0;
+}
+html[data-ui="v10"] .ds-stat:first-child { border-left: 0; }
+html[data-ui="v10"] .ds-stat-value {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-20);
+    font-weight: 500;
+    color: var(--ds-text);
+    line-height: 1.2;
+    margin-top: 2px;
+}
+html[data-ui="v10"] .ds-stat-note { font-size: var(--ds-fs-12); color: var(--ds-text-3); margin-top: 2px; }
+
+/* ── buttons ─────────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-btn,
+html[data-ui="v10"] .btn-primary,
+html[data-ui="v10"] .btn-secondary,
+html[data-ui="v10"] .btn-mini,
+html[data-ui="v10"] .btn-icon,
+html[data-ui="v10"] .btn-activity,
+html[data-ui="v10"] .bt-run-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: nowrap;
+    border-radius: var(--ds-r-control);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-2);
+    color: var(--ds-text);
+    box-shadow: none;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), border-color var(--ds-fast) var(--ds-ease);
+    transform: none;
+}
+html[data-ui="v10"] .ds-btn:hover,
+html[data-ui="v10"] .btn-secondary:hover,
+html[data-ui="v10"] .btn-mini:hover,
+html[data-ui="v10"] .btn-icon:hover,
+html[data-ui="v10"] .btn-activity:hover {
+    background: var(--ds-surface-3);
+    border-color: var(--ds-text-3);
+    color: var(--ds-text);
+    transform: none;
+    box-shadow: none;
+}
+html[data-ui="v10"] .ds-btn--primary,
+html[data-ui="v10"] .btn-primary,
+html[data-ui="v10"] .bt-run-btn,
+html[data-ui="v10"] .btn-mini--accent {
+    background: var(--ds-amber);
+    border-color: var(--ds-amber);
+    color: var(--ds-text-on-accent);
+    font-weight: 600;
+}
+html[data-ui="v10"] .ds-btn--primary:hover,
+html[data-ui="v10"] .btn-primary:hover,
+html[data-ui="v10"] .bt-run-btn:hover,
+html[data-ui="v10"] .btn-mini--accent:hover {
+    background: var(--ds-amber-hover);
+    border-color: var(--ds-amber-hover);
+    color: var(--ds-text-on-accent);
+}
+html[data-ui="v10"] .ds-btn--ghost { background: transparent; border-color: transparent; color: var(--ds-text-2); }
+html[data-ui="v10"] .ds-btn--ghost:hover { background: var(--ds-surface-3); color: var(--ds-text); border-color: transparent; }
+html[data-ui="v10"] .ds-btn--danger { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+html[data-ui="v10"] .ds-btn--danger:hover { background: var(--ds-neg); border-color: var(--ds-neg); color: #fff; }
+html[data-ui="v10"] .ds-btn--sm, html[data-ui="v10"] .btn-mini { height: 26px; padding: 0 8px; font-size: var(--ds-fs-12); }
+html[data-ui="v10"] .btn-icon { width: 32px; padding: 0; }
+html[data-ui="v10"] button:disabled,
+html[data-ui="v10"] .ds-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* ── form controls ───────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-input,
+html[data-ui="v10"] .form-input,
+html[data-ui="v10"] .form-select,
+html[data-ui="v10"] .bt-input,
+html[data-ui="v10"] .bt-select,
+html[data-ui="v10"] input[type="text"],
+html[data-ui="v10"] input[type="search"],
+html[data-ui="v10"] input[type="number"],
+html[data-ui="v10"] input[type="password"],
+html[data-ui="v10"] input[type="email"],
+html[data-ui="v10"] input[type="date"],
+html[data-ui="v10"] select,
+html[data-ui="v10"] textarea {
+    min-height: 32px;
+    padding: 5px 10px;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    box-shadow: none;
+    outline: none;
+    transition: border-color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] input::placeholder,
+html[data-ui="v10"] textarea::placeholder { color: var(--ds-text-disabled); }
+html[data-ui="v10"] input:hover,
+html[data-ui="v10"] select:hover,
+html[data-ui="v10"] textarea:hover { border-color: var(--ds-text-3); }
+html[data-ui="v10"] input:focus,
+html[data-ui="v10"] select:focus,
+html[data-ui="v10"] textarea:focus {
+    border-color: var(--ds-amber);
+    box-shadow: 0 0 0 3px var(--ds-amber-soft);
+}
+html[data-ui="v10"] select option { background: var(--ds-surface-2); color: var(--ds-text); }
+html[data-ui="v10"] input[type="checkbox"],
+html[data-ui="v10"] input[type="radio"],
+html[data-ui="v10"] input[type="range"] { accent-color: var(--ds-amber); }
+html[data-ui="v10"] label { color: var(--ds-text-2); font-size: var(--ds-fs-13); }
+html[data-ui="v10"] .form-group > label,
+html[data-ui="v10"] .bt-form-group > label {
+    display: block;
+    margin-bottom: 4px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0.01em;
+}
+
+/* ── chips ───────────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-chip,
+html[data-ui="v10"] .filter-chip,
+html[data-ui="v10"] .strategy-tag,
+html[data-ui="v10"] .perf-tag,
+html[data-ui="v10"] .live-badge,
+html[data-ui="v10"] .signal-age-badge,
+html[data-ui="v10"] .signal-variant-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 20px;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+    box-shadow: none;
+}
+html[data-ui="v10"] .ds-chip--pos, html[data-ui="v10"] .perf-tag--won, html[data-ui="v10"] .signal-age-fresh {
+    background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos);
+}
+html[data-ui="v10"] .ds-chip--neg, html[data-ui="v10"] .perf-tag--lost, html[data-ui="v10"] .signal-age-stale {
+    background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg);
+}
+html[data-ui="v10"] .ds-chip--warn, html[data-ui="v10"] .signal-age-aging {
+    background: var(--ds-warn-soft); border-color: var(--ds-warn-line); color: var(--ds-warn);
+}
+html[data-ui="v10"] .ds-chip--info, html[data-ui="v10"] .perf-tag--swap {
+    background: var(--ds-info-soft); border-color: var(--ds-info-line); color: var(--ds-info);
+}
+html[data-ui="v10"] .ds-chip--ai { background: var(--ds-ai-soft); border-color: var(--ds-ai-line); color: var(--ds-ai); }
+html[data-ui="v10"] .ds-chip--brand { background: var(--ds-amber-soft); border-color: var(--ds-amber-line); color: var(--ds-amber-text); }
+html[data-ui="v10"] .filter-chip { height: 26px; cursor: pointer; font-size: var(--ds-fs-12); }
+html[data-ui="v10"] .filter-chip.active,
+html[data-ui="v10"] .filter-chip[aria-pressed="true"] {
+    background: var(--ds-amber-soft); border-color: var(--ds-amber-line); color: var(--ds-amber-text);
+}
+
+/* ── tables ──────────────────────────────────────────────────────────── */
+html[data-ui="v10"] table { border-collapse: collapse; width: 100%; color: var(--ds-text); background: transparent; }
+html[data-ui="v10"] th {
+    position: relative;
+    padding: 8px 12px;
+    text-align: left;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    background: var(--ds-surface-2);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] td {
+    padding: 8px 12px;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    border-bottom: 1px solid var(--ds-line-faint);
+    background: transparent;
+    vertical-align: middle;
+}
+html[data-ui="v10"] tbody tr:hover > td { background: var(--ds-surface-2); }
+html[data-ui="v10"] td.num, html[data-ui="v10"] th.num { text-align: right; font-family: var(--ds-font-num); font-variant-numeric: tabular-nums; }
+
+/* ── tabs ────────────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-tabs,
+html[data-ui="v10"] .bt-tabs {
+    display: flex;
+    gap: 2px;
+    border-bottom: 1px solid var(--ds-line);
+    background: transparent;
+    padding: 0;
+}
+html[data-ui="v10"] .ds-tab,
+html[data-ui="v10"] .bt-tab,
+html[data-ui="v10"] .gs-tab-btn {
+    height: 36px;
+    padding: 0 12px;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    color: var(--ds-text-3);
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    margin-bottom: -1px;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+}
+html[data-ui="v10"] .ds-tab:hover,
+html[data-ui="v10"] .bt-tab:hover,
+html[data-ui="v10"] .gs-tab-btn:hover { color: var(--ds-text) !important; background: transparent !important; }
+html[data-ui="v10"] .ds-tab[aria-selected="true"],
+html[data-ui="v10"] .ds-tab.active,
+html[data-ui="v10"] .bt-tab.active,
+html[data-ui="v10"] .gs-tab-btn.active {
+    color: var(--ds-text) !important;
+    border-bottom-color: var(--ds-amber) !important;
+    font-weight: 600;
+}
+
+/* ── modal / popover ─────────────────────────────────────────────────── */
+html[data-ui="v10"] .modal-overlay {
+    background: var(--ds-overlay);
+    backdrop-filter: blur(2px);
+}
+html[data-ui="v10"] .modal-content {
+    background: var(--ds-surface-1);
+    color: var(--ds-text);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-pop);
+    box-shadow: var(--ds-shadow-pop);
+}
+html[data-ui="v10"] .modal-header {
+    background: transparent;
+    border-bottom: 1px solid var(--ds-line);
+    color: var(--ds-text);
+    padding: var(--ds-4) var(--ds-5);
+}
+html[data-ui="v10"] .modal-header h3 { font-size: var(--ds-fs-16); }
+html[data-ui="v10"] .modal-body { padding: var(--ds-5); color: var(--ds-text-2); }
+
+html[data-ui="v10"] .tooltip-text {
+    background: var(--ds-surface-3);
+    color: var(--ds-text);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    box-shadow: var(--ds-shadow-pop);
+    font-size: var(--ds-fs-12);
+}
+
+/* ── states ──────────────────────────────────────────────────────────── */
+html[data-ui="v10"] .ds-empty,
+html[data-ui="v10"] .placeholder-text,
+html[data-ui="v10"] .bt-placeholder {
+    padding: var(--ds-6) var(--ds-4);
+    text-align: center;
+    color: var(--ds-text-3);
+    font-size: var(--ds-fs-13);
+    background: transparent;
+    border: 1px dashed var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+
+html[data-ui="v10"] .progress-bar-premium,
+html[data-ui="v10"] .kpi-mini-bar {
+    background: var(--ds-surface-3);
+    border-radius: 2px;
+    box-shadow: none;
+}
+html[data-ui="v10"] .progress-fill,
+html[data-ui="v10"] .kpi-mini-bar-fill { background: var(--ds-amber); border-radius: 2px; }
+
+html[data-ui="v10"] .live-indicator { color: var(--ds-pos); }
+
+html[data-ui="v10"] #offline-banner {
+    background: var(--ds-neg-soft) !important;
+    color: var(--ds-neg) !important;
+    border-bottom: 1px solid var(--ds-neg-line) !important;
+    font-weight: 600 !important;
+    font-size: var(--ds-fs-13);
+}
+
+/* Toasts are created in JS with inline colours; normalise the container. */
+html[data-ui="v10"] .toast,
+html[data-ui="v10"] .app-toast {
+    background: var(--ds-surface-3) !important;
+    color: var(--ds-text) !important;
+    border: 1px solid var(--ds-line-strong) !important;
+    border-radius: var(--ds-r-control) !important;
+    box-shadow: var(--ds-shadow-pop) !important;
+    font-size: var(--ds-fs-13);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html[data-ui="v10"] *,
+    html[data-ui="v10"] *::before,
+    html[data-ui="v10"] *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ── toast (built in app.js with inline colours; the type is read from them) ── */
+html[data-ui="v10"] #scanner-toast {
+    /* bottom right: at the top it covered the page-head actions */
+    top: auto !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    padding: 10px 14px 10px 12px !important;
+    border-radius: var(--ds-r-control) !important;
+    background: var(--ds-surface-3) !important;
+    color: var(--ds-text) !important;
+    border: 1px solid var(--ds-line-strong);
+    border-left: 3px solid var(--ds-info);
+    box-shadow: var(--ds-shadow-pop) !important;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13) !important;
+    font-weight: 500 !important;
+    animation: none !important;
+}
+html[data-ui="v10"] #scanner-toast[style*="#10b981"] { border-left-color: var(--ds-pos); }
+html[data-ui="v10"] #scanner-toast[style*="#ef4444"] { border-left-color: var(--ds-neg); }
+html[data-ui="v10"] #scanner-toast[style*="#f59e0b"] { border-left-color: var(--ds-warn); }
+
+/* ── dialogs shared by all views ─────────────────────────────────────── */
+html[data-ui="v10"] .btn-close-modal {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: var(--ds-r-control);
+    color: var(--ds-text-3);
+    cursor: pointer;
+}
+html[data-ui="v10"] .btn-close-modal:hover { background: var(--ds-surface-3); color: var(--ds-text); }
+html[data-ui="v10"] .premium-modal { background: var(--ds-surface-1); }
+html[data-ui="v10"] .modal-header h3 i { color: var(--ds-text-3) !important; margin-right: 8px; }
+html[data-ui="v10"] .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--ds-2);
+    padding: var(--ds-3) var(--ds-5);
+    border-top: 1px solid var(--ds-line);
+    background: transparent;
+}
+
+/* ── page footer ─────────────────────────────────────────────────────── */
+html[data-ui="v10"] body > footer {
+    padding: var(--ds-4) var(--ds-6) !important;
+    text-align: left !important;
+    font-size: var(--ds-fs-12) !important;
+    color: var(--ds-text-3) !important;
+    background: transparent !important;
+    border-top: 1px solid var(--ds-line) !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px var(--ds-4);
+}
+html[data-ui="v10"] body > footer p { margin: 0 !important; color: var(--ds-text-3); }
+html[data-ui="v10"] body > footer strong { color: var(--ds-text-2) !important; font-weight: 600; }
+
+/* ── skeleton placeholders ───────────────────────────────────────────── */
+html[data-ui="v10"] .skeleton,
+html[data-ui="v10"] .skeleton-line,
+html[data-ui="v10"] .skeleton-text,
+html[data-ui="v10"] .skeleton-badge,
+html[data-ui="v10"] .skeleton-circle {
+    background-image: none;
+    background-color: var(--ds-surface-3);
+    animation: none;
+}
+html[data-ui="v10"] .skeleton-card,
+html[data-ui="v10"] .skeleton-row,
+html[data-ui="v10"] .skeleton-hotlist-card,
+html[data-ui="v10"] .skeleton-news-card,
+html[data-ui="v10"] .skeleton-premarket-card,
+html[data-ui="v10"] .skeleton-scanner-row {
+    background: var(--ds-surface-1);
+    border-color: var(--ds-line);
+    box-shadow: none;
+}
+
+/* ── shared status badges and empty states (skeleton_utils.js) ───────── */
+html[data-ui="v10"] .freshness-badge,
+html[data-ui="v10"] .data-quality-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 20px;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] .freshness-badge--good,
+html[data-ui="v10"] .data-quality-badge--verified { background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos); }
+html[data-ui="v10"] .freshness-badge--warn,
+html[data-ui="v10"] .freshness-badge--stale,
+html[data-ui="v10"] .data-quality-badge--stale,
+html[data-ui="v10"] .data-quality-badge--estimated { background: var(--ds-warn-soft); border-color: var(--ds-warn-line); color: var(--ds-warn); }
+html[data-ui="v10"] .data-quality-badge--unavailable { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+html[data-ui="v10"] .empty-state {
+    padding: var(--ds-8) var(--ds-4);
+    text-align: center;
+    color: var(--ds-text-3);
+    background: transparent;
+    border: 1px dashed var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] .empty-state__icon { color: var(--ds-text-disabled); font-size: 1.25rem; margin-bottom: var(--ds-2); }
+html[data-ui="v10"] .empty-state__title { color: var(--ds-text); font-size: var(--ds-fs-14); font-weight: 600; }
+html[data-ui="v10"] .empty-state__subtitle { color: var(--ds-text-3); font-size: var(--ds-fs-13); }
+html[data-ui="v10"] .ms-loading-overlay { background: var(--ds-overlay); color: var(--ds-text); }
+
+/* A legacy sheet pins every .btn-mini to 32px wide, which crushes text buttons. */
+html[data-ui="v10"] .btn-mini { width: auto; min-width: max-content; }
+
+/* ── agent status header (UI.renderAgentStatusHeader; used by several views) ──
+   Baseline only: a view skin may lay it out differently under its own id. */
+html[data-ui="v10"] .agent-status-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-2) var(--ds-3);
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--ds-text-3);
+    font-size: var(--ds-fs-12);
+}
+html[data-ui="v10"] .agent-badge {
+    position: relative;
+    min-width: 0;
+    display: inline-block;
+    flex: 0 0 auto;
+    height: 20px;
+    margin: 0;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    border: 1px solid var(--ds-pos-line);
+    border-radius: var(--ds-r-chip);
+    background: var(--ds-pos-soft);
+    color: var(--ds-pos);
+    box-shadow: none;
+    animation: none;
+}
+html[data-ui="v10"] .agent-badge--degraded { background: var(--ds-warn-soft); border-color: var(--ds-warn-line); color: var(--ds-warn); }
+html[data-ui="v10"] .agent-badge--error { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+html[data-ui="v10"] .agent-badge--paused { background: var(--ds-surface-3); border-color: var(--ds-line-strong); color: var(--ds-text-3); }
+html[data-ui="v10"] .agent-status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0;
+}
+html[data-ui="v10"] .agent-status-chip b { font-weight: 500; color: var(--ds-text-2); }
+html[data-ui="v10"] .agent-status-chip--warning,
+html[data-ui="v10"] .agent-status-chip--warning b { color: var(--ds-warn); }
+html[data-ui="v10"] .agent-status-details-body {
+    background: var(--ds-surface-2);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    box-shadow: var(--ds-shadow-pop);
+    color: var(--ds-text-2);
+    font-size: var(--ds-fs-12);
+}
+
+/* A legacy sheet styles every <footer> (white, !important), including dialog
+   footers. Only the page footer is a page footer. */
+html[data-ui="v10"] .modal-content footer,
+html[data-ui="v10"] dialog footer,
+html[data-ui="v10"] [role="dialog"] footer {
+    background: transparent !important;
+    color: inherit !important;
+    text-align: right !important;
+    padding: var(--ds-3) var(--ds-5) !important;
+    border-top: 1px solid var(--ds-line) !important;
+}

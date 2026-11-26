@@ -1,0 +1,276 @@
+/* 
+ * Notebook / Strategy Journal Styles
+ * Glassmorphism & Professional Trade Logging
+ */
+
+.notebook-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* === NOTEBOOK HEADER / COMPOSE AREA === */
+.notebook-compose {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.compose-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.notebook-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.notebook-form-full {
+    grid-column: 1 / -1;
+}
+
+/* === OUTCOME BUTTONS === */
+.note-outcome-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.note-outcome-btn {
+    border: 1px solid var(--border-light);
+    background: var(--surface-alt);
+    color: var(--text-secondary);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.note-outcome-btn.active {
+    color: #fff;
+    border-color: transparent;
+}
+
+.note-outcome-btn.win.active {
+    background: var(--success-color);
+}
+
+.note-outcome-btn.loss.active {
+    background: var(--danger-color);
+}
+
+.note-outcome-btn.pending.active {
+    background: #64748b;
+}
+
+/* === NOTEBOOK CARDS === */
+.notebook-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.notebook-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    border-left: 5px solid var(--text-secondary);
+}
+
+.notebook-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-color);
+}
+
+/* Card Type Variants */
+.notebook-card--long {
+    border-left-color: var(--success-color);
+}
+
+.notebook-card--short {
+    border-left-color: var(--danger-color);
+}
+
+.notebook-card--note {
+    border-left-color: var(--accent-color);
+}
+
+.card-top {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.notebook-card--long .card-icon {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+}
+
+.notebook-card--short .card-icon {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+.notebook-card--note .card-icon {
+    background: rgba(201, 162, 39, 0.1);
+    color: var(--accent-color);
+}
+
+.card-info {
+    flex: 1;
+}
+
+.card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.card-main-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.card-date {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.card-metrics {
+    display: flex;
+    gap: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.metric-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.metric-item strong {
+    color: var(--text-primary);
+}
+
+/* Status Badges */
+.badge-outcome {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.badge-win {
+    background: var(--green-bg);
+    color: var(--green-trend);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badge-loss {
+    background: var(--red-bg);
+    color: var(--red-trend);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.badge-earnings {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Card Body / Expansion */
+.card-details {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.notebook-card.expanded .card-details {
+    padding: 16px 20px 20px;
+    max-height: 1000px;
+    border-top: 1px solid var(--border-light);
+}
+
+.card-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    font-family: var(--font-family);
+}
+
+.card-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-card-action {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-card-action:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--primary-color);
+}
+
+.btn-delete:hover {
+    background: var(--red-bg);
+    color: var(--red-trend);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .notebook-form {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-lg {
+        max-width: 95vw !important;
+    }
+}

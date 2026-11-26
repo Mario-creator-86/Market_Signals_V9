@@ -1,0 +1,56 @@
+{
+  "version": "single-plan-2026-09-06",
+  "status": "PROPOSAL_NOT_IMPLEMENTED",
+  "billing_interval": "month",
+  "prices_decided": true,
+  "limits_status": "UNSET_PENDING_S02_BENCHMARK_NOT_UNLIMITED",
+  "currency": "usd",
+  "trial_policy": "Propunere: demo fără cont; evaluare 7 zile fără card, activată numai după validarea costurilor și anti-abuz",
+  "plans": [
+    {
+      "code": "complete",
+      "name": "Market Signals",
+      "value_proposition": "Înțelege ce s-a schimbat, verifică dovezile și testează scenariile într-un singur loc.",
+      "monthly_price_minor": 1000,
+      "stripe_product_id": null,
+      "stripe_price_id": null,
+      "limits": {
+        "watchlist_symbols": null,
+        "active_alerts": null,
+        "paper_portfolios": null,
+        "personal_ai_credits_per_billing_period": null,
+        "backtest_compute_credits_per_billing_period": null,
+        "concurrent_jobs": null
+      },
+      "features": {
+        "market_overview": true,
+        "news_and_calendar": true,
+        "source_and_freshness": true,
+        "paper_trading": true,
+        "basic_backtest": true,
+        "advanced_scanner": true,
+        "trade_radar": true,
+        "premarket_and_preearnings_workspace": true,
+        "walk_forward_oos": true,
+        "research_factory_sandbox": true,
+        "data_export_licensed_only": true,
+        "operator_controls": false,
+        "real_money_execution": false,
+        "explainable_opportunity_cards": true,
+        "unified_symbol_workspace": true,
+        "decision_journal": true,
+        "symbol_comparison": true,
+        "personalized_digest": true,
+        "dedicated_pre_earnings_workspace": true,
+        "multi_agent_analysis": true,
+        "personal_paper_automation": true,
+        "personal_risk_policy": true,
+        "decision_ledger": true
+      }
+    }
+  ],
+  "pricing_decision_source": "Instrucțiunea proprietarului: toate funcțiile, 10 USD/lună",
+  "tax_behavior_proposal": "inclusive",
+  "tax_policy_status": "VERIFY_BEFORE_LIVE",
+  "automatic_overage": false
+}

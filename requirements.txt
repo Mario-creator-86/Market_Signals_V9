@@ -1,0 +1,43 @@
+# Market Signals V7 - Production Dependencies
+# Pinned to the versions validated on the production host (2026-07-31).
+# Test/dev dependencies live in requirements-dev.txt.
+
+# Web Framework
+fastapi==0.135.1
+uvicorn[standard]==0.41.0
+
+# Data & Analysis
+pandas==2.3.3  # mlflow 3.15.1 requires pandas<3; 2.3.3 is the version validated by the full test suite
+numpy==2.4.2
+yfinance==1.2.1
+curl-cffi==0.15.0  # security pin for yfinance transport
+lxml==6.1.1  # required by yfinance for HTML parsing (earnings_dates, fundamentals)
+requests==2.34.2
+feedparser==6.0.12
+
+# Financial text + SEC EDGAR (Phase 10)
+edgartools==5.48.0
+transformers==5.15.0
+torch==2.13.0
+
+# Technical Analysis
+ta==0.11.0
+
+# Timezone
+pytz==2026.1.post1
+
+# Pydantic for data validation
+pydantic==2.12.5
+
+# Environment & Secrets
+python-dotenv==1.2.2
+
+# Async file/HTTP support
+aiofiles==25.1.0
+httpx==0.28.1
+
+# Phase 14 Research Factory — bounded persisted hyperparameter studies (MIT)
+optuna==4.9.0
+
+# Phase ML — experiment tracking + managed tracking server (Apache 2.0)
+mlflow==3.15.1

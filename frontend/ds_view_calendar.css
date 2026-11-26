@@ -1,0 +1,1039 @@
+/* MarketMuse UI v10 - view skin: calendar + alerts. Loaded after ds_core.css.
+ *
+ * Owns: #view-calendar, #calendar-modal (day list), #cal-event-modal (event
+ * detail), #view-alerts, #modal-add-alert.
+ *
+ * Calendar colour key: economic = info dot, earnings = neutral dot,
+ * watchlist = amber star, IPO = hollow dot (muted while no feed exists).
+ */
+
+/* ═══ Calendar: page head ═══════════════════════════════════════════════ */
+/* Actions sit on the baseline of the sentence, as in every other page head. */
+html[data-ui="v10"] #view-calendar .calendar-page-header {
+    align-items: flex-end;
+}
+html[data-ui="v10"] #view-calendar .calendar-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    flex: none;
+}
+html[data-ui="v10"] #view-calendar .calendar-controls > button {
+    position: relative;
+    height: 32px;
+    margin: 0 0 0 -1px;
+    padding: 0 12px;
+    border: 1px solid var(--ds-line-strong);
+    border-radius: 0;
+    background: var(--ds-surface-2);
+    color: var(--ds-text);
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    box-shadow: none;
+    transition: background var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-calendar .calendar-controls > .btn-icon-small {
+    width: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ds-text-2);
+    font-size: var(--ds-fs-12);
+}
+html[data-ui="v10"] #view-calendar .calendar-controls > button:first-child {
+    margin-left: 0;
+    border-radius: var(--ds-r-control) 0 0 var(--ds-r-control);
+}
+html[data-ui="v10"] #view-calendar .calendar-controls > button:last-child {
+    border-radius: 0 var(--ds-r-control) var(--ds-r-control) 0;
+}
+html[data-ui="v10"] #view-calendar .calendar-controls > button:hover {
+    background: var(--ds-surface-3);
+    color: var(--ds-text);
+    z-index: 1;
+}
+html[data-ui="v10"] #view-calendar .calendar-controls > button:focus-visible {
+    z-index: 2;
+}
+
+/* ═══ Calendar: colour key + coverage status ════════════════════════════ */
+html[data-ui="v10"] #view-calendar .cal-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-2);
+    margin-bottom: var(--ds-3);
+}
+html[data-ui="v10"] #view-calendar .calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-1) var(--ds-4);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-calendar .calendar-legend > span,
+html[data-ui="v10"] #view-calendar .calendar-legend > span:hover {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+    transition: none;
+    cursor: default;
+}
+html[data-ui="v10"] #view-calendar .calendar-legend > span.is-unavailable {
+    color: var(--ds-text-3);
+}
+
+html[data-ui="v10"] #view-calendar .dot-indicator,
+html[data-ui="v10"] #view-calendar .calendar-legend > span:hover .dot-indicator,
+html[data-ui="v10"] #calendar-modal .dot-indicator {
+    width: 6px;
+    height: 6px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--ds-line-strong);
+    color: inherit;
+    box-shadow: none;
+    transform: none;
+    transition: none;
+}
+html[data-ui="v10"] #view-calendar .dot-indicator.economic,
+html[data-ui="v10"] #view-calendar .calendar-legend > span:hover .dot-indicator.economic,
+html[data-ui="v10"] #calendar-modal .dot-indicator.economic {
+    background: var(--ds-info);
+}
+html[data-ui="v10"] #view-calendar .dot-indicator.ipo,
+html[data-ui="v10"] #view-calendar .calendar-legend > span:hover .dot-indicator.ipo,
+html[data-ui="v10"] #calendar-modal .dot-indicator.ipo {
+    background: transparent;
+    border: 1px solid var(--ds-text-3);
+}
+html[data-ui="v10"] #view-calendar .cal-star,
+html[data-ui="v10"] #calendar-modal .cal-star,
+html[data-ui="v10"] #cal-event-modal .cal-star {
+    flex: none;
+    color: var(--ds-amber);
+    font-family: var(--ds-font);
+    font-size: 0.85em;
+    line-height: 1;
+}
+
+html[data-ui="v10"] #view-calendar .cal-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px var(--ds-3);
+    margin: 0;
+}
+html[data-ui="v10"] #view-calendar .cal-status:empty { display: none; }
+html[data-ui="v10"] #view-calendar .cal-status-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    max-width: 100%;
+    padding: 3px 0;
+    border: 1px solid transparent;
+    border-radius: var(--ds-r-chip);
+    background: transparent;
+    font-size: var(--ds-fs-12);
+    line-height: 1.4;
+    color: var(--ds-text-3);
+}
+/* Information is plain text; only a real gap in the data gets a chip. */
+html[data-ui="v10"] #view-calendar .cal-status-item i { display: none; }
+html[data-ui="v10"] #view-calendar .cal-status-item--warn {
+    padding: 3px 8px;
+    border-color: var(--ds-warn-line);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-calendar .cal-status-item--warn i {
+    display: inline;
+    flex: none;
+    font-size: var(--ds-fs-11);
+    color: var(--ds-warn);
+}
+
+/* ═══ Calendar: month grids ═════════════════════════════════════════════ */
+html[data-ui="v10"] #view-calendar .calendar-grid-container {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+}
+html[data-ui="v10"] #view-calendar .calendar-months-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-4);
+    height: auto;
+    padding: 0;
+    overflow: visible;
+}
+html[data-ui="v10"] #view-calendar .calendar-month-section {
+    display: block;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-calendar .month-section-title {
+    position: static;
+    padding: 10px var(--ds-3);
+    text-align: left;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+    background: transparent;
+    border-bottom: 1px solid var(--ds-line);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-calendar .calendar-week-header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.6fr) repeat(5, minmax(0, 1fr)) minmax(0, 0.6fr);
+    padding: 0;
+    background: var(--ds-surface-2);
+    border-bottom: 1px solid var(--ds-line);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-calendar .calendar-week-header-inner div {
+    margin: 0;
+    padding: 6px var(--ds-2);
+    text-align: left;
+}
+html[data-ui="v10"] #view-calendar .calendar-month-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.6fr) repeat(5, minmax(0, 1fr)) minmax(0, 0.6fr);
+    grid-auto-rows: minmax(104px, auto);
+    gap: 0;
+    margin: 0 -1px -1px 0;
+    background: transparent;
+    border: 0;
+}
+html[data-ui="v10"] #view-calendar .calendar-day-cell,
+html[data-ui="v10"] #view-calendar .calendar-day-cell:hover {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    min-height: 0;
+    padding: 6px 4px 6px;
+    /* !important: a cached copy of the legacy sheet still pins cells to white */
+    background: transparent !important;
+    border: 0;
+    border-right: 1px solid var(--ds-line);
+    border-bottom: 1px solid var(--ds-line);
+    box-shadow: none;
+    transition: none;
+}
+/* Sunday and Saturday columns, and the days that belong to a neighbouring month */
+html[data-ui="v10"] #view-calendar .calendar-day-cell:nth-child(7n+1),
+html[data-ui="v10"] #view-calendar .calendar-day-cell:nth-child(7n),
+html[data-ui="v10"] #view-calendar .calendar-day-cell.other-month {
+    background: var(--ds-canvas) !important;
+}
+
+html[data-ui="v10"] #view-calendar .day-number {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 6px;
+    min-height: 18px;
+    margin: 0;
+    padding: 0 var(--ds-1);
+    opacity: 1;
+}
+html[data-ui="v10"] #view-calendar .day-number span {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-calendar .calendar-day-cell.past .day-number span { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-calendar .calendar-day-cell.other-month .day-number span { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-calendar .calendar-day-cell.today .day-number > span:first-child {
+    color: var(--ds-amber);
+    font-weight: 600;
+}
+/* The markup says "TODAY" (asserted by tests); shown in sentence case. */
+html[data-ui="v10"] #view-calendar .day-number .cal-today-tag {
+    height: 16px;
+    padding: 0 5px;
+    border: 1px solid var(--ds-amber-line);
+    border-radius: var(--ds-r-chip);
+    background: transparent;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 14px;
+    color: var(--ds-amber);
+    text-transform: lowercase;
+}
+html[data-ui="v10"] #view-calendar .day-number .cal-today-tag::first-letter { text-transform: uppercase; }
+
+html[data-ui="v10"] #view-calendar .cal-daily-events {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+    opacity: 1;
+}
+html[data-ui="v10"] #view-calendar .cal-event-pill,
+html[data-ui="v10"] #view-calendar .cal-event-pill.watchlist-highlight {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+    height: 24px;
+    margin: 0;
+    padding: 0 var(--ds-1);
+    border: 0 !important;
+    border-radius: var(--ds-r-chip);
+    background: transparent !important;
+    box-shadow: none;
+    transform: none;
+    transition: background var(--ds-fast) var(--ds-ease);
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: left;
+    white-space: nowrap;
+    color: var(--ds-text);
+    cursor: pointer;
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-calendar .cal-event-pill:hover,
+html[data-ui="v10"] #view-calendar .cal-event-pill.watchlist-highlight:hover {
+    background: var(--ds-surface-3) !important;
+    box-shadow: none;
+    transform: none;
+}
+html[data-ui="v10"] #view-calendar .cal-event-pill .cal-pill-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+html[data-ui="v10"] #view-calendar .cal-event-pill.economic {
+    font-family: var(--ds-font);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-calendar .cal-event-pill.economic.high-impact {
+    color: var(--ds-text);
+    font-weight: 500;
+}
+html[data-ui="v10"] #view-calendar .cal-event-pill.watchlist-highlight { font-weight: 600; }
+html[data-ui="v10"] #view-calendar .calendar-day-cell.past .cal-event-pill { color: var(--ds-text-3); }
+
+html[data-ui="v10"] #view-calendar .cal-more-events {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    margin: 0;
+    padding: 0 var(--ds-1);
+    border: 0;
+    border-radius: var(--ds-r-chip);
+    background: transparent;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    text-align: left;
+    color: var(--ds-text-3);
+    cursor: pointer;
+}
+html[data-ui="v10"] #view-calendar .cal-more-events:hover {
+    color: var(--ds-text);
+    text-decoration: underline;
+}
+
+/* Loading / empty / error text (grid and day list) */
+html[data-ui="v10"] #view-calendar .cal-state,
+html[data-ui="v10"] #calendar-modal .cal-state {
+    padding: var(--ds-8) var(--ds-4);
+    text-align: center;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-calendar .calendar-months-wrapper > .cal-state {
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-calendar .cal-state strong,
+html[data-ui="v10"] #calendar-modal .cal-state strong {
+    display: block;
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-calendar .cal-state--error strong,
+html[data-ui="v10"] #calendar-modal .cal-state--error strong { color: var(--ds-neg); }
+html[data-ui="v10"] #view-calendar .cal-state p,
+html[data-ui="v10"] #calendar-modal .cal-state p {
+    margin: var(--ds-1) 0 0;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-calendar .cal-state button,
+html[data-ui="v10"] #calendar-modal .cal-state button { margin-top: var(--ds-3); }
+
+/* Phones: each month becomes an agenda of the days that have something. */
+@media (max-width: 768px) {
+    html[data-ui="v10"] #view-calendar .calendar-page-header {
+        flex-direction: row;
+        align-items: flex-end;
+    }
+    html[data-ui="v10"] #view-calendar .calendar-week-header-inner { display: none; }
+    html[data-ui="v10"] #view-calendar .calendar-month-grid {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 -1px;
+    }
+    html[data-ui="v10"] #view-calendar .calendar-day-cell,
+    html[data-ui="v10"] #view-calendar .calendar-day-cell:hover {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--ds-2);
+        padding: var(--ds-2) var(--ds-3);
+        border-right: 0;
+    }
+    html[data-ui="v10"] #view-calendar .calendar-day-cell:nth-child(7n+1),
+    html[data-ui="v10"] #view-calendar .calendar-day-cell:nth-child(7n) { background: transparent !important; }
+    html[data-ui="v10"] #view-calendar .calendar-day-cell.other-month,
+    html[data-ui="v10"] #view-calendar .calendar-day-cell:not(.today):not(:has(.cal-event-pill)) { display: none; }
+    html[data-ui="v10"] #view-calendar .day-number {
+        flex: none;
+        flex-wrap: wrap;
+        width: 64px;
+        min-height: 24px;
+        padding: 0;
+    }
+    html[data-ui="v10"] #view-calendar .day-number::before {
+        content: attr(data-dow);
+        font-family: var(--ds-font-tight);
+        font-size: var(--ds-fs-12);
+        font-weight: 600;
+        color: var(--ds-text-3);
+    }
+    html[data-ui="v10"] #view-calendar .cal-daily-events { flex: 1 1 auto; }
+}
+
+/* ═══ Day list dialog (#calendar-modal) ═════════════════════════════════ */
+html[data-ui="v10"] #calendar-modal .modal-content {
+    width: min(720px, calc(100vw - 32px));
+    max-width: none;
+    max-height: min(86vh, 860px);
+    display: flex;
+    flex-direction: column;
+}
+html[data-ui="v10"] #calendar-modal .modal-header { flex: none; }
+html[data-ui="v10"] #calendar-modal .modal-header h3 { min-width: 0; }
+html[data-ui="v10"] #calendar-modal .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+html[data-ui="v10"] #calendar-modal .cal-list-filters {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: var(--ds-3) var(--ds-5);
+    background: var(--ds-surface-1);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #calendar-modal .cal-list-filters .filter-chip {
+    gap: 6px;
+    transition: none;
+}
+html[data-ui="v10"] #calendar-modal .cal-list-filters .filter-chip.is-unavailable:not(.active) {
+    border-style: dashed;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #calendar-modal .cal-fed {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2px var(--ds-3);
+    align-items: baseline;
+    margin: var(--ds-3) var(--ds-5) 0;
+    padding: 10px var(--ds-3);
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control);
+}
+html[data-ui="v10"] #calendar-modal .cal-fed-label {
+    grid-column: 1 / -1;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #calendar-modal .cal-fed-date { font-size: var(--ds-fs-13); color: var(--ds-text); }
+html[data-ui="v10"] #calendar-modal .cal-fed-when {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-2);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #calendar-modal .cal-list-date {
+    padding: var(--ds-2) var(--ds-5);
+    margin-top: var(--ds-3);
+    background: var(--ds-surface-2);
+    border-top: 1px solid var(--ds-line);
+    border-bottom: 1px solid var(--ds-line);
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #calendar-modal .cal-list-date.is-today { color: var(--ds-amber); }
+html[data-ui="v10"] #calendar-modal .cal-list-group {
+    padding: var(--ds-3) var(--ds-5) var(--ds-1);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #calendar-modal .cal-row {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: var(--ds-3);
+    padding: var(--ds-2) var(--ds-5);
+    border-bottom: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-time {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-time-sub {
+    font-size: var(--ds-fs-11);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-main { min-width: 0; }
+html[data-ui="v10"] #calendar-modal .cal-row-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ds-2);
+    min-width: 0;
+}
+html[data-ui="v10"] #calendar-modal .cal-row-head h4 {
+    flex: none;
+    max-width: 100%;
+    margin: 0;
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #calendar-modal .cal-row--economic .cal-row-head { flex-wrap: wrap; }
+html[data-ui="v10"] #calendar-modal .cal-row--economic .cal-row-head h4 { flex: 1 1 0; min-width: 0; }
+html[data-ui="v10"] #calendar-modal .cal-row--economic .cal-row-name {
+    order: 3;
+    flex: 0 0 100%;
+    white-space: normal;
+    font-size: var(--ds-fs-12);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-tag {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    margin-left: auto;
+    padding: 0 7px;
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-chip);
+    background: var(--ds-surface-3);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-tag--high {
+    background: var(--ds-warn-soft);
+    border-color: var(--ds-warn-line);
+    color: var(--ds-warn);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--ds-3);
+    margin-top: 2px;
+    font-size: var(--ds-fs-12);
+    line-height: 18px;
+    color: var(--ds-text-3);
+    opacity: 1;
+}
+html[data-ui="v10"] #calendar-modal .cal-row-meta strong {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #calendar-modal .cal-row-caveat { color: var(--ds-text-2); }
+html[data-ui="v10"] #calendar-modal .cal-row-actual strong { color: var(--ds-text); }
+html[data-ui="v10"] #calendar-modal .cal-list-more {
+    padding: var(--ds-4) var(--ds-5) var(--ds-5);
+    text-align: center;
+}
+html[data-ui="v10"] #calendar-modal .cal-list-more p {
+    margin: 0 0 var(--ds-2);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+@media (max-width: 520px) {
+    html[data-ui="v10"] #calendar-modal .cal-list-filters,
+    html[data-ui="v10"] #calendar-modal .cal-list-date,
+    html[data-ui="v10"] #calendar-modal .cal-list-group,
+    html[data-ui="v10"] #calendar-modal .cal-row { padding-left: var(--ds-3); padding-right: var(--ds-3); }
+    html[data-ui="v10"] #calendar-modal .cal-row { grid-template-columns: 60px minmax(0, 1fr); gap: var(--ds-2); }
+    html[data-ui="v10"] #calendar-modal .cal-row--earnings .cal-row-head { flex-wrap: wrap; }
+    html[data-ui="v10"] #calendar-modal .cal-row--earnings .cal-row-name { flex-basis: 100%; }
+}
+
+/* ═══ Event detail dialog (#cal-event-modal) ════════════════════════════ */
+html[data-ui="v10"] #cal-event-modal .modal-content {
+    width: min(480px, calc(100vw - 32px));
+    max-width: none;
+}
+html[data-ui="v10"] #cal-event-modal .modal-header {
+    align-items: flex-start;
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #cal-event-modal .cal-event-head { min-width: 0; }
+html[data-ui="v10"] #cal-event-modal .cal-event-head h3 {
+    font-size: var(--ds-fs-16);
+    overflow-wrap: anywhere;
+}
+html[data-ui="v10"] #cal-event-modal .cal-event-sub {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-1) var(--ds-2);
+    margin-top: 6px;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #cal-event-modal .modal-event-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    margin: 0;
+    padding: 0 7px;
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-chip);
+    background: var(--ds-surface-3);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    white-space: nowrap;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #cal-event-modal .modal-event-badge.economic {
+    background: var(--ds-info-soft);
+    border-color: var(--ds-info-line);
+    color: var(--ds-info);
+}
+html[data-ui="v10"] #cal-event-modal .modal-body { padding-top: var(--ds-2); }
+html[data-ui="v10"] #cal-event-modal .modal-data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--ds-4);
+}
+html[data-ui="v10"] #cal-event-modal .modal-stat-box {
+    min-width: 0;
+    padding: 10px 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+}
+html[data-ui="v10"] #cal-event-modal .modal-stat-box--wide { grid-column: 1 / -1; }
+html[data-ui="v10"] #cal-event-modal .modal-stat-label {
+    margin-bottom: 2px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #cal-event-modal .modal-stat-value {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-14);
+    font-weight: 500;
+    color: var(--ds-text);
+    overflow-wrap: anywhere;
+}
+html[data-ui="v10"] #cal-event-modal .modal-stat-value--text {
+    font-family: var(--ds-font);
+    font-weight: 400;
+}
+html[data-ui="v10"] #cal-event-modal .modal-stat-value--high { color: var(--ds-warn); font-weight: 600; }
+html[data-ui="v10"] #cal-event-modal .modal-stat-value--impact { text-transform: capitalize; }
+html[data-ui="v10"] #cal-event-modal .modal-stat-value small {
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #cal-event-modal .modal-stat-value small.modal-stat-note--block {
+    display: block;
+    margin-top: 2px;
+}
+html[data-ui="v10"] #cal-event-modal .modal-footer-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-top: var(--ds-3);
+    padding: 0;
+    border: 0;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+
+/* ═══ Alerts: layout + table ════════════════════════════════════════════ */
+html[data-ui="v10"] #view-alerts .alerts-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: var(--ds-4);
+    align-items: start;
+}
+@media (max-width: 1180px) {
+    html[data-ui="v10"] #view-alerts .alerts-layout { grid-template-columns: minmax(0, 1fr); }
+}
+html[data-ui="v10"] #view-alerts .alerts-panel,
+html[data-ui="v10"] #view-alerts .tg-panel {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transform: none;
+}
+html[data-ui="v10"] #view-alerts .alerts-grid-view { min-height: 0; }
+html[data-ui="v10"] #view-alerts .premium-table-container {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow-x: auto;
+}
+/* Narrow screens: the table keeps its shape and scrolls inside the panel. */
+html[data-ui="v10"] #view-alerts .premium-table { min-width: 620px; font-size: var(--ds-fs-13); }
+html[data-ui="v10"] #view-alerts .premium-table th {
+    padding: var(--ds-2) var(--ds-4);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+    background: var(--ds-surface-2);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-alerts .premium-table td {
+    height: 44px;
+    padding: var(--ds-2) var(--ds-4);
+    border-bottom: 1px solid var(--ds-line-faint);
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-alerts .premium-table tbody tr:last-child td { border-bottom: 0; }
+html[data-ui="v10"] #view-alerts .premium-table tr:hover { background: transparent; }
+html[data-ui="v10"] #view-alerts .premium-table .alerts-ticker {
+    font-family: var(--ds-font-num);
+    font-weight: 600;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-alerts .premium-table .alerts-col-actions {
+    width: 1%;
+    text-align: right;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-alerts .alerts-actions {
+    display: inline-flex;
+    gap: var(--ds-1);
+}
+html[data-ui="v10"] #view-alerts .alert-act {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border-color: transparent;
+    color: var(--ds-text-3);
+    font-size: var(--ds-fs-14);
+}
+html[data-ui="v10"] #view-alerts .alert-act.is-on { color: var(--ds-text); }
+html[data-ui="v10"] #view-alerts .alert-act:hover {
+    background: var(--ds-surface-3);
+    border-color: transparent;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-alerts .alert-act--delete { font-size: var(--ds-fs-12); }
+html[data-ui="v10"] #view-alerts .alert-act--delete:hover {
+    background: var(--ds-neg-soft);
+    color: var(--ds-neg);
+}
+html[data-ui="v10"] #view-alerts .alert-status,
+html[data-ui="v10"] #view-alerts .tg-state {
+    display: inline-flex;
+    align-items: center;
+    min-height: 20px;
+    padding: 0 7px;
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-chip);
+    background: var(--ds-surface-3);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-alerts .alert-status { white-space: nowrap; }
+html[data-ui="v10"] #view-alerts .alert-status--active,
+html[data-ui="v10"] #view-alerts .tg-state--ok {
+    background: var(--ds-pos-soft);
+    border-color: var(--ds-pos-line);
+    color: var(--ds-pos);
+}
+html[data-ui="v10"] #view-alerts .alert-status--triggered {
+    background: var(--ds-info-soft);
+    border-color: var(--ds-info-line);
+    color: var(--ds-info);
+}
+html[data-ui="v10"] #view-alerts .tg-state--failing {
+    background: var(--ds-neg-soft);
+    border-color: var(--ds-neg-line);
+    color: var(--ds-neg);
+}
+html[data-ui="v10"] #view-alerts .tg-state--unverified {
+    background: var(--ds-warn-soft);
+    border-color: var(--ds-warn-line);
+    color: var(--ds-warn);
+}
+html[data-ui="v10"] #view-alerts .alert-status-sub {
+    display: inline;
+    margin: 0 0 0 var(--ds-2);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-alerts .alert-status-sub--triggered {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    color: var(--ds-text-2);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-alerts .alerts-state {
+    padding: var(--ds-10) var(--ds-4);
+    text-align: center;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-alerts .alerts-state strong {
+    display: block;
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-alerts .alerts-state--error strong { color: var(--ds-neg); }
+html[data-ui="v10"] #view-alerts .alerts-state p {
+    margin: var(--ds-1) 0 var(--ds-3);
+    color: var(--ds-text-3);
+}
+
+/* ═══ Alerts: Telegram delivery (settings form) ═════════════════════════ */
+html[data-ui="v10"] #view-alerts .tg-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--ds-2);
+    padding: var(--ds-3) var(--ds-4);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-alerts .tg-head h3 { font-size: var(--ds-fs-14); }
+html[data-ui="v10"] #view-alerts .tg-state {
+    max-width: 100%;
+    padding: 2px 7px;
+    overflow-wrap: anywhere;
+}
+html[data-ui="v10"] #view-alerts .tg-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-4);
+    padding: var(--ds-4);
+}
+html[data-ui="v10"] #view-alerts .tg-help {
+    margin: 0;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-alerts .tg-check {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    min-height: 28px;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    cursor: pointer;
+    user-select: none;
+}
+html[data-ui="v10"] #view-alerts .tg-check input {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+html[data-ui="v10"] #view-alerts .tg-check--main span { font-weight: 600; }
+html[data-ui="v10"] #view-alerts .tg-fields {
+    display: grid;
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #view-alerts .tg-field label,
+html[data-ui="v10"] #view-alerts .tg-events legend {
+    display: block;
+    margin-bottom: var(--ds-1);
+    padding: 0;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-alerts .tg-field input { width: 100%; }
+html[data-ui="v10"] #view-alerts #tg-token,
+html[data-ui="v10"] #view-alerts #tg-chat-id { font-family: var(--ds-font-num); }
+html[data-ui="v10"] #view-alerts #tg-token::placeholder,
+html[data-ui="v10"] #view-alerts #tg-chat-id::placeholder { font-family: var(--ds-font); }
+html[data-ui="v10"] #view-alerts .tg-events {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--ds-3);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+html[data-ui="v10"] #view-alerts .tg-events legend { grid-column: 1 / -1; }
+html[data-ui="v10"] #view-alerts .tg-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-2);
+}
+html[data-ui="v10"] #view-alerts .tg-status {
+    margin: calc(-1 * var(--ds-2)) 0 0;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-alerts .tg-status:empty { display: none; }
+
+/* ═══ Create alert dialog (#modal-add-alert) ════════════════════════════ */
+html[data-ui="v10"] #modal-add-alert .modal-content {
+    width: min(440px, calc(100vw - 32px));
+    max-width: none;
+}
+html[data-ui="v10"] #modal-add-alert .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-4);
+}
+html[data-ui="v10"] #modal-add-alert .form-group { margin: 0; }
+html[data-ui="v10"] #modal-add-alert .form-group input,
+html[data-ui="v10"] #modal-add-alert .form-group select { width: 100%; }
+html[data-ui="v10"] #modal-add-alert #alert-ticker,
+html[data-ui="v10"] #modal-add-alert #alert-target { font-family: var(--ds-font-num); }
+html[data-ui="v10"] #modal-add-alert #alert-ticker::placeholder,
+html[data-ui="v10"] #modal-add-alert #alert-target::placeholder { font-family: var(--ds-font); }
+html[data-ui="v10"] #modal-add-alert .alert-preview {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+
+/* ═══ Small shared fixes ════════════════════════════════════════════════ */
+/* Column headers stay in the label font, also over numeric columns. */
+html[data-ui="v10"] #view-alerts .premium-table th.num { font-family: var(--ds-font-tight); }
+/* Same quiet close button in all three dialogs of these views. */
+html[data-ui="v10"] #calendar-modal .modal-header .btn-icon,
+html[data-ui="v10"] #cal-event-modal .modal-header .btn-icon {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border-color: transparent;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #calendar-modal .modal-header .btn-icon:hover,
+html[data-ui="v10"] #cal-event-modal .modal-header .btn-icon:hover {
+    background: var(--ds-surface-3);
+    color: var(--ds-text);
+}
+
+/* ── visual QA pass ──────────────────────────────────────────────────── */
+/* Light theme: amber text on the amber-soft "today" fill is below 4.5:1. */
+html[data-ui="v10"][data-theme="light"] #view-calendar .calendar-day-cell.today .day-number > span:first-child,
+html[data-ui="v10"][data-theme="light"] #view-calendar .day-number .cal-today-tag,
+html[data-ui="v10"][data-theme="light"] #calendar-modal .cal-list-date.is-today { color: var(--ds-amber-press); }
+
+/* Alerts: one primary action per view ("Create alert"). The Telegram form's
+   save button carries .btn-primary in the markup; it is shown as a default button. */
+html[data-ui="v10"] #view-alerts #tg-save-btn {
+    background: var(--ds-surface-2);
+    border-color: var(--ds-line-strong);
+    color: var(--ds-text);
+    font-weight: 500;
+}
+html[data-ui="v10"] #view-alerts #tg-save-btn:hover {
+    background: var(--ds-surface-3);
+    border-color: var(--ds-text-3);
+    color: var(--ds-text);
+}

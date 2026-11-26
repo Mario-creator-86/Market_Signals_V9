@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  backend:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip==26.1.2
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-dev.txt
+
+      - name: Block vulnerable dependencies and generate runtime SBOM
+        run: python tools/supply_chain_check.py
+
+      - name: Compile production modules
+        run: python -m compileall -q api core agents
+
+      - name: Run backend quality gate
+        env:
+          TEST_MODE: "1"
+          MS_DISABLE_ENGINE_AUTOSTART: "1"
+          MS_DISABLE_WARMUP: "1"
+          MS_DISABLE_STATE_PREFETCH: "1"
+          MS_DISABLE_BG_WORKER: "1"
+        run: >
+          python -m pytest -q --tb=short
+          tests/unit tests/integration tests/contract tests/golden tests/perf
+          --junitxml=output/test-results/backend.junit.xml
+          --cov=api --cov=core --cov=agents
+          --cov-report=term-missing --cov-report=xml:output/coverage.xml
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: backend-quality-windows-py312
+          path: |
+            output/test-results/
+            output/coverage.xml
+            output/supply-chain/
+          retention-days: 14

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["as_of", "agents", "test_mode"],
+  "properties": {
+    "as_of": { "type": "string" },
+    "agents": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean" },
+          "last_run": { "type": ["string", "null"] },
+          "last_success": { "type": ["string", "null"] },
+          "last_error": { "type": ["string", "null"] },
+          "avg_duration_ms": { "type": ["number", "null"] },
+          "next_run_in": { "type": ["integer", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "test_mode": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["tickers", "signals", "stats"],
+  "properties": {
+    "tickers": { "type": "array" },
+    "signals": { "type": "array" },
+    "stats": { "type": "object" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["stocks", "crypto", "order", "hot_list", "settings"],
+  "properties": {
+    "stocks": { "type": "array", "items": { "type": "string" } },
+    "crypto": { "type": "array", "items": { "type": "string" } },
+    "order": { "type": "array", "items": { "type": "string" } },
+    "hot_list": { "type": "array", "items": { "type": "string" } },
+    "settings": { "type": "object" },
+    "scanner_exclusions": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,1135 @@
+/*
+ * MarketMuse UI v10 - view skin: premarket. Loaded after ds_core.css.
+ *
+ * Order on the page: page head (status, Refresh, quiet scan meta, Diagnostics)
+ * -> session strip -> stat strip -> AI panel -> toolbar -> grouped table with
+ * the details panel beside it. Cards and Stream are alternative layouts of the
+ * same list. Tokens only; every rule is scoped to #view-premarket.
+ */
+
+/* ── page head ───────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--ds-4);
+    row-gap: var(--ds-2);
+    align-items: end;
+    padding: 0 0 var(--ds-4);
+    margin: 0 0 var(--ds-3);
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line);
+    border-radius: 0;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .pm-head-copy { grid-column: 1; grid-row: 1 / span 2; min-width: 0; }
+html[data-ui="v10"] #view-premarket .pm-head-actions {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #view-premarket #premarket-refresh-btn i { font-size: var(--ds-fs-12); }
+
+/* Agent state: a chip and the current activity as plain text. The clockwork
+   facts of the shared Status popover are in the meta line and Diagnostics. */
+html[data-ui="v10"] #view-premarket .agent-status-header {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+}
+html[data-ui="v10"] #view-premarket .agent-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    min-width: 0;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .agent-badge--ok { background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos); }
+html[data-ui="v10"] #view-premarket .agent-badge--degraded { background: var(--ds-warn-soft); border-color: var(--ds-warn-line); color: var(--ds-warn); }
+html[data-ui="v10"] #view-premarket .agent-badge--error { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+/* Paused is the neutral chip of the shared recipe (ds_core), as on News and Pre-earnings. */
+html[data-ui="v10"] #view-premarket .agent-badge--paused { background: var(--ds-surface-3); border-color: var(--ds-line-strong); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .agent-status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .agent-status-chip i { display: none; }
+html[data-ui="v10"] #view-premarket .agent-status-chip b { color: var(--ds-text-2); font-weight: 500; }
+html[data-ui="v10"] #view-premarket .agent-status-chip--warning,
+html[data-ui="v10"] #view-premarket .agent-status-chip--warning b { color: var(--ds-warn); }
+html[data-ui="v10"] #view-premarket .agent-status-chip--reason {
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-premarket .agent-status-details { display: none; }
+
+/* Quiet meta line: #premarket-meta dissolves into the head grid so the line
+   sits under the actions and the Diagnostics panel spans the full width. */
+html[data-ui="v10"] #view-premarket #premarket-meta {
+    display: contents;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-statusbar {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--ds-1) var(--ds-3);
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-statusbar-item {
+    display: inline;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-statusbar-item b {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-diagnostics {
+    margin: 0 0 0 calc(var(--ds-1) * -1);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-diagnostics i { font-size: 9px; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .premarket-diagnostics[aria-expanded="true"] i { transform: rotate(180deg); }
+html[data-ui="v10"] #view-premarket .premarket-diagnostics[aria-expanded="true"] { background: var(--ds-surface-3); color: var(--ds-text); }
+
+/* Diagnostics: inset panel of label / value rows. */
+html[data-ui="v10"] #view-premarket .premarket-diagnostics-body {
+    position: static;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0 var(--ds-6);
+    width: auto;
+    margin-top: var(--ds-2);
+    padding: var(--ds-1) var(--ds-4);
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-diagnostics-body[hidden] { display: none; }
+html[data-ui="v10"] #view-premarket .premarket-meta-chip {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    min-height: 30px;
+    padding: 6px 0;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+    background: none;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-meta-chip b {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text);
+    text-align: right;
+}
+html[data-ui="v10"] #view-premarket .premarket-meta-chip b.pm-diag-miss { color: var(--ds-warn); }
+
+/* ── session strip ───────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .pm-strip {
+    margin: 0 0 var(--ds-3);
+    padding: var(--ds-2) var(--ds-3);
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-control);
+    color: var(--ds-text-2);
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+}
+html[data-ui="v10"] #view-premarket .pm-strip:empty { display: none; }
+html[data-ui="v10"] #view-premarket .pm-strip-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-1) var(--ds-3);
+}
+html[data-ui="v10"] #view-premarket .pm-strip-row .ds-chip i { font-size: 10px; }
+html[data-ui="v10"] #view-premarket .pm-strip-text { flex: 1 1 320px; min-width: 0; color: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .pm-strip-next { color: var(--ds-text-3); font-size: var(--ds-fs-12); white-space: nowrap; }
+
+/* ── stat strip ──────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-summary-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin: 0 0 var(--ds-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-summary-strip:empty { display: none; }
+html[data-ui="v10"] #view-premarket .premarket-summary-card {
+    display: block;
+    padding: var(--ds-3) var(--ds-4);
+    background: none;
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+    transition: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-summary-card:first-child { border-left: 0; }
+html[data-ui="v10"] #view-premarket .premarket-summary-card::before { display: none; }
+html[data-ui="v10"] #view-premarket .premarket-summary-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-summary-value {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-20);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .premarket-summary-sub {
+    margin-left: 6px;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .tr-split-sep { margin: 0 6px; color: var(--ds-text-disabled); font-weight: 400; }
+html[data-ui="v10"] #view-premarket .pm-split-zero { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .pm-split-watch { color: var(--ds-text); }
+
+/* ── AI panel ────────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-pulse-card {
+    margin: 0 0 var(--ds-3);
+    padding: var(--ds-4);
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-card:empty { display: none; }
+html[data-ui="v10"] #view-premarket .premarket-pulse-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    margin: 0;
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-2);
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-model {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-sentiment { flex: none; }
+html[data-ui="v10"] #view-premarket .premarket-pulse-sentiment.premarket-pulse--neutral {
+    background: var(--ds-surface-3);
+    border-color: var(--ds-line-strong);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-summary {
+    max-width: 92ch;
+    margin: var(--ds-2) 0 0;
+    font-size: var(--ds-fs-14);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .pm-pulse-lists {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--ds-3) var(--ds-6);
+    margin-top: var(--ds-4);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-row {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-key {
+    display: block;
+    width: auto;
+    min-width: 0;
+    padding: 0 0 var(--ds-1);
+    border: 0;
+    border-bottom: 1px solid var(--ds-line);
+    border-radius: 0;
+    background: none;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    text-align: left;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-key--long::before { content: "▲"; margin-right: 6px; font-size: 9px; color: var(--ds-pos); }
+html[data-ui="v10"] #view-premarket .premarket-pulse-key--short::before { content: "▼"; margin-right: 6px; font-size: 9px; color: var(--ds-neg); }
+html[data-ui="v10"] #view-premarket .premarket-pulse-picks { display: block; }
+html[data-ui="v10"] #view-premarket .premarket-pulse-pick {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: var(--ds-3);
+    align-items: baseline;
+    width: 100%;
+    min-height: 28px;
+    padding: 6px 0;
+    margin: 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-pick:last-child { border-bottom: 0; }
+html[data-ui="v10"] #view-premarket .premarket-pulse-pick:hover,
+html[data-ui="v10"] #view-premarket .premarket-pulse-pick:focus-visible {
+    background: var(--ds-surface-2);
+    border-color: var(--ds-line-faint);
+    transform: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-pick-sym {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-pick-reason {
+    font-size: var(--ds-fs-13);
+    line-height: 1.45;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-risks {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ds-2);
+    margin: var(--ds-3) 0 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-risks i { flex: none; font-size: var(--ds-fs-11); color: var(--ds-warn); }
+html[data-ui="v10"] #view-premarket .premarket-pulse-head + .premarket-pulse-risks { margin-top: var(--ds-2); }
+html[data-ui="v10"] #view-premarket .premarket-pulse-pending {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ds-2);
+    padding: 0;
+    background: none;
+    border: 0;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-pulse-pending .ds-chip { flex: none; align-self: center; }
+
+/* ── already reported (collapsed list) ───────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-reported-wrap {
+    margin: 0 0 var(--ds-3);
+    padding: 0;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-control);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-reported-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    width: 100%;
+    min-height: 34px;
+    padding: 0 var(--ds-3);
+    background: none;
+    border: 0;
+    border-radius: var(--ds-r-control);
+    font: inherit;
+    text-align: left;
+    color: var(--ds-text-2);
+    cursor: pointer;
+}
+html[data-ui="v10"] #view-premarket .premarket-reported-head:hover { background: var(--ds-surface-2); }
+html[data-ui="v10"] #view-premarket .premarket-reported-chip {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-reported-chip b { font-family: var(--ds-font-num); font-weight: 600; color: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .premarket-reported-note { margin-left: var(--ds-2); font-size: var(--ds-fs-12); font-weight: 400; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .premarket-reported-toggle {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--ds-fs-12);
+    font-weight: 500;
+    color: var(--ds-info);
+}
+html[data-ui="v10"] #view-premarket .premarket-reported-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 0 var(--ds-6);
+    margin: 0;
+    padding: 0 var(--ds-3) var(--ds-1);
+    border-top: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-premarket .premarket-reported-list.hidden { display: none; }
+html[data-ui="v10"] #view-premarket .premarket-reported-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--ds-1) var(--ds-3);
+    min-height: 32px;
+    padding: 6px 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+    font-size: var(--ds-fs-13);
+}
+html[data-ui="v10"] #view-premarket .premarket-reported-sym { min-width: 52px; font-family: var(--ds-font-num); font-weight: 600; color: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .premarket-reported-session { flex: none; font-family: var(--ds-font-num); font-size: var(--ds-fs-12); font-weight: 400; letter-spacing: 0; text-transform: none; white-space: nowrap; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .premarket-reported-surp {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    white-space: nowrap;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-reported-wl {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+}
+
+/* ── toolbar ─────────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-toolbar {
+    margin: var(--ds-4) 0 var(--ds-3);
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-toolbar-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-2) var(--ds-4);
+}
+html[data-ui="v10"] #view-premarket .pm-seg,
+html[data-ui="v10"] #view-premarket .premarket-view-toggle {
+    display: inline-flex;
+    padding: 0;
+    gap: 0;
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    box-shadow: none;
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-premarket .pm-seg-btn,
+html[data-ui="v10"] #view-premarket .premarket-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    min-width: 34px;
+    padding: 0 var(--ds-3);
+    margin: 0;
+    background: none;
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    box-shadow: none;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    color: var(--ds-text-2);
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-premarket .pm-seg-btn:first-child,
+html[data-ui="v10"] #view-premarket .premarket-view-btn:first-child { border-left: 0; }
+html[data-ui="v10"] #view-premarket .pm-seg-btn:hover,
+html[data-ui="v10"] #view-premarket .premarket-view-btn:hover { background: var(--ds-surface-3); color: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .pm-seg-btn.active,
+html[data-ui="v10"] #view-premarket .premarket-view-btn.active {
+    background: var(--ds-amber-soft);
+    color: var(--ds-amber);
+    font-weight: 600;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .pm-seg-btn:focus-visible,
+html[data-ui="v10"] #view-premarket .premarket-view-btn:focus-visible { box-shadow: inset 0 0 0 2px var(--ds-amber); border-radius: 0; }
+html[data-ui="v10"] #view-premarket .premarket-view-toggle { margin-left: auto; }
+html[data-ui="v10"] #view-premarket .premarket-view-btn { padding: 0; width: 34px; }
+html[data-ui="v10"] #view-premarket .premarket-view-btn i { font-size: var(--ds-fs-13); }
+html[data-ui="v10"] #view-premarket .premarket-toolbar-search { flex: 0 0 180px; width: 180px; min-width: 0; height: 32px; }
+html[data-ui="v10"] #view-premarket .premarket-toolbar-select { height: 32px; padding-top: 0; padding-bottom: 0; }
+html[data-ui="v10"] #view-premarket .pm-toolbar-field,
+html[data-ui="v10"] #view-premarket .premarket-toolbar-minscore {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-2);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-premarket .premarket-toolbar-minscore input[type="range"] {
+    width: 132px;
+    height: 28px;
+    min-height: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+}
+html[data-ui="v10"] #view-premarket #premarket-minscore-val {
+    min-width: 3ch;
+    padding: 0;
+    background: none;
+    border: 0;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    text-align: right;
+    color: var(--ds-text);
+}
+
+/* ── workspace ───────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 344px;
+    gap: var(--ds-4);
+    align-items: start;
+}
+html[data-ui="v10"] #view-premarket .premarket-workspace.mode-cards,
+html[data-ui="v10"] #view-premarket .premarket-workspace.mode-stream { grid-template-columns: minmax(0, 1fr); }
+html[data-ui="v10"] #view-premarket .premarket-workspace.mode-cards .premarket-workspace-side,
+html[data-ui="v10"] #view-premarket .premarket-workspace.mode-stream .premarket-workspace-side { display: none; }
+html[data-ui="v10"] #view-premarket .premarket-main-card {
+    min-width: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-sections-grid { display: block; }
+html[data-ui="v10"] #view-premarket .premarket-workspace-side {
+    position: sticky;
+    top: calc(var(--ds-topbar-h) + var(--ds-3));
+    max-height: calc(100vh - var(--ds-topbar-h) - var(--ds-6));
+    overflow-y: auto;
+}
+
+/* ── grouped table (default layout) ──────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .pm-table-wrap {
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    overflow-x: auto;
+}
+html[data-ui="v10"] #view-premarket .pm-table { min-width: 720px; }
+html[data-ui="v10"] #view-premarket .pm-table thead th:first-child { border-top-left-radius: var(--ds-r-panel); }
+html[data-ui="v10"] #view-premarket .pm-table thead th:last-child { border-top-right-radius: var(--ds-r-panel); }
+html[data-ui="v10"] #view-premarket .pm-table th { padding-left: 10px; padding-right: 10px; }
+html[data-ui="v10"] #view-premarket .pm-table td { height: 36px; padding: 3px 10px; white-space: nowrap; }
+html[data-ui="v10"] #view-premarket .pm-table .num { text-align: right; font-family: var(--ds-font-num); font-variant-numeric: tabular-nums; }
+html[data-ui="v10"] #view-premarket .pm-table th.num { font-family: var(--ds-font-tight); }
+html[data-ui="v10"] #view-premarket .pm-table .pm-group th {
+    padding: var(--ds-3) 10px 6px;
+    background: var(--ds-surface-1);
+    border-bottom: 1px solid var(--ds-line);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .pm-group:hover > th { background: var(--ds-surface-1); }
+html[data-ui="v10"] #view-premarket .pm-group-count {
+    margin-left: var(--ds-2);
+    font-family: var(--ds-font-num);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .pm-group-note {
+    margin-left: var(--ds-2);
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .pm-table .pm-group--empty th { padding-bottom: var(--ds-3); border-bottom-color: var(--ds-line-faint); }
+html[data-ui="v10"] #view-premarket .pm-table tbody:last-child tr:last-child > td,
+html[data-ui="v10"] #view-premarket .pm-table tbody:last-child tr:last-child > th { border-bottom: 0; }
+html[data-ui="v10"] #view-premarket .pm-row { cursor: pointer; }
+html[data-ui="v10"] #view-premarket .pm-row.is-selected > td { background: var(--ds-surface-2); }
+html[data-ui="v10"] #view-premarket .pm-row.is-selected > td:first-child { box-shadow: inset 2px 0 0 var(--ds-amber); }
+html[data-ui="v10"] #view-premarket .pm-sym,
+html[data-ui="v10"] #view-premarket .premarket-card-symbol,
+html[data-ui="v10"] #view-premarket .premarket-stream-sym {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .premarket-catalyst-chip,
+html[data-ui="v10"] #view-premarket .pm-dir,
+html[data-ui="v10"] #view-premarket .premarket-card-direction,
+html[data-ui="v10"] #view-premarket .premarket-direction-chip,
+html[data-ui="v10"] #view-premarket .premarket-stream-dir {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 7px;
+    margin: 0;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-transform: none;
+    white-space: nowrap;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .pm-dir--long,
+html[data-ui="v10"] #view-premarket .premarket-card-direction--long,
+html[data-ui="v10"] #view-premarket .premarket-direction-chip--long,
+html[data-ui="v10"] #view-premarket .premarket-stream-dir.dir-long { background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos); }
+html[data-ui="v10"] #view-premarket .pm-dir--short,
+html[data-ui="v10"] #view-premarket .premarket-card-direction--short,
+html[data-ui="v10"] #view-premarket .premarket-direction-chip--short,
+html[data-ui="v10"] #view-premarket .premarket-stream-dir.dir-short { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+html[data-ui="v10"] #view-premarket .premarket-gap-pos { color: var(--ds-pos-quiet); font-weight: 400; }
+html[data-ui="v10"] #view-premarket .premarket-gap-neg { color: var(--ds-neg-quiet); font-weight: 400; }
+html[data-ui="v10"] #view-premarket .premarket-gap-flat { color: var(--ds-text-3); font-weight: 400; }
+html[data-ui="v10"] #view-premarket .pm-arrow { margin-right: 5px; font-style: normal; font-size: 8px; vertical-align: 1px; }
+html[data-ui="v10"] #view-premarket .pm-score { display: inline-flex; align-items: center; gap: var(--ds-2); }
+html[data-ui="v10"] #view-premarket .pm-score-num {
+    min-width: 3ch;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .premarket-score-meter {
+    display: block;
+    flex: none;
+    width: 48px;
+    height: 3px;
+    margin: 0;
+    background: var(--ds-surface-3);
+    border: 0;
+    border-radius: 2px;
+    box-shadow: none;
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-premarket .premarket-score-meter i {
+    display: block;
+    height: 100%;
+    background: var(--ds-text-2);
+    border-radius: 2px;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-premarket .premarket-score-meter i.low { background: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .premarket-score-meter i.high { background: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .pm-table td.pm-col-time { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .pm-table .pm-col-cats { width: 99%; white-space: normal; }
+html[data-ui="v10"] #view-premarket .pm-table .pm-col-open { width: 44px; padding-left: 0; text-align: right; }
+html[data-ui="v10"] #view-premarket .pm-open {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: var(--ds-r-control);
+    color: var(--ds-text-3);
+    cursor: pointer;
+}
+html[data-ui="v10"] #view-premarket .pm-open i { font-size: var(--ds-fs-11); }
+html[data-ui="v10"] #view-premarket .pm-open:hover,
+html[data-ui="v10"] #view-premarket .pm-row.is-selected .pm-open { background: var(--ds-surface-3); color: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .pm-chip-row { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-1); }
+html[data-ui="v10"] #view-premarket .pm-more { font-family: var(--ds-font-num); font-size: var(--ds-fs-11); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .pm-quiet { color: var(--ds-text-3); font-size: var(--ds-fs-13); }
+html[data-ui="v10"] #view-premarket .pm-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* ── cards and stream layouts ────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-section {
+    margin: 0 0 var(--ds-4);
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+}
+html[data-ui="v10"] #view-premarket .premarket-section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: var(--ds-2);
+    margin: 0 0 var(--ds-2);
+    padding: 0 0 6px;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-premarket .premarket-section-title {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-badge {
+    min-width: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-empty-row {
+    padding: var(--ds-1) 0 0 !important;
+    background: none;
+    border: 0;
+    text-align: left;
+    font-size: var(--ds-fs-13);
+    font-style: normal;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-card-grid.premarket-grid-capped,
+html[data-ui="v10"] #view-premarket .premarket-stream-list.premarket-list-capped {
+    overflow-y: auto;
+    padding-right: var(--ds-1);
+    scrollbar-color: var(--ds-line-strong) transparent;
+}
+html[data-ui="v10"] #view-premarket .premarket-card {
+    position: relative;
+    display: block;
+    padding: var(--ds-3);
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+    transform: none;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), border-color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-premarket .premarket-card::before { display: none; }
+html[data-ui="v10"] #view-premarket .premarket-card:hover { background: var(--ds-surface-2); border-color: var(--ds-line-strong); transform: none; box-shadow: none; }
+html[data-ui="v10"] #view-premarket .premarket-card.is-selected { border-color: var(--ds-amber-line); box-shadow: none; }
+html[data-ui="v10"] #view-premarket .premarket-card-top { display: flex; align-items: center; justify-content: space-between; gap: var(--ds-2); margin: 0; }
+html[data-ui="v10"] #view-premarket .premarket-card-identity { display: flex; flex-direction: row; align-items: center; gap: var(--ds-2); }
+html[data-ui="v10"] #view-premarket .premarket-card-symbol { font-size: var(--ds-fs-14); }
+html[data-ui="v10"] #view-premarket .premarket-gap-pill {
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+}
+html[data-ui="v10"] #view-premarket .premarket-card-score { display: flex; align-items: center; gap: var(--ds-2); margin: var(--ds-2) 0 0; }
+html[data-ui="v10"] #view-premarket .premarket-card-score .premarket-score-meter { flex: 1; width: auto; }
+html[data-ui="v10"] #view-premarket .premarket-score-pill {
+    min-width: 3ch;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    text-align: right;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .premarket-card-prices {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--ds-2);
+    margin: var(--ds-3) 0 0;
+    padding: var(--ds-2) 0 0 !important;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+}
+html[data-ui="v10"] #view-premarket .premarket-card-prices > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: 0; background: none; border: 0; }
+html[data-ui="v10"] #view-premarket .premarket-card-prices span {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-card-prices b {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    color: var(--ds-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-premarket .premarket-card-catalysts { display: flex; flex-wrap: wrap; gap: var(--ds-1); margin: var(--ds-2) 0 0; padding: 0; border: 0; }
+html[data-ui="v10"] #view-premarket .premarket-card-news {
+    margin: var(--ds-2) 0 0;
+    padding: 0;
+    border: 0;
+    font-size: var(--ds-fs-12);
+    line-height: 1.4;
+    color: var(--ds-text-3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-premarket .mode-stream .premarket-section {
+    margin: 0;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-premarket .mode-stream .premarket-section-header { margin: 0; padding: var(--ds-3) var(--ds-3) 6px; border-bottom: 0; }
+html[data-ui="v10"] #view-premarket .mode-stream .premarket-empty-row { padding: var(--ds-1) var(--ds-3) var(--ds-3) !important; }
+html[data-ui="v10"] #view-premarket .premarket-stream-head,
+html[data-ui="v10"] #view-premarket .premarket-stream-row {
+    display: grid;
+    grid-template-columns: 72px 72px 44px 96px 88px 88px minmax(0, 1fr);
+    gap: var(--ds-3);
+    align-items: center;
+    padding: 0 var(--ds-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-stream-head {
+    height: 32px;
+    background: var(--ds-surface-2);
+    border: 0;
+    border-top: 1px solid var(--ds-line);
+    border-bottom: 1px solid var(--ds-line);
+    border-radius: 0;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-stream-head span:nth-child(n+3):nth-child(-n+6),
+html[data-ui="v10"] #view-premarket .premarket-stream-row > span:nth-child(n+3):nth-child(-n+6) { text-align: right; }
+html[data-ui="v10"] #view-premarket .premarket-stream-list { display: block; gap: 0; padding: 0; }
+html[data-ui="v10"] #view-premarket .premarket-stream-row {
+    min-height: 34px;
+    margin: 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    cursor: pointer;
+}
+html[data-ui="v10"] #view-premarket .premarket-stream-row:last-child { border-bottom: 0; }
+html[data-ui="v10"] #view-premarket .premarket-stream-row:hover { background: var(--ds-surface-2); border-color: var(--ds-line-faint); transform: none; }
+html[data-ui="v10"] #view-premarket .premarket-stream-row.is-selected { background: var(--ds-surface-2); box-shadow: inset 2px 0 0 var(--ds-amber); }
+html[data-ui="v10"] #view-premarket .premarket-stream-dir { justify-self: start; }
+html[data-ui="v10"] #view-premarket .premarket-stream-note {
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ── details panel ───────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-premarket .premarket-details-card { padding: var(--ds-4); background: var(--ds-surface-1); }
+html[data-ui="v10"] #view-premarket .premarket-details-panel { padding: 0; background: none; border: 0; color: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .premarket-details-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    margin: 0 0 var(--ds-3);
+    padding: 0;
+    border: 0;
+}
+html[data-ui="v10"] #view-premarket .pm-details-id { display: flex; align-items: center; gap: var(--ds-2); }
+html[data-ui="v10"] #view-premarket .premarket-details-title {
+    margin: 0;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-20);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .premarket-details-head .premarket-gap-pill { font-size: var(--ds-fs-16); font-weight: 500; }
+html[data-ui="v10"] #view-premarket .premarket-details-head .premarket-gap-pos { color: var(--ds-pos); }
+html[data-ui="v10"] #view-premarket .premarket-details-head .premarket-gap-neg { color: var(--ds-neg); }
+html[data-ui="v10"] #view-premarket .premarket-details-head .pm-arrow { font-size: 10px; }
+html[data-ui="v10"] #view-premarket .premarket-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--ds-4);
+    margin: 0;
+    border-top: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-premarket .premarket-stat {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ds-2);
+    min-height: 30px;
+    padding: 6px 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+}
+html[data-ui="v10"] #view-premarket .premarket-stat-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-stat-value {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    text-align: right;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-premarket .pm-details-note { margin-top: var(--ds-2); font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-premarket .pm-details-note b { font-weight: 500; color: var(--ds-text-2); }
+html[data-ui="v10"] #view-premarket .premarket-catalyst-row { margin: var(--ds-4) 0 0; padding: 0; border: 0; }
+html[data-ui="v10"] #view-premarket .premarket-details-subtitle {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    margin: var(--ds-4) 0 var(--ds-1);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-premarket .premarket-catalyst-row .premarket-details-subtitle { margin-top: 0; }
+html[data-ui="v10"] #view-premarket .premarket-ollama-box {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    font-size: var(--ds-fs-13);
+    line-height: 1.5;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .pm-details-text { font-size: var(--ds-fs-13); line-height: 1.5; color: var(--ds-text); }
+html[data-ui="v10"] #view-premarket .pm-details-text--num { font-family: var(--ds-font-num); font-size: var(--ds-fs-12); color: var(--ds-text-2); }
+/* The legacy sheet gives this list a white box and primary-coloured items;
+   in the dark theme that was light text on white. */
+html[data-ui="v10"] #view-premarket .premarket-details-news {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    font-size: var(--ds-fs-13);
+    line-height: 1.45;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-premarket .premarket-details-news li {
+    margin: 0;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+    color: var(--ds-text-2);
+    line-height: 1.45;
+}
+html[data-ui="v10"] #view-premarket .premarket-details-news li:last-child { border-bottom: 0; padding-bottom: 0; }
+html[data-ui="v10"] #view-premarket .placeholder-text { text-align: left; padding: var(--ds-4); }
+html[data-ui="v10"] #view-premarket .premarket-details-panel .placeholder-text { padding: 0; border: 0; }
+
+/* ── narrower widths ─────────────────────────────────────────────────── */
+@media (max-width: 1180px) {
+    html[data-ui="v10"] #view-premarket .premarket-workspace { grid-template-columns: minmax(0, 1fr) 320px; }
+    html[data-ui="v10"] #view-premarket .pm-table .pm-col-time { display: none; }
+}
+@media (max-width: 960px) {
+    html[data-ui="v10"] #view-premarket .premarket-workspace { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-premarket .premarket-workspace-side { position: static; max-height: none; }
+    html[data-ui="v10"] #view-premarket .pm-pulse-lists { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-premarket .premarket-summary-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html[data-ui="v10"] #view-premarket .premarket-summary-card:nth-child(odd) { border-left: 0; }
+    html[data-ui="v10"] #view-premarket .premarket-summary-card:nth-child(n+3) { border-top: 1px solid var(--ds-line); }
+}
+@media (max-width: 760px) {
+    html[data-ui="v10"] #view-premarket .premarket-header { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-premarket .pm-head-copy { grid-row: auto; }
+    html[data-ui="v10"] #view-premarket .pm-head-actions,
+    html[data-ui="v10"] #view-premarket .premarket-statusbar { grid-column: 1; grid-row: auto; justify-self: start; justify-content: flex-start; }
+    html[data-ui="v10"] #view-premarket .premarket-diagnostics-body { grid-row: auto; }
+    html[data-ui="v10"] #view-premarket .premarket-view-toggle { margin-left: 0; }
+    html[data-ui="v10"] #view-premarket .premarket-toolbar-search { flex: 1 1 140px; width: auto; }
+    html[data-ui="v10"] #view-premarket .pm-table { min-width: 560px; }
+    html[data-ui="v10"] #view-premarket .pm-table .pm-col-ref { display: none; }
+    html[data-ui="v10"] #view-premarket .premarket-stream-head,
+    html[data-ui="v10"] #view-premarket .premarket-stream-row { grid-template-columns: 60px 64px 36px 84px 76px minmax(0, 1fr); }
+    html[data-ui="v10"] #view-premarket .premarket-stream-head span:nth-child(6),
+    html[data-ui="v10"] #view-premarket .premarket-stream-row > span:nth-child(6) { display: none; }
+}
+
+/* ── visual QA pass ──────────────────────────────────────────────────── */
+/* A value such as "57 / 95" must not break in the middle; the label wraps instead. */
+html[data-ui="v10"] #view-premarket .premarket-stat-label { min-width: 0; }
+html[data-ui="v10"] #view-premarket .premarket-stat-value { flex: 0 0 auto; white-space: nowrap; }
+/* Light theme: amber text on the amber-soft selected fill is below 4.5:1. */
+html[data-ui="v10"][data-theme="light"] #view-premarket .pm-seg-btn.active,
+html[data-ui="v10"][data-theme="light"] #view-premarket .premarket-view-btn.active { color: var(--ds-amber-press); }
+
+/* Agent badge as on Scanner and News: "OK" stays as written, the longer state
+   words (the API sends DEGRADED, ERROR, PAUSED, INITIALIZING) read in sentence case. */
+html[data-ui="v10"] #view-premarket .agent-badge { display: inline-block; line-height: 18px; white-space: nowrap; }
+html[data-ui="v10"] #view-premarket .agent-badge:not(.agent-badge--ok) { text-transform: lowercase; }
+html[data-ui="v10"] #view-premarket .agent-badge:not(.agent-badge--ok)::first-letter { text-transform: uppercase; }
+
+/* Keyboard focus inside a clipping container: ds_view_shared.css now forces the outer
+   ring with !important on every button/link/tab-stop, which a rounded, overflow-clipped
+   parent cuts down to one or two edges. These keep an inset ring (higher specificity). */
+html[data-ui="v10"] #view-premarket .pm-seg-btn:focus-visible,
+html[data-ui="v10"] #view-premarket .premarket-view-btn:focus-visible { box-shadow: inset 0 0 0 2px var(--ds-amber) !important; }

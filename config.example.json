@@ -1,0 +1,1125 @@
+{
+    "signal_settings": {
+        "profit_target_pct": 5,
+        "stop_loss_pct": 2,
+        "backtest_min_trades_for_validation": 30,
+        "atr_multiplier_tp": 5.0,
+        "atr_multiplier_sl": 2.0,
+        "exit_mode": "FIXED_PCT",
+        "atr_period": 14,
+        "atr_timeframe": "5m",
+        "atr_multipliers_by_mode": {
+            "PULLBACK": {
+                "tp": 5.0,
+                "sl": 2.0
+            },
+            "BREAKOUT": {
+                "tp": 5.0,
+                "sl": 2.0
+            },
+            "CONTRA": {
+                "tp": 5.0,
+                "sl": 2.0
+            }
+        },
+        "min_tp_pct": 0.2,
+        "dynamic_sizing": true,
+        "enable_regime_gating": true,
+        "variant_mode_default": "CUSTOM",
+        "scoring": {
+            "mtf_alignment_min": 4,
+            "min_probability": 0.7,
+            "logistic_coeffs": {
+                "bias": -1.0,
+                "mtf": 2.2,
+                "macd": 1.3,
+                "rsi": 0.9,
+                "vwap": 0.7,
+                "ema": 0.7
+            },
+            "macd_norm_scale": 0.01,
+            "distance_atr_max": {
+                "PULLBACK": 1.5,
+                "BREAKOUT": 2.5,
+                "CONTRA": 3.0
+            }
+        },
+        "regime": {
+            "adx_trend_min": 30,
+            "adx_range_max": 12,
+            "bb_width_max": 0.03,
+            "atr_percentile_high": 85,
+            "atr_percentile_low": 40,
+            "allow_volatile": false,
+            "lookback_days": 20,
+            "timeframe": "5m"
+        },
+        "gate": {
+            "enabled": true,
+            "adx_trend_min": 35,
+            "adx_range_max": 22,
+            "contra_vwap_extreme_atr": 3.0,
+            "atr_pct_min": 0.001,
+            "atr_pct_max": 0.04,
+            "cooldown_bars": 20,
+            "one_signal_per_swing": true,
+            "swing_retrace_atr": 0.5
+        },
+        "variant_strict": {
+            "scoring": {
+                "mtf_alignment_min": 4,
+                "min_probability": 0.7
+            },
+            "regime": {
+                "adx_trend_min": 30,
+                "adx_range_max": 12,
+                "bb_width_max": 0.03,
+                "atr_percentile_high": 85,
+                "atr_percentile_low": 40,
+                "allow_volatile": false
+            },
+            "gate": {
+                "adx_trend_min": 35,
+                "adx_range_max": 22,
+                "contra_vwap_extreme_atr": 3.0,
+                "atr_pct_min": 0.001,
+                "atr_pct_max": 0.04,
+                "cooldown_bars": 20
+            }
+        },
+        "variant_custom": {
+            "scoring": {
+                "mtf_alignment_min": 3,
+                "min_probability": 0.5
+            },
+            "regime": {
+                "adx_trend_min": 15,
+                "adx_range_max": 30,
+                "bb_width_max": 0.04,
+                "atr_percentile_high": 80,
+                "atr_percentile_low": 20,
+                "allow_volatile": true
+            },
+            "gate": {
+                "adx_trend_min": 15,
+                "adx_range_max": 30,
+                "contra_vwap_extreme_atr": 2.5,
+                "atr_pct_min": 0.0003,
+                "atr_pct_max": 0.08,
+                "cooldown_bars": 10
+            }
+        },
+        "sizing": {
+            "score_min_factor": 0.2,
+            "score_max_factor": 1.0,
+            "expectancy_min_factor": 0.5,
+            "expectancy_max_factor": 1.5,
+            "kelly_limit": 0.25,
+            "kelly_min_factor": 0.5,
+            "kelly_max_factor": 1.5
+        },
+        "rsi_period": 14,
+        "rsi_oversold": 30,
+        "rsi_overbought": 70,
+        "macd_fast": 12,
+        "macd_slow": 26,
+        "macd_signal": 9,
+        "min_win_rate": 60,
+        "signal_cooldown_minutes": 15,
+        "duplicate_tolerance_pct": 0.5,
+        "manual_delete_suppress_minutes": 1440
+    },
+    "signal_variants": {
+        "variant_a_mtf_min": 6,
+        "variant_a_quality_min": 5,
+        "variant_a_macd_hist_min_pos": 0.034,
+        "variant_a_macd_hist_min_neg": -0.034,
+        "variant_b_mtf_min": 4,
+        "variant_b_quality_min": 3,
+        "variant_b_macd_hist_min_pos": 0.032,
+        "variant_b_macd_hist_min_neg": -0.032,
+        "variant_c_mtf_min": 0,
+        "variant_c_quality_min": 0,
+        "variant_c_macd_hist_min_pos": 0.0001,
+        "variant_c_macd_hist_min_neg": -0.0001,
+        "weak_c_mtf_threshold": 2,
+        "block_weak_c_signals": true,
+        "require_macd_hist_threshold": true
+    },
+    "trend_reversal": {
+        "min_variant_for_reversal": "B",
+        "min_mtf_score_reversal": 4,
+        "allow_reversal": true
+    },
+    "filters": {
+        "min_rsi_for_buy": 35,
+        "max_rsi_for_short": 65
+    },
+    "scan_settings": {
+        "scan_interval_seconds": 60,
+        "crypto_liquid_universe_size": 100,
+        "crypto_hot_list_size": 50,
+        "stock_refresh_seconds": 300,
+        "crypto_price_interval_seconds": 30,
+        "crypto_full_scan_seconds": 300,
+        "stock_scan_max_workers": 2,
+        "crypto_scan_max_workers": 2,
+        "defer_initial_heavy_scan_seconds": 60
+    },
+    "news": {
+        "news_refresh_minutes": 5,
+        "actionability_threshold": 60,
+        "auto_summarize_top_n": 10,
+        "narrative_ttl_seconds": 900,
+        "hide_duplicates_default": true,
+        "dedup_max_compare": 120,
+        "startup_refresh_enabled": false,
+        "defer_initial_refresh": true,
+        "backup_max_mb": 50,
+        "state_limit_market": 200,
+        "state_limit_breaking": 50,
+        "state_limit_ticker": 50,
+        "state_limit_tickers": 50
+    },
+    "news_v9": {
+        "fallback_enabled": true,
+        "duplicate_similarity": 0.78,
+        "finbert": {
+            "enabled": true,
+            "model": "ProsusAI/finbert",
+            "revision": "4556d13015211d73dccd3fdd39d39232506f3e43",
+            "local_files_only": true,
+            "max_chars": 4000
+        }
+    },
+    "sec": {
+        "identity_env": "EDGAR_IDENTITY",
+        "cache_path": "data/sec_filings_cache.json",
+        "cache_ttl_seconds": 3600,
+        "max_filings": 20,
+        "history_limit": 500,
+        "forms": [
+            "10-K",
+            "10-Q",
+            "8-K",
+            "4"
+        ]
+    },
+    "data_sources": {
+        "alpaca": {
+            "enabled": true,
+            "prefer_for_stocks": true,
+            "crypto_fallback": true,
+            "stock_feed": "iex",
+            "crypto_feed": "us",
+            "currency": "USD",
+            "snapshot_ttl_seconds": 5,
+            "data_base_url": "https://data.alpaca.markets",
+            "trading_base_url": "https://paper-api.alpaca.markets"
+        }
+    },
+    "backtest": {
+        "enabled": true,
+        "days": 30,
+        "auto_run_on_config_change": true,
+        "cache_ttl_seconds": 900
+    },
+    "sounds": {
+        "enabled": true,
+        "signal_sound": "alert1",
+        "win_sound": "success1",
+        "loss_sound": "error1"
+    },
+    "strategy_notes": "",
+    "ui": {
+        "refresh_interval_ms": 5000,
+        "max_log_lines": 500
+    },
+    "watchlist": {
+        "default_sort": "ticker",
+        "filters": {
+            "asset_type": "all",
+            "signals_enabled": "all",
+            "has_open_signal": "all",
+            "earnings_bucket": "all",
+            "news_actionability_min": 0,
+            "trend_regime": "all",
+            "earnings_next_7d": false
+        }
+    },
+    "news_pulse": {
+        "ttl_seconds": 45
+    },
+    "quick_ai": {
+        "enabled": true,
+        "ttl_near_earnings": 600,
+        "ttl_normal": 1800
+    },
+    "strategy_v2": {
+        "signal_mode": "V2",
+        "min_rr": 1.6,
+        "target_win_rate": 0.6,
+        "confluence_weight": 0.12,
+        "max_signals_per_day_per_asset": {
+            "US_STOCKS": 50,
+            "CRYPTO_FUTURES": 50,
+            "FOREX_MAJORS": 50,
+            "COMMODITIES": 50
+        },
+        "event_block_hours": 6,
+        "min_sample_size": 24,
+        "min_validation_score": 48,
+        "allow_low_sample_fallback": false,
+        "allow_low_validation_fallback": false,
+        "require_profitable_performance": true,
+        "lifecycle_enforcement_enabled": false,
+        "emit_unvalidated_research_candidates": true,
+        "research_only_strategy_ids": [
+            "S7_LIQUIDITY_SWEEP_REVERSAL",
+            "S8_SUPERTREND_BOS"
+        ],
+        "research_signal_min_score": 40.0,
+        "required_validation_method": "faithful_v2_walk_forward",
+        "min_profit_factor": 1.05,
+        "min_expectancy_R": 0.0,
+        "max_drawdown_pct": 30.0,
+        "performance_ttl_seconds": {
+            "US_STOCKS": 86400,
+            "CRYPTO_FUTURES": 21600,
+            "FOREX_MAJORS": 43200,
+            "COMMODITIES": 43200,
+            "DEFAULT": 43200
+        },
+        "costs_by_asset": {
+            "US_STOCKS": {
+                "commission_bps": 2.0,
+                "entry_slippage_bps": 1.5,
+                "slippage_sl_bps": 3.0,
+                "slippage_tp_bps": 1.5
+            },
+            "CRYPTO_FUTURES": {
+                "commission_bps": 4.0,
+                "entry_slippage_bps": 2.5,
+                "slippage_sl_bps": 5.0,
+                "slippage_tp_bps": 2.5
+            },
+            "FOREX_MAJORS": {
+                "commission_bps": 1.0,
+                "entry_slippage_bps": 1.0,
+                "slippage_sl_bps": 2.0,
+                "slippage_tp_bps": 1.0
+            },
+            "COMMODITIES": {
+                "commission_bps": 3.0,
+                "entry_slippage_bps": 2.0,
+                "slippage_sl_bps": 4.0,
+                "slippage_tp_bps": 2.0
+            }
+        },
+        "enabled_strategies_by_asset_class": {
+            "US_STOCKS": [
+                "S1_TREND_PULLBACK",
+                "S2_BREAKOUT_RETEST",
+                "S3_VOL_SQUEEZE",
+                "S7_LIQUIDITY_SWEEP_REVERSAL",
+                "S8_SUPERTREND_BOS"
+            ],
+            "CRYPTO_FUTURES": [
+                "S2_BREAKOUT_RETEST",
+                "S3_VOL_SQUEEZE",
+                "S4_MEAN_REVERSION",
+                "S5_MOMENTUM_CONTINUATION",
+                "S7_LIQUIDITY_SWEEP_REVERSAL",
+                "S8_SUPERTREND_BOS"
+            ],
+            "FOREX_MAJORS": [
+                "S1_TREND_PULLBACK",
+                "S2_BREAKOUT_RETEST",
+                "S4_MEAN_REVERSION",
+                "S6_FX_SESSION_BREAKOUT"
+            ],
+            "COMMODITIES": [
+                "S1_TREND_PULLBACK",
+                "S4_MEAN_REVERSION",
+                "S5_MOMENTUM_CONTINUATION",
+                "S7_LIQUIDITY_SWEEP_REVERSAL",
+                "S8_SUPERTREND_BOS"
+            ]
+        },
+        "research_agent": {
+            "enabled": true,
+            "interval_sec": 900,
+            "max_symbols_per_cycle": 8,
+            "selection_days": 90,
+            "confirmation_days": 30,
+            "walk_forward_train_days": 20,
+            "walk_forward_test_days": 10,
+            "max_windows": 4,
+            "local_cache_only": false
+        }
+    },
+    "premarket": {
+        "enabled": false,
+        "refresh_seconds": 300,
+        "lookback_hours": 24,
+        "min_gap_pct": 4.0,
+        "max_results": 30,
+        "timeout_seconds": 8,
+        "cache_ttl_seconds": 300,
+        "use_ollama": true,
+        "ollama_max_tickers": 10,
+        "ollama_timeout_seconds": 6,
+        "eliminate_reported": true,
+        "pulse_enabled": true,
+        "pulse_ttl_seconds": 300,
+        "pulse_timeout_seconds": 12
+    },
+    "pre_earnings": {
+        "enabled": true,
+        "refresh_seconds": 600,
+        "lookahead_days": 10,
+        "lookback_hours": 336,
+        "max_results": 400,
+        "cache_ttl_seconds": 600,
+        "use_ollama": true,
+        "ollama_max_tickers": 25,
+        "ollama_timeout_seconds": 12,
+        "news_evidence_limit": 16,
+        "news_prompt_char_budget": 12000,
+        "news_deep_refresh_batch_size": 16,
+        "news_priority_refresh_size": 10,
+        "news_deep_refresh_seconds": 900,
+        "news_change_reanalysis": true,
+        "top_predictions_limit": 10,
+        "top_prediction_min_coverage": 45,
+        "top_prediction_min_abs_bias": 20,
+        "top_prediction_require_verified_event": true,
+        "top_prediction_require_ai": true,
+        "top_prediction_min_news_articles": 3,
+        "top_prediction_min_news_sources": 1,
+        "top_prediction_max_news_age_hours": 96,
+        "recommendation_max_age_seconds": 1800,
+        "reported_session_filter": true,
+        "pulse_enabled": true,
+        "pulse_ttl_seconds": 300,
+        "pulse_timeout_seconds": 12,
+        "pulse_active_max_per_side": 500,
+        "pulse_history_response_limit": 20,
+        "pulse_undated_retention_days": 45,
+        "coverage_warmup_max_symbols": 5,
+        "feedback_lookback_days": 365,
+        "feedback_min_samples": 24,
+        "recalibration_min_samples": 40,
+        "high_gap_threshold_pct": 5.0,
+        "decision_enabled": true,
+        "decision_max_tickers": 25,
+        "continuous_scan": {
+            "enabled": false,
+            "interval_seconds": 60,
+            "refresh_wait_seconds": 180
+        }
+    },
+    "bot": {
+        "enabled": false,
+        "mode": "paper",
+        "min_edge_score": 64,
+        "circuit_breaker_drawdown_pct": 10.0,
+        "circuit_breaker_daily_loss_pct": 1.0,
+        "max_trades_per_day": 0,
+        "max_same_strategy_concurrent": 0,
+        "consecutive_loss_cooldown": 1,
+        "require_strategy_performance": true,
+        "allow_unvalidated_autonomous_fallback": false,
+        "unvalidated_autonomous_size_factor": 0.25,
+        "min_strategy_sample_size": 24,
+        "min_strategy_profit_factor": 1.05,
+        "min_strategy_expectancy_r": 0.0,
+        "max_strategy_drawdown_pct": 30.0,
+        "require_trade_radar_confirmation": true,
+        "trailing_enabled": true,
+        "trailing_activation_r": 1.0,
+        "trailing_factor": 0.5,
+        "time_exit_enabled": false,
+        "time_exit_min_profit_r": 0.0,
+        "max_holding_minutes": 720,
+        "max_holding_bars": 0,
+        "bar_seconds": 60,
+        "scanner_time_stop_minutes": 90,
+        "pre_earnings_post_event_ai_review": true,
+        "pre_earnings_exit_grace_minutes": 30
+    },
+    "agents": {
+        "execution": {
+            "enabled": true,
+            "mode": "paper",
+            "exchange": "binance",
+            "max_open_trades": 3,
+            "balance_usage_pct": 10.0,
+            "unprofitable_balance_usage_cap_pct": 0.5,
+            "unprofitable_balance_usage_hard_cap_pct": 0.5,
+            "profitability_min_sample": 24,
+            "profitability_min_profit_factor": 1.05,
+            "profitability_min_expectancy": 0.0,
+            "autonomous_profitability_gate": {
+                "enabled": true,
+                "min_sample": 24,
+                "min_profit_factor": 1.05,
+                "min_expectancy_usd": 0.0,
+                "max_drawdown_pct": 30.0
+            },
+            "autonomous_news_gate": {
+                "enabled": true,
+                "require_fresh_context": true,
+                "min_articles_24h": 1,
+                "require_source_urls": true,
+                "require_ai_analysis": true,
+                "min_ai_analyzed_articles_24h": 1,
+                "require_source_backed_ai_analysis": true,
+                "min_source_backed_ai_analyzed_articles_24h": 1,
+                "block_conflicting_sentiment": true,
+                "require_news_for_non_major_crypto": false,
+                "major_crypto_bases_requiring_news": [
+                    "BTC",
+                    "ETH",
+                    "SOL",
+                    "BNB",
+                    "XRP"
+                ],
+                "allow_blocking_fetch": true,
+                "ttl_seconds": 45,
+                "scanner_auto_fetch": true,
+                "scanner_force_refresh_on_signal": false,
+                "scanner_news_max_items": 5
+            },
+            "capital_entry_gate": {
+                "enabled": true,
+                "require_ai_review": true,
+                "data": {
+                    "max_signal_age_seconds": 300,
+                    "min_risk_reward_ratio": 1.1
+                },
+                "backtest": {
+                    "required_validation_method": "faithful_v2_walk_forward",
+                    "min_sample": 24,
+                    "min_profit_factor": 1.05,
+                    "min_expectancy_r": 0.0,
+                    "max_drawdown_pct": 30.0,
+                    "max_age_seconds": 21600,
+                    "max_age_seconds_by_asset": {
+                        "US_STOCKS": 86400,
+                        "CRYPTO_FUTURES": 21600,
+                        "FOREX_MAJORS": 43200,
+                        "COMMODITIES": 43200
+                    }
+                },
+                "realized_performance": {
+                    "enabled": true,
+                    "min_sample": 24,
+                    "min_profit_factor": 1.05,
+                    "min_expectancy_usd": 0.0,
+                    "max_drawdown_pct": 30.0
+                },
+                "news": {
+                    "enabled": true,
+                    "require_fresh_context": true,
+                    "min_articles_24h": 1,
+                    "require_source_urls": true,
+                    "require_ai_analysis": true,
+                    "min_ai_analyzed_articles_24h": 1,
+                    "require_source_backed_ai_analysis": true,
+                    "min_source_backed_ai_analyzed_articles_24h": 1,
+                    "block_conflicting_sentiment": true,
+                    "require_news_for_non_major_crypto": false,
+                    "major_crypto_bases_requiring_news": [
+                        "BTC",
+                        "ETH",
+                        "SOL",
+                        "BNB",
+                        "XRP"
+                    ],
+                    "allow_blocking_fetch": true,
+                    "ttl_seconds": 45
+                }
+            },
+            "paper_capital": {
+                "enabled": false,
+                "allow_unvalidated_s7": false,
+                "allow_unvalidated_strategies": false,
+                "strategy_ids": [
+                    "S7_LIQUIDITY_SWEEP_REVERSAL",
+                    "S8_SUPERTREND_BOS"
+                ],
+                "strategy_sources": [
+                    "V2",
+                    "V2_FORWARD_RESEARCH"
+                ]
+            },
+            "force_one_x_until_profitable": true,
+            "require_ai_review": true,
+            "allow_signal_only_ai_fallback": false,
+            "ai_unavailable_size_factor": 0.5,
+            "ai_review_timeout_seconds": 6,
+            "pre_earnings_min_ai_confidence": 0.6,
+            "pre_earnings_gap_risk_block_level": 60,
+            "pre_earnings_gap_risk_medium_size_factor": 0.5,
+            "debate_enabled": true,
+            "debate_scope": "pre_earnings",
+            "auto_execute_existing_signals": false,
+            "max_reconcile_per_start": 0,
+            "max_reconcile_per_cycle": 0,
+            "reconcile_interval_seconds": 60,
+            "min_reconcile_score": 75.0,
+            "reconcile_reject_cooldown_seconds": 900,
+            "reconcile_skip_when_risk_circuit_open": true,
+            "reconcile_circuit_log_interval_seconds": 120,
+            "autonomous_candidates_enabled": true,
+            "autonomous_sources": {
+                "scanner": true,
+                "watchlist": true,
+                "pre_earnings": true
+            },
+            "autonomous_allocation": {
+                "enabled": true,
+                "buckets_pct": {
+                    "stocks": 33.0,
+                    "crypto": 33.0,
+                    "pre_earnings": 33.0
+                },
+                "fallback_when_empty": true
+            },
+            "autonomous_monitor_interval_seconds": 120,
+            "autonomous_cooldown_minutes": 45,
+            "autonomous_allow_scale_in": false,
+            "autonomous_ticker_lockout_hours": 6,
+            "autonomous_require_ai_review": true,
+            "research_cohort": {
+                "enabled": false,
+                "paper_only": true,
+                "allowed_sources": [
+                    "scanner",
+                    "v2_engine_research"
+                ],
+                "max_open_positions": 1,
+                "notional_pct_of_balance": 0.25,
+                "min_notional_usd": 20.0,
+                "max_notional_usd": 250.0,
+                "max_signal_age_seconds": 180,
+                "min_signal_score": 68.0,
+                "min_risk_reward_ratio": 1.2,
+                "max_entry_deviation_pct": 3.6,
+                "ai_review_enabled": true,
+                "block_ai_veto": true,
+                "allowed_strategy_sources": [
+                    "V2"
+                ]
+            },
+            "max_autonomous_candidates_per_cycle": 0,
+            "max_autonomous_trades_per_cycle": 1,
+            "autonomous_scanner_max_symbols_per_bucket": 50,
+            "autonomous_watchlist_max_symbols": 100,
+            "scanner_min_abs_change_pct": 5.0,
+            "scanner_min_volume_24h": 1000000,
+            "scanner_stop_pct": 0.025,
+            "scanner_crypto_stop_pct": 0.03,
+            "scanner_rr_ratio": 2.0,
+            "scanner_min_score": 78.0,
+            "scanner_entry_mode": "fade",
+            "scanner_fade_rr_ratio": 1.5,
+            "scanner_fade_min_move_pct": 8.0,
+            "scanner_fade_max_move_pct": 40.0,
+            "scanner_fade_stop_pct": 0.04,
+            "scanner_max_unconfirmed_abs_change_pct": 12.0,
+            "scanner_require_late_momentum_confirmation": true,
+            "scanner_late_min_pullback_pct": 0.6,
+            "scanner_late_max_pullback_pct": 6.0,
+            "scanner_late_min_consolidation_score": 60.0,
+            "scanner_late_min_trade_radar_opportunity": 60.0,
+            "scanner_late_min_news_score": 65.0,
+            "scanner_late_min_relative_volume": 2.5,
+            "pre_earnings_min_gap_risk": 65,
+            "pre_earnings_min_abs_bias": 20,
+            "pre_earnings_min_coverage_score": 50,
+            "pre_earnings_stop_pct_min": 0.025,
+            "pre_earnings_stop_pct_max": 0.08,
+            "pre_earnings_rr_ratio": 1.8,
+            "pre_earnings_min_score": 78.0,
+            "pre_earnings_require_canonical_decision": false,
+            "pre_earnings_require_directional_edge": true,
+            "pre_earnings_min_directional_sample": 100,
+            "pre_earnings_min_directional_hit_rate": 50.0,
+            "pre_earnings_window_hours": 2.0,
+            "allow_ai_leverage": true,
+            "max_ai_leverage": 2,
+            "paper_strategies": {
+                "enabled": false,
+                "tickers": [
+                    "BTC-USD"
+                ],
+                "prefer": [
+                    "bollinger_rsi_short_4h",
+                    "donchian_short_1h"
+                ],
+                "validation": {
+                    "enabled": true,
+                    "lookback_bars_1h": 720,
+                    "lookback_bars_4h": 360,
+                    "default": {
+                        "leverage": 1.0,
+                        "cost_bps_per_side": 4.0,
+                        "min_trades": 4,
+                        "min_win_rate": 45.0,
+                        "min_profit_factor": 1.2,
+                        "max_drawdown_pct": 35.0,
+                        "min_total_return_pct": 3.0
+                    },
+                    "bollinger_rsi_short_4h": {
+                        "min_trades": 3,
+                        "min_win_rate": 55.0,
+                        "max_drawdown_pct": 20.0
+                    },
+                    "donchian_short_1h": {
+                        "min_trades": 8,
+                        "min_profit_factor": 1.5,
+                        "max_drawdown_pct": 35.0,
+                        "min_total_return_pct": 5.0
+                    }
+                },
+                "donchian": {
+                    "enabled": true,
+                    "fast": 18,
+                    "slow": 36,
+                    "entry_lookback": 24,
+                    "exit_lookback": 8,
+                    "rr_ratio": 2.2,
+                    "min_stop_pct": 0.006,
+                    "max_stop_pct": 0.04,
+                    "signal_score": 84.0,
+                    "position_size_pct": 10.0
+                },
+                "bollinger": {
+                    "enabled": true,
+                    "fast": 18,
+                    "slow": 96,
+                    "bb_period": 24,
+                    "bb_std": 1.5,
+                    "entry_rsi": 55.0,
+                    "exit_rsi": 50.0,
+                    "rr_ratio": 1.8,
+                    "sl_buffer_pct": 0.0025,
+                    "signal_score": 88.0,
+                    "position_size_pct": 10.0
+                }
+            },
+            "ticker_learning": {
+                "enabled": true,
+                "window": 20,
+                "loss_streak_reduce": 3,
+                "loss_streak_tighten": 4,
+                "loss_streak_block": 5,
+                "block_cooldown_hours": 6,
+                "win_streak_boost": 3,
+                "win_streak_boost2": 5,
+                "max_leverage_cap": 5,
+                "size_mult_l3": 0.5,
+                "size_mult_l4": 0.25,
+                "min_score_l3": 90.0,
+                "min_score_l4": 93.0,
+                "rr_mult_w3": 1.25,
+                "rr_mult_w5": 1.5,
+                "baseline_min_score": 78.0
+            }
+        },
+        "risk": {
+            "enabled": false,
+            "max_daily_loss_pct": 1.0,
+            "max_daily_loss_trades": 2,
+            "max_drawdown_pct": 5.0,
+            "max_open_trades": 3,
+            "max_exposure_pct": 15.0,
+            "max_position_size_pct": 0.5,
+            "max_risk_per_trade_pct": 0.5,
+            "check_interval_sec": 60,
+            "position_size_pct": 10
+        },
+        "scanner": {
+            "enabled": true,
+            "interval_sec": 60,
+            "min_volume_24h": 1000000,
+            "startup_lazy_refresh_delay_seconds": 60,
+            "watchlist_market_scan_enabled": true,
+            "watchlist_market_scan_interval_seconds": 300,
+            "watchlist_market_scan_max_symbols": 100
+        },
+        "sentiment": {
+            "enabled": true,
+            "provider": "marketaux",
+            "min_sentiment_score": 0.2,
+            "news_impact_threshold": "High"
+        },
+        "news_tab": {
+            "enabled": true
+        },
+        "economic_calendar": {
+            "enabled": true
+        },
+        "trade_radar": {
+            "enabled": true
+        },
+        "strategy_research": {
+            "enabled": true
+        },
+        "premarket_scanner": {
+            "enabled": true
+        },
+        "pre_earnings": {
+            "enabled": true
+        },
+        "research_factory": {
+            "enabled": false
+        },
+        "coding_agent": {
+            "enabled": true
+        },
+        "critic_agent": {
+            "enabled": true
+        },
+        "ui_inspector": {
+            "enabled": true,
+            "interval_sec": 300
+        }
+    },
+    "ollama": {
+        "model": "gemma4:e4b",
+        "cloud_model": "gpt-oss:120b",
+        "local_cloud_model": "gpt-oss:120b-cloud",
+        "base_url": "http://localhost:11434",
+        "cloud_base_url": "https://ollama.com",
+        "api_key_env": "OLLAMA_API_KEY",
+        "use_cloud_when_api_key_present": true,
+        "use_local_cloud_model_fallback": true,
+        "timeout": 120,
+        "decision_enabled": true,
+        "decision_veto_enabled": true,
+        "decision_min_confidence": 0.65,
+        "decision_allow_leverage": true,
+        "decision_max_leverage": 2,
+        "decision_timeout_seconds": 45,
+        "exit_decision_enabled": true,
+        "exit_decision_min_confidence": 0.8,
+        "exit_tighten_stop_enabled": true,
+        "exit_tighten_stop_min_confidence": 0.75,
+        "exit_close_technical_risk_fraction": 0.75,
+        "exit_close_post_earnings_flow_min_abs_score": 25.0,
+        "exit_close_post_earnings_flow_min_confidence": 0.35,
+        "exit_close_post_earnings_min_relative_volume": 1.5,
+        "reflection_enabled": true,
+        "exit_decision_timeout_seconds": 45,
+        "post_earnings_exit_decision_timeout_seconds": 90,
+        "exit_decision_cooldown_seconds": 300,
+        "news_enabled": true
+    },
+    "ai": {
+        "providers": {
+            "ollama": {
+                "enabled": true,
+                "type": "ollama"
+            },
+            "openai": {
+                "enabled": true,
+                "type": "openai",
+                "base_url": "https://api.openai.com/v1",
+                "api_key_env": "OPENAI_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "anthropic": {
+                "enabled": true,
+                "type": "anthropic",
+                "base_url": "https://api.anthropic.com",
+                "api_key_env": "ANTHROPIC_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "gemini": {
+                "enabled": true,
+                "type": "gemini",
+                "base_url": "https://generativelanguage.googleapis.com",
+                "api_key_env": "GEMINI_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "xai": {
+                "enabled": true,
+                "type": "openai_compatible",
+                "base_url": "https://api.x.ai/v1",
+                "api_key_env": "XAI_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "deepseek": {
+                "enabled": true,
+                "type": "openai_compatible",
+                "base_url": "https://api.deepseek.com/v1",
+                "api_key_env": "DEEPSEEK_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "mistral": {
+                "enabled": true,
+                "type": "openai_compatible",
+                "base_url": "https://api.mistral.ai/v1",
+                "api_key_env": "MISTRAL_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "openrouter": {
+                "enabled": true,
+                "type": "openai_compatible",
+                "base_url": "https://openrouter.ai/api/v1",
+                "api_key_env": "OPENROUTER_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "kimi": {
+                "enabled": true,
+                "type": "openai_compatible",
+                "base_url": "https://api.moonshot.ai/v1",
+                "api_key_env": "KIMI_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            },
+            "zai": {
+                "enabled": true,
+                "type": "openai_compatible",
+                "base_url": "https://api.z.ai/api/paas/v4",
+                "api_key_env": "ZAI_API_KEY",
+                "default_model": "",
+                "timeout": 60
+            }
+        },
+        "registry": [],
+        "assignment": {
+            "all": null,
+            "market_analyst": null,
+            "pre_earnings_analyst": null,
+            "news_analyst": null,
+            "quant_analyst": null,
+            "portfolio_manager": null,
+            "risk_critic": null,
+            "research_scientist": null,
+            "coding_agent": null,
+            "code_reviewer": null,
+            "security_reviewer": null
+        },
+        "router": {
+            "triage": {
+                "model": null
+            },
+            "analysis": {
+                "model": null
+            },
+            "critic": {
+                "model": null
+            }
+        },
+        "fallback": {
+            "enabled": true,
+            "chain": []
+        },
+        "all_unavailable_no_trade": true,
+        "decision": {
+            "strict_schema": false,
+            "critic_enabled": true,
+            "critic_force_no_trade_on_fail": true,
+            "critic_poor_setup_score": 68.0,
+            "critic_good_setup_score": 78.0,
+            "critic_poor_setup_veto_severity": 0.65,
+            "critic_veto_min_severity": 0.8,
+            "critic_good_setup_veto_severity": 0.9,
+            "critic_critical_veto_severity": 0.95,
+            "critic_reduce_min_severity": 0.5,
+            "critic_min_size_factor": 0.5,
+            "critic_low_confidence_threshold": 0.5,
+            "critic_low_confidence_veto_severity": 0.75,
+            "critic_structural_veto_severity": 0.8,
+            "critic_structural_min_categories": 2
+        }
+    },
+    "risk_constitution": {
+        "owner_confirmed": false,
+        "max_risk_per_trade_pct": null,
+        "max_position_size_pct": null,
+        "max_total_exposure_pct": null,
+        "max_leverage": null,
+        "minimum_cash_pct": null,
+        "max_sector_exposure_pct": null,
+        "correlation_threshold": null,
+        "max_correlated_exposure_pct": null,
+        "max_positions": null,
+        "max_liquidity_participation_pct": null,
+        "max_daily_loss_pct": null,
+        "max_daily_loss_trades": null,
+        "max_drawdown_pct": null,
+        "max_data_age_seconds": null,
+        "block_data_conflicts": null,
+        "require_approved_strategy": null
+    },
+    "autonomy": {
+        "mode": "ANALYZE",
+        "kill_switch_active": false,
+        "live_auto_owner_enabled": false,
+        "paper_auto_acceptance_required": true,
+        "paper_auto_acceptance_passed": false
+    },
+    "research_factory": {
+        "auto_cycle": {
+            "enabled": false,
+            "interval_seconds": 21600,
+            "max_experiments": 3
+        }
+    },
+    "development_factory": {
+        "auto_repair": {
+            "enabled": false,
+            "max_attempts": 3,
+            "watchdog_enabled": false,
+            "watchdog_interval_seconds": 900,
+            "max_cases_per_cycle": 2,
+            "improvements_enabled": false,
+            "improvement_cooldown_hours": 12
+        }
+    },
+    "paper_execution": {
+        "store_path": "data/execution.db",
+        "reduce_fraction_pct": null
+    },
+    "signal_engine": {
+        "market_regime_universe_min": 10
+    },
+    "ml": {
+        "registry": [],
+        "qlib_enabled": false,
+        "baseline_feature_version": "v1",
+        "mlflow_tracking_uri": "http://127.0.0.1:5001",
+        "mlflow_auto_start": true
+    },
+    "rdagent": {
+        "enabled": false,
+        "endpoint": "http://127.0.0.1:19000",
+        "workspace": "runtime/rdagent_workspace",
+        "venv_path": "runtime/rdagent_venv"
+    },
+    "backtest_engine": {
+        "default_engine": "faithful_replay",
+        "overfitting": {
+            "n_folds": 5,
+            "purge_bars": 0,
+            "embargo_bars": 0,
+            "min_oos_trades": 24,
+            "pbo_max": 0.25,
+            "dsr_min": 1.0,
+            "param_relative_std_max": 0.25
+        },
+        "evidence_min_sample": 24
+    },
+    "mappings": {
+        "symbol_map": {
+            "SI=F": "SLV",
+            "GC=F": "GLD",
+            "CL=F": "CL",
+            "HG=F": "HG",
+            "PL=F": "PL",
+            "PA=F": "PA",
+            "NG=F": "NG"
+        },
+        "news_search_terms": {
+            "SI=F": "Silver",
+            "GC=F": "Gold",
+            "GOLD": "Gold",
+            "CL=F": "Crude Oil",
+            "BTC-USD": "Bitcoin",
+            "ETH-USD": "Ethereum",
+            "MSTR": "Strategy Inc"
+        },
+        "news_entity_aliases": {
+            "AAPL": [
+                "Apple",
+                "Apple Inc"
+            ],
+            "MSFT": [
+                "Microsoft",
+                "Microsoft Corp"
+            ],
+            "NVDA": [
+                "Nvidia",
+                "NVIDIA Corp"
+            ],
+            "TSLA": [
+                "Tesla",
+                "Tesla Inc"
+            ],
+            "META": [
+                "Meta Platforms",
+                "Facebook"
+            ],
+            "AMZN": [
+                "Amazon",
+                "Amazon.com"
+            ],
+            "GOOGL": [
+                "Alphabet",
+                "Google"
+            ],
+            "BTC-USD": [
+                "Bitcoin",
+                "BTC"
+            ],
+            "ETH-USD": [
+                "Ethereum",
+                "Ether",
+                "ETH"
+            ],
+            "SOL-USD": [
+                "Solana",
+                "SOL"
+            ]
+        }
+    },
+    "flow_indicators": {
+        "enabled": true,
+        "whale": {
+            "book_ttl_seconds": 45,
+            "stale_after_seconds": 120,
+            "wall_min_usd": 100000,
+            "wall_median_mult": 25,
+            "whale_trade_min_usd": 50000,
+            "whale_trade_median_mult": 20
+        },
+        "institutional": {
+            "ttl_seconds": 90,
+            "stale_after_seconds": 300
+        }
+    },
+    "etoro": {
+        "enabled": true,
+        "public_key": "",
+        "private_key": "",
+        "watchlist_sync_enabled": true,
+        "social_feed_enabled": true,
+        "rates_ttl_seconds": 30,
+        "search_ttl_seconds": 300,
+        "feed_ttl_seconds": 600,
+        "watchlist_ttl_seconds": 300
+    },
+    "telegram": {
+        "enabled": false,
+        "bot_token": "",
+        "chat_id": "",
+        "routes": {
+            "news": true,
+            "signals": true,
+            "capital": true,
+            "alerts": true
+        }
+    }
+}

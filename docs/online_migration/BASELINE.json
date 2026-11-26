@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-06",
+  "repository": "C:\\Users\\<user>\\PyCharmMiscProject\\Market Signals V9",
+  "commit": "535fab613986f4f64540a950433c0a85d8fd5ee6",
+  "branch": "master",
+  "preexisting_worktree_status": "M agents/pre_earnings_agent.py\n M agents/premarket_scanner_agent.py\n M agents/trade_radar_agent.py\n M api/actions_service.py\n M api/main.py\n M api/state_service.py\n M core/alerts.py\n M core/config.py\n M core/ui_watchlist.py\n M data/us_macro_calendar_2026.json\n M frontend/app.js\n M frontend/chart_workspace.js\n M frontend/index.html\n M tests/test_premarket_scanner.py\n M tests/unit/test_premarket_volume_and_earnings_stale.py\n?? core/backtest_summary.py\n?? docs/REAUDIT_FIXES_2026-09-06.md\n?? tests/frontend/\n?? tests/test_reaudit_regressions.py",
+  "implementation_started": false,
+  "notes": "Starea cu modificări locale este intenționată; nu face reset/clean. Testele re-auditului sunt dovezi istorice, nu teste SaaS."
+}

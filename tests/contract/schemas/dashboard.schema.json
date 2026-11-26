@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "stats",
+    "dashboard_watchlist_priority",
+    "dashboard_news_items",
+    "dashboard_risk_flags",
+    "signals_count",
+    "tickers_count"
+  ],
+  "properties": {
+    "generated_at": { "type": "string" },
+    "stats": { "type": "object" },
+    "dashboard_watchlist_priority": { "type": "array" },
+    "dashboard_news_items": { "type": "array" },
+    "dashboard_risk_flags": { "type": "array" },
+    "signals_count": { "type": "integer", "minimum": 0 },
+    "tickers_count": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": true
+}

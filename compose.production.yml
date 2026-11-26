@@ -1,0 +1,82 @@
+name: market-signals
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: market-signals-v9:${MS_IMAGE_TAG:-local}
+    restart: unless-stopped
+    init: true
+    read_only: true
+    stop_grace_period: 45s
+    ports:
+      - "127.0.0.1:${MS_PUBLIC_PORT:-8003}:8003"
+    env_file:
+      - .env
+    environment:
+      MS_ENV: production
+      MS_HOST: 0.0.0.0
+      MS_PORT: "8003"
+      MS_API_KEY: "${MS_API_KEY:?Set a random MS_API_KEY with at least 32 characters}"
+      MS_AUDIT_HMAC_KEY: "${MS_AUDIT_HMAC_KEY:?Set a distinct random MS_AUDIT_HMAC_KEY with at least 32 characters}"
+      MS_METRICS_BEARER_TOKEN: "${MS_METRICS_BEARER_TOKEN:?Set a distinct random MS_METRICS_BEARER_TOKEN with at least 32 characters}"
+      MS_REQUIRE_API_KEY: "1"
+      MS_PROTECT_READS: "1"
+      MS_TRUSTED_HOSTS: "app,localhost,127.0.0.1,${MS_PUBLIC_HOST:?Set MS_PUBLIC_HOST to the production hostname}"
+      MS_ALLOWED_ORIGINS: "${MS_PUBLIC_ORIGIN:?Set MS_PUBLIC_ORIGIN to the HTTPS production origin}"
+      MS_TLS_TERMINATED: "1"
+      MS_FORCE_HTTPS: "0"
+      MS_ALLOW_INSECURE_ORIGINS: "0"
+      MS_TRAFFIC_CONTROL_ENABLED: "1"
+      MS_RATE_LIMIT_WINDOW_SECONDS: "${MS_RATE_LIMIT_WINDOW_SECONDS:-60}"
+      MS_RATE_LIMIT_READS: "${MS_RATE_LIMIT_READS:-240}"
+      MS_RATE_LIMIT_WRITES: "${MS_RATE_LIMIT_WRITES:-20}"
+      MS_RATE_LIMIT_AUTH_ATTEMPTS: "${MS_RATE_LIMIT_AUTH_ATTEMPTS:-5}"
+      MS_RATE_LIMIT_MAX_BUCKETS: "${MS_RATE_LIMIT_MAX_BUCKETS:-10000}"
+      MS_MAX_REQUEST_BODY_BYTES: "${MS_MAX_REQUEST_BODY_BYTES:-1048576}"
+      MS_API_MAX_INFLIGHT: "${MS_API_MAX_INFLIGHT:-128}"
+      MS_API_MAX_INFLIGHT_PER_CLIENT: "${MS_API_MAX_INFLIGHT_PER_CLIENT:-16}"
+      MS_ENGINE_MODE: subprocess
+      MS_RUNTIME_DIR: /app/runtime
+      MS_DATA_DIR: /app/data
+      MS_CONFIG_PATH: /app/runtime/config.json
+      MS_WATCHLIST_PATH: /app/runtime/watchlist.json
+      MS_STATE_PATH: /app/runtime/state.json
+      MS_SIGNALS_PATH: /app/runtime/signals_state.json
+      MS_CAPITAL_STATE_PATH: /app/runtime/capital.json
+      MS_SQLITE_DB_PATH: /app/data/market_signals.db
+      MS_LOG_DIR: /app/logs
+      MS_AUDIT_LOG_DIR: /app/audit_logs
+      MS_OPERATOR_AUDIT_PATH: /app/data/operator_audit.jsonl
+      MS_BACKUP_DIR: /app/backups
+      MS_BACKUP_ENABLED: "${MS_BACKUP_ENABLED:-1}"
+    volumes:
+      - market-runtime:/app/runtime
+      - market-data:/app/data
+      - market-backups:/app/backups
+      - market-logs:/app/logs
+      - market-output:/app/output
+      - market-reports:/app/reports
+      - market-audit:/app/audit_logs
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=512m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 512
+    logging:
+      driver: json-file
+      options:
+        max-size: 20m
+        max-file: "5"
+
+volumes:
+  market-runtime:
+  market-data:
+  market-backups:
+  market-logs:
+  market-output:
+  market-reports:
+  market-audit:

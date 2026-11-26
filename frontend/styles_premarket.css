@@ -1,0 +1,676 @@
+/* ════════════════════════════════════════════════════════════════════════
+   Premarket Scanner — premium refinement (cream/gold identity, matches
+   Trade Radar & Pre-Earnings). Layout: meta chips → iconed summary strip →
+   pulse → reported → master-detail workspace (card grid + sticky details).
+   Base premarket styles (meta chips, pulse, reported, toolbar, details)
+   remain in main.css; this file adds the refined layout & card system.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── Slim status bar + diagnostics dropdown ────────────────────────────── */
+/* Owner feedback (2026-08): the tab stacked six info bands above the
+   candidates. Only the "is this live?" essentials stay on one line; the
+   full input diagnostics collapse into this dropdown. */
+.premarket-statusbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 0.82rem;
+  color: #475569;
+}
+
+.premarket-statusbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.premarket-statusbar-item i {
+  color: var(--accent-color, #c9a227);
+  font-size: 0.76rem;
+}
+
+.premarket-diagnostics {
+  margin-left: auto;
+  position: relative;
+}
+
+.premarket-diagnostics summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(240, 230, 200, 0.9);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.97), rgba(252, 248, 239, 0.92));
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #64748b;
+  user-select: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.premarket-diagnostics summary::-webkit-details-marker { display: none; }
+
+.premarket-diagnostics summary::after {
+  content: '\f078';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 0.6rem;
+  opacity: 0.6;
+}
+
+.premarket-diagnostics[open] summary::after { content: '\f077'; }
+
+.premarket-diagnostics summary:hover {
+  color: #0f172a;
+  border-color: rgba(201, 162, 39, 0.45);
+}
+
+.premarket-diagnostics[open] summary {
+  color: #8a6b12;
+  border-color: rgba(201, 162, 39, 0.55);
+}
+
+.premarket-diagnostics-body {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: min(560px, 90vw);
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(240, 230, 200, 0.95);
+  background: rgba(255, 253, 249, 0.98);
+  box-shadow: 0 22px 40px -18px rgba(15, 23, 42, 0.35);
+}
+
+/* ── Summary strip — icon bubble + gold rail cards ─────────────────────── */
+.premarket-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.premarket-summary-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 14px 22px;
+  border: 1px solid rgba(240, 230, 200, 0.9);
+  border-radius: 16px;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.97), rgba(252, 248, 239, 0.92));
+  box-shadow: 0 16px 30px -24px rgba(26, 32, 44, 0.35);
+  overflow: hidden;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.premarket-summary-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 34px -24px rgba(26, 32, 44, 0.45);
+}
+
+.premarket-summary-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent-color, #c9a227), rgba(201, 162, 39, 0.35));
+}
+
+.premarket-summary-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: #8a6b12;
+  background: linear-gradient(160deg, rgba(201, 162, 39, 0.18), rgba(201, 162, 39, 0.08));
+  border: 1px solid rgba(201, 162, 39, 0.28);
+}
+
+.premarket-summary-icon.tone-long {
+  color: #15803d;
+  background: linear-gradient(160deg, rgba(22, 163, 74, 0.14), rgba(22, 163, 74, 0.06));
+  border-color: rgba(22, 163, 74, 0.26);
+}
+
+.premarket-summary-icon.tone-gold {
+  color: #92400e;
+  background: linear-gradient(160deg, rgba(234, 179, 8, 0.16), rgba(234, 179, 8, 0.07));
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+.premarket-summary-icon.tone-ready {
+  color: #1d4ed8;
+  background: linear-gradient(160deg, rgba(59, 130, 246, 0.14), rgba(59, 130, 246, 0.06));
+  border-color: rgba(59, 130, 246, 0.26);
+}
+
+.premarket-summary-body { min-width: 0; }
+
+.premarket-summary-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.premarket-summary-value {
+  margin-top: 4px;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+}
+
+.premarket-summary-sub {
+  margin-left: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+/* ── Master-detail workspace ───────────────────────────────────────────── */
+.premarket-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 14px;
+  align-items: start;
+}
+
+/* View modes (owner-selectable, same pattern as News):
+   split  = sections + sticky details panel (default)
+   cards  = full-width sections, no side panel
+   stream = compact one-line tape */
+.premarket-workspace.mode-cards,
+.premarket-workspace.mode-stream {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.premarket-workspace.mode-cards .premarket-workspace-side,
+.premarket-workspace.mode-stream .premarket-workspace-side {
+  display: none;
+}
+
+.premarket-workspace-main { min-width: 0; }
+
+.premarket-workspace-side {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* View selector toggle (Split / Cards / Stream) */
+.premarket-view-toggle {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: auto;
+  padding: 3px;
+  border-radius: 9px;
+  background: rgba(148, 163, 184, 0.16);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.premarket-view-btn {
+  border: none;
+  background: transparent;
+  padding: 5px 12px;
+  border-radius: 7px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.premarket-view-btn:hover { color: #1e293b; background: rgba(255, 255, 255, 0.65); }
+
+.premarket-view-btn.active {
+  background: #ffffff;
+  color: var(--accent-color, #c9a227);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Candidate card grid ───────────────────────────────────────────────── */
+.premarket-sections-grid { gap: 14px; }
+
+.premarket-section-header {
+  padding: 4px 2px 8px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  margin-bottom: 10px;
+}
+
+.premarket-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+/* Max 5 rows of cards stay visible per section — the rest scroll
+   (owner rule: "maxim 5, restul scroll"). Height set by JS per card size. */
+.premarket-card-grid.premarket-grid-capped {
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 39, 0.55) rgba(15, 23, 42, 0.06);
+}
+
+.premarket-card-grid.premarket-grid-capped::-webkit-scrollbar { width: 8px; }
+.premarket-card-grid.premarket-grid-capped::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.06);
+  border-radius: 8px;
+}
+.premarket-card-grid.premarket-grid-capped::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 39, 0.55);
+  border-radius: 8px;
+}
+
+/* ── Stream view: compact one-line tape ────────────────────────────────── */
+.premarket-stream-head,
+.premarket-stream-row {
+  display: grid;
+  grid-template-columns: 84px 58px 52px 74px 84px 84px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 7px 10px;
+}
+
+.premarket-stream-head {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.premarket-stream-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.premarket-stream-list.premarket-list-capped {
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 39, 0.55) rgba(15, 23, 42, 0.06);
+}
+
+.premarket-stream-list.premarket-list-capped::-webkit-scrollbar { width: 8px; }
+.premarket-stream-list.premarket-list-capped::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.06);
+  border-radius: 8px;
+}
+.premarket-stream-list.premarket-list-capped::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 39, 0.55);
+  border-radius: 8px;
+}
+
+.premarket-stream-row {
+  font-size: 0.8rem;
+  color: #334155;
+  background: #fffefb;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.premarket-stream-row:hover {
+  border-color: rgba(201, 162, 39, 0.45);
+  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.12);
+}
+
+.premarket-stream-row.is-selected {
+  border-color: rgba(201, 162, 39, 0.65);
+  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.18);
+}
+
+.premarket-stream-sym {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.84rem;
+  letter-spacing: 0.3px;
+}
+
+.premarket-stream-dir {
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  text-align: center;
+}
+
+.premarket-stream-dir.dir-long { background: #dcfce7; color: #166534; }
+.premarket-stream-dir.dir-short { background: #fee2e2; color: #991b1b; }
+.premarket-stream-dir.dir-watch { background: #dbeafe; color: #1e3a8a; }
+
+.premarket-stream-note {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #64748b;
+  font-size: 0.76rem;
+}
+
+@media (max-width: 900px) {
+  .premarket-stream-head,
+  .premarket-stream-row {
+    grid-template-columns: 74px 52px 48px 70px minmax(0, 1fr);
+  }
+  .premarket-stream-head span:nth-child(5),
+  .premarket-stream-head span:nth-child(6),
+  .premarket-stream-row span:nth-child(5),
+  .premarket-stream-row span:nth-child(6) { display: none; }
+}
+
+.premarket-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 13px 14px 12px 18px;
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 14px 28px -24px rgba(15, 23, 42, 0.5);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.premarket-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201, 162, 39, 0.45);
+  box-shadow: 0 20px 34px -22px rgba(15, 23, 42, 0.55);
+}
+
+.premarket-card:focus-visible {
+  outline: 2px solid rgba(201, 162, 39, 0.6);
+  outline-offset: 2px;
+}
+
+.premarket-card.is-selected {
+  border-color: rgba(201, 162, 39, 0.7);
+  box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.5), 0 18px 32px -22px rgba(15, 23, 42, 0.5);
+}
+
+.premarket-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+}
+
+.premarket-card--long::before { background: linear-gradient(180deg, #16a34a, rgba(22, 163, 74, 0.25)); }
+.premarket-card--short::before { background: linear-gradient(180deg, #dc2626, rgba(220, 38, 38, 0.25)); }
+.premarket-card--watch::before { background: linear-gradient(180deg, #6366f1, rgba(99, 102, 241, 0.25)); }
+
+.premarket-card--long { background: linear-gradient(100deg, rgba(22, 163, 74, 0.045), rgba(255, 255, 255, 0.97) 36%); }
+.premarket-card--short { background: linear-gradient(100deg, rgba(220, 38, 38, 0.045), rgba(255, 255, 255, 0.97) 36%); }
+.premarket-card--watch { background: linear-gradient(100deg, rgba(99, 102, 241, 0.04), rgba(255, 255, 255, 0.97) 36%); }
+
+.premarket-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.premarket-card-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.premarket-card-symbol {
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.01em;
+}
+
+.premarket-card-direction {
+  width: fit-content;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.premarket-card-direction--long {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.premarket-card-direction--short {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.premarket-card-direction--watch {
+  background: #e0e7ff;
+  color: #4f46e5;
+  border: 1px solid #a5b4fc;
+}
+
+/* Score pill + mini meter */
+.premarket-card-score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.premarket-score-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.premarket-score-pill.high {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.premarket-score-pill.mid {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.premarket-score-pill.low {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.premarket-score-meter {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: #eef1f5;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.premarket-score-meter i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.premarket-score-meter i.high { background: linear-gradient(90deg, #4ade80, #16a34a); }
+.premarket-score-meter i.mid { background: linear-gradient(90deg, #fcd34d, #f59e0b); }
+.premarket-score-meter i.low { background: linear-gradient(90deg, #fca5a5, #ef4444); }
+
+/* Price facts row */
+.premarket-card-prices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.premarket-card-prices span {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.premarket-card-prices b {
+  display: block;
+  margin-top: 2px;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.premarket-card-catalysts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+span.premarket-catalyst-chip {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.premarket-card-news {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: #475569;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  border-top: 1px dashed rgba(226, 232, 240, 0.9);
+  padding-top: 8px;
+}
+
+/* ── Details side panel refinements ────────────────────────────────────── */
+.premarket-details-card {
+  border-radius: 18px;
+  box-shadow: 0 20px 38px rgba(15, 23, 42, 0.08);
+}
+
+.premarket-details-head {
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(201, 162, 39, 0.4);
+  margin-bottom: 10px;
+}
+
+.premarket-details-title {
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.premarket-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.premarket-workspace table,
+.premarket-details-card table,
+.premarket-card table {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.premarket-workspace thead th,
+.premarket-details-card thead th,
+.premarket-card thead th {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
+  padding: 4px 3px;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 1280px) {
+  .premarket-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .premarket-workspace-side {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 900px) {
+  .premarket-summary-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .premarket-summary-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .premarket-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premarket-card, .premarket-summary-card { transition: none; }
+  .premarket-score-meter i { transition: none; }
+}

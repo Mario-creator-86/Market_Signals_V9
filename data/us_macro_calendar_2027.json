@@ -1,0 +1,149 @@
+{
+  "year": 2027,
+  "source": "Official publisher release schedules for 2027: U.S. Bureau of Labor Statistics (Employment Situation, CPI, PPI), Bureau of Economic Analysis (GDP, Personal Income and Outlays), U.S. Census Bureau (Advance Monthly Retail Sales). Retrieved 2026-11-15.",
+  "note": "Official published release dates, read from each agency's own schedule page on 2026-11-15 (each indicator carries its own source_url and retrieved date). All times 8:30 AM ET. Agencies can reschedule a release; re-check the source pages when a date matters. An indicator with \"complete\": false is published only partly - nothing is extrapolated. FOMC decisions are provided separately by the economic_calendar_agent.",
+  "time_et": "08:30",
+  "events": [
+    {
+      "indicator": "jobs",
+      "title": "US Jobs Report (Nonfarm Payrolls)",
+      "impact": "high",
+      "dates": [
+        "2027-01-08",
+        "2027-02-05",
+        "2027-03-05",
+        "2027-04-02",
+        "2027-05-07",
+        "2027-06-04",
+        "2027-07-02",
+        "2027-08-06",
+        "2027-09-03",
+        "2027-10-08",
+        "2027-11-05",
+        "2027-12-03"
+      ],
+      "complete": true,
+      "source_url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+      "cross_check_url": "https://www.bls.gov/schedule/2027/home.htm",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "indicator": "cpi",
+      "title": "US CPI (Consumer Price Index)",
+      "impact": "high",
+      "dates": [
+        "2027-01-13",
+        "2027-02-11",
+        "2027-03-10",
+        "2027-04-13",
+        "2027-05-12",
+        "2027-06-10",
+        "2027-07-14",
+        "2027-08-11",
+        "2027-09-14",
+        "2027-10-14",
+        "2027-11-10",
+        "2027-12-10"
+      ],
+      "complete": true,
+      "source_url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+      "cross_check_url": "https://www.bls.gov/schedule/2027/home.htm",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "indicator": "pce",
+      "title": "US PCE (Personal Income & Outlays)",
+      "impact": "high",
+      "dates": [
+        "2027-01-28",
+        "2027-02-25",
+        "2027-03-31",
+        "2027-04-29",
+        "2027-05-27",
+        "2027-06-25",
+        "2027-07-29",
+        "2027-08-25",
+        "2027-09-30",
+        "2027-10-28",
+        "2027-11-24",
+        "2027-12-22"
+      ],
+      "complete": true,
+      "source_url": "https://www.bea.gov/news/schedule",
+      "retrieved_from": "https://www.bea.gov/news/schedule/next-year",
+      "cross_check_url": "https://apps.bea.gov/API/signup/release_dates.json",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "indicator": "retail",
+      "title": "US Retail Sales (Advance)",
+      "impact": "high",
+      "dates": [
+        "2027-01-15",
+        "2027-02-17",
+        "2027-03-16",
+        "2027-04-16",
+        "2027-05-14",
+        "2027-06-16",
+        "2027-07-16",
+        "2027-08-16",
+        "2027-09-16",
+        "2027-10-15",
+        "2027-11-16",
+        "2027-12-15"
+      ],
+      "complete": true,
+      "source_url": "https://www.census.gov/retail/release_schedule.html",
+      "cross_check_url": "https://www.census.gov/economic-indicators/calendar-listview.html",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "indicator": "ppi",
+      "title": "US PPI (Producer Price Index)",
+      "impact": "medium",
+      "dates": [
+        "2027-01-14",
+        "2027-02-12",
+        "2027-03-12",
+        "2027-04-14",
+        "2027-05-13",
+        "2027-06-11",
+        "2027-07-15",
+        "2027-08-10",
+        "2027-09-10",
+        "2027-10-15",
+        "2027-11-12",
+        "2027-12-15"
+      ],
+      "complete": true,
+      "source_url": "https://www.bls.gov/schedule/news_release/ppi.htm",
+      "cross_check_url": "https://www.bls.gov/schedule/2027/home.htm",
+      "retrieved": "2026-11-15"
+    },
+    {
+      "indicator": "gdp",
+      "title": "US GDP",
+      "impact": "medium",
+      "dates": [
+        "2027-01-28",
+        "2027-02-25",
+        "2027-03-31",
+        "2027-04-29",
+        "2027-05-27",
+        "2027-06-25",
+        "2027-07-29",
+        "2027-08-25",
+        "2027-09-30",
+        "2027-10-28",
+        "2027-11-24",
+        "2027-12-22"
+      ],
+      "complete": true,
+      "source_url": "https://www.bea.gov/news/schedule",
+      "retrieved_from": "https://www.bea.gov/news/schedule/next-year",
+      "cross_check_url": "https://apps.bea.gov/API/signup/release_dates.json",
+      "retrieved": "2026-11-15"
+    }
+  ],
+  "source_url": "https://www.census.gov/economic-indicators/"
+}

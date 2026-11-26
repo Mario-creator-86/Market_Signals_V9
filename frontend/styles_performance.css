@@ -1,0 +1,45 @@
+/*
+ * Performance Component Styles
+ * Trade history and performance KPIs (compact sidebar version)
+ */
+
+.dash-perf-kpis {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.dash-perf-kpi {
+    text-align: center;
+    flex: 1;
+}
+
+.dash-perf-value {
+    display: block;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #0f172a;
+}
+
+.dash-perf-label {
+    display: block;
+    font-size: 0.64rem;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-top: 1px;
+}
+
+.mini-chart-container {
+    margin-bottom: 4px;
+}
+
+.bar-chart-label {
+    font-size: 0.68rem;
+    color: #64748b;
+    font-weight: 600;
+    margin-bottom: 3px;
+}

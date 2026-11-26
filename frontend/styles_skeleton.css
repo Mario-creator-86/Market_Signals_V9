@@ -1,0 +1,431 @@
+/* ============================================================
+   styles_skeleton.css — Stage 6 UI Premium Polish
+   Unified skeleton loaders, empty states, and freshness timestamps
+   ============================================================ */
+
+/* ── CSS Custom Properties ────────────────────────────────── */
+:root {
+  --skeleton-base: #e2e8f0;
+  --skeleton-shimmer: #f8fafc;
+  --skeleton-radius: 6px;
+  --skeleton-speed: 1.4s;
+  --empty-state-icon-color: #94a3b8;
+  --empty-state-text-color: #64748b;
+  --freshness-good-color: #22c55e;
+  --freshness-warn-color: #f59e0b;
+  --freshness-stale-color: #ef4444;
+  --freshness-unknown-color: #94a3b8;
+}
+
+/* ── Shimmer Keyframe ─────────────────────────────────────── */
+@keyframes ms-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Skeleton Base ────────────────────────────────────────── */
+.skeleton {
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shimmer) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: ms-shimmer var(--skeleton-speed) ease-in-out infinite;
+  border-radius: var(--skeleton-radius);
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Skeleton Shapes ─────────────────────────────────────── */
+.skeleton-text {
+  height: 0.9em;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shimmer) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: ms-shimmer var(--skeleton-speed) ease-in-out infinite;
+}
+
+/* Full-width text line */
+.skeleton-line {
+  display: block;
+  width: 100%;
+  height: 14px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shimmer) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: ms-shimmer var(--skeleton-speed) ease-in-out infinite;
+}
+
+.skeleton-line.w-75  { width: 75%; }
+.skeleton-line.w-60  { width: 60%; }
+.skeleton-line.w-40  { width: 40%; }
+.skeleton-line.w-90  { width: 90%; }
+.skeleton-line.h-sm  { height: 10px; }
+.skeleton-line.h-lg  { height: 20px; }
+.skeleton-line.h-xl  { height: 32px; }
+
+.skeleton-circle {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shimmer) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: ms-shimmer var(--skeleton-speed) ease-in-out infinite;
+}
+
+.skeleton-badge {
+  display: inline-block;
+  width: 60px;
+  height: 22px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shimmer) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: ms-shimmer var(--skeleton-speed) ease-in-out infinite;
+}
+
+.skeleton-card {
+  border-radius: 12px;
+  padding: 20px;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shimmer) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: ms-shimmer var(--skeleton-speed) ease-in-out infinite;
+}
+
+/* ── Skeleton Rows (table layout) ────────────────────────── */
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.skeleton-row:last-child {
+  border-bottom: none;
+}
+
+/* ── Skeleton Wrappers ───────────────────────────────────── */
+.skeleton-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ── Skeleton Block Components ───────────────────────────── */
+
+/* Hotlist card skeleton */
+.skeleton-hotlist-card {
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--skeleton-base);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 180px;
+}
+
+/* News card skeleton */
+.skeleton-news-card {
+  padding: 14px 16px;
+  border-radius: 8px;
+  border-bottom: 1px solid var(--skeleton-base);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Scanner row skeleton */
+.skeleton-scanner-row {
+  display: grid;
+  grid-template-columns: 120px 80px 80px 80px 80px 80px 1fr;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  align-items: center;
+}
+
+/* Premarket card skeleton */
+.skeleton-premarket-card {
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--skeleton-base);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 80px;
+}
+
+/* ── Empty State ─────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 32px;
+  text-align: center;
+  color: var(--empty-state-text-color);
+  gap: 16px;
+}
+
+.empty-state__icon {
+  font-size: 2.8rem;
+  color: var(--empty-state-icon-color);
+  opacity: 0.4;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.empty-state__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--empty-state-text-color);
+  margin: 0;
+}
+
+.empty-state__subtitle {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  max-width: 360px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.empty-state__action {
+  margin-top: 8px;
+}
+
+/* Compact inline empty state */
+.empty-state--compact {
+  padding: 32px 24px;
+  gap: 10px;
+}
+
+.empty-state--compact .empty-state__icon {
+  font-size: 1.8rem;
+}
+
+.empty-state--compact .empty-state__title {
+  font-size: 0.9rem;
+}
+
+/* ── Freshness Timestamp Badge ───────────────────────────── */
+.freshness-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.freshness-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Fresh: updated < 2 minutes ago */
+.freshness-badge--good {
+  color: var(--freshness-good-color);
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.2);
+}
+.freshness-badge--good::before {
+  background: var(--freshness-good-color);
+  box-shadow: 0 0 4px rgba(34, 197, 94, 0.5);
+}
+
+/* Warning: updated 2–10 minutes ago */
+.freshness-badge--warn {
+  color: var(--freshness-warn-color);
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+.freshness-badge--warn::before {
+  background: var(--freshness-warn-color);
+}
+
+/* Stale: updated > 10 minutes ago */
+.freshness-badge--stale {
+  color: var(--freshness-stale-color);
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+.freshness-badge--stale::before {
+  background: var(--freshness-stale-color);
+}
+
+/* Unknown / loading */
+.freshness-badge--unknown {
+  color: var(--freshness-unknown-color);
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+.freshness-badge--unknown::before {
+  background: var(--freshness-unknown-color);
+}
+
+/* ── Data Quality Badges ─────────────────────────────────── */
+.data-quality-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.data-quality-badge--verified {
+  color: #16a34a;
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.data-quality-badge--estimated {
+  color: #d97706;
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.data-quality-badge--stale {
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.data-quality-badge--unavailable {
+  color: #7f1d1d;
+  background: rgba(127, 29, 29, 0.1);
+  border-color: rgba(127, 29, 29, 0.3);
+}
+
+.data-quality-badge--unknown {
+  color: #6b7280;
+  background: rgba(107, 114, 128, 0.08);
+  border-color: rgba(107, 114, 128, 0.2);
+}
+
+/* ── Loading Overlay ─────────────────────────────────────── */
+.ms-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(2px);
+  border-radius: inherit;
+  z-index: 10;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.ms-loading-overlay i {
+  animation: spin 0.8s linear infinite;
+  font-size: 1rem;
+  color: var(--accent-color, #3b82f6);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Section Header with Freshness ──────────────────────── */
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.section-header-row h2,
+.section-header-row h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Dark Mode Support ───────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --skeleton-base: #1e293b;
+    --skeleton-shimmer: #334155;
+  }
+  .ms-loading-overlay {
+    background: rgba(15, 23, 42, 0.85);
+    color: #94a3b8;
+  }
+}
+
+/* ── Reduced Motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton, .skeleton-line, .skeleton-circle,
+  .skeleton-badge, .skeleton-card, .skeleton-hotlist-card,
+  .skeleton-news-card, .skeleton-scanner-row, .skeleton-premarket-card {
+    animation: none;
+    background: var(--skeleton-base);
+  }
+}

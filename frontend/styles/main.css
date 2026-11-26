@@ -1,0 +1,32 @@
+/*
+ * SignalSuite Premium - Main CSS
+ * Master file that imports all modular CSS components
+ * 
+ * IMPORT ORDER MATTERS:
+ * 1. Variables first (design tokens)
+ * 2. Base styles (resets, typography)
+ * 3. Layout system (containers, grids)
+ * 4. Components (isolated styles)
+ * 5. Footer (global element)
+ */
+
+/* === CORE STYLES === */
+@import 'variables.css';
+@import 'base.css';
+@import 'layout.css';
+
+/* === COMPONENT STYLES === */
+@import '../components/scanner/scanner.css';
+@import '../components/signals/signals.css';
+@import '../components/watchlist/watchlist.css';
+@import '../components/backtest/backtest.css';
+@import '../components/performance/performance.css';
+
+/* === GLOBAL ELEMENTS === */
+@import 'footer.css';
+
+/*
+ * Note: This modular structure prevents cascading bugs.
+ * Modifications to Scanner styles will NOT affect Signals.
+ * Each component is isolated to its own CSS file.
+ */

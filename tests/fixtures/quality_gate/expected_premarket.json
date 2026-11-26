@@ -1,0 +1,14 @@
+{
+  "as_of_utc": "2026-02-26T09:00:00+00:00",
+  "candidates": [
+    { "symbol": "NVDA", "direction": "LONG", "score_long": 8 },
+    { "symbol": "AAPL", "direction": "WATCH", "score_long": 4 }
+  ],
+  "status": {
+    "last_run_time": "2026-02-26T09:00:00+00:00",
+    "last_success_time": "2026-02-26T09:00:00+00:00",
+    "last_error": null,
+    "next_run_in": 300
+  },
+  "disabled": false
+}

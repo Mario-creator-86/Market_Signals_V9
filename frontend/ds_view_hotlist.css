@@ -1,0 +1,946 @@
+/* MarketMuse UI v10 - view skin: hotlist. Loaded after ds_core.css. */
+/*
+ * Hot list = a short list of names, so each one is an instrument panel:
+ *   page head  -> market heat strip (grouped by kind)  -> one wide panel per ticker
+ *   panel      = header (ticker, quote, earnings chip | verdict, actions)
+ *                body   (three definition columns: scores / technicals / event)
+ *                footer (risk heat meter, risk tier, top risk)
+ * Also skins the two overlays this view owns: the ticker dossier drawer
+ * (#hl-dossier-overlay, hotlist_dossier.js) and the trends-and-notes modal
+ * (#hotlist-detail-modal, UI.showHotListDetail).
+ */
+
+/* ── page head ───────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-hotlist .hl-head-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--ds-3);
+    flex-wrap: wrap;
+}
+html[data-ui="v10"] #view-hotlist #hotlist-stats:empty { display: none; }
+html[data-ui="v10"] #view-hotlist .hl-fresh {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-hotlist .hl-sep,
+html[data-ui="v10"] #hl-dossier-overlay .hl-sep { color: var(--ds-text-disabled); }
+html[data-ui="v10"] #view-hotlist .btn-hotlist-details {
+    animation: none;
+    text-shadow: none;
+    background-image: none;
+}
+
+/* ── market heat ─────────────────────────────────────────────────────── */
+html[data-ui="v10"] #hotlist-heat-strip {
+    margin: 0 0 var(--ds-4);
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    overflow: hidden;
+}
+html[data-ui="v10"] #hotlist-heat-strip:empty { display: none; }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ds-3);
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 10px var(--ds-4);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-title {
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+    text-transform: none;
+    letter-spacing: 0;
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-curated {
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-curated.muted { color: var(--ds-text-3); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-hint { margin-left: auto; }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chips {
+    display: block;
+    max-height: 172px;
+    overflow: auto;
+    gap: 0;
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chips > .hl-heat-curated { display: block; padding: var(--ds-3) var(--ds-4); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-group {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: start;
+    gap: var(--ds-3);
+    padding: 6px var(--ds-4);
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-group + .hl-heat-group { border-top: 1px solid var(--ds-line-faint); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-kind {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    line-height: 28px;
+    color: var(--ds-text-3);
+    letter-spacing: 0.01em;
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-group-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chip {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ds-2);
+    width: auto;
+    height: 28px;
+    padding: 0 var(--ds-2);
+    background: var(--ds-surface-2);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-chip);
+    box-shadow: none;
+    transform: none;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    line-height: 1;
+    color: var(--ds-text);
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), border-color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chip:hover {
+    background: var(--ds-surface-3);
+    border-color: var(--ds-line-strong);
+    box-shadow: none;
+    transform: none;
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-ticker { font-size: var(--ds-fs-12); font-weight: 600; color: var(--ds-text); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chg { font-size: var(--ds-fs-12); font-weight: 400; }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chg.up { color: var(--ds-pos-quiet); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chg.down { color: var(--ds-neg-quiet); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chg.muted { color: var(--ds-text-3); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-loading {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    flex-wrap: wrap;
+    padding: var(--ds-3) var(--ds-4);
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-failed { color: var(--ds-text-2); }
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-retry { height: 28px; margin-left: auto; }
+
+/* ── list + states ───────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-hotlist .hotlist-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-3);
+    margin: 0;
+}
+html[data-ui="v10"] #view-hotlist #hotlist-empty-state:empty { display: none; }
+html[data-ui="v10"] #view-hotlist #hotlist-grid .placeholder-text {
+    padding: var(--ds-8) var(--ds-4) !important;
+    text-align: center;
+    font-style: normal;
+    background: transparent;
+    border: 1px dashed var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-hotlist #hotlist-grid .placeholder-text > i { display: none !important; }
+html[data-ui="v10"] #view-hotlist #hotlist-grid .placeholder-text p {
+    margin: 0 auto 4px !important;
+    max-width: 60ch;
+    font-size: var(--ds-fs-13) !important;
+    color: var(--ds-text-3) !important;
+}
+html[data-ui="v10"] #view-hotlist #hotlist-grid .placeholder-text p:first-of-type {
+    font-size: var(--ds-fs-14) !important;
+    font-weight: 600;
+    color: var(--ds-text) !important;
+}
+html[data-ui="v10"] #view-hotlist #hotlist-grid .placeholder-text .ds-btn { margin-top: var(--ds-3); height: 28px; }
+
+/* ── ticker panel ────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-hotlist .hotlist-card {
+    position: relative;
+    display: block;
+    padding: 0;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: none;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-hotlist .hotlist-card::before { content: none; display: none; }
+html[data-ui="v10"] #view-hotlist .hotlist-card:hover {
+    background: var(--ds-surface-1);
+    border-color: var(--ds-line-strong);
+    box-shadow: none;
+    transform: none;
+}
+
+/* header: who it is and what it costs | verdict and actions */
+html[data-ui="v10"] #view-hotlist .hot-card-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-2) var(--ds-4);
+    flex-wrap: wrap;
+    margin: 0;
+    padding: var(--ds-3) var(--ds-4);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-hotlist .hot-card-symbol-group {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2) var(--ds-3);
+    flex-wrap: wrap;
+    min-width: 0;
+}
+html[data-ui="v10"] #view-hotlist .hot-card-symbol,
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-symbol,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-ticker {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-20);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-hotlist .hot-card-price-row,
+html[data-ui="v10"] #hotlist-detail-modal .hot-card-price-row {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-2);
+    flex-wrap: wrap;
+}
+html[data-ui="v10"] #view-hotlist .hot-card-price,
+html[data-ui="v10"] #hotlist-detail-modal .hot-card-price,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-price {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-16);
+    font-weight: 500;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-hotlist .hot-card-price[data-stale] { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-hotlist .hot-card-change,
+html[data-ui="v10"] #hotlist-detail-modal .hot-card-change,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-chg {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-14);
+    font-weight: 500;
+}
+html[data-ui="v10"] #view-hotlist .hl-age,
+html[data-ui="v10"] #hl-dossier-overlay .hl-age {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-11);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-hotlist .hot-card-countdown {
+    margin: 0;
+    gap: 6px;
+    justify-content: flex-start;
+}
+html[data-ui="v10"] #view-hotlist .hot-card-countdown .countdown-label {
+    display: inline;
+    max-width: none;
+    overflow: visible;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: none;
+    opacity: 1;
+}
+html[data-ui="v10"] #view-hotlist .hot-card-countdown .countdown-timer {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-11);
+    font-weight: 500;
+    color: inherit;
+}
+html[data-ui="v10"] #view-hotlist .hl-chip-muted {
+    background: transparent;
+    border-color: var(--ds-line);
+    color: var(--ds-text-3);
+}
+
+html[data-ui="v10"] #view-hotlist .hot-card-verdict {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--ds-2);
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+html[data-ui="v10"] #view-hotlist .hl-missing {
+    max-width: 46ch;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+    text-align: right;
+}
+html[data-ui="v10"] #view-hotlist .hl-verdict {
+    height: 24px;
+    padding: 0 9px;
+    font-size: var(--ds-fs-12);
+    letter-spacing: 0.03em;
+}
+html[data-ui="v10"] #view-hotlist .hot-card-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-1);
+    margin: 0 0 0 var(--ds-1);
+    padding-left: var(--ds-3);
+    border-left: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-hotlist .hot-card-actions .ds-btn { height: 28px; }
+html[data-ui="v10"] #view-hotlist .hot-card-actions .hl-icon-btn { width: 28px; padding: 0; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-hotlist .hot-card-actions .hl-icon-btn:hover { color: var(--ds-neg); }
+
+/* body: three labelled definition columns */
+html[data-ui="v10"] #view-hotlist .hot-card-body {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+html[data-ui="v10"] #view-hotlist .hot-card-col {
+    min-width: 0;
+    padding: var(--ds-3) var(--ds-4);
+    border-left: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-hotlist .hot-card-col:first-child { border-left: 0; }
+html[data-ui="v10"] #view-hotlist .hot-card-col > h4 { margin: 0 0 var(--ds-1); line-height: 1.4; }
+html[data-ui="v10"] #view-hotlist .hl-dl { margin: 0; max-width: 440px; }
+html[data-ui="v10"] #view-hotlist .hl-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    min-height: 28px;
+    margin: 0;
+    padding: 2px 0;
+    border-top: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] #view-hotlist .hl-row:first-child { border-top: 0; }
+html[data-ui="v10"] #view-hotlist .hl-row dt {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-hotlist .hl-row dt > span { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+html[data-ui="v10"] #view-hotlist .hl-row dd {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    flex-wrap: wrap;
+    min-width: 0;
+    margin: 0;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    text-align: right;
+}
+html[data-ui="v10"] #view-hotlist .hl-na,
+html[data-ui="v10"] #hotlist-detail-modal .hl-na { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-hotlist .hl-up,
+html[data-ui="v10"] #hotlist-detail-modal .hl-up { color: var(--ds-pos-quiet); }
+html[data-ui="v10"] #view-hotlist .hl-down,
+html[data-ui="v10"] #hotlist-detail-modal .hl-down { color: var(--ds-neg-quiet); }
+html[data-ui="v10"] #view-hotlist .hl-unit { margin-left: -4px; font-size: var(--ds-fs-11); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-hotlist .hl-note { font-family: var(--ds-font); font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-hotlist .hot-score-main {
+    font-size: var(--ds-fs-16);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-hotlist .hot-score-main.hl-na { color: var(--ds-text-3); font-weight: 400; }
+html[data-ui="v10"] #view-hotlist .hl-grade {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-chip);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-hotlist .hl-trend { display: inline-flex; align-items: baseline; gap: 4px; white-space: nowrap; }
+html[data-ui="v10"] #view-hotlist .hl-trend + .hl-trend { margin-left: var(--ds-2); }
+html[data-ui="v10"] #view-hotlist .hl-trend-tf { font-size: var(--ds-fs-11); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-hotlist .hot-card-confidence { margin: 0; }
+html[data-ui="v10"] #view-hotlist .hot-card-confidence-track {
+    display: inline-block;
+    width: 72px;
+    height: 4px;
+    background: var(--ds-surface-3);
+    border-radius: 2px;
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-hotlist .hot-card-confidence-fill {
+    display: block;
+    height: 100%;
+    background: var(--ds-text-3);
+    border-radius: 2px;
+}
+
+/* footer: one thin risk meter, the tier and the top risk in words */
+html[data-ui="v10"] #view-hotlist .hot-card-foot {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2) var(--ds-6);
+    flex-wrap: wrap;
+    padding: var(--ds-2) var(--ds-4);
+    border-top: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-hotlist .hot-card-riskheat,
+html[data-ui="v10"] #view-hotlist .hot-card-risktier,
+html[data-ui="v10"] #view-hotlist .hot-card-riskline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--ds-2);
+    min-height: 24px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+}
+html[data-ui="v10"] #view-hotlist .hot-card-riskline { flex: 1 1 240px; min-width: 0; }
+html[data-ui="v10"] #view-hotlist .risk-heat-label,
+html[data-ui="v10"] #view-hotlist .hot-card-foot .risk-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    letter-spacing: 0.01em;
+    text-transform: none;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-hotlist .risk-heat-track {
+    display: inline-block;
+    width: 160px;
+    height: 4px;
+    background: var(--ds-surface-3);
+    border-radius: 2px;
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-hotlist .risk-heat-fill { display: block; height: 100%; border-radius: 2px; }
+html[data-ui="v10"] #view-hotlist .risk-heat-low { background: var(--ds-pos-quiet); }
+html[data-ui="v10"] #view-hotlist .risk-heat-med { background: var(--ds-warn); }
+html[data-ui="v10"] #view-hotlist .risk-heat-high { background: var(--ds-neg); }
+html[data-ui="v10"] #view-hotlist .risk-heat-value {
+    min-width: 4ch;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-hotlist .hl-tier { font-size: var(--ds-fs-13); font-weight: 500; color: var(--ds-text-2); }
+html[data-ui="v10"] #view-hotlist .hl-tier--high { color: var(--ds-neg); }
+html[data-ui="v10"] #view-hotlist .hl-tier--med { color: var(--ds-warn); }
+html[data-ui="v10"] #view-hotlist .hot-card-foot .risk-value {
+    min-width: 0;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    color: var(--ds-text);
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+    html[data-ui="v10"] #view-hotlist .hot-card-body { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-hotlist .hot-card-col { border-left: 0; border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-hotlist .hot-card-col:first-child { border-top: 0; }
+    html[data-ui="v10"] #view-hotlist .hot-card-verdict { justify-content: flex-start; margin-left: 0; }
+    html[data-ui="v10"] #view-hotlist .hl-missing { text-align: left; }
+    html[data-ui="v10"] #hotlist-heat-strip .hl-heat-group { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    html[data-ui="v10"] #hotlist-heat-strip .hl-heat-hint { display: none; }
+    html[data-ui="v10"] #view-hotlist .risk-heat-track { width: 96px; }
+}
+
+/* ── ticker dossier (drawer) ─────────────────────────────────────────── */
+html[data-ui="v10"] #hl-dossier-overlay {
+    background: var(--ds-overlay);
+    backdrop-filter: blur(2px);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier {
+    width: min(680px, 100vw);
+    background: var(--ds-surface-1);
+    border-left: 1px solid var(--ds-line-strong);
+    box-shadow: var(--ds-shadow-pop);
+    color: var(--ds-text);
+    animation-duration: var(--ds-fast);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-head {
+    padding: var(--ds-3) var(--ds-5);
+    background: transparent;
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-title { gap: var(--ds-2) var(--ds-3); align-items: center; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-sub {
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-chg.up { color: var(--ds-pos); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-chg.down { color: var(--ds-neg); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-chg.muted { color: var(--ds-text-3); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-close { flex: 0 0 auto; width: 32px; padding: 0; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-body { padding: 0 var(--ds-5) var(--ds-6); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-loading {
+    padding: var(--ds-6) 0;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-failed .ds-btn { margin-top: var(--ds-2); }
+
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-section {
+    margin: 0;
+    padding: var(--ds-4) 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line);
+    border-radius: 0;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-section h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    margin: 0 0 var(--ds-2);
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+    text-transform: none;
+    letter-spacing: 0;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-section p {
+    margin: 4px 0;
+    font-size: var(--ds-fs-13);
+    line-height: 1.5;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-section p strong { color: var(--ds-text); font-weight: 600; }
+html[data-ui="v10"] #hl-dossier-overlay .muted { color: var(--ds-text-3); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-stale-note { color: var(--ds-warn); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-badge { border-radius: var(--ds-r-chip); font-weight: 600; text-transform: none; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-badge.hot,
+html[data-ui="v10"] #hl-dossier-overlay .hl-badge.afterward,
+html[data-ui="v10"] #hl-dossier-overlay .hl-count-chip {
+    background: var(--ds-surface-3);
+    border-color: var(--ds-line-strong);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-count-chip { font-family: var(--ds-font-num); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-note-warn {
+    display: block;
+    margin: var(--ds-2) 0;
+    padding: var(--ds-2) var(--ds-3);
+    background: var(--ds-warn-soft);
+    border: 1px solid var(--ds-warn-line);
+    border-radius: var(--ds-r-control);
+    font-size: var(--ds-fs-13);
+    line-height: 1.45;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-note-warn strong { color: var(--ds-text); font-weight: 600; }
+
+/* deep analysis: model output, so it carries the violet marker throughout */
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-verdict { gap: var(--ds-2); margin: 0 0 var(--ds-1); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-k {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-rec { height: 24px; padding: 0 9px; font-size: var(--ds-fs-12); letter-spacing: 0.03em; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-conf {
+    font-family: var(--ds-font);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    font-weight: 500;
+    color: var(--ds-ai);
+    opacity: 1;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-meta {
+    font-family: var(--ds-font);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+    opacity: 1;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-generated { margin: 4px 0 var(--ds-2); font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-generated strong { color: var(--ds-text-2); font-weight: 500; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-rationale {
+    margin: var(--ds-2) 0;
+    padding: 2px 0 2px var(--ds-3);
+    border-left: 2px solid var(--ds-ai);
+    font-size: var(--ds-fs-13);
+    line-height: 1.55;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-args summary,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-reason summary {
+    display: inline-block;
+    min-height: 28px;
+    padding: 4px 0;
+    font-size: var(--ds-fs-12);
+    font-weight: 500;
+    color: var(--ds-info);
+    cursor: pointer;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-args div,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-reason div {
+    margin-top: var(--ds-1);
+    padding: var(--ds-2) var(--ds-3);
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control);
+    font-size: var(--ds-fs-13);
+    line-height: 1.5;
+    color: var(--ds-text-2);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-args div strong {
+    display: block;
+    margin-bottom: 2px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-bull strong { color: var(--ds-pos); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-bear strong { color: var(--ds-neg); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-btn {
+    margin-top: var(--ds-3);
+    height: 28px;
+    background-image: none;
+    filter: none;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-deep-btn:disabled { cursor: progress; }
+
+/* news */
+html[data-ui="v10"] #hl-dossier-overlay .hl-news-list li { padding: var(--ds-2) 0; border-bottom: 1px solid var(--ds-line-faint); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-news-list li:last-child { border-bottom: 0; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-news-title { font-size: var(--ds-fs-13); line-height: 1.45; color: var(--ds-text); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-news-meta { font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-count { font-size: var(--ds-fs-12) !important; }
+
+/* trades + decision history: tables */
+html[data-ui="v10"] #hl-dossier-overlay .hl-totals { font-size: var(--ds-fs-13); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-strat-chips { gap: 6px; margin: var(--ds-2) 0; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-strat-chip {
+    padding: 3px 7px;
+    background: var(--ds-surface-3);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-chip);
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-11);
+    font-weight: 400;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-table-wrap {
+    margin-top: var(--ds-2);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-control);
+    overflow-x: auto;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-table { margin: 0; font-size: var(--ds-fs-13); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-table th {
+    padding: 6px 10px;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0.01em;
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-table td {
+    padding: 6px 10px;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    border-bottom: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-table tbody tr:last-child > td { border-bottom: 0; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-table td.muted { color: var(--ds-text-3); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-table td.good { color: var(--ds-pos-quiet); font-weight: 400; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-table td.bad { color: var(--ds-neg-quiet); font-weight: 400; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-table td { white-space: nowrap; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-table td.hl-when { font-family: var(--ds-font-num); font-variant-numeric: tabular-nums; color: var(--ds-text-2); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-row.has-extra > td { border-bottom: 0; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-extra > td {
+    padding-top: 0;
+    white-space: normal;
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-extra:hover > td,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-row.has-extra:hover > td { background: transparent; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-extra .ds-chip { margin-right: 6px; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-reason { display: inline-block; vertical-align: top; margin: 0; max-width: 100%; }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-status { background: var(--ds-surface-3); color: var(--ds-text-2); }
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-status.accepted,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-status.executed,
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-status.approved {
+    background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-status.rejected {
+    background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dec-status.skipped {
+    background: var(--ds-warn-soft); border-color: var(--ds-warn-line); color: var(--ds-warn);
+}
+html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-asof {
+    margin: var(--ds-4) 0 0;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-11);
+    color: var(--ds-text-3);
+    text-align: left;
+}
+
+/* ── trends-and-notes modal (card click) ─────────────────────────────── */
+html[data-ui="v10"] #hotlist-detail-modal .modal-content {
+    width: min(760px, 94vw);
+    max-width: 760px;
+    background: var(--ds-surface-1);
+}
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-header {
+    align-items: center;
+    gap: var(--ds-3);
+    padding: var(--ds-3) var(--ds-5);
+    background: transparent;
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-id {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2) var(--ds-3);
+    flex-wrap: wrap;
+    min-width: 0;
+}
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-actions { display: flex; align-items: center; gap: var(--ds-1); flex: 0 0 auto; }
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-actions .ds-btn--sm { height: 28px; }
+html[data-ui="v10"] #hotlist-detail-modal .btn-modal-close { width: 32px; padding: 0; }
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-body { padding: 0 var(--ds-5); gap: 0; }
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-section {
+    margin: 0;
+    padding: var(--ds-4) 0;
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-section:last-child { border-bottom: 0; }
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    flex-wrap: wrap;
+    margin: 0 0 var(--ds-3);
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0;
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-control);
+    overflow: hidden;
+}
+html[data-ui="v10"] #hotlist-detail-modal .metric-item {
+    display: block;
+    padding: var(--ds-2) var(--ds-3);
+    background: transparent;
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    text-align: left;
+}
+html[data-ui="v10"] #hotlist-detail-modal .metric-item:first-child { border-left: 0; }
+html[data-ui="v10"] #hotlist-detail-modal .metric-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0.01em;
+}
+html[data-ui="v10"] #hotlist-detail-modal .metric-value {
+    margin-top: 2px;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-14);
+    font-weight: 500;
+}
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-unavailable,
+html[data-ui="v10"] #hotlist-detail-modal .hl-notes-empty {
+    font-size: var(--ds-fs-13);
+    line-height: 1.5;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #hotlist-detail-modal .hot-card-notes {
+    display: block !important;
+    max-height: 320px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    color: var(--ds-text-2);
+    font-size: var(--ds-fs-13);
+    overflow-y: auto;
+}
+html[data-ui="v10"] #hotlist-detail-modal .mini-notebook-list { gap: var(--ds-2); }
+html[data-ui="v10"] #hotlist-detail-modal .mini-card {
+    padding: var(--ds-3);
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control);
+    box-shadow: none;
+    transform: none;
+}
+html[data-ui="v10"] #hotlist-detail-modal .mini-card-header {
+    margin-bottom: var(--ds-2);
+    padding-bottom: var(--ds-2);
+    border-bottom: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] #hotlist-detail-modal .note-type-badge {
+    padding: 2px 7px;
+    background: var(--ds-surface-3);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-chip);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #hotlist-detail-modal .note-type-long { background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos); }
+html[data-ui="v10"] #hotlist-detail-modal .note-type-short { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+html[data-ui="v10"] #hotlist-detail-modal .note-date { font-family: var(--ds-font-num); font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #hotlist-detail-modal .note-content { font-size: var(--ds-fs-13); line-height: 1.55; color: var(--ds-text); }
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-footer {
+    justify-content: flex-end;
+    padding: var(--ds-3) var(--ds-5);
+    background: transparent;
+    border-top: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #hotlist-detail-modal .btn-auth {
+    flex: 0 0 auto;
+    background-image: none;
+    text-shadow: none;
+    transform: none;
+}
+
+/* Fundamentals grid (only drawn when a fundamentals provider returns data) */
+html[data-ui="v10"] #hotlist-detail-modal .hot-card-fmp {
+    margin: 0 0 var(--ds-2) !important;
+    padding: var(--ds-3) !important;
+    background: var(--ds-surface-inset) !important;
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control) !important;
+}
+html[data-ui="v10"] #hotlist-detail-modal .fmp-item div { color: var(--ds-text) !important; }
+html[data-ui="v10"] #hotlist-detail-modal .fmp-item div > div:first-child { color: var(--ds-text-3) !important; }
+html[data-ui="v10"] #hotlist-detail-modal .fmp-item i { color: var(--ds-text-3) !important; }
+html[data-ui="v10"] #hotlist-detail-modal .fmp-tooltip-trigger::before {
+    background: var(--ds-surface-3);
+    color: var(--ds-text);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    box-shadow: var(--ds-shadow-pop);
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-12);
+}
+html[data-ui="v10"] #hotlist-detail-modal .fmp-tooltip-trigger::after { display: none; }
+
+@media (max-width: 640px) {
+    html[data-ui="v10"] #hotlist-detail-modal .hot-detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html[data-ui="v10"] #hotlist-detail-modal .metric-item { border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-body { padding: 0 var(--ds-4) var(--ds-5); }
+    html[data-ui="v10"] #hl-dossier-overlay .hl-dossier-head { padding: var(--ds-3) var(--ds-4); }
+}
+
+html[data-ui="v10"] #hotlist-detail-modal .hot-detail-section-title .btn-mini { flex: 0 0 auto; width: auto; height: 28px; white-space: nowrap; }
+@media (max-width: 640px) {
+    html[data-ui="v10"] #hotlist-detail-modal .metric-item { border-left: 0; }
+    html[data-ui="v10"] #hotlist-detail-modal .metric-item:nth-child(even) { border-left: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #hotlist-detail-modal .metric-item:nth-child(-n+2) { border-top: 0; }
+}
+
+/* Keyboard focus: the resets above (box-shadow: none) must not remove the global amber ring. */
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chip:focus-visible,
+html[data-ui="v10"] #view-hotlist .hot-card-actions .ds-btn:focus-visible,
+html[data-ui="v10"] #view-hotlist .btn-hotlist-details:focus-visible,
+html[data-ui="v10"] #hl-dossier-overlay .ds-btn:focus-visible,
+html[data-ui="v10"] #hotlist-detail-modal .ds-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus);
+}
+
+/* ── visual QA pass ──────────────────────────────────────────────────── */
+/* Market heat: no height cap. The 172px box scrolled inside the page and cut a
+   row of chips in half below about 1200px. On a phone each group is one row of
+   chips that scrolls sideways instead of a wall of wrapped rows. */
+html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chips { max-height: none; overflow: visible; }
+@media (max-width: 900px) {
+    html[data-ui="v10"] #hotlist-heat-strip .hl-heat-group { padding-bottom: var(--ds-2); }
+    html[data-ui="v10"] #hotlist-heat-strip .hl-heat-group-chips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: var(--ds-1);
+        overscroll-behavior-x: contain;
+    }
+    html[data-ui="v10"] #hotlist-heat-strip .hl-heat-chip { flex: 0 0 auto; }
+}
+
+/* Cards: three columns only while each has room for its longest row
+   ("Earnings history (8Q)  U1/D0 (n=1) avg gap 6.30%"). Narrower than that,
+   Scores and Technicals share a row and Event takes the next one, so values
+   stop breaking over two or three lines. Measured on the list itself, so it
+   follows the rail being open or collapsed. */
+html[data-ui="v10"] #view-hotlist .hotlist-cards-grid { container-type: inline-size; }
+@container (max-width: 1130px) {
+    html[data-ui="v10"] #view-hotlist .hot-card-body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html[data-ui="v10"] #view-hotlist .hot-card-col:nth-child(3) {
+        grid-column: 1 / -1;
+        border-left: 0;
+        border-top: 1px solid var(--ds-line);
+    }
+}
+@container (max-width: 699px) {
+    html[data-ui="v10"] #view-hotlist .hot-card-body { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-hotlist .hot-card-col { border-left: 0; border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-hotlist .hot-card-col:first-child { border-top: 0; }
+}
+
+/* Sentence case for the verdict chip (AVOID, EARNINGS PLAY, NO EARNINGS PLAY,
+   INSUFFICIENT DATA are upper case in the template and asserted by tests);
+   ::first-letter needs a block box, hence no inline-flex. */
+html[data-ui="v10"] #view-hotlist .hl-verdict {
+    display: inline-block;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-hotlist .hl-verdict::first-letter { text-transform: uppercase; }

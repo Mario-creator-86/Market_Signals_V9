@@ -1,0 +1,4443 @@
+{
+ "schema_version": 1,
+ "generated_at_utc": "2026-09-07T17:12:47.079773+00:00",
+ "window": {
+  "start": "2026-08-31T00:00:00+00:00",
+  "end": "2026-09-07T00:00:00+00:00"
+ },
+ "population": 155,
+ "method": {
+  "stored_tier": "prediction registered in the feedback store before the event (no look-ahead by construction)",
+  "replay_tier": "production AI prompt re-run on news with published_at <= event (ledger rows additionally require observed_at <= event); non-reconstructable inputs left absent",
+  "ground_truth": "realized signed gap move settled by the feedback pipeline (~36h after the report)",
+  "caveats": [
+   "llm_training_knowledge: the replay model may know post-event results for well-known tickers from its training data; treat replay verdicts as indicative, not as proof of point-in-time accuracy",
+   "analyst_eps_retail_gap_absent: analyst consensus, EPS beat history, eToro retail and gap risk are not reconstructable as-of the event and were left absent from the replay prompt (rendered N/A)",
+   "news_rotation: events whose pre-event news rotated out of the stores run without news evidence and are reported as abstentions, not drops"
+  ]
+ },
+ "config": {
+  "min_news": 1,
+  "news_limit": 12,
+  "ai_enabled": true,
+  "model": null
+ },
+ "rows": [
+  {
+   "symbol": "ANAB",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -0.71136,
+   "stored": {
+    "label": "LONG",
+    "bias": 39.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.4,
+    "gap_risk": 29.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 2,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 2
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.65,
+    "sentiment": 0.42,
+    "catalyst_label": "M&A",
+    "rationale": "Positive acquisition rumors and prior post‑earnings upside suggest a bullish reaction to the upcoming report.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "AREC",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -2.076555,
+   "stored": {
+    "label": "LONG",
+    "bias": 28.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 27.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 8,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 8
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "OTHER",
+    "rationale": "Earnings for 2026-08-31 have already been released, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "BLRX",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 11.538469,
+   "stored": {
+    "label": "LONG",
+    "bias": 26.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.5,
+    "gap_risk": 38.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CANG",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": -14.462815,
+   "stored": {
+    "label": "LONG",
+    "bias": 17.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.5,
+    "gap_risk": 38.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CBAT",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 2.463052,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 7.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.32,
+    "gap_risk": 52.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 5,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 5
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.55,
+    "sentiment": 0.4,
+    "catalyst_label": "OTHER",
+    "rationale": "Positive order and capacity expansion news suggest earnings will beat expectations, supporting a bullish post‑earnings move.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CHRN",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Technology",
+   "realized_signed_move_pct": 3.181328,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 12.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.32,
+    "gap_risk": 35.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.45,
+    "sentiment": 0.4,
+    "catalyst_label": "OTHER",
+    "rationale": "The Microsoft partnership signals strong AI demand and revenue upside, supporting a bullish pre‑earnings stance.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "GASS",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -0.105155,
+   "stored": {
+    "label": "SHORT",
+    "bias": -16.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.35,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "KEN",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Utilities",
+   "realized_signed_move_pct": 1.410119,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -2.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.35,
+    "gap_risk": 24.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings have already been released, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "LX",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": -14.406777,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 6.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.3,
+    "gap_risk": 40.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "PXS",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Energy",
+   "realized_signed_move_pct": 9.586273,
+   "stored": {
+    "label": "LONG",
+    "bias": 26.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 32.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "SAIC",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": 11.491424,
+   "stored": {
+    "label": "LONG",
+    "bias": 21.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.35,
+    "gap_risk": 41.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "SY",
+   "event_utc": "2026-08-31T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 11.157024,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.2,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-08-31T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "AAME",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": -2.877695,
+   "stored": {
+    "label": "SHORT",
+    "bias": -25.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.5,
+    "gap_risk": 42.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings for AAME were scheduled for 2026-09-01 and are likely already released, so there is no pre‑earnings edge.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "AREC",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -2.076555,
+   "stored": {
+    "label": "LONG",
+    "bias": 20.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 25.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 8,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 8
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.4,
+    "sentiment": -0.1,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Operational progress is positive but recent earnings reaction was negative and no clear earnings guidance exists, leading to a modest bearish bias.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ASO",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -1.035485,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.65,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 6,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 6
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.4,
+    "sentiment": 0.2,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Positive growth initiatives and a pending earnings release suggest modest upside if results meet or beat expectations.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "BRLS",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": 0.0,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -7.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.3,
+    "gap_risk": 55.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 7,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 7
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.55,
+    "sentiment": -0.3,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Financial weakness and compliance concerns outweigh growth news, likely pressuring the stock post‑earnings.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CISS",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -5.780348,
+   "stored": {
+    "label": "SHORT",
+    "bias": -34.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 41.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CLGN",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -11.314436,
+   "stored": {
+    "label": "SHORT",
+    "bias": -41.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.45,
+    "gap_risk": 45.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.62,
+    "sentiment": 0.35,
+    "catalyst_label": "M&A",
+    "rationale": "The imminent acquisition provides a positive near‑term catalyst that outweighs the lack of earnings guidance.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CRDO",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -8.849965,
+   "stored": {
+    "label": "LONG",
+    "bias": 45.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 61.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DELL",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": 8.881611,
+   "stored": {
+    "label": "LONG",
+    "bias": 51.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.62,
+    "gap_risk": 70.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GDEV",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Communication Services",
+   "realized_signed_move_pct": 3.275855,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.25,
+    "gap_risk": 44.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GEG",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": 1.81818,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.15,
+    "gap_risk": 22.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GTLB",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": 22.474505,
+   "stored": {
+    "label": "SHORT",
+    "bias": -16.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 43.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "HMR",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 0.0,
+   "stored": {
+    "label": "LONG",
+    "bias": 20.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.55,
+    "gap_risk": 41.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "IRS",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Real Estate",
+   "realized_signed_move_pct": -0.534759,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 8.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.1,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.2,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Insufficient data and no relevant headlines prevent a directional bias.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "KEN",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Utilities",
+   "realized_signed_move_pct": -5.146521,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 24.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.66,
+    "sentiment": 0.32,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Positive recent earnings move and a $93 M arbitration cash inflow suggest a modest bullish bias ahead of the report.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "MDB",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -13.075193,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 5.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 63.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "MDT",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 3.68409,
+   "stored": {
+    "label": "LONG",
+    "bias": 37.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 32.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "MMED",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 0.492613,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 1.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.45,
+    "gap_risk": 19.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "NIO",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -3.773582,
+   "stored": {
+    "label": "LONG",
+    "bias": 38.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 44.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "PANW",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -4.436165,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 4.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 49.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "RZLV",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": -12.500004,
+   "stored": {
+    "label": "LONG",
+    "bias": 22.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.4,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "SHPH",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -1.461994,
+   "stored": {
+    "label": "SHORT",
+    "bias": -34.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.5,
+    "gap_risk": 52.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "OTHER",
+    "rationale": "Earnings for SHPH were scheduled for 2026-09-01 and have likely already been released, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "SPWH",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 11.203318,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 2.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.45,
+    "gap_risk": 37.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "YEXT",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": 13.062727,
+   "stored": {
+    "label": "SHORT",
+    "bias": -45.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 29.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "ZENA",
+   "event_utc": "2026-09-01T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": -2.5641,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -13.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 32.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-01T00:00:00+00:00",
+    "backup_pre": 11,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 11
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings were released on 2026-09-01, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "AEO",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 0.422194,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 5,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 5
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.6,
+    "sentiment": 0.25,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Expected sales growth and digital initiatives outweigh recent price weakness, implying a modest bullish post‑earnings reaction.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "AI",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Technology",
+   "realized_signed_move_pct": -0.434993,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -4.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 53.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 119,
+    "ledger_pre": 0,
+    "dropped_after": 107,
+    "used": 12
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.62,
+    "sentiment": -0.3,
+    "catalyst_label": "GUIDANCE",
+    "rationale": "Weak valuation perception and steep prior price decline outweigh broader AI sector optimism, suggesting a bearish post‑earnings reaction.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ANAB",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 1.445869,
+   "stored": {
+    "label": "LONG",
+    "bias": 45.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.6,
+    "gap_risk": 34.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 3,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 3
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.1,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings were already released on Sep 2, so there is no actionable pre‑earnings edge.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ATCH",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": 1.476008,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -13.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.3,
+    "gap_risk": 22.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 3,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 3
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.1,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings were already reported on Sep 2, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "AVGO",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -4.392691,
+   "stored": {
+    "label": "LONG",
+    "bias": 63.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.8,
+    "gap_risk": 57.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CBAT",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 0.0,
+   "stored": {
+    "label": "LONG",
+    "bias": 37.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.7,
+    "gap_risk": 40.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 5,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 5
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.75,
+    "sentiment": 0.6,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Strong order pipeline and capacity expansion plus a prior +2.5% earnings move point to a bullish post‑earnings reaction.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CHPT",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 32.692314,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 13.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 31.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CLGN",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -12.034534,
+   "stored": {
+    "label": "SHORT",
+    "bias": -49.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 51.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 2,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 2
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.55,
+    "sentiment": -0.2,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Recent negative earnings reaction and a reverse split suggest modest bearish bias ahead of the earnings report.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "COE",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": 0.788436,
+   "stored": {
+    "label": "LONG",
+    "bias": 39.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.6,
+    "gap_risk": 46.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CPB",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": 0.337268,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.6,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CXM",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": -2.631576,
+   "stored": {
+    "label": "LONG",
+    "bias": 25.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 30.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DAKT",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": 11.111109,
+   "stored": {
+    "label": "LONG",
+    "bias": 60.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.25,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DOMO",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Technology",
+   "realized_signed_move_pct": 0.544959,
+   "stored": {
+    "label": "SHORT",
+    "bias": -16.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.75,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "FCEL",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -10.653641,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -2.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 0.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "FIVE",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 5.978825,
+   "stored": {
+    "label": "LONG",
+    "bias": 30.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.7,
+    "gap_risk": 31.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GASS",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -4.533616,
+   "stored": {
+    "label": "LONG",
+    "bias": 34.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.5,
+    "gap_risk": 34.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GIII",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 0.839293,
+   "stored": {
+    "label": "LONG",
+    "bias": 42.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 43.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GOLD",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": -3.712141,
+   "stored": {
+    "label": "LONG",
+    "bias": 37.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.7,
+    "gap_risk": 33.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GURE",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Basic Materials",
+   "realized_signed_move_pct": -0.277778,
+   "stored": {
+    "label": "LONG",
+    "bias": 15.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.65,
+    "gap_risk": 49.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 2,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 2
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.2,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings were reported on 2026-09-02, so the ticker no longer qualifies for a pre‑earnings trade.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "HPE",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -8.15244,
+   "stored": {
+    "label": "LONG",
+    "bias": 65.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.75,
+    "gap_risk": 58.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "IMMP",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -1.566575,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.3,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "JILL",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 0.720532,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -10.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.65,
+    "gap_risk": 46.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 4,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 4
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.45,
+    "sentiment": 0.35,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Analyst valuation upgrades and a new marketing push suggest modest upside potential for the upcoming earnings.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "LND",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": -0.791556,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -1.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.2,
+    "gap_risk": 25.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "MEI",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -16.629835,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.25,
+    "gap_risk": 43.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 4,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 4
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.1,
+    "sentiment": 0.0,
+    "catalyst_label": "OTHER",
+    "rationale": "Earnings were released on Sep 2, so the stock no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "NBP",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -0.289855,
+   "stored": {
+    "label": "LONG",
+    "bias": 27.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 28.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 4,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 4
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.4,
+    "sentiment": 0.3,
+    "catalyst_label": "GUIDANCE",
+    "rationale": "Strong cash position and advancing lead asset create modest bullish bias ahead of the Sep 2 earnings.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "NEWP",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Basic Materials",
+   "realized_signed_move_pct": 2.777775,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.35,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 3,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 3
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.4,
+    "sentiment": 0.3,
+    "catalyst_label": "GUIDANCE",
+    "rationale": "Positive project milestones suggest upside, though earnings details remain unclear.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "NTAP",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -10.305346,
+   "stored": {
+    "label": "LONG",
+    "bias": 40.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 50.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "NTSK",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": 14.087594,
+   "stored": {
+    "label": "LONG",
+    "bias": 35.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 51.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "OLLI",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": 4.885455,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.25,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "PVH",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 3.693454,
+   "stored": {
+    "label": "LONG",
+    "bias": 44.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.72,
+    "gap_risk": 51.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "REX",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Basic Materials",
+   "realized_signed_move_pct": -4.375892,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.2,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "SA",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Basic Materials",
+   "realized_signed_move_pct": 2.602605,
+   "stored": {
+    "label": "LONG",
+    "bias": 29.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.6,
+    "gap_risk": 21.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 6,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 6
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.6,
+    "sentiment": -0.25,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Environmental opposition to the KSM project outweighs financing improvements, suggesting a modestly bearish post‑earnings reaction.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "SNOW",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": 23.278645,
+   "stored": {
+    "label": "LONG",
+    "bias": 57.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.86,
+    "gap_risk": 56.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "TCOM",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -4.565271,
+   "stored": {
+    "label": "LONG",
+    "bias": 40.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.35,
+    "gap_risk": 20.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 6,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 6
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.62,
+    "sentiment": -0.45,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Negative earnings preview, recent slight declines, and regulatory headwinds point to a bearish post‑earnings reaction.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "TLYS",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 44.155853,
+   "stored": {
+    "label": "LONG",
+    "bias": 59.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.8,
+    "gap_risk": 46.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "WOOF",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 20.992375,
+   "stored": {
+    "label": "LONG",
+    "bias": 28.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 49.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "YQ",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": 6.730775,
+   "stored": {
+    "label": "LONG",
+    "bias": 20.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 76.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "YSG",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": -8.614233,
+   "stored": {
+    "label": "SHORT",
+    "bias": -16.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.2,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "ZENA",
+   "event_utc": "2026-09-02T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": 0.601227,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -6.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 35.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-02T00:00:00+00:00",
+    "backup_pre": 12,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 12
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.65,
+    "sentiment": 0.42,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Positive acquisition activity, award recognition, and favorable tariff environment outweigh modest negative peer earnings read‑through, supporting a bullish pre‑earnings stance.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ALAR",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Technology",
+   "realized_signed_move_pct": 10.924369,
+   "stored": {
+    "label": "LONG",
+    "bias": 70.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 39.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.3,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Lack of concrete earnings guidance and limited data yields no clear edge for a post‑earnings move.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "AMBA",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -0.220854,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 10.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 47.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "AMBR",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": 2.989696,
+   "stored": {
+    "label": "LONG",
+    "bias": 15.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.4,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 2,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 2
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.45,
+    "sentiment": 0.3,
+    "catalyst_label": "OTHER",
+    "rationale": "The strategic AI pivot is viewed positively and may drive growth, supporting a modest bullish stance ahead of the upcoming earnings.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ANAB",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -1.061794,
+   "stored": {
+    "label": "LONG",
+    "bias": 37.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 29.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 3,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 3
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.15,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "The earnings have already been reported, so the stock no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "AOUT",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 27.218351,
+   "stored": {
+    "label": "LONG",
+    "bias": 56.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 30.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "ASAN",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -13.508163,
+   "stored": {
+    "label": "LONG",
+    "bias": 30.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 32.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 2,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 2
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings have already been reported, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "BRC",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 2.647026,
+   "stored": {
+    "label": "LONG",
+    "bias": 50.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.88,
+    "gap_risk": 45.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "BRZE",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -2.156388,
+   "stored": {
+    "label": "LONG",
+    "bias": 25.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 45.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 15,
+    "ledger_pre": 18,
+    "dropped_after": 13,
+    "used": 12
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings have already been reported; no pre‑earnings edge remains.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "BTTC",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "UNKNOWN",
+   "realized_signed_move_pct": 2.564107,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -11.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.2,
+    "gap_risk": 37.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CAL",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 1.38889,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.5,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 6,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 6
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.55,
+    "sentiment": -0.6,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Negative analyst outlook and sector weakness imply earnings miss and a likely post‑earnings price decline.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CAN",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Technology",
+   "realized_signed_move_pct": 9.844052,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.25,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 8,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 8
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.42,
+    "sentiment": -0.62,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Social media sentiment is strongly negative and there is no hard data indicating a positive surprise, suggesting a likely bearish post‑earnings reaction.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CANG",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": 4.301078,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.5,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CBAT",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -2.439022,
+   "stored": {
+    "label": "LONG",
+    "bias": 32.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.45,
+    "gap_risk": 40.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 6,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 6
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.65,
+    "sentiment": 0.4,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Strong order pipeline, capacity expansion and positive product testing suggest earnings will beat expectations, supporting a bullish post‑earnings move.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CIEN",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": -0.016922,
+   "stored": {
+    "label": "LONG",
+    "bias": 54.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.7,
+    "gap_risk": 41.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CMMB",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 1.805052,
+   "stored": {
+    "label": "LONG",
+    "bias": 23.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.3,
+    "gap_risk": 33.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.2,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "No earnings data or guidance is present, only a conference announcement, leaving no clear post‑earnings edge.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CPB",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": -6.249471,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 2.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.6,
+    "gap_risk": 34.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CPRT",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -1.042294,
+   "stored": {
+    "label": "SHORT",
+    "bias": -17.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 11,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 11
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.55,
+    "sentiment": 0.3,
+    "catalyst_label": "M&A",
+    "rationale": "M&A speculation and strong governance news suggest a bullish bias ahead of earnings.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CRESY",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 1.151319,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 13.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.25,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "No relevant data or headlines provide an edge, so a neutral stance is appropriate.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CRMT",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 3.124997,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.45,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 5,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 5
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.68,
+    "sentiment": 0.62,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Recent EPS beat sparked strong stock gains, suggesting a bullish post‑earnings reaction if guidance remains positive.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "CSHR",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": -1.784197,
+   "stored": {
+    "label": "LONG",
+    "bias": 15.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 26.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CURV",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 11.999999,
+   "stored": {
+    "label": "SHORT",
+    "bias": -21.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.45,
+    "gap_risk": 61.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DAVA",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Technology",
+   "realized_signed_move_pct": 0.970873,
+   "stored": {
+    "label": "LONG",
+    "bias": 48.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.7,
+    "gap_risk": 39.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DELL",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -0.418648,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -2.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.62,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DLTH",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 15.840215,
+   "stored": {
+    "label": "LONG",
+    "bias": 61.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.85,
+    "gap_risk": 51.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DOCU",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": 4.62169,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 1.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.4,
+    "gap_risk": 50.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DOMO",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -3.856382,
+   "stored": {
+    "label": "LONG",
+    "bias": 32.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 49.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "DOO",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 0.977614,
+   "stored": {
+    "label": "LONG",
+    "bias": 61.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.85,
+    "gap_risk": 32.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "EGAN",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -22.644165,
+   "stored": {
+    "label": "LONG",
+    "bias": 50.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.35,
+    "gap_risk": 34.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "EONR",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Energy",
+   "realized_signed_move_pct": -0.972594,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -4.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.35,
+    "gap_risk": 30.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 2,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 2
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.58,
+    "sentiment": 0.35,
+    "catalyst_label": "GUIDANCE",
+    "rationale": "Positive operational updates and strong recoverable resource estimates suggest earnings could beat expectations.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "FLWS",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 1.405349,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -3.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 39.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 4,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 4
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.45,
+    "sentiment": 0.3,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Recent strong price performance and brand visibility suggest a modest bullish bias ahead of the upcoming earnings release.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "GCO",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 8.089988,
+   "stored": {
+    "label": "LONG",
+    "bias": 39.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.73,
+    "gap_risk": 50.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GIII",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 0.316345,
+   "stored": {
+    "label": "LONG",
+    "bias": 47.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 43.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GLMD",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -1.675158,
+   "stored": {
+    "label": "LONG",
+    "bias": 15.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.25,
+    "gap_risk": 22.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GWRE",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -17.296014,
+   "stored": {
+    "label": "LONG",
+    "bias": 30.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.45,
+    "gap_risk": 55.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.3,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Insufficient concrete data and only a neutral preview article, leading to no clear edge.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "HUBG",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 1.333519,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 30.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 6,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 6
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.65,
+    "sentiment": -0.6,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Negative share performance, filing deficiencies, and legal headwinds suggest a bearish post‑earnings reaction.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "IMMP",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 4.139255,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -4.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.6,
+    "gap_risk": 28.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "IOT",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": 15.841082,
+   "stored": {
+    "label": "LONG",
+    "bias": 64.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.7,
+    "gap_risk": 47.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "IPST",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": -0.973235,
+   "stored": {
+    "label": "SHORT",
+    "bias": -26.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.5,
+    "gap_risk": 33.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.4,
+    "sentiment": -0.3,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Nasdaq filing delay raises compliance concerns that outweigh the modest prior earnings bump.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ITP",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Basic Materials",
+   "realized_signed_move_pct": -1.752183,
+   "stored": {
+    "label": "LONG",
+    "bias": 26.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.25,
+    "gap_risk": 41.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.2,
+    "sentiment": 0.0,
+    "catalyst_label": "OTHER",
+    "rationale": "Earnings for ITP were scheduled for 2026-09-03 and are now past, so no pre‑earnings edge can be assessed.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "KEN",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Utilities",
+   "realized_signed_move_pct": -1.1566,
+   "stored": {
+    "label": "SHORT",
+    "bias": -20.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 24.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "The earnings event has already occurred, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "LE",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -3.805312,
+   "stored": {
+    "label": "LONG",
+    "bias": 31.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.6,
+    "gap_risk": 34.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "LND",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": -1.03896,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -2.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.55,
+    "gap_risk": 38.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "LUCK",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -0.638985,
+   "stored": {
+    "label": "LONG",
+    "bias": 19.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.0,
+    "gap_risk": 26.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "LULU",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -19.369409,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 10.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 46.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "MAMA",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Defensive",
+   "realized_signed_move_pct": -1.875001,
+   "stored": {
+    "label": "LONG",
+    "bias": 49.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 58.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "MOMO",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Communication Services",
+   "realized_signed_move_pct": 0.182154,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.2,
+    "gap_risk": 37.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "NX",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 9.734043,
+   "stored": {
+    "label": "LONG",
+    "bias": 52.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.5,
+    "gap_risk": 40.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "OXM",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -17.652693,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 6.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.35,
+    "gap_risk": 47.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "PATH",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -10.989317,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -12.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.55,
+    "gap_risk": 39.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "PDEX",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -1.261573,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.0,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.45,
+    "sentiment": 0.3,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Positive recent earnings momentum and modest post‑earnings price gains suggest a bullish bias ahead of the upcoming report.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "PL",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 7.029967,
+   "stored": {
+    "label": "LONG",
+    "bias": 37.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 64.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "REBN",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 2.415685,
+   "stored": {
+    "label": "SHORT",
+    "bias": -21.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.5,
+    "gap_risk": 43.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 2,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 2
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.1,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings already released; no longer a pre‑earnings opportunity.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "SHOE",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 1.03704,
+   "stored": {
+    "label": "LONG",
+    "bias": 25.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 38.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 4,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 4
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.42,
+    "sentiment": -0.3,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Recent store‑closure news and lack of positive guidance suggest a modest bearish bias ahead of earnings",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "SMXT",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Technology",
+   "realized_signed_move_pct": 0.0,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -12.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.3,
+    "gap_risk": 24.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 3,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 3
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.71,
+    "sentiment": -0.6,
+    "catalyst_label": "OTHER",
+    "rationale": "Compliance setbacks and a reverse split suggest earnings pressure, leading to a bearish outlook.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "SNYR",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 0.448834,
+   "stored": {
+    "label": "SHORT",
+    "bias": -23.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.3,
+    "gap_risk": 22.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "SHORT",
+    "decision_confidence": 0.45,
+    "sentiment": -0.4,
+    "catalyst_label": "OTHER",
+    "rationale": "Nasdaq non‑compliance notice creates downside bias ahead of the earnings report.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "SWBI",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 14.087952,
+   "stored": {
+    "label": "LONG",
+    "bias": 44.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.45,
+    "gap_risk": 30.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "VSXY",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": -9.48063,
+   "stored": {
+    "label": "LONG",
+    "bias": 56.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.8,
+    "gap_risk": 52.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "WLY",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Communication Services",
+   "realized_signed_move_pct": -4.329087,
+   "stored": {
+    "label": "LONG",
+    "bias": 47.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.65,
+    "gap_risk": 47.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "WLYB",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Communication Services",
+   "realized_signed_move_pct": 2.040049,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.2,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "YRD",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Financial Services",
+   "realized_signed_move_pct": 0.990098,
+   "stored": {
+    "label": "SHORT",
+    "bias": -31.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.5,
+    "gap_risk": 31.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 5,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 5
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.35,
+    "sentiment": 0.15,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Positive AI-driven operational news creates modest upside potential despite recent slight earnings weakness.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ZGN",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 1.434258,
+   "stored": {
+    "label": "LONG",
+    "bias": 21.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.4,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "ZS",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "AMC",
+   "sector": "Technology",
+   "realized_signed_move_pct": -6.74075,
+   "stored": {
+    "label": "LONG",
+    "bias": 29.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.4,
+    "gap_risk": 69.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "ZUMZ",
+   "event_utc": "2026-09-03T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 1.375894,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.45,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-03T00:00:00+00:00",
+    "backup_pre": 7,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 7
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.45,
+    "sentiment": 0.2,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Positive private‑label momentum and margin upside modestly outweigh recent stock weakness and macro risks ahead of the earnings release.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ABM",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -0.868644,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 0.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 9,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 9
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.4,
+    "sentiment": 0.2,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Positive operational updates and upcoming earnings with no adverse news suggest a modest upside.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "BMRA",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 1.565999,
+   "stored": {
+    "label": "SHORT",
+    "bias": -33.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 28.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CELU",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -1.612902,
+   "stored": {
+    "label": "SHORT",
+    "bias": -15.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.45,
+    "gap_risk": 38.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "CLGN",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 859.420277,
+   "stored": {
+    "label": "SHORT",
+    "bias": -56.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.6,
+    "gap_risk": 61.0,
+    "was_top_prediction": true,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 3,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 3
+   },
+   "replay": {
+    "decision": "LONG",
+    "decision_confidence": 0.55,
+    "sentiment": 0.2,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Recent acquisition and reverse split provide a modest upside despite mixed prior earnings moves.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ENLV",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -0.862068,
+   "stored": {
+    "label": "LONG",
+    "bias": 39.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 38.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "GITS",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Communication Services",
+   "realized_signed_move_pct": 5.866033,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -3.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.35,
+    "gap_risk": 46.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 1,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 1
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.1,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "The earnings date (2026-09-04) has already passed, so the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "HTLM",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 0.0,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 6.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.2,
+    "gap_risk": 27.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "HURC",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Industrials",
+   "realized_signed_move_pct": 7.327767,
+   "stored": {
+    "label": "LONG",
+    "bias": 26.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.3,
+    "gap_risk": 0.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "IBIO",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": -0.76923,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 14.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.25,
+    "gap_risk": 22.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "IMMP",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Healthcare",
+   "realized_signed_move_pct": 4.139255,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 3.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.6,
+    "gap_risk": 28.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "IMPP",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Energy",
+   "realized_signed_move_pct": 0.568177,
+   "stored": {
+    "label": "LONG",
+    "bias": 59.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.55,
+    "gap_risk": 24.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "KNOP",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Energy",
+   "realized_signed_move_pct": -6.583628,
+   "stored": {
+    "label": "LONG",
+    "bias": 30.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.45,
+    "gap_risk": 36.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "KT",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Communication Services",
+   "realized_signed_move_pct": -0.226758,
+   "stored": {
+    "label": "SHORT",
+    "bias": -25.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.3,
+    "gap_risk": 26.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "NRT",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Energy",
+   "realized_signed_move_pct": -0.221735,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": -3.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.3,
+    "gap_risk": 24.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "VIRC",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "BMO",
+   "sector": "Consumer Cyclical",
+   "realized_signed_move_pct": 1.652891,
+   "stored": {
+    "label": "SHORT",
+    "bias": -24.0,
+    "ai_verdict": "SHORT",
+    "ai_confidence": 0.5,
+    "gap_risk": 26.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 0,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 0
+   },
+   "replay": null,
+   "replay_skipped_reason": "pre_event_news_below_1"
+  },
+  {
+   "symbol": "ZENA",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Technology",
+   "realized_signed_move_pct": -0.058482,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 2.0,
+    "ai_verdict": "NEUTRAL",
+    "ai_confidence": 0.45,
+    "gap_risk": 40.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 14,
+    "ledger_pre": 0,
+    "dropped_after": 2,
+    "used": 12
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.2,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings were released on Sep 4; without post‑earnings data the ticker no longer qualifies for a pre‑earnings edge.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  },
+  {
+   "symbol": "ZONE",
+   "event_utc": "2026-09-04T00:00:00+00:00",
+   "session": "UNKNOWN",
+   "sector": "Industrials",
+   "realized_signed_move_pct": -0.606469,
+   "stored": {
+    "label": "NEUTRAL",
+    "bias": 12.0,
+    "ai_verdict": "LONG",
+    "ai_confidence": 0.25,
+    "gap_risk": 33.0,
+    "was_top_prediction": false,
+    "frozen_evidence_quality": null
+   },
+   "news": {
+    "cutoff_utc": "2026-09-04T00:00:00+00:00",
+    "backup_pre": 7,
+    "ledger_pre": 0,
+    "dropped_after": 0,
+    "used": 7
+   },
+   "replay": {
+    "decision": "NEUTRAL",
+    "decision_confidence": 0.0,
+    "sentiment": 0.0,
+    "catalyst_label": "EARNINGS_VOLATILITY",
+    "rationale": "Earnings were reported on 2026-09-04, so the event has already occurred and the ticker no longer qualifies for a pre‑earnings position.",
+    "lookahead_caveats": [
+     "llm_training_knowledge"
+    ]
+   }
+  }
+ ],
+ "news_coverage": {
+  "events_with_zero_pre_event_articles": 96,
+  "events_with_1_2_articles": 24,
+  "events_with_3plus_articles": 35,
+  "median_pre_event_articles_used": 0
+ },
+ "stored_bias_tier": {
+  "rows": 155,
+  "directional_nonflat_calls": 92,
+  "hits": 47,
+  "accuracy_pct": 51.09,
+  "wilson_95_pct_descriptive": [
+   41.04,
+   61.05
+  ],
+  "always_long_accuracy_same_cases_pct": 48.91,
+  "always_short_accuracy_same_cases_pct": 51.09,
+  "long_calls": 70,
+  "short_calls": 22,
+  "excluded": {
+   "neutral_or_missing_direction": 61,
+   "flat_outcome": 2
+  }
+ },
+ "stored_ai_tier": {
+  "rows": 155,
+  "directional_nonflat_calls": 120,
+  "hits": 58,
+  "accuracy_pct": 48.33,
+  "wilson_95_pct_descriptive": [
+   39.58,
+   57.19
+  ],
+  "always_long_accuracy_same_cases_pct": 50.83,
+  "always_short_accuracy_same_cases_pct": 49.17,
+  "long_calls": 73,
+  "short_calls": 47,
+  "excluded": {
+   "neutral_or_missing_direction": 31,
+   "flat_outcome": 4
+  }
+ },
+ "replay_tier": {
+  "rows": 59,
+  "directional_nonflat_calls": 33,
+  "hits": 17,
+  "accuracy_pct": 51.52,
+  "wilson_95_pct_descriptive": [
+   35.22,
+   67.5
+  ],
+  "always_long_accuracy_same_cases_pct": 54.55,
+  "always_short_accuracy_same_cases_pct": 45.45,
+  "long_calls": 22,
+  "short_calls": 11,
+  "excluded": {
+   "neutral_or_missing_direction": 23,
+   "flat_outcome": 3
+  }
+ },
+ "stored_vs_replay_ai_agreement": {
+  "n": 33,
+  "agreement_pct": 57.58,
+  "wilson_95_pct_descriptive": [
+   40.81,
+   72.76
+  ]
+ },
+ "replay_errors": 0
+}

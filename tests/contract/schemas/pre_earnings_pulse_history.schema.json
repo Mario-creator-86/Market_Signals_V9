@@ -1,0 +1,432 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marketscanner.v7/schemas/pre_earnings_pulse_history.json",
+  "title": "Durable Pre-Earnings Pulse Registry",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "created_at",
+    "updated_at",
+    "limits",
+    "next_snapshot_id",
+    "latest",
+    "active",
+    "archive",
+    "snapshots"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "limits": {
+      "type": "object",
+      "required": [
+        "active_per_side",
+        "generated_picks_per_side",
+        "reason_characters",
+        "history_snapshots",
+        "archive_entries"
+      ],
+      "properties": {
+        "active_per_side": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 2000
+        },
+        "generated_picks_per_side": {
+          "const": 3
+        },
+        "reason_characters": {
+          "const": 500
+        },
+        "history_snapshots": {
+          "const": "unbounded_unique"
+        },
+        "archive_entries": {
+          "const": "unbounded"
+        }
+      },
+      "additionalProperties": false
+    },
+    "next_snapshot_id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "latest": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/latest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "active": {
+      "type": "object",
+      "required": ["top_long", "top_short"],
+      "properties": {
+        "top_long": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/activePick"
+          }
+        },
+        "top_short": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/activePick"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "archive": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/archivedPick"
+      }
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/snapshot"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "symbol": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9.\\-]{0,14}$"
+    },
+    "side": {
+      "type": "string",
+      "enum": ["top_long", "top_short"]
+    },
+    "eventFields": {
+      "type": "object",
+      "required": [
+        "symbol",
+        "event_key",
+        "event_date",
+        "earnings_time_utc",
+        "session"
+      ],
+      "properties": {
+        "symbol": {
+          "$ref": "#/$defs/symbol"
+        },
+        "event_key": {
+          "type": "string",
+          "minLength": 3
+        },
+        "event_date": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "earnings_time_utc": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "session": {
+          "type": "string",
+          "enum": ["BMO", "AMC", "UNKNOWN"]
+        }
+      }
+    },
+    "activePick": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/eventFields"
+        },
+        {
+          "type": "object",
+          "required": [
+            "reason",
+            "first_seen_at",
+            "last_seen_at",
+            "source",
+            "sources",
+            "occurrences"
+          ],
+          "properties": {
+            "reason": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "first_seen_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "last_seen_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "uniqueItems": true
+            },
+            "occurrences": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "archivedPick": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/activePick"
+        },
+        {
+          "type": "object",
+          "required": ["side", "archived_at", "archive_reason"],
+          "properties": {
+            "side": {
+              "$ref": "#/$defs/side"
+            },
+            "archived_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "archive_reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "snapshotPick": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/eventFields"
+        },
+        {
+          "type": "object",
+          "required": ["reason", "source", "eligible"],
+          "properties": {
+            "reason": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "eligible": {
+              "type": "boolean"
+            }
+          }
+        }
+      ],
+      "unevaluatedProperties": true
+    },
+    "latest": {
+      "type": "object",
+      "required": [
+        "snapshot_id",
+        "generated_at",
+        "source",
+        "summary",
+        "sentiment",
+        "catalysts",
+        "risks",
+        "model"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "first_generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "occurrences": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "content_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "input_fingerprint": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{24}$"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "sentiment": {
+          "type": "string"
+        },
+        "catalysts": {
+          "type": "string"
+        },
+        "risks": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "snapshot": {
+      "type": "object",
+      "required": [
+        "snapshot_id",
+        "generated_at",
+        "first_generated_at",
+        "last_generated_at",
+        "recorded_at",
+        "source",
+        "sources",
+        "occurrences",
+        "content_fingerprint",
+        "summary",
+        "sentiment",
+        "top_long",
+        "top_short",
+        "catalysts",
+        "risks",
+        "model",
+        "active_counts_after_merge"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "first_generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "recorded_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "uniqueItems": true
+        },
+        "occurrences": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "content_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "input_fingerprint": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{24}$"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "sentiment": {
+          "type": "string"
+        },
+        "top_long": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/snapshotPick"
+          }
+        },
+        "top_short": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/snapshotPick"
+          }
+        },
+        "catalysts": {
+          "type": "string"
+        },
+        "risks": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "active_counts_after_merge": {
+          "type": "object",
+          "required": ["top_long", "top_short"],
+          "properties": {
+            "top_long": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "top_short": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

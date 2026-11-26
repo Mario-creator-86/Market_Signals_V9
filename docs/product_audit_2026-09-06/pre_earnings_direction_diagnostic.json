@@ -1,0 +1,246 @@
+{
+  "scope": "Descriptive saved-event direction accuracy; not validated OOS performance or trade P/L",
+  "raw_rows": 3544,
+  "unique_usable_event_keys": 3544,
+  "excluded_duplicate_or_missing_keys": 0,
+  "cohorts": {
+    "all_recorded_bias": {
+      "rows": 3544,
+      "directional_nonflat_calls": 2131,
+      "hits": 1151,
+      "accuracy_pct": 54.01,
+      "wilson_95_pct_descriptive": [
+        51.89,
+        56.12
+      ],
+      "always_long_accuracy_same_cases_pct": 55.42,
+      "always_short_accuracy_same_cases_pct": 44.58,
+      "long_calls": 1717,
+      "short_calls": 414,
+      "excluded": {
+        "neutral_or_missing_direction": 1366,
+        "flat_outcome": 47
+      },
+      "by_side": {
+        "LONG": {
+          "rows": 1752,
+          "directional_nonflat_calls": 1717,
+          "hits": 959,
+          "accuracy_pct": 55.85,
+          "wilson_95_pct_descriptive": [
+            53.49,
+            58.19
+          ],
+          "always_long_accuracy_same_cases_pct": 55.85,
+          "always_short_accuracy_same_cases_pct": 44.15,
+          "long_calls": 1717,
+          "short_calls": 0,
+          "excluded": {
+            "flat_outcome": 35
+          }
+        },
+        "SHORT": {
+          "rows": 426,
+          "directional_nonflat_calls": 414,
+          "hits": 192,
+          "accuracy_pct": 46.38,
+          "wilson_95_pct_descriptive": [
+            41.63,
+            51.19
+          ],
+          "always_long_accuracy_same_cases_pct": 53.62,
+          "always_short_accuracy_same_cases_pct": 46.38,
+          "long_calls": 0,
+          "short_calls": 414,
+          "excluded": {
+            "flat_outcome": 12
+          }
+        }
+      }
+    },
+    "current_score_version": {
+      "rows": 528,
+      "directional_nonflat_calls": 274,
+      "hits": 146,
+      "accuracy_pct": 53.28,
+      "wilson_95_pct_descriptive": [
+        47.37,
+        59.11
+      ],
+      "always_long_accuracy_same_cases_pct": 53.65,
+      "always_short_accuracy_same_cases_pct": 46.35,
+      "long_calls": 225,
+      "short_calls": 49,
+      "excluded": {
+        "neutral_or_missing_direction": 248,
+        "flat_outcome": 6
+      },
+      "by_side": {
+        "LONG": {
+          "rows": 230,
+          "directional_nonflat_calls": 225,
+          "hits": 122,
+          "accuracy_pct": 54.22,
+          "wilson_95_pct_descriptive": [
+            47.7,
+            60.61
+          ],
+          "always_long_accuracy_same_cases_pct": 54.22,
+          "always_short_accuracy_same_cases_pct": 45.78,
+          "long_calls": 225,
+          "short_calls": 0,
+          "excluded": {
+            "flat_outcome": 5
+          }
+        },
+        "SHORT": {
+          "rows": 50,
+          "directional_nonflat_calls": 49,
+          "hits": 24,
+          "accuracy_pct": 48.98,
+          "wilson_95_pct_descriptive": [
+            35.58,
+            62.53
+          ],
+          "always_long_accuracy_same_cases_pct": 51.02,
+          "always_short_accuracy_same_cases_pct": 48.98,
+          "long_calls": 0,
+          "short_calls": 49,
+          "excluded": {
+            "flat_outcome": 1
+          }
+        }
+      }
+    },
+    "recorded_ai_verdict": {
+      "rows": 3544,
+      "directional_nonflat_calls": 854,
+      "hits": 459,
+      "accuracy_pct": 53.75,
+      "wilson_95_pct_descriptive": [
+        50.39,
+        57.07
+      ],
+      "always_long_accuracy_same_cases_pct": 55.74,
+      "always_short_accuracy_same_cases_pct": 44.26,
+      "long_calls": 539,
+      "short_calls": 315,
+      "excluded": {
+        "neutral_or_missing_direction": 2667,
+        "flat_outcome": 23
+      },
+      "by_side": {
+        "LONG": {
+          "rows": 548,
+          "directional_nonflat_calls": 539,
+          "hits": 310,
+          "accuracy_pct": 57.51,
+          "wilson_95_pct_descriptive": [
+            53.3,
+            61.62
+          ],
+          "always_long_accuracy_same_cases_pct": 57.51,
+          "always_short_accuracy_same_cases_pct": 42.49,
+          "long_calls": 539,
+          "short_calls": 0,
+          "excluded": {
+            "flat_outcome": 9
+          }
+        },
+        "SHORT": {
+          "rows": 329,
+          "directional_nonflat_calls": 315,
+          "hits": 149,
+          "accuracy_pct": 47.3,
+          "wilson_95_pct_descriptive": [
+            41.85,
+            52.81
+          ],
+          "always_long_accuracy_same_cases_pct": 52.7,
+          "always_short_accuracy_same_cases_pct": 47.3,
+          "long_calls": 0,
+          "short_calls": 315,
+          "excluded": {
+            "flat_outcome": 14
+          }
+        }
+      }
+    },
+    "top10_frozen_side": {
+      "rows": 39,
+      "directional_nonflat_calls": 39,
+      "hits": 20,
+      "accuracy_pct": 51.28,
+      "wilson_95_pct_descriptive": [
+        36.2,
+        66.13
+      ],
+      "always_long_accuracy_same_cases_pct": 48.72,
+      "always_short_accuracy_same_cases_pct": 51.28,
+      "long_calls": 36,
+      "short_calls": 3,
+      "excluded": {},
+      "by_side": {
+        "LONG": {
+          "rows": 36,
+          "directional_nonflat_calls": 36,
+          "hits": 18,
+          "accuracy_pct": 50.0,
+          "wilson_95_pct_descriptive": [
+            34.47,
+            65.53
+          ],
+          "always_long_accuracy_same_cases_pct": 50.0,
+          "always_short_accuracy_same_cases_pct": 50.0,
+          "long_calls": 36,
+          "short_calls": 0,
+          "excluded": {}
+        },
+        "SHORT": {
+          "rows": 3,
+          "directional_nonflat_calls": 3,
+          "hits": 2,
+          "accuracy_pct": 66.67,
+          "wilson_95_pct_descriptive": [
+            20.77,
+            93.85
+          ],
+          "always_long_accuracy_same_cases_pct": 33.33,
+          "always_short_accuracy_same_cases_pct": 66.67,
+          "long_calls": 0,
+          "short_calls": 3,
+          "excluded": {}
+        }
+      }
+    }
+  },
+  "quality": {
+    "unknown_session_rows": 121,
+    "ai_cache_backfill_rows": 111,
+    "top_missing_capture_time": 0,
+    "top_captured_same_day_or_later_needs_session_check": 8,
+    "absolute_move_over_100_needs_provider_verification": [
+      {
+        "symbol": "SDCCQ",
+        "event_utc": "2026-03-04T09:00:00+00:00",
+        "realized_signed_move_pct": 2100.0
+      },
+      {
+        "symbol": "CLGN",
+        "event_utc": "2026-09-04T00:00:00+00:00",
+        "realized_signed_move_pct": 859.420277
+      }
+    ]
+  },
+  "limitations": [
+    "No raw reference prices or corporate-action proof validated by this tool.",
+    "Event date is not necessarily actual publication timestamp; same-day captures need session verification.",
+    "Historical AI backfill does not by itself prove a pre-event prediction.",
+    "Wilson intervals assume independent Bernoulli outcomes; shared event dates/sectors can violate this.",
+    "Neutral/missing calls and flat outcomes are disclosed, not counted as losses or wins.",
+    "No thresholds or weights selected from these descriptive cohorts."
+  ],
+  "source": "C:\\Users\\<user>\\PyCharmMiscProject\\Market Signals V9\\data\\pre_earnings_feedback.json",
+  "source_sha256": "8b8e01f0a801b0cd85c420a1b1707989afb1722f28e158f72d080c741b6c59de",
+  "audited_at_utc": "2026-09-07T13:02:17.543670+00:00"
+}

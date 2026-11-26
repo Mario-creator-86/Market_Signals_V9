@@ -1,0 +1,294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marketscanner.v7/schemas/pre_earnings.json",
+  "title": "Pre-Earnings state payload",
+  "description": "Contract for GET /api/pre-earnings. Top-level shape and the canonical fields required by the core table/detail UI are strict. Optional premium/AI enrichments remain optional and additionalProperties stays true for forward compatibility.",
+  "type": "object",
+  "required": ["state_revision", "as_of_utc", "items", "status", "disabled"],
+  "properties": {
+    "state_revision": { "type": "integer", "minimum": 0 },
+    "as_of_utc": { "type": ["string", "null"] },
+    "lookahead_days": { "type": "integer" },
+    "refresh_seconds": { "type": "integer" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "symbol",
+          "earnings_time_utc",
+          "session",
+          "gap_risk",
+          "direction_bias_score",
+          "structured_direction_bias_score",
+          "structured_direction_label",
+          "llm_direction_score",
+          "final_direction_bias_score",
+          "decision_alignment",
+          "direction_label",
+          "coverage_score",
+          "coverage_label",
+          "beat_rate_historical",
+          "beat_rate_beats",
+          "beat_rate_samples",
+          "beat_rate_source",
+          "beat_rate_unavailable_reason",
+          "range_proxy_pct",
+          "badges",
+          "why",
+          "what_to_watch",
+          "top_news"
+        ],
+        "properties": {
+          "symbol": { "type": "string" },
+          "earnings_time_utc": { "type": ["string", "null"] },
+          "session": { "type": ["string", "null"] },
+          "confirmed": { "type": ["boolean", "null"] },
+          "gap_risk": { "type": ["integer", "null"] },
+          "gap_risk_level": { "type": ["string", "null"] },
+          "gap_risk_numeric": { "type": ["integer", "null"] },
+          "gap_risk_unavailable": { "type": ["boolean", "null"] },
+          "gap_risk_unavailable_reason": { "type": ["string", "null"] },
+          "gap_risk_history_source": { "type": ["string", "null"] },
+          "direction_bias": { "type": ["number", "null"] },
+          "direction_bias_score": { "type": ["integer", "null"] },
+          "structured_direction_bias_score": { "type": ["integer", "null"] },
+          "structured_direction_label": { "type": ["string", "null"] },
+          "llm_direction_score": { "type": ["integer", "null"] },
+          "final_direction_bias_score": { "type": ["integer", "null"] },
+          "decision_alignment": { "type": ["string", "null"] },
+          "direction_label": { "type": ["string", "null"] },
+          "data_confidence": { "type": ["string", "null"] },
+          "data_message": { "type": ["string", "null"] },
+          "components": { "type": ["object", "null"] },
+          "direction_components": { "type": ["object", "null"] },
+          "analyst_target_upside_pct": { "type": ["number", "null"] },
+          "analyst_recommendation": { "type": ["string", "null"] },
+          "analyst_rec_mean": { "type": ["number", "null"] },
+          "analyst_count": { "type": ["integer", "null"] },
+          "beat_rate_historical": { "type": ["number", "null"] },
+          "beat_rate_beats": { "type": ["integer", "null"] },
+          "beat_rate_samples": { "type": ["integer", "null"] },
+          "beat_rate_source": { "type": ["string", "null"] },
+          "beat_rate_unavailable_reason": { "type": ["string", "null"] },
+          "recent_reactions": { "type": ["array", "null"] },
+          "symbol_track_record": { "type": ["object", "null"] },
+          "track_record_overall": { "type": ["object", "null"] },
+          "range_proxy_pct": { "type": ["number", "null"] },
+          "expected_move_pct": { "type": ["number", "null"] },
+          "historical_median_move_pct": { "type": ["number", "null"] },
+          "avg_move_historical": { "type": ["number", "null"] },
+          "historical_sample_size": { "type": ["integer", "null"] },
+          "sector": { "type": ["string", "null"] },
+          "market_cap": { "type": ["number", "null"] },
+          "market_cap_bucket": { "type": ["string", "null"] },
+          "coverage_score": { "type": ["integer", "null"] },
+          "coverage_label": { "type": ["string", "null"] },
+          "coverage_contributors": {
+            "type": ["array", "null"],
+            "items": { "type": "object" }
+          },
+          "opportunity_score": { "type": ["integer", "null"] },
+          "trader_score": { "type": ["integer", "null"] },
+          "trader_score_band": { "type": ["string", "null"] },
+          "trader_score_breakdown": { "type": ["object", "null"] },
+          "recommendation_eligible": { "type": ["boolean", "null"] },
+          "recommendation_blockers": { "type": ["array", "null"] },
+          "event_status": { "type": ["string", "null"] },
+          "event_source": { "type": ["string", "null"] },
+          "event_source_url": { "type": ["string", "null"] },
+          "event_verified_at": { "type": ["string", "null"] },
+          "event_date_confidence": { "type": ["string", "null"] },
+          "event_session_confidence": { "type": ["string", "null"] },
+          "event_conflicting_dates": { "type": ["array", "null"] },
+          "news_update_pending": { "type": ["boolean", "null"] },
+          "news_count": { "type": ["integer", "null"] },
+          "news_digest": { "type": ["object", "null"] },
+          "badges": { "type": ["array", "null"] },
+          "why": { "type": ["array", "null"], "items": { "type": "string" } },
+          "what_to_watch": { "type": ["array", "null"], "items": { "type": "string" } },
+          "bias_reasons": { "type": ["array", "null"], "items": { "type": "string" } },
+          "top_news": { "type": ["array", "null"], "items": { "type": "object" } },
+          "contributors": {
+            "type": ["array", "null"],
+            "items": { "type": "object" }
+          },
+          "confidence": { "type": ["object", "null"] },
+          "confidence_score": { "type": ["integer", "null"] },
+          "ai_sentiment": { "type": ["number", "null"] },
+          "ai_decision": { "type": ["object", "null"] },
+          "ollama": { "type": ["object", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "top_predictions": {
+      "type": ["array", "null"],
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": ["rank", "symbol", "side", "trader_score", "ai_reviewed", "rationale"],
+        "properties": {
+          "rank": { "type": "integer", "minimum": 1 },
+          "symbol": { "type": "string" },
+          "side": { "enum": ["LONG", "SHORT"] },
+          "trader_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "score_band": { "type": ["string", "null"] },
+          "earnings_time_utc": { "type": ["string", "null"] },
+          "event_status": { "type": ["string", "null"] },
+          "event_source": { "type": ["string", "null"] },
+          "event_source_url": { "type": ["string", "null"] },
+          "event_date_confidence": { "type": ["string", "null"] },
+          "event_session_confidence": { "type": ["string", "null"] },
+          "recommendation_eligible": { "type": ["boolean", "null"] },
+          "recommendation_blockers": { "type": ["array", "null"] },
+          "ai_reviewed": { "type": "boolean" },
+          "news_update_pending": { "type": ["boolean", "null"] },
+          "rationale": { "type": "string" },
+          "score_breakdown": { "type": ["object", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "ranking": {
+      "type": ["object", "null"],
+      "properties": {
+        "method": { "type": ["string", "null"] },
+        "score_is_probability": { "type": ["boolean", "null"] },
+        "top_limit": { "type": ["integer", "null"] },
+        "universe_event_count": { "type": ["integer", "null"] },
+        "scored_count": { "type": ["integer", "null"] },
+        "eligible_count": { "type": ["integer", "null"] },
+        "ai_reviewed_count": { "type": ["integer", "null"] },
+        "news_articles_scanned": { "type": ["integer", "null"] },
+        "snapshot_age_seconds": { "type": ["integer", "null"] },
+        "state": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "pulse": {
+      "type": ["object", "null"],
+      "properties": {
+        "summary": { "type": ["string", "null"] },
+        "sentiment": { "type": ["string", "null"] },
+        "top_long": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "required": ["symbol", "reason"],
+            "properties": {
+              "symbol": { "type": "string" },
+              "reason": { "type": "string" },
+              "event_key": { "type": ["string", "null"] },
+              "earnings_time_utc": { "type": ["string", "null"] },
+              "first_seen_at": { "type": ["string", "null"] },
+              "last_seen_at": { "type": ["string", "null"] },
+              "source": { "type": ["string", "null"] },
+              "occurrences": { "type": ["integer", "null"] }
+            },
+            "additionalProperties": true
+          }
+        },
+        "current_top_long": {
+          "type": ["array", "null"],
+          "items": { "type": "object", "additionalProperties": true }
+        },
+        "top_short": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "required": ["symbol", "reason"],
+            "properties": {
+              "symbol": { "type": "string" },
+              "reason": { "type": "string" },
+              "event_key": { "type": ["string", "null"] },
+              "earnings_time_utc": { "type": ["string", "null"] },
+              "first_seen_at": { "type": ["string", "null"] },
+              "last_seen_at": { "type": ["string", "null"] },
+              "source": { "type": ["string", "null"] },
+              "occurrences": { "type": ["integer", "null"] }
+            },
+            "additionalProperties": true
+          }
+        },
+        "current_top_short": {
+          "type": ["array", "null"],
+          "items": { "type": "object", "additionalProperties": true }
+        },
+        "catalysts": { "type": ["string", "null"] },
+        "risks": { "type": ["string", "null"] },
+        "model": { "type": ["string", "null"] },
+        "generated_at": { "type": ["string", "null"] },
+        "history": {
+          "type": ["array", "null"],
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "properties": {
+              "snapshot_id": { "type": ["integer", "null"] },
+              "generated_at": { "type": ["string", "null"] },
+              "source": { "type": ["string", "null"] },
+              "occurrences": { "type": ["integer", "null"] },
+              "summary": { "type": ["string", "null"] },
+              "sentiment": { "type": ["string", "null"] },
+              "top_long": { "type": ["array", "null"] },
+              "top_short": { "type": ["array", "null"] }
+            },
+            "additionalProperties": true
+          }
+        },
+        "history_meta": {
+          "type": ["object", "null"],
+          "properties": {
+            "schema_version": { "type": ["integer", "null"] },
+            "snapshot_count": { "type": ["integer", "null"] },
+            "generation_count": { "type": ["integer", "null"] },
+            "archived_pick_count": { "type": ["integer", "null"] },
+            "active_long_count": { "type": ["integer", "null"] },
+            "active_short_count": { "type": ["integer", "null"] },
+            "response_limit": { "type": ["integer", "null"] }
+          },
+          "additionalProperties": true
+        },
+        "persisted": { "type": ["boolean", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "reported_today": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "symbol": { "type": "string" },
+          "earnings_time_utc": { "type": ["string", "null"] },
+          "session": { "type": ["string", "null"] },
+          "gap_risk": { "type": ["integer", "null"] },
+          "direction_label": { "type": ["string", "null"] },
+          "is_watchlist": { "type": ["boolean", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "flags": {
+      "type": ["object", "null"],
+      "properties": {
+        "pulse_used": { "type": ["boolean", "null"] },
+        "reported_today_count": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "status": {
+      "type": "object",
+      "required": ["last_run_time", "last_success_time", "last_error", "next_run_in"],
+      "properties": {
+        "last_run_time": { "type": ["string", "null"] },
+        "last_success_time": { "type": ["string", "null"] },
+        "last_error": { "type": ["string", "null"] },
+        "next_run_in": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "disabled": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

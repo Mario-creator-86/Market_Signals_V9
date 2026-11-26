@@ -1,0 +1,922 @@
+/* MarketMuse UI v10 - view skin: traderadar. Loaded after ds_core.css.
+ *
+ * The recommendations screen. Reading order of the page:
+ *   page head -> stat strip -> symbol filter + freshness line -> ranked list.
+ * Each candidate is one row-card with three zones (identity | trade plan |
+ * verdict) and the actions; an evidence line and the Details inset sit under
+ * the row. Status colour is used only on the state chips, the direction chip
+ * and the losing-backtest note - repeated values stay quiet.
+ */
+
+/* -- page head --------------------------------------------------------- */
+html[data-ui="v10"] #view-traderadar .traderadar-page-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+}
+
+/* -- stat strip (ds-stats recipe on the legacy class names) ------------- */
+html[data-ui="v10"] #view-traderadar .traderadar-summary-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin: 0 0 var(--ds-4);
+    padding: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-summary-card {
+    display: block;
+    min-width: 0;
+    padding: var(--ds-3) var(--ds-4);
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    transform: none;
+    transition: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-summary-card:first-child { border-left: 0; }
+html[data-ui="v10"] #view-traderadar .traderadar-summary-card::before { content: none; }
+html[data-ui="v10"] #view-traderadar .traderadar-summary-card:hover { transform: none; box-shadow: none; border-color: var(--ds-line); }
+html[data-ui="v10"] #view-traderadar .traderadar-summary-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    letter-spacing: 0.01em;
+    text-transform: none;
+    margin: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-summary-value {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--ds-2);
+    margin-top: 2px;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-20);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-summary-sub {
+    margin: 0;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .tr-split-sep { color: var(--ds-text-3); margin: 0; }
+
+/* -- toolbar: symbol filter (left) + freshness line (right) ------------- */
+html[data-ui="v10"] #view-traderadar .traderadar-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-2) var(--ds-4);
+    margin: 0 0 var(--ds-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-filter {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    gap: var(--ds-2);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-filter[hidden],
+html[data-ui="v10"] #view-traderadar .traderadar-chips[hidden],
+html[data-ui="v10"] #view-traderadar #traderadar-symbol-filter[hidden] { display: none; }
+html[data-ui="v10"] #view-traderadar .traderadar-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-width: 0;
+}
+/* The filter-chip recipe on a view-owned class (the shared .filter-chip
+   class is toggled document-wide by the watchlist filter). */
+html[data-ui="v10"] #view-traderadar .traderadar-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-1);
+    height: 28px;
+    padding: 0 10px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+    box-shadow: none;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), border-color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-filter-chip:hover { border-color: var(--ds-text-3); color: var(--ds-text); }
+html[data-ui="v10"] #view-traderadar .traderadar-filter-chip.active,
+html[data-ui="v10"] #view-traderadar .traderadar-filter-chip[aria-pressed="true"] {
+    background: var(--ds-amber-soft);
+    border-color: var(--ds-amber-line);
+    color: var(--ds-amber);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-filter-chip.active:hover { border-color: var(--ds-amber); color: var(--ds-amber); }
+html[data-ui="v10"] #view-traderadar .traderadar-chip-count {
+    font-family: var(--ds-font-num);
+    font-weight: 500;
+    opacity: 0.75;
+}
+html[data-ui="v10"] #view-traderadar #traderadar-symbol-filter { min-width: 180px; }
+
+/* The meta element holds two rows (freshness line, hidden strip); it steps
+   out of the box tree so both rows sit on the toolbar grid. */
+html[data-ui="v10"] #view-traderadar .traderadar-meta-shell {
+    display: contents;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-meta-row {
+    flex: 0 1 auto;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--ds-1) var(--ds-4);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-1);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-meta-item strong {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .tr-stale-chip {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-warn-line);
+    background: var(--ds-warn-soft);
+    color: var(--ds-warn);
+    box-shadow: none;
+    animation: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-loading {
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+    padding: var(--ds-3) var(--ds-4);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-meta-shell > .traderadar-loading { margin-left: auto; padding: 0; }
+
+/* Hidden-by-you: an information strip with Undo buttons */
+html[data-ui="v10"] #view-traderadar .traderadar-suppressed-row {
+    flex: 1 0 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: var(--ds-2) var(--ds-4);
+    padding: 6px var(--ds-3);
+    border: 1px solid var(--ds-info-line);
+    border-radius: var(--ds-r-control);
+    background: var(--ds-info-soft);
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-suppressed-label { font-weight: 600; color: var(--ds-text); }
+html[data-ui="v10"] #view-traderadar .traderadar-suppressed-item { gap: var(--ds-2); }
+html[data-ui="v10"] #view-traderadar .traderadar-suppressed-item b {
+    font-family: var(--ds-font-num);
+    font-weight: 500;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-suppressed-row small { color: var(--ds-text-3); font-size: var(--ds-fs-12); }
+html[data-ui="v10"] #view-traderadar .traderadar-suppressed-row .btn-mini { height: 28px; }
+
+/* -- ranked list --------------------------------------------------------- */
+html[data-ui="v10"] #view-traderadar .traderadar-main-shell {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-list-shell { padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
+html[data-ui="v10"] #view-traderadar .traderadar-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-2);
+    padding: 0;
+    background: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-group-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--ds-2);
+    margin: var(--ds-3) 0 0;
+    padding: 0 2px;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-group-head:first-child { margin-top: 0; }
+html[data-ui="v10"] #view-traderadar .traderadar-group-title {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-group-count {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-group-hint { font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+
+/* -- row-card ------------------------------------------------------------ */
+html[data-ui="v10"] #view-traderadar .traderadar-card,
+html[data-ui="v10"] #view-traderadar .traderadar-card.is-long,
+html[data-ui="v10"] #view-traderadar .traderadar-card.is-short {
+    position: relative;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+    transform: none;
+    transition: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-card::before { content: none; }
+html[data-ui="v10"] #view-traderadar .traderadar-card:hover { transform: none; box-shadow: none; border-color: var(--ds-line); }
+
+html[data-ui="v10"] #view-traderadar .traderadar-card-top {
+    display: grid;
+    grid-template-columns: minmax(200px, 1.05fr) minmax(250px, 1.15fr) minmax(300px, 1.5fr) auto;
+    align-items: start;
+    gap: 0 var(--ds-5);
+    padding: var(--ds-3) var(--ds-4);
+}
+
+/* zone 1 - identity */
+html[data-ui="v10"] #view-traderadar .traderadar-symbol-panel {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-1);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-symbol {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ds-2);
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-16);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-age-chip {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    margin: 0;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-age-chip.is-old {
+    border-color: var(--ds-warn-line);
+    background: var(--ds-warn-soft);
+    color: var(--ds-warn);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-quote {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--ds-3);
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-symbol-subline { margin: 0; font-size: var(--ds-fs-13); color: var(--ds-text-2); }
+html[data-ui="v10"] #view-traderadar .traderadar-change {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-change.positive { color: var(--ds-pos-quiet); }
+html[data-ui="v10"] #view-traderadar .traderadar-change.negative { color: var(--ds-neg-quiet); }
+html[data-ui="v10"] #view-traderadar .traderadar-change-window {
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-signal-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    text-align: left;
+    gap: var(--ds-1) var(--ds-2);
+    margin-top: 2px;
+    min-width: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-verdict-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-1);
+    height: 20px;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-verdict-pill.is-long { background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos); }
+html[data-ui="v10"] #view-traderadar .traderadar-verdict-pill.is-short { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+html[data-ui="v10"] #view-traderadar .traderadar-verdict-pill.is-pending {
+    height: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-verdict-icon { font-size: 8px; line-height: 1; }
+/* Verdict, state and setup arrive as capitals from the payload; the skin
+   sets them in sentence case (the strings themselves are unchanged). */
+html[data-ui="v10"] #view-traderadar .traderadar-verdict-pill:not(.is-pending) .traderadar-verdict-text,
+html[data-ui="v10"] #view-traderadar .traderadar-panel-subline,
+html[data-ui="v10"] #view-traderadar .traderadar-readiness-pill {
+    display: inline-block;
+    text-transform: lowercase;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-verdict-pill:not(.is-pending) .traderadar-verdict-text::first-letter,
+html[data-ui="v10"] #view-traderadar .traderadar-panel-subline::first-letter,
+html[data-ui="v10"] #view-traderadar .traderadar-readiness-pill::first-letter { text-transform: uppercase; }
+html[data-ui="v10"] #view-traderadar .traderadar-panel-subline {
+    margin: 0;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-panel-micro {
+    margin: 0;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-horizon::before { content: "\00b7"; margin-right: var(--ds-2); color: var(--ds-text-disabled); }
+
+/* zone 2 - trade plan: a small aligned table (label | price | distance or basis) */
+html[data-ui="v10"] #view-traderadar .traderadar-levels-panel {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: max-content max-content minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--ds-1) var(--ds-3);
+    margin: 0;
+    padding: 0 0 0 var(--ds-5);
+    border: 0;
+    border-left: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+    background: none;
+    min-width: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-level { display: contents; }
+html[data-ui="v10"] #view-traderadar .traderadar-level span {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-level strong {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    letter-spacing: 0;
+    text-align: right;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-level small,
+html[data-ui="v10"] #view-traderadar .traderadar-level strong + small {
+    margin: 0;
+    font-family: var(--ds-font);
+    letter-spacing: 0;
+    word-spacing: 0;
+    text-transform: none;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-level small.traderadar-level-pct {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    color: var(--ds-text-2);
+}
+
+/* zone 3 - verdict: score, meter against the entry gate, state */
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-panel {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0 0 0 var(--ds-5);
+    border: 0;
+    border-left: 1px solid var(--ds-line-faint);
+    background: none;
+    min-width: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-head {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: var(--ds-3);
+    min-height: 20px;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-score {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1px;
+    min-width: 56px;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-pill {
+    display: inline;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-16);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-pill.below-gate { color: var(--ds-text-2); }
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-pill.is-pending { color: var(--ds-text-3); font-weight: 400; }
+html[data-ui="v10"] #view-traderadar .traderadar-score-scale {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-11);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-meter {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 60px;
+    height: 4px;
+    margin: 0;
+    border: 0;
+    border-radius: 2px;
+    background: var(--ds-surface-3);
+    overflow: visible;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-meter i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    display: block;
+    border-radius: 2px;
+    background: var(--ds-text-3);
+    transition: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-meter i.at-gate { background: var(--ds-pos); }
+/* the entry gate, marked on the meter */
+html[data-ui="v10"] #view-traderadar .traderadar-confidence-meter b {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    margin-left: -1px;
+    border-radius: 1px;
+    background: var(--ds-text);
+    opacity: 1;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-readiness-pill {
+    flex: none;
+    height: 20px;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 18px;
+    white-space: nowrap;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-readiness-pill::before { content: none; }
+html[data-ui="v10"] #view-traderadar .traderadar-readiness-pill.ready { background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos); }
+html[data-ui="v10"] #view-traderadar .traderadar-readiness-pill.near { background: var(--ds-info-soft); border-color: var(--ds-info-line); color: var(--ds-info); }
+html[data-ui="v10"] #view-traderadar .traderadar-readiness-pill.pending { background: none; border-style: dashed; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-traderadar .traderadar-gate-line { line-height: 1.4; }
+html[data-ui="v10"] #view-traderadar .traderadar-card.is-blocked .traderadar-gate-line { color: var(--ds-text-2); }
+html[data-ui="v10"] #view-traderadar .traderadar-more-btn {
+    position: relative;
+    display: inline;
+    margin: 0 0 0 2px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: var(--ds-info);
+    cursor: pointer;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-more-btn::after { content: ""; position: absolute; inset: -6px -4px; }
+html[data-ui="v10"] #view-traderadar .traderadar-more-btn:hover { text-decoration: underline; }
+/* A losing backtest is stated directly under the state, in warn colour, so
+   "Ready" is never read without it. */
+html[data-ui="v10"] #view-traderadar .traderadar-backtest-warning {
+    display: flex;
+    align-self: flex-start;
+    align-items: baseline;
+    gap: 6px;
+    margin: 0;
+    padding: var(--ds-1) var(--ds-2);
+    border: 1px solid var(--ds-warn-line);
+    border-radius: var(--ds-r-chip);
+    background: var(--ds-warn-soft);
+    color: var(--ds-warn);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    line-height: 1.35;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-backtest-warning i { margin: 0; font-size: var(--ds-fs-11); }
+
+/* actions */
+html[data-ui="v10"] #view-traderadar .traderadar-actions {
+    grid-column: 4;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--ds-1);
+    min-width: 88px;
+    margin: 0;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-actions .btn-mini { width: 100%; height: 28px; }
+html[data-ui="v10"] #view-traderadar .traderadar-details-btn i { font-size: 9px; color: var(--ds-text-3); }
+/* !important: the legacy sheet sets the colours of this button with !important */
+html[data-ui="v10"] #view-traderadar .traderadar-suppress-btn {
+    background: transparent;
+    border-color: transparent !important;
+    color: var(--ds-text-3) !important;
+    font-weight: 400;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-suppress-btn:hover {
+    background: var(--ds-surface-3);
+    border-color: transparent !important;
+    color: var(--ds-text) !important;
+}
+
+/* evidence line under the row: labelled values, divided - not pills */
+html[data-ui="v10"] #view-traderadar .traderadar-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-evidence {
+    gap: var(--ds-1) 0;
+    padding: var(--ds-2) var(--ds-4);
+    border-top: 1px solid var(--ds-line-faint);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-reason-chip {
+    display: inline;
+    height: auto;
+    padding: 0 var(--ds-3);
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-reason-chip:first-child { padding-left: 0; border-left: 0; }
+html[data-ui="v10"] #view-traderadar .traderadar-empty-inline {
+    font-style: normal;
+    font-size: inherit;
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+
+/* -- details: inset panel under the row ---------------------------------- */
+html[data-ui="v10"] #view-traderadar .traderadar-details {
+    display: none;
+    margin: 0 var(--ds-4) var(--ds-4);
+    padding: var(--ds-4);
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control);
+    background: var(--ds-surface-inset);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-details.is-open {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--ds-4) var(--ds-6);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-details-section {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-details-section.is-wide { grid-column: 1 / -1; }
+html[data-ui="v10"] #view-traderadar .traderadar-details-section.is-double { grid-column: span 2; }
+html[data-ui="v10"] #view-traderadar .traderadar-section-title {
+    display: block;
+    margin: 0 0 6px;
+    padding: 0;
+    border: 0;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-details-copy {
+    margin: 0;
+    font-size: var(--ds-fs-13);
+    line-height: 1.5;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-details-copy b { font-weight: 500; color: var(--ds-text); }
+html[data-ui="v10"] #view-traderadar .traderadar-details-copy small { display: inline-block; margin-top: var(--ds-1); font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-traderadar .traderadar-sep { margin: 0 var(--ds-1); color: var(--ds-text-disabled); }
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0;
+    max-width: 620px;
+    margin: 0 0 var(--ds-2);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-control);
+    background: var(--ds-surface-1);
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card,
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card.tone-news,
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card.tone-calendar,
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card.tone-backtest,
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card.tone-final {
+    min-width: 0;
+    padding: var(--ds-2) var(--ds-3);
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card:first-child { border-left: 0; }
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card.tone-final { background: var(--ds-surface-2); }
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-breakdown-value {
+    margin-top: 2px;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-14);
+    font-weight: 500;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-kv-list { display: grid; gap: 2px; }
+html[data-ui="v10"] #view-traderadar .traderadar-kv {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-kv b {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-reasons-list {
+    margin: 0;
+    padding: 0 0 0 var(--ds-4);
+    font-size: var(--ds-fs-13);
+    line-height: 1.5;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-reasons-list li { margin: 0 0 var(--ds-1); padding: 0; overflow-wrap: anywhere; }
+html[data-ui="v10"] #view-traderadar .traderadar-reasons-list li::marker { color: var(--ds-text-disabled); }
+html[data-ui="v10"] #view-traderadar .traderadar-reasons-list small { font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-traderadar .traderadar-flag-chip,
+html[data-ui="v10"] #view-traderadar .traderadar-blocker-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 20px;
+    height: auto;
+    padding: 2px 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    text-transform: none;
+    white-space: normal;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-blocker-chip {
+    border-color: var(--ds-neg-line);
+    background: var(--ds-neg-soft);
+    color: var(--ds-neg);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-blockers-row { margin-top: var(--ds-2); }
+html[data-ui="v10"] #view-traderadar .traderadar-blockers-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-footnote {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding-top: var(--ds-3);
+    border-top: 1px solid var(--ds-line-faint);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+
+/* -- states -------------------------------------------------------------- */
+html[data-ui="v10"] #view-traderadar .traderadar-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ds-3);
+    padding: var(--ds-8) var(--ds-4);
+    border: 1px dashed var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    background: none;
+}
+html[data-ui="v10"] #view-traderadar .traderadar-empty-state .placeholder-text {
+    max-width: 62ch;
+    padding: 0;
+    border: 0;
+    font-style: normal;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-traderadar .traderadar-empty-state .btn-mini { height: 28px; }
+html[data-ui="v10"] #view-traderadar .traderadar-empty-state.is-error { border-color: var(--ds-neg-line); }
+html[data-ui="v10"] #view-traderadar .traderadar-skeleton { display: flex; flex-direction: column; gap: var(--ds-2); padding: 0; }
+html[data-ui="v10"] #view-traderadar .traderadar-skeleton-card {
+    height: 104px;
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    background: var(--ds-surface-1);
+    animation: none;
+}
+
+/* -- narrower content: verdict drops under identity + plan --------------- */
+@media (max-width: 1240px) {
+    html[data-ui="v10"] #view-traderadar .traderadar-card-top {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+        gap: var(--ds-3) var(--ds-5);
+    }
+    html[data-ui="v10"] #view-traderadar .traderadar-actions { grid-column: 3; }
+    html[data-ui="v10"] #view-traderadar .traderadar-confidence-panel {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        padding: var(--ds-3) 0 0;
+        border-left: 0;
+        border-top: 1px solid var(--ds-line-faint);
+    }
+    html[data-ui="v10"] #view-traderadar .traderadar-confidence-meter { max-width: 420px; }
+    html[data-ui="v10"] #view-traderadar .traderadar-details.is-open { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+    html[data-ui="v10"] #view-traderadar .traderadar-summary-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html[data-ui="v10"] #view-traderadar .traderadar-summary-card:nth-child(odd) { border-left: 0; }
+    html[data-ui="v10"] #view-traderadar .traderadar-summary-card:nth-child(n + 3) { border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-traderadar .traderadar-meta-row { margin-left: 0; justify-content: flex-start; }
+    html[data-ui="v10"] #view-traderadar .traderadar-filter { align-items: flex-start; }
+    html[data-ui="v10"] #view-traderadar .traderadar-filter .ds-label { line-height: 28px; }
+    html[data-ui="v10"] #view-traderadar .traderadar-card-top {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--ds-3);
+        padding: var(--ds-3);
+    }
+    html[data-ui="v10"] #view-traderadar .traderadar-symbol-panel,
+    html[data-ui="v10"] #view-traderadar .traderadar-levels-panel,
+    html[data-ui="v10"] #view-traderadar .traderadar-confidence-panel,
+    html[data-ui="v10"] #view-traderadar .traderadar-actions { grid-column: 1; grid-row: auto; }
+    html[data-ui="v10"] #view-traderadar .traderadar-levels-panel {
+        padding: var(--ds-3) 0 0;
+        border-left: 0;
+        border-top: 1px solid var(--ds-line-faint);
+    }
+    html[data-ui="v10"] #view-traderadar .traderadar-actions { flex-direction: row; }
+    html[data-ui="v10"] #view-traderadar .traderadar-actions .btn-mini { flex: 1 1 0; height: 32px; }
+    html[data-ui="v10"] #view-traderadar .traderadar-evidence { padding: var(--ds-2) var(--ds-3); }
+    html[data-ui="v10"] #view-traderadar .traderadar-details { margin: 0 var(--ds-3) var(--ds-3); padding: var(--ds-3); }
+    html[data-ui="v10"] #view-traderadar .traderadar-details.is-open { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-traderadar .traderadar-details-section.is-double { grid-column: auto; }
+    html[data-ui="v10"] #view-traderadar .traderadar-breakdown-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card:nth-child(4) { border-left: 0; }
+    html[data-ui="v10"] #view-traderadar .traderadar-breakdown-card:nth-child(n + 4) { border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-traderadar .traderadar-page-actions { width: 100%; }
+}
+
+/* ── visual QA pass ──────────────────────────────────────────────────── */
+/* Light theme: amber text on the amber-soft selected fill is below 4.5:1. */
+html[data-ui="v10"][data-theme="light"] #view-traderadar .traderadar-filter-chip.active,
+html[data-ui="v10"][data-theme="light"] #view-traderadar .traderadar-filter-chip[aria-pressed="true"],
+html[data-ui="v10"][data-theme="light"] #view-traderadar .traderadar-filter-chip.active:hover { color: var(--ds-amber-press); }
+html[data-ui="v10"][data-theme="light"] #view-traderadar .traderadar-filter-chip.active .traderadar-chip-count,
+html[data-ui="v10"][data-theme="light"] #view-traderadar .traderadar-filter-chip[aria-pressed="true"] .traderadar-chip-count { opacity: 1; }
+
+/* Refresh is this view's one primary action, as on Scanner, News, Premarket and
+   Pre-earnings (the button carries only .ds-btn in the markup). */
+html[data-ui="v10"] #view-traderadar #traderadar-refresh-btn {
+    background: var(--ds-amber);
+    border-color: var(--ds-amber);
+    color: var(--ds-text-on-accent);
+    font-weight: 600;
+}
+html[data-ui="v10"] #view-traderadar #traderadar-refresh-btn:hover {
+    background: var(--ds-amber-hover);
+    border-color: var(--ds-amber-hover);
+    color: var(--ds-text-on-accent);
+}

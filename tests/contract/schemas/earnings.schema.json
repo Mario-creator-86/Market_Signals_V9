@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["as_of", "days", "earnings", "disabled", "from_cache", "total"],
+  "properties": {
+    "as_of": { "type": "string" },
+    "days": { "type": "integer", "minimum": 1 },
+    "earnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "symbol": { "type": "string" },
+          "date": { "type": "string" },
+          "when": { "type": ["string", "null"] }
+        },
+        "required": ["symbol", "date"],
+        "additionalProperties": true
+      }
+    },
+    "disabled": { "type": "boolean" },
+    "from_cache": { "type": "boolean" },
+    "total": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": true
+}

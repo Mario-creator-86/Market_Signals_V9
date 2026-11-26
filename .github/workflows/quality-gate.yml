@@ -1,0 +1,111 @@
+name: Quality Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip==26.1.2
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Run browser smoke gate
+        env:
+          TEST_MODE: "1"
+          MS_DISABLE_ENGINE_AUTOSTART: "1"
+          MS_DISABLE_WARMUP: "1"
+          MS_DISABLE_STATE_PREFETCH: "1"
+          MS_DISABLE_BG_WORKER: "1"
+          RUN_E2E: "1"
+        run: >
+          python -m pytest -q --tb=short
+          tests_e2e/test_ui_smoke.py tests_e2e/test_quality_tabs.py
+          -k "quality_tabs_navigation_and_console_clean or refresh_buttons_follow_agent_disabled_state"
+
+  container-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Build production image
+        run: docker build --tag market-signals:ci .
+      - name: Boot hardened production runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          api_key="ci-only-operator-key-0123456789abcdef"
+          audit_key="ci-only-audit-hmac-key-fedcba9876543210"
+          metrics_token="ci-only-metrics-token-0011223344556677"
+          docker run --detach \
+            --name market-signals-ci \
+            --read-only \
+            --cap-drop ALL \
+            --security-opt no-new-privileges:true \
+            --tmpfs /tmp:rw,noexec,nosuid,mode=1777 \
+            --tmpfs /app/runtime:rw,noexec,nosuid \
+            --tmpfs /app/data:rw,noexec,nosuid \
+            --tmpfs /app/logs:rw,noexec,nosuid \
+            --tmpfs /app/backups:rw,noexec,nosuid \
+            --tmpfs /app/output:rw,noexec,nosuid \
+            --tmpfs /app/reports:rw,noexec,nosuid \
+            --tmpfs /app/audit_logs:rw,noexec,nosuid \
+            --publish 127.0.0.1:18003:8003 \
+            --env MS_ENV=production \
+            --env MS_HOST=0.0.0.0 \
+            --env MS_API_KEY="${api_key}" \
+            --env MS_AUDIT_HMAC_KEY="${audit_key}" \
+            --env MS_METRICS_BEARER_TOKEN="${metrics_token}" \
+            --env MS_REQUIRE_API_KEY=1 \
+            --env MS_PROTECT_READS=1 \
+            --env MS_TRUSTED_HOSTS=localhost,127.0.0.1 \
+            --env MS_ALLOWED_ORIGINS=https://signals.example.test \
+            --env MS_TLS_TERMINATED=1 \
+            --env MS_DISABLE_ENGINE_AUTOSTART=1 \
+            --env MS_DISABLE_WARMUP=1 \
+            --env MS_DISABLE_STATE_PREFETCH=1 \
+            --env MS_DISABLE_BG_WORKER=1 \
+            --env MS_BACKUP_ENABLED=0 \
+            market-signals:ci
+          trap 'docker logs market-signals-ci || true; docker rm --force market-signals-ci || true' EXIT
+
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent http://127.0.0.1:18003/api/health >/dev/null; then
+              break
+            fi
+            if [ "${attempt}" -eq 60 ]; then
+              echo "Container did not become healthy in time." >&2
+              exit 1
+            fi
+            sleep 2
+          done
+
+          test "$(docker exec market-signals-ci id -u)" != "0"
+          docker exec market-signals-ci python -c \
+            "from pathlib import Path; assert Path('/app/runtime/config.json').is_file(); assert Path('/app/data/market_signals.db').is_file()"
+
+          unauthenticated_code="$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:18003/api/state)"
+          test "${unauthenticated_code}" = "401"
+          curl --fail --silent \
+            --header "X-API-Key: ${api_key}" \
+            http://127.0.0.1:18003/api/state >/dev/null

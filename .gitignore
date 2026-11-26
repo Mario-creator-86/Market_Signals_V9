@@ -1,0 +1,77 @@
+# SDD scratch (subagent-driven-development workspaces)
+.superpowers/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Junk / temp / logs (audit F3/F4)
+*.tmp
+*.bak
+logs/
+output/
+
+# Secrets & runtime state (spec §106)
+config.json
+config.json.lock
+*.env
+
+# Local mutable runtime. Production maps the same boundaries to persistent
+# volumes; source control retains only deterministic fixtures.
+runtime/
+mlartifacts/
+mlruns/
+audit_logs/
+backups/
+watchlist.json
+state.json
+signals_state.json
+signals_state.bak.json
+signals_state.summary.json
+capital.json
+calendar_events_cache.json
+ledger_check.json
+data_test_replay.db
+data/**
+!data/us_macro_calendar_*.json
+
+# DB sidecars
+*.db-shm
+*.db-wal
+
+# Debug artifacts
+*.png
+*_srv.log
+*.log
+
+# OS
+Thumbs.db
+nul
+
+# Browser automation artifacts (Playwright MCP session files)
+.playwright-mcp/
+
+# Graphify code map (rebuilt by scripts/update_code_map.ps1)
+graphify-out/
+
+# Local tooling config and internal working prompts (not part of the public repo)
+.claude/
+audit_to_follow.md
+prompt_to_follow.md
+capital_state_live.json
+
+# Legacy V7 migration helpers and captured debug output (machine-specific; not part of V9)
+scripts/count_backup_items.py
+scripts/emergency_restore.py
+scripts/migrate_v7_to_v9.py
+scripts/show_latest_news.py
+scripts/test_agents_mutations.py
+scripts/test_agents_testclient.py
+scripts/baseline_results.json
+scripts/update_code_map.ps1
+tests/failure_details.txt
+tests/failure_details2.txt
+tests/news_debug_output.txt
+tests/test_backup_rotation_proof.py

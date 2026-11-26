@@ -1,0 +1,2347 @@
+{
+  "schema_version": 1,
+  "plan_date": "2026-09-06",
+  "scope": "Plan SaaS: un abonament 10 USD/lună, toate funcțiile client; redesign și validare comercială; implementare neîncepută",
+  "tasks": [
+    {
+      "id": "S00",
+      "phase": "A",
+      "title": "Stabilirea baseline-ului executabil",
+      "status": "TODO",
+      "depends_on": [],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S00.1",
+          "description": "Recitește BASELINE și rapoartele de audit; compară HEAD și modificările locale.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S00.2",
+          "description": "Salvează copie verificabilă a sursei/configurației necesare, cu secrete separat; stabilește ramura de lucru fără a pierde schimbările altui AI.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S00.3",
+          "description": "Rulează testele existente în runtime izolat; inventariază endpointurile, fișierele globale, serviciile și joburile.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Inventar endpoint → date → global/personal/operator și politică de acces.",
+        "Baseline reproductibil, hashuri, rezultate teste și limitări salvate; nicio modificare de date reale."
+      ],
+      "code_entry_points": "api/main.py; core/config.py; api/engine_service.py; docs/REAUDIT_FIXES_2026-09-06.md",
+      "evidence_dir": "evidence/S00/",
+      "required_report": "evidence/S00/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Recitește BASELINE și rapoartele de audit; compară HEAD și modificările locale.",
+      "notes": ""
+    },
+    {
+      "id": "S01",
+      "phase": "A",
+      "title": "Drepturi comerciale, date și piețe permise",
+      "status": "TODO",
+      "depends_on": [
+        "S00"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S01.1",
+          "description": "Inventariază fiecare feed, articol, grafic embed, model AI și licență OSS.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S01.2",
+          "description": "Obține sau documentează drepturile de afișare, cache, redistribuire, date derivate, profesioniști/non-profesioniști și limite per utilizator.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S01.3",
+          "description": "Stabilește țările de lansare, clasificarea serviciului, privacy/termeni și criteriile care blochează vânzarea unei funcții.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Registru cu dovezi contractuale și clasificare permis/interzis/neconfirmat.",
+        "Orice funcție fără drepturi rămâne dezactivată în producție; bibliotecă open-source nu înseamnă licență asupra datelor."
+      ],
+      "code_entry_points": "THIRD_PARTY_NOTICES.md; requirements.txt; core/content_fetcher.py; adapters furnizori",
+      "evidence_dir": "evidence/S01/",
+      "required_report": "evidence/S01/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Inventariază fiecare feed, articol, grafic embed, model AI și licență OSS.",
+      "notes": ""
+    },
+    {
+      "id": "S02",
+      "phase": "A",
+      "title": "Abonament unic de 10 USD și economie per utilizator",
+      "status": "TODO",
+      "depends_on": [
+        "S00"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S02.1",
+          "description": "Intervievează 10–15 potențiali utilizatori, numai după autorizarea contactării lor; pregătește scenariile și scriptul de interviu local.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S02.2",
+          "description": "Benchmark pentru ciclul complet: candidat, AI, critic, dezbatere condițională, risc, monitorizare/ieșire și backtest; separă costul comun de cel personal la 10 USD.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S02.3",
+          "description": "Validează la 10 USD/lună costul tuturor funcțiilor, limitele comune transparente și metricile pilotului; păstrează prețul decis.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Catalog versionat: un abonament, 1000 cenți USD/lună, toate funcțiile client incluse; fără consum nelimitat presupus.",
+        "Model de cost mediu/p95 și consum integral la 10 USD; lansarea este blocată dacă oferta nu este sustenabilă, fără majorare automată de preț."
+      ],
+      "code_entry_points": "PACKAGES.md; PACKAGE_DRAFT.json; configurație nouă catalog",
+      "evidence_dir": "evidence/S02/",
+      "required_report": "evidence/S02/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Intervievează 10–15 potențiali utilizatori, numai după autorizarea contactării lor; pregătește scenariile și scriptul de interviu local.",
+      "notes": ""
+    },
+    {
+      "id": "S03",
+      "phase": "A",
+      "title": "Contracte de arhitectură și model de amenințări",
+      "status": "TODO",
+      "depends_on": [
+        "S00"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S03.1",
+          "description": "Aprobă prin ADR implementarea de referință din ARCHITECTURE.md sau motivează alternativa.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S03.2",
+          "description": "Desenează limitele public/user/operator/worker și fluxurile de identitate, facturare, joburi și date.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S03.3",
+          "description": "Scrie contracte OpenAPI v1, clasificare date, SLO și scenarii de abuz/cross-tenant.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "ADR include opțiuni, costuri, compromisuri și migrare.",
+        "Nicio cale publică nu folosește cheia globală operator sau runtime-ul personal."
+      ],
+      "code_entry_points": "api/main.py; compose.production.yml; deploy/; core/deployment_security.py",
+      "evidence_dir": "evidence/S03/",
+      "required_report": "evidence/S03/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Aprobă prin ADR implementarea de referință din ARCHITECTURE.md sau motivează alternativa.",
+      "notes": ""
+    },
+    {
+      "id": "S04",
+      "phase": "B",
+      "title": "PostgreSQL și migrații",
+      "status": "TODO",
+      "depends_on": [
+        "S03"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S04.1",
+          "description": "Introdu repository interfaces și SQLAlchemy/Alembic sau alternativă motivată; fără acces SQL ad-hoc în UI handlers.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S04.2",
+          "description": "Creează schema definită în ARCHITECTURE: identitate, workspace, membership, preferințe, abonamente, ledger, jobs, usage.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S04.3",
+          "description": "Separă rolurile DB runtime/migrator/admin; testează upgrade de schemă și restaurare.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Migrare de la DB goală și versiunea anterioară reușită.",
+        "Chei compuse și indecși pe workspace_id; runtime nu este owner/superuser/BYPASSRLS."
+      ],
+      "code_entry_points": "core/sqlite_store.py; core/execution/store.py; viitor core/db/; migrations/",
+      "evidence_dir": "evidence/S04/",
+      "required_report": "evidence/S04/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Introdu repository interfaces și SQLAlchemy/Alembic sau alternativă motivată; fără acces SQL ad-hoc în UI handlers.",
+      "notes": ""
+    },
+    {
+      "id": "S05",
+      "phase": "B",
+      "title": "Izolare workspace și RLS",
+      "status": "TODO",
+      "depends_on": [
+        "S04"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S05.1",
+          "description": "Creează un workspace personal per cont și membership; identitatea se rezolvă server-side.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S05.2",
+          "description": "Aplică RLS și context de tranzacție local pentru pool-ul de conexiuni; validează toate FK-urile tenant-scoped.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S05.3",
+          "description": "Include spațiul de lucru în cache keys, căi de obiecte, evenimente și jobs; export/download cu autorizare la fiecare citire.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Utilizatorul A nu citește/modifică/exportă nimic din B, inclusiv prin job IDs și canale push.",
+        "Pool-ul reutilizat, workerul, replica și storage-ul nu scurg context între utilizatori."
+      ],
+      "code_entry_points": "viitor core/tenancy/; core/db/; toate repository-urile personale",
+      "evidence_dir": "evidence/S05/",
+      "required_report": "evidence/S05/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Creează un workspace personal per cont și membership; identitatea se rezolvă server-side.",
+      "notes": ""
+    },
+    {
+      "id": "S06",
+      "phase": "B",
+      "title": "Conturi, parolă și sesiuni",
+      "status": "TODO",
+      "depends_on": [
+        "S03",
+        "S04"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S06.1",
+          "description": "Configurează adaptor OIDC și IdP de referință în mediu de test; identitate internă UUID legată de issuer+sub.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S06.2",
+          "description": "Implementează signup cu email/parolă, username public opțional, verificare email, login, reset parolă, logout/toate sesiunile și MFA.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S06.3",
+          "description": "Folosește code flow cu PKCE/state/nonce și sesiuni HttpOnly Secure; protejează CSRF, replay, enumerare și brute force.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Fluxurile complete trec E2E; JWT invalid/expirat/issuer greșit/audience greșită sunt respinse.",
+        "Parolele nu sunt stocate de aplicație și tokenurile nu apar în loguri/localStorage; MFA obligatoriu operator."
+      ],
+      "code_entry_points": "api/main.py: AuthLoginRequest/auth_login; viitor api/identity/; frontend/account/",
+      "evidence_dir": "evidence/S06/",
+      "required_report": "evidence/S06/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Configurează adaptor OIDC și IdP de referință în mediu de test; identitate internă UUID legată de issuer+sub.",
+      "notes": ""
+    },
+    {
+      "id": "S07",
+      "phase": "B",
+      "title": "Autorizare API și separare operator",
+      "status": "TODO",
+      "depends_on": [
+        "S05",
+        "S06"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S07.1",
+          "description": "Introdu dependencies CurrentUser/CurrentWorkspace și permisiuni server-side.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S07.2",
+          "description": "Separă /api/v1 de /internal; mută engine control, config global, keys, agents admin și coding agent în control plane privat.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S07.3",
+          "description": "Blochează implicit rutele legacy pe ingress-ul public; generează teste pentru inventarul complet de rute.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Niciun abonament nu oferă acces administrativ; UI ascuns fără protecție API nu este acceptat.",
+        "Anonim, user A, user B, operator și worker testați pentru fiecare familie de endpointuri."
+      ],
+      "code_entry_points": "api/main.py middleware; api/config_service.py; api/ai_config_service.py; frontend/cockpit.js",
+      "evidence_dir": "evidence/S07/",
+      "required_report": "evidence/S07/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Introdu dependencies CurrentUser/CurrentWorkspace și permisiuni server-side.",
+      "notes": ""
+    },
+    {
+      "id": "S08",
+      "phase": "B",
+      "title": "Migrarea datelor personale din fișiere globale",
+      "status": "TODO",
+      "depends_on": [
+        "S05",
+        "S07"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S08.1",
+          "description": "Mută watchlist, alerte, preferințe și configurare personală în repository-uri pe workspace.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S08.2",
+          "description": "Desparte get_shared_config de UserSettings; interzice setări personale în singleton global.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S08.3",
+          "description": "Depreciază scrierile JSON/SQLite pentru SaaS; păstrează modul local prin adapter separat și explicit.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "A și B au watchlisturi/alerte independente în API și UI.",
+        "Niciun request SaaS nu modifică watchlist.json, config.json sau capital.json ale operatorului."
+      ],
+      "code_entry_points": "core/config.py; core/alerts.py; core/ui_watchlist.py; api/actions_service.py; api/state_service.py",
+      "evidence_dir": "evidence/S08/",
+      "required_report": "evidence/S08/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Mută watchlist, alerte, preferințe și configurare personală în repository-uri pe workspace.",
+      "notes": ""
+    },
+    {
+      "id": "S09",
+      "phase": "C",
+      "title": "Pipeline comun pentru date de piață",
+      "status": "TODO",
+      "depends_on": [
+        "S03",
+        "S04"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S09.1",
+          "description": "Separă instrumentul după asset_class/exchange/currency și calendarul de sesiuni.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S09.2",
+          "description": "Colectează o singură dată per provider/instrument/interval; dedupe, single-flight, backoff, cache și provenance.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S09.3",
+          "description": "Materializează snapshoturi comune și aplică drepturile de acces înainte de distribuție; persistență OHLC în storage potrivit.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Creșterea utilizatorilor nu multiplică liniar cererile către feed pentru aceleași simboluri.",
+        "Timestamp sursă versus fetch, splits, sesiuni, null și fallback sunt testate; date neautorizate nu sunt publicate."
+      ],
+      "code_entry_points": "api/market_data_service.py; agents/; core/cache_manager.py; data adapters",
+      "evidence_dir": "evidence/S09/",
+      "required_report": "evidence/S09/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Separă instrumentul după asset_class/exchange/currency și calendarul de sesiuni.",
+      "notes": ""
+    },
+    {
+      "id": "S10",
+      "phase": "C",
+      "title": "Worker separat și coadă durabilă",
+      "status": "TODO",
+      "depends_on": [
+        "S04",
+        "S05",
+        "S09"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S10.1",
+          "description": "Elimină pornirea motorului din fiecare instanță API; entrypoints API/ingestion/worker separate.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S10.2",
+          "description": "Introdu SQS sau echivalent durabil, outbox DB, job idempotency, lease/heartbeat, retry, DLQ și anulare.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S10.3",
+          "description": "Adaugă limite per workspace, priorități echitabile și clase de resurse pentru AI/backtest.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Două replici API nu pornesc două motoare sau două calcule identice.",
+        "Worker oprit/restartat produce un singur rezultat și o singură debitare; coada nu pierde joburi."
+      ],
+      "code_entry_points": "api/engine_service.py; core/engine.py; Dockerfile; viitor workers/",
+      "evidence_dir": "evidence/S10/",
+      "required_report": "evidence/S10/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Elimină pornirea motorului din fiecare instanță API; entrypoints API/ingestion/worker separate.",
+      "notes": ""
+    },
+    {
+      "id": "S11",
+      "phase": "C",
+      "title": "Paper trading separat per utilizator",
+      "status": "TODO",
+      "depends_on": [
+        "S07",
+        "S08",
+        "S10"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S11.1",
+          "description": "Mută conturile paper, pozițiile și evenimentele într-un ledger per workspace, cu sume Decimal.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S11.2",
+          "description": "Introdu idempotency pentru ordine și tranzacții atomice de balanță/poziție/risc.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S11.3",
+          "description": "Păstrează tradingul real și cheile broker dezactivate; automatizarea personală rămâne opt-in și limitată.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Nicio poziție sau balanță a operatorului nu este copiată la utilizatori noi.",
+        "Retry concurent nu dublează ordine; balanțele se reconciliază; stop personal nu oprește motorul global."
+      ],
+      "code_entry_points": "core/execution/; api/execution_service.py; core/execution_archive.py",
+      "evidence_dir": "evidence/S11/",
+      "required_report": "evidence/S11/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Mută conturile paper, pozițiile și evenimentele într-un ledger per workspace, cu sume Decimal.",
+      "notes": ""
+    },
+    {
+      "id": "S12",
+      "phase": "C",
+      "title": "Alerte și notificări multi-user",
+      "status": "TODO",
+      "depends_on": [
+        "S08",
+        "S09",
+        "S10"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S12.1",
+          "description": "Indexează alertele după instrument și evaluează doar simbolurile schimbate, nu N utilizatori × întregul univers.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S12.2",
+          "description": "Folosește claim atomic, outbox și dedupe pentru alertă plus canal; aplică preferințe, quiet hours și dezabonare.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S12.3",
+          "description": "Implementează in-app/email și web push ulterior; nu publica date personale în notificări comune.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Retry și consumatori concurenți nu dublează notificarea.",
+        "Expirarea planului, ștergerea contului și schimbarea pragului invalidează evaluările învechite."
+      ],
+      "code_entry_points": "core/alerts.py; viitor notifications/; frontend/alerts",
+      "evidence_dir": "evidence/S12/",
+      "required_report": "evidence/S12/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Indexează alertele după instrument și evaluează doar simbolurile schimbate, nu N utilizatori × întregul univers.",
+      "notes": ""
+    },
+    {
+      "id": "S13",
+      "phase": "C",
+      "title": "Backtesting ca job cu buget",
+      "status": "TODO",
+      "depends_on": [
+        "S10",
+        "S11"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S13.1",
+          "description": "Transformă /run_backtest în acceptare 202 + job ID; polling/push separat.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S13.2",
+          "description": "Versionează parametri, dataset, strategie și cost model; cache comun numai pentru rezultate deterministe fără date private.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S13.3",
+          "description": "Impune limite CPU/RAM/timp, drepturi la date, cote pe plan și exporturi private.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "R01–R03 rămân reparate; un backtest greu nu blochează login/plăți.",
+        "Oprirea workerului, anularea și inputul invalid nu produc rezultat fals sau debitare dublă."
+      ],
+      "code_entry_points": "api/actions_service.py; core/backtest_summary.py; core/strategy_backtester.py; frontend Backtest",
+      "evidence_dir": "evidence/S13/",
+      "required_report": "evidence/S13/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Transformă /run_backtest în acceptare 202 + job ID; polling/push separat.",
+      "notes": ""
+    },
+    {
+      "id": "S14",
+      "phase": "C",
+      "title": "AI gateway și bugete",
+      "status": "TODO",
+      "depends_on": [
+        "S09",
+        "S10"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S14.1",
+          "description": "Separă analiza comună pe simbol de cererile personale; cache după model/prompt/data version.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S14.2",
+          "description": "Adaugă rezervare atomică de credite, limite tokens/context/timp și reconciliere a costului real.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S14.3",
+          "description": "Protejează împotriva prompt injection din știri, exfiltrării, tool calls neautorizate și cotelor globale depășite.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Niciun model nu poate schimba abonamente, roluri sau executa ordine prin text dintr-un articol.",
+        "Cost per raport măsurat; indisponibilitatea AI este explicită și nu afectează citirea pieței."
+      ],
+      "code_entry_points": "core/ai/; api/ai_config_service.py; agents/pre_earnings_agent.py",
+      "evidence_dir": "evidence/S14/",
+      "required_report": "evidence/S14/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Separă analiza comună pe simbol de cererile personale; cache după model/prompt/data version.",
+      "notes": ""
+    },
+    {
+      "id": "S15",
+      "phase": "D",
+      "title": "Catalog unic și drepturi de acces",
+      "status": "TODO",
+      "depends_on": [
+        "S02",
+        "S07"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S15.1",
+          "description": "Implementează catalogul versionat independent de stripe_price_id.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S15.2",
+          "description": "Verifică feature + quota server-side la enqueue, citire, export și abonarea la stream.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S15.3",
+          "description": "Construiește usage ledger cu reserve/commit/release și reset după perioada de facturare, nu după ziua calendaristică.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Schimbarea planului în browser nu deblochează funcții.",
+        "100 cereri concurente nu depășesc cota; fiecare limită se vede în cont și are eroare clară."
+      ],
+      "code_entry_points": "PACKAGE_DRAFT.json; viitor core/billing/entitlements.py; api/v1/usage",
+      "evidence_dir": "evidence/S15/",
+      "required_report": "evidence/S15/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Implementează catalogul versionat independent de stripe_price_id.",
+      "notes": ""
+    },
+    {
+      "id": "S16",
+      "phase": "D",
+      "title": "Stripe Checkout în sandbox",
+      "status": "TODO",
+      "depends_on": [
+        "S06",
+        "S15"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S16.1",
+          "description": "Creează adaptor provider plăți, Customer legat de workspace și un Product și un Price de test la 1000 USD cents/lună, quantity=1.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S16.2",
+          "description": "Folosește Checkout hosted pentru abonament lunar; Price ID provine din catalogul server-side.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S16.3",
+          "description": "Adaugă idempotency și protecție împotriva abonamentelor duplicate; success URL este doar confirmare vizuală.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Niciun card nu traversează backendul propriu; prețul/moneda din client nu sunt autoritate.",
+        "Test checkout reușit, abandonat, necesită autentificare suplimentară și checkout duplicat."
+      ],
+      "code_entry_points": "viitor api/billing/; frontend/pricing/; secrets sandbox",
+      "evidence_dir": "evidence/S16/",
+      "required_report": "evidence/S16/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Creează adaptor provider plăți, Customer legat de workspace și un Product și un Price de test la 1000 USD cents/lună, quantity=1.",
+      "notes": ""
+    },
+    {
+      "id": "S17",
+      "phase": "D",
+      "title": "Webhooks și reconciliere abonamente",
+      "status": "TODO",
+      "depends_on": [
+        "S16"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S17.1",
+          "description": "Verifică semnătura pe raw body; salvează evenimentul unic și confirmă rapid după persistare durabilă.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S17.2",
+          "description": "Procesează asincron duplicări/dezordine și citește starea canonică de la Stripe; mapează trialing/active/past_due/unpaid/canceled/incomplete.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S17.3",
+          "description": "Rulează reconciliere periodică; upgrade plătit înainte de acces, downgrade la termen, grace policy versionată și handling refund/dispute.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Webhook fals respins; 10 replay-uri nu acordă 10 cote.",
+        "Eveniment vechi nu reactivează abonament anulat; cădere/recovery reconciliate fără acces pierdut sau gratuit nejustificat."
+      ],
+      "code_entry_points": "viitor billing inbox/outbox, subscription state machine, worker reconciliation",
+      "evidence_dir": "evidence/S17/",
+      "required_report": "evidence/S17/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Verifică semnătura pe raw body; salvează evenimentul unic și confirmă rapid după persistare durabilă.",
+      "notes": ""
+    },
+    {
+      "id": "S18",
+      "phase": "D",
+      "title": "Gestionare abonament și facturare",
+      "status": "TODO",
+      "depends_on": [
+        "S17"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S18.1",
+          "description": "Integrează Customer Portal și ecranul plan/consum/următoarea plată.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S18.2",
+          "description": "Implementează anulare la sfârșit de perioadă și reactivare, fără schimbare de pachet și fără ștergerea istoricului.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S18.3",
+          "description": "Verifică taxe inclusive pentru totalul fix de 10 USD, facturi și drepturile consumatorilor înainte de live; moneda este USD.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Clientul își poate opri abonamentul și accesa facturile.",
+        "Anularea păstrează accesul până la paid-through; după expirare se aplică retenția/exportul documentate, fără ștergere imediată."
+      ],
+      "code_entry_points": "frontend/account/billing; api/billing/",
+      "evidence_dir": "evidence/S18/",
+      "required_report": "evidence/S18/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Integrează Customer Portal și ecranul plan/consum/următoarea plată.",
+      "notes": ""
+    },
+    {
+      "id": "S19",
+      "phase": "D",
+      "title": "Experiență SaaS și cele 13 taburi",
+      "status": "TODO",
+      "depends_on": [
+        "S08",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S18",
+        "S38",
+        "S39",
+        "S40",
+        "S41",
+        "S42",
+        "S47",
+        "S48",
+        "S49"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S19.1",
+          "description": "Adaugă landing, pricing cu oferta unică de 10 USD/lună, signup, onboarding și account center; păstrează funcțiile existente prin migrare incrementală.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S19.2",
+          "description": "Mapează fiecare tab conform PACKAGES; elimină din UI client comenzile operator și terminal/coding-agent.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S19.3",
+          "description": "Adaugă empty/loading/error/locked states, accesibilitate, mobile și i18n de bază; tur de activare.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Un utilizator nou își creează contul, plătește în sandbox, urmărește un simbol și creează o alertă fără ajutor.",
+        "Matricea celor 13 taburi verificată în browser pentru abonamentul unic, toate stările de acces și rolurile."
+      ],
+      "code_entry_points": "frontend/app.js; frontend/cockpit.js; frontend/index.html; frontend/chart_workspace.js",
+      "evidence_dir": "evidence/S19/",
+      "required_report": "evidence/S19/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Adaugă landing, pricing cu oferta unică de 10 USD/lună, signup, onboarding și account center; păstrează funcțiile existente prin migrare incrementală.",
+      "notes": ""
+    },
+    {
+      "id": "S20",
+      "phase": "D",
+      "title": "Actualizări live cu fan-out controlat",
+      "status": "TODO",
+      "depends_on": [
+        "S07",
+        "S09",
+        "S12",
+        "S15"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S20.1",
+          "description": "Înlocuiește pollingul agresiv cu SSE sau WebSocket pe subscriptions autorizate.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S20.2",
+          "description": "Adaugă snapshot + delta, reconnect cursor, resync după goluri, heartbeat, backpressure și limite per conexiune.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S20.3",
+          "description": "Separă canalele public-market de user-events și gatează fiecare abonare după licență/plan.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Reconnect storm nu multiplică fetchurile la provider; browser inactiv încetinește actualizările.",
+        "Revocarea sesiunii/planului închide canalele protejate; un client lent nu blochează ceilalți."
+      ],
+      "code_entry_points": "frontend API polling; viitor realtime service; Redis fan-out",
+      "evidence_dir": "evidence/S20/",
+      "required_report": "evidence/S20/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Înlocuiește pollingul agresiv cu SSE sau WebSocket pe subscriptions autorizate.",
+      "notes": ""
+    },
+    {
+      "id": "S21",
+      "phase": "D",
+      "title": "Consolă operator și suport",
+      "status": "TODO",
+      "depends_on": [
+        "S07",
+        "S17",
+        "S23"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S21.1",
+          "description": "Mută agent health, management chei/modele, configurații globale și repair tooling în serviciu privat.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S21.2",
+          "description": "Separă support/billing/operator și impune MFA, least privilege și audit append-only.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S21.3",
+          "description": "Adaugă investigație după request/job/payment ID, cu date minime și acces temporar auditat.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Abonatul nu poate apela admin endpoints.",
+        "Nicio parolă/card/cheie nu apare în UI suport sau loguri; schimbările administrative sunt trasabile."
+      ],
+      "code_entry_points": "frontend Agents/Coding Agent; api/config_service.py; internal admin",
+      "evidence_dir": "evidence/S21/",
+      "required_report": "evidence/S21/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Mută agent health, management chei/modele, configurații globale și repair tooling în serviciu privat.",
+      "notes": ""
+    },
+    {
+      "id": "S22",
+      "phase": "D",
+      "title": "Confidențialitate și lifecycle cont",
+      "status": "TODO",
+      "depends_on": [
+        "S05",
+        "S06",
+        "S17"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S22.1",
+          "description": "Implementează export, ștergere, retenție și separarea obligațiilor de facturare de datele produsului.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S22.2",
+          "description": "Revocă sesiuni și joburi la ștergere; include obiecte, cache, copii și politica pentru backupuri.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S22.3",
+          "description": "Adaugă consimțământ separat pentru marketing și inventar procesatori/date către AI.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Exportul este complet pentru A și nu include B; ștergerea oprește accesul imediat.",
+        "Retenția documentată este testabilă, inclusiv datele din backup și logurile obligatorii."
+      ],
+      "code_entry_points": "privacy service; storage; billing; audit logs",
+      "evidence_dir": "evidence/S22/",
+      "required_report": "evidence/S22/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Implementează export, ștergere, retenție și separarea obligațiilor de facturare de datele produsului.",
+      "notes": ""
+    },
+    {
+      "id": "S23",
+      "phase": "D",
+      "title": "Observabilitate și control cost",
+      "status": "TODO",
+      "depends_on": [
+        "S03",
+        "S10",
+        "S15"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S23.1",
+          "description": "Adaugă logs structurate, traces și metrici fără PII/secrete.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S23.2",
+          "description": "Măsoară latență, queue age, data freshness, errors, DB pool, cost/plan și provider quotas.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S23.3",
+          "description": "Definește alarme și runbooks, circuit breakers și kill-switch pentru funcțiile scumpe, fără a bloca account/billing.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Un job lent se urmărește end-to-end; incidentul unei surse este vizibil în UI și alarme.",
+        "Dashboard cost arată cheltuiala per plan și oprirea controlată la bugetul aprobat."
+      ],
+      "code_entry_points": "core/observability; API middleware; workers; cloud dashboards",
+      "evidence_dir": "evidence/S23/",
+      "required_report": "evidence/S23/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Adaugă logs structurate, traces și metrici fără PII/secrete.",
+      "notes": ""
+    },
+    {
+      "id": "S24",
+      "phase": "E",
+      "title": "Infrastructură ca cod și CI/CD",
+      "status": "TODO",
+      "depends_on": [
+        "S03",
+        "S04",
+        "S10"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S24.1",
+          "description": "Construiește medii dev/staging/prod separate, rețea privată DB, TLS, secrets manager și roluri cloud minimale.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S24.2",
+          "description": "Separă imagini API ușoară, ingestion și compute; scoate torch/mlflow din API dacă nu sunt necesare acolo.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S24.3",
+          "description": "Pipeline build/test/scan/migration/canary/rollback, imagini immutable și backup înainte de schimbări incompatibile.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Staging se reconstruiește din IaC; nicio dependență de PC-ul proprietarului.",
+        "API se scalează fără motor duplicat; rollback testat; datele și secretele nu intră în imagine."
+      ],
+      "code_entry_points": "Dockerfile; compose.production.yml; deploy/; .github/workflows/",
+      "evidence_dir": "evidence/S24/",
+      "required_report": "evidence/S24/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Construiește medii dev/staging/prod separate, rețea privată DB, TLS, secrets manager și roluri cloud minimale.",
+      "notes": ""
+    },
+    {
+      "id": "S25",
+      "phase": "E",
+      "title": "Staging integrat și E2E",
+      "status": "TODO",
+      "depends_on": [
+        "S18",
+        "S19",
+        "S20",
+        "S22",
+        "S23",
+        "S24",
+        "S43",
+        "S44"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S25.1",
+          "description": "Publică numai staging în domeniu separat, cu plăți test și date autorizate de test.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S25.2",
+          "description": "Rulează matricea conturi × stări de abonament × roluri × taburi, inclusiv două sesiuni simultane și dispozitive mobile.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S25.3",
+          "description": "Verifică mailuri test, checkout, webhook, expirare plan, quotas, joburi și account recovery.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Dovezi Playwright, contract tests și test payments pentru fiecare flux critic.",
+        "Nu există mockuri ascunse sau TEST_MODE în buildul destinat live."
+      ],
+      "code_entry_points": "staging deployment; tests_e2e/; tests/frontend/",
+      "evidence_dir": "evidence/S25/",
+      "required_report": "evidence/S25/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Publică numai staging în domeniu separat, cu plăți test și date autorizate de test.",
+      "notes": ""
+    },
+    {
+      "id": "S26",
+      "phase": "E",
+      "title": "Importul contului proprietarului",
+      "status": "TODO",
+      "depends_on": [
+        "S08",
+        "S11",
+        "S13",
+        "S25"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S26.1",
+          "description": "Fă backup și dry-run; separă setările operator de datele personale ale proprietarului.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S26.2",
+          "description": "Importă watchlist/alerte/istoric/ledger numai într-un workspace explicit; preserve provenance și marchează date demo/test.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S26.3",
+          "description": "Reconciliere counts/checksums/balanțe; comutare cu fereastră de scriere oprită și rollback documentat.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Import idempotent; reexecutarea nu dublează poziții sau alerte.",
+        "Conturile noi încep goale; datele personale nu devin dataset public."
+      ],
+      "code_entry_points": "runtime JSON/SQLite; core/config.py; migration tools",
+      "evidence_dir": "evidence/S26/",
+      "required_report": "evidence/S26/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Fă backup și dry-run; separă setările operator de datele personale ale proprietarului.",
+      "notes": ""
+    },
+    {
+      "id": "S27",
+      "phase": "E",
+      "title": "Review de securitate și izolare",
+      "status": "TODO",
+      "depends_on": [
+        "S21",
+        "S22",
+        "S25",
+        "S26"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S27.1",
+          "description": "Execută atacuri IDOR/BOLA, CSRF, XSS, SSRF, webhooks false, job injection, upload/export și token replay.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S27.2",
+          "description": "Testează cross-tenant pe DB/cache/objects/stream/workers și accesul operator.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S27.3",
+          "description": "Obține review independent înainte de paid launch și documentează remedierea constatărilor critice.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Zero constatări P0/P1 deschise pe acces/date/plăți.",
+        "Raport independent sau gate explicit neîndeplinit; AI nu se auto-certifică independent."
+      ],
+      "code_entry_points": "security test suite; threat model; independent review",
+      "evidence_dir": "evidence/S27/",
+      "required_report": "evidence/S27/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Execută atacuri IDOR/BOLA, CSRF, XSS, SSRF, webhooks false, job injection, upload/export și token replay.",
+      "notes": ""
+    },
+    {
+      "id": "S28",
+      "phase": "E",
+      "title": "Teste de încărcare și cost pilot",
+      "status": "TODO",
+      "depends_on": [
+        "S23",
+        "S25"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S28.1",
+          "description": "Rulează profilele CAPACITY pentru L0/L1: signup burst, market open, mixed reads/writes, jobs și webhooks.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S28.2",
+          "description": "Adaugă test de durată, provider failure, slow clients și worker crash; validează quota auth/email.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S28.3",
+          "description": "Măsoară cost total și per user/plan; compară cu bugetul ales, nu cu o presupunere de gratuitate.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "SLO, zero încălcări tenant și buget îndeplinite pe sarcină reproductibilă.",
+        "Raport conține hardware/număr replici/dataset/RPS/concurență/cost și limitările metodei."
+      ],
+      "code_entry_points": "k6/Locust; staging; CAPACITY.md",
+      "evidence_dir": "evidence/S28/",
+      "required_report": "evidence/S28/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Rulează profilele CAPACITY pentru L0/L1: signup burst, market open, mixed reads/writes, jobs și webhooks.",
+      "notes": ""
+    },
+    {
+      "id": "S29",
+      "phase": "E",
+      "title": "Backup și recuperare",
+      "status": "TODO",
+      "depends_on": [
+        "S24",
+        "S25",
+        "S26"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S29.1",
+          "description": "Activează backup DB/PITR, versionare obiecte și criptare; definiție retenție.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S29.2",
+          "description": "Restaurează într-un mediu separat și reconciliază ledger, abonamente, usage și jobs.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S29.3",
+          "description": "Testează outage IdP/Stripe/provider/DB și revenirea fără dublări; confirmă RPO/RTO măsurate.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Restore drill reușit și timpi măsurați, nu doar backup configurat.",
+        "Datele de plată se reconciliază cu Stripe după recovery și joburile nu sunt facturate de două ori."
+      ],
+      "code_entry_points": "infra backup; operations runbooks",
+      "evidence_dir": "evidence/S29/",
+      "required_report": "evidence/S29/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Activează backup DB/PITR, versionare obiecte și criptare; definiție retenție.",
+      "notes": ""
+    },
+    {
+      "id": "S30",
+      "phase": "F",
+      "title": "Pilot privat cu 20–50 utilizatori",
+      "status": "TODO",
+      "depends_on": [
+        "S01",
+        "S02",
+        "S25",
+        "S27",
+        "S28",
+        "S29"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S30.1",
+          "description": "Pregătește invitații și onboarding; expediază numai când proprietarul autorizează contactarea.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S30.2",
+          "description": "Rulează pilot 2–4 săptămâni cu participanți reali, limite mici și suport; fără promisiuni de profit.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S30.3",
+          "description": "Măsoară activarea, retenția, înțelegerea datelor, erorile, costurile și willingness-to-pay.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Raport de utilizare reală, separat de teste și conturi interne.",
+        "Nicio eroare de izolare/facturare și pragurile convenite sunt atinse sau pilotul este extins."
+      ],
+      "code_entry_points": "analytics privacy-conscious; feedback; support log",
+      "evidence_dir": "evidence/S30/",
+      "required_report": "evidence/S30/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Pregătește invitații și onboarding; expediază numai când proprietarul autorizează contactarea.",
+      "notes": ""
+    },
+    {
+      "id": "S31",
+      "phase": "F",
+      "title": "Lansare abonamente plătite",
+      "status": "TODO",
+      "depends_on": [
+        "S30"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S31.1",
+          "description": "Verifică prețul fix de 10 USD/lună în landing, Checkout și factură; finalizează taxele, entitatea, contractele feed și bugetele.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S31.2",
+          "description": "Configurează Stripe live separat, final review și canary 10 clienți → 100 → 1000.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S31.3",
+          "description": "Verifică plăți/reînnoiri/anulări reale autorizate, suport, status page și posibilitatea opririi înscrierilor.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Toate gate-urile G-PUBLIC sunt îndeplinite și documentate.",
+        "Încasările se reconciliază; un abonat poate recupera contul, utiliza planul și anula fără intervenție manuală."
+      ],
+      "code_entry_points": "production deployment; billing live; release checklist",
+      "evidence_dir": "evidence/S31/",
+      "required_report": "evidence/S31/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Verifică prețul fix de 10 USD/lună în landing, Checkout și factură; finalizează taxele, entitatea, contractele feed și bugetele.",
+      "notes": ""
+    },
+    {
+      "id": "S32",
+      "phase": "F",
+      "title": "Validare comercială și retenție",
+      "status": "TODO",
+      "depends_on": [
+        "S31"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S32.1",
+          "description": "Urmărește cohorts 30/60/90 zile, churn, suport și marjă după costuri.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S32.2",
+          "description": "Experimentează onboarding, prezentarea dovezilor și mesaje de valoare cu grupuri controlate; prețul rămâne 10 USD și funcțiile sunt aceleași.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S32.3",
+          "description": "Prioritizează problemele utilizatorilor înainte de funcții noi și estimează capacitatea pe trafic real.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Conversie, reînnoire și costuri verificate; motive reale de cumpărare și anulare documentate pentru abonamentul de 10 USD.",
+        "Nu se raportează utilizatori testați/simulați ca utilizatori reali sau venituri fictive."
+      ],
+      "code_entry_points": "product analytics; billing reports",
+      "evidence_dir": "evidence/S32/",
+      "required_report": "evidence/S32/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Urmărește cohorts 30/60/90 zile, churn, suport și marjă după costuri.",
+      "notes": ""
+    },
+    {
+      "id": "S33",
+      "phase": "G",
+      "title": "Capacitate 10.000 conturi",
+      "status": "TODO",
+      "depends_on": [
+        "S28",
+        "S31"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S33.1",
+          "description": "Rulează L2, distribuție realistă de consum și simboluri; index tuning și pool limits.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S33.2",
+          "description": "Autoscale după queue age/connections/RPS, nu doar CPU.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S33.3",
+          "description": "Verifică fan-out, drepturi feed și cost la vârf; crește limitele de înscriere numai după gate.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Raport L2 trece SLO și cost; creșterea conturilor nu dublează calculele comune.",
+        "Test recovery și plăți la market-open peak."
+      ],
+      "code_entry_points": "CAPACITY.md; cloud autoscaling; DB query plans",
+      "evidence_dir": "evidence/S33/",
+      "required_report": "evidence/S33/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Rulează L2, distribuție realistă de consum și simboluri; index tuning și pool limits.",
+      "notes": ""
+    },
+    {
+      "id": "S34",
+      "phase": "G",
+      "title": "Capacitate 100.000 conturi",
+      "status": "TODO",
+      "depends_on": [
+        "S32",
+        "S33"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S34.1",
+          "description": "Rulează L3 și reconnect storm; replci read-only numai unde lagul este acceptabil.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S34.2",
+          "description": "Separă hot/cold storage și servicii realtime; partiționează usage/ledger după dovezi.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S34.3",
+          "description": "Exersează incidente și cote cloud/IdP/email/feed; optimizează costuri reale.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Raport L3 și restore drill la volumul respectiv.",
+        "Autorizarea și billing rămân pe citiri consistente, nu pe replică întârziată."
+      ],
+      "code_entry_points": "DB/storage/realtime/operations",
+      "evidence_dir": "evidence/S34/",
+      "required_report": "evidence/S34/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Rulează L3 și reconnect storm; replci read-only numai unde lagul este acceptabil.",
+      "notes": ""
+    },
+    {
+      "id": "S35",
+      "phase": "G",
+      "title": "Capacitate 1.000.000 conturi",
+      "status": "TODO",
+      "depends_on": [
+        "S34"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S35.1",
+          "description": "Rulează L4: un milion rânduri user, 20k conexiuni și 10k RPS ipoteză de vârf.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S35.2",
+          "description": "Benchmark separat signup/auth/recovery bursts și provider fan-out cu cote aprobate.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S35.3",
+          "description": "Evaluează celule/sharding/regionalizare numai dacă profilele arată nevoie; cost și suport incluse.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Capacitatea este afirmată numai după un test reprezentativ și raport complet.",
+        "Nu se confundă milionul de conturi cu un milion de conexiuni simultane."
+      ],
+      "code_entry_points": "CAPACITY.md; load generators distributed; vendor quotas",
+      "evidence_dir": "evidence/S35/",
+      "required_report": "evidence/S35/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Rulează L4: un milion rânduri user, 20k conexiuni și 10k RPS ipoteză de vârf.",
+      "notes": ""
+    },
+    {
+      "id": "S36",
+      "phase": "G",
+      "title": "Capacitate de ordinul milioanelor",
+      "status": "TODO",
+      "depends_on": [
+        "S35"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S36.1",
+          "description": "Rulează L5 pentru 3M conturi și 60k conexiuni; extinde pe regiuni/celule dacă măsurătorile justifică.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S36.2",
+          "description": "Testează evacuarea unei celule, billing global fără split-brain și izolarea incidentelor.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S36.3",
+          "description": "Actualizează limita declarată, bugetele, SLA și capacitatea de suport pe baza testelor.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Raport L5 cu 30k RPS țintă și 60k streams, plus cost/retention/DR.",
+        "Pentru milioane simultan se deschide un proiect de capacitate nou; nu este declarat implicit realizat."
+      ],
+      "code_entry_points": "capacity cells; regional design; contracts/operations",
+      "evidence_dir": "evidence/S36/",
+      "required_report": "evidence/S36/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Rulează L5 pentru 3M conturi și 60k conexiuni; extinde pe regiuni/celule dacă măsurătorile justifică.",
+      "notes": ""
+    },
+    {
+      "id": "S37",
+      "phase": "UX",
+      "title": "Design system și păstrarea celor 13 taburi",
+      "status": "TODO",
+      "depends_on": [
+        "S00"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S37.1",
+          "description": "Inventariază și păstrează cele 13 taburi, subtaburile și fiecare funcție; Pre-Earnings, Agents, Capital și Cockpit rămân spații distincte cu acces direct.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S37.2",
+          "description": "Definește tipografie, culori semantice, spațiere, densitate, focus, componente și stări; realizează prototipuri desktop/mobile conform DESIGN_AND_DECISIONS.md.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S37.3",
+          "description": "Verifică traseele principale cu tastatura, contrastul și ecrane înguste; documentează diferențele și criteriile vizuale.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Mapping complet al celor 13 taburi, fără eliminarea funcțiilor client sau expunerea operatorului.",
+        "Prototipuri și inventar de componente existente; fiecare alegere are scop și criteriu verificabil."
+      ],
+      "code_entry_points": "frontend/index.html; frontend/styles_variables.css; frontend/styles_layout.css",
+      "evidence_dir": "evidence/S37/",
+      "required_report": "evidence/S37/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Inventariază și păstrează cele 13 taburi, subtaburile și fiecare funcție; Pre-Earnings, Agents, Capital și Cockpit rămân spații distincte cu acces direct.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S38",
+      "phase": "UX",
+      "title": "Acasă personal și activare rapidă",
+      "status": "TODO",
+      "depends_on": [
+        "S37",
+        "S08",
+        "S09"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S38.1",
+          "description": "Implementează piața acum, impactul asupra watchlistului, oportunități explicate și schimbări de la ultima vizită, cu stare fără noutăți.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S38.2",
+          "description": "Construiește onboarding opțional: obiectiv, 5 simboluri, prima alertă; adaugă căutare globală și ajutor contextual.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S38.3",
+          "description": "Măsoară timpul până la primul rezultat util și verifică date lipsă, vizite noi, preferințe și mobile fără recomandări fabricate.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Schimbările folosesc snapshotul vizitei utilizatorului și surse datate, nu regenerare arbitrară AI.",
+        "Un cont nou poate ajunge la o listă personală și o alertă fără tur obligatoriu; evenimentele de activare sunt definite."
+      ],
+      "code_entry_points": "frontend/cockpit.js; frontend/app.js; viitor home/onboarding API",
+      "evidence_dir": "evidence/S38/",
+      "required_report": "evidence/S38/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Implementează piața acum, impactul asupra watchlistului, oportunități explicate și schimbări de la ultima vizită, cu stare fără noutăți.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S39",
+      "phase": "UX",
+      "title": "Card explicabil și semantică verificată a scorurilor",
+      "status": "TODO",
+      "depends_on": [
+        "S37",
+        "S09",
+        "S14"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S39.1",
+          "description": "Definește contractul cardului: motiv, dovezi, contraargumente, invalidare, orizont, sursă și date lipsă; separă fapt/calcul/interpretare.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S39.2",
+          "description": "Implementează afișarea separată a calității datelor, scorului strategiei, istoricului și interpretării AI în scanner, radar și liste.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S39.3",
+          "description": "Verifică fiecare câmp până la sursă și cazurile de date vechi/conflictuale; nu afișa probabilități fără calibrare și orizont documentate.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Același simbol/scenariu are aceeași semantică între taburi; 85/100 nu este etichetat 85% șansă.",
+        "Cardurile au dovezi accesibile, argumente contrare și stare insuficient-date; AI nu completează fapte lipsă."
+      ],
+      "code_entry_points": "frontend/cockpit.js; frontend/app.js; contracte backend scor/proveniență",
+      "evidence_dir": "evidence/S39/",
+      "required_report": "evidence/S39/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Definește contractul cardului: motiv, dovezi, contraargumente, invalidare, orizont, sursă și date lipsă; separă fapt/calcul/interpretare.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S40",
+      "phase": "UX",
+      "title": "Pagina simbolului și comparații coerente",
+      "status": "TODO",
+      "depends_on": [
+        "S39",
+        "S08"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S40.1",
+          "description": "Unește graficul, prețul/sursa/sesiunea, știrile, evenimentele, scenariile și alertele în aceeași pagină accesibilă din toate listele.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S40.2",
+          "description": "Adaugă comparație între 2–3 simboluri cu aceeași perioadă, monedă explicită, benchmark și semnalarea datelor incomparabile.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S40.3",
+          "description": "Verifică deep links, back navigation, selecții salvate, mobil și consistența cotațiilor; păstrează atribuirea surselor.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Prețul din card și grafic este reconciliat prin timestamp, sesiune și sursă, nu egalizat artificial.",
+        "Comparația nu amestecă randamente, prețuri absolute sau perioade diferite fără etichete explicite."
+      ],
+      "code_entry_points": "frontend/chart_workspace.js; frontend/hotlist_dossier.js; viitor symbol workspace",
+      "evidence_dir": "evidence/S40/",
+      "required_report": "evidence/S40/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Unește graficul, prețul/sursa/sesiunea, știrile, evenimentele, scenariile și alertele în aceeași pagină accesibilă din toate listele.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S41",
+      "phase": "UX",
+      "title": "Jurnal de decizii și evaluare fără selecție convenabilă",
+      "status": "TODO",
+      "depends_on": [
+        "S39",
+        "S11",
+        "S13"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S41.1",
+          "description": "Inventariază Decision Ledger și registrele existente; migrează și extinde snapshotul personal cu surse, versiune și invalidare, fără a crea istoric paralel.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S41.2",
+          "description": "Evaluează rezultatul la orizontul stabilit, inclusiv cazuri nereușite, anulate și date lipsă; separă paper de real și include costuri simulate.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S41.3",
+          "description": "Testează lipsa datelor viitoare, deduplicarea și exportul; afișează eșantionul, perioada și limitele, fără rată de succes din selecții favorabile.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Rezultatele sunt reproductibile din snapshot și metodologie; istoricul nu se rescrie după rezultat.",
+        "Evaluarea UI măsoară înțelegerea riscului separat de profitul simulat; lipsa datelor nu devine rezultat pozitiv."
+      ],
+      "code_entry_points": "viitor decision_journal schema/API; paper ledger; backtest reports",
+      "evidence_dir": "evidence/S41/",
+      "required_report": "evidence/S41/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Inventariază Decision Ledger și registrele existente; migrează și extinde snapshotul personal cu surse, versiune și invalidare, fără a crea istoric paralel.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S42",
+      "phase": "UX",
+      "title": "Digest relevant și alerte cu control asupra zgomotului",
+      "status": "TODO",
+      "depends_on": [
+        "S12",
+        "S38",
+        "S40"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S42.1",
+          "description": "Adaugă rezumatul personal zilnic/săptămânal și alerte pentru schimbarea scenariului, cu explicație și link la sursă.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S42.2",
+          "description": "Implementează grupare, deduplicare, severitate, quiet hours, timezone, snooze și preferințe pe canal; separă marketingul de notificările de serviciu.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S42.3",
+          "description": "Verifică livrări repetate, latență, schimbare fus orar și dezabonare; măsoară alerte utile versus ignorate/dezactivate.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Nicio alertă duplicată la retry; utilizatorul controlează frecvența și canalul.",
+        "Emailul personal nu expune date altui cont; folosirea insightului comun nu generează AI separat la fiecare citire."
+      ],
+      "code_entry_points": "api notifications; frontend alerts/preferences; shared digest worker",
+      "evidence_dir": "evidence/S42/",
+      "required_report": "evidence/S42/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Adaugă rezumatul personal zilnic/săptămânal și alerte pentru schimbarea scenariului, cu explicație și link la sursă.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S43",
+      "phase": "UX",
+      "title": "Landing, demo și ofertă unică verificabilă",
+      "status": "TODO",
+      "depends_on": [
+        "S18",
+        "S38",
+        "S39"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S43.1",
+          "description": "Construiește landing cu problema, trei rezultate demonstrabile, capturi reale, exemplu explicabil, preț 10 USD/lună și FAQ fără promisiuni de profit.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S43.2",
+          "description": "Pregătește demo fără cont cu date redistribuibile și datate; implementează evaluarea de 7 zile fără card numai după S02, cu limite comune și anti-abuz.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S43.3",
+          "description": "Verifică traseul demo → signup → activare → checkout, totalul facturii, limitele afișate și anularea; nicio recenzie inventată sau numărătoare falsă.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Toate funcțiile client sunt incluse în aceeași ofertă; landing, catalog și checkout au 1000 cenți USD/lună.",
+        "Demo nu expune runtime-ul proprietarului; funcțiile neimplementate nu sunt prezentate ca disponibile."
+      ],
+      "code_entry_points": "frontend/landing.html; pricing; demo fixtures/licensed snapshots; auth/billing",
+      "evidence_dir": "evidence/S43/",
+      "required_report": "evidence/S43/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Construiește landing cu problema, trei rezultate demonstrabile, capturi reale, exemplu explicabil, preț 10 USD/lună și FAQ fără promisiuni de profit.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S44",
+      "phase": "UX",
+      "title": "Validare UX și instrumentarea conversiei",
+      "status": "TODO",
+      "depends_on": [
+        "S38",
+        "S39",
+        "S40",
+        "S41",
+        "S42",
+        "S43",
+        "S47",
+        "S48",
+        "S49"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S44.1",
+          "description": "Definește evenimentele și denominatorii conform GROWTH.md; separă conturi reale, teste, boți, evaluări și plăți confirmate.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S44.2",
+          "description": "Pregătește și execută cu minimum 5 participanți recrutați autorizat sarcinile găsire dovadă/risc, comparație, alertă și anulare; salvează probleme anonimizate.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S44.3",
+          "description": "Corectează blocajele observate și repetă sarcinile afectate; verifică înțelegerea scorurilor și accesibilitatea pe desktop/mobile.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Țintă inițială: 4/5 finalizează sarcinile esențiale fără ajutor; orice confuzie critică scor/probabilitate sau preț este rezolvată.",
+        "Raport cu timp, erori și limitele eșantionului; nu se afirmă creștere de conversie fără comparație validă."
+      ],
+      "code_entry_points": "analytics events; frontend tests; evidence/S44/REPORT.md",
+      "evidence_dir": "evidence/S44/",
+      "required_report": "evidence/S44/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Definește evenimentele și denominatorii conform GROWTH.md; separă conturi reale, teste, boți, evaluări și plăți confirmate.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S45",
+      "phase": "GROWTH",
+      "title": "Experimente de atragere cu buget măsurabil",
+      "status": "TODO",
+      "depends_on": [
+        "S31",
+        "S32"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S45.1",
+          "description": "Pregătește ghiduri utile și demonstrații video din produs, cu surse și rezultate complete; publică doar în canale autorizate.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S45.2",
+          "description": "Testează secvențial conținut educațional, comunități relevante și colaborări mici, cu costuri/atribuire; reclamele necesită buget separat.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S45.3",
+          "description": "Compară abonați activați, reînnoiri, rambursări și CAC pe cohorte; oprește canalele care consumă buget fără retenție conform regulilor GROWTH.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Niciun mesaj către terți, reclamă plătită sau publicare fără autorizarea canalului și bugetului.",
+        "Rezultate documentate cu numitor și interval, fără trafic sau venituri fictive; prețul nu se schimbă."
+      ],
+      "code_entry_points": "GROWTH.md; content assets; analytics acquisition reports",
+      "evidence_dir": "evidence/S45/",
+      "required_report": "evidence/S45/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Pregătește ghiduri utile și demonstrații video din produs, cu surse și rezultate complete; publică doar în canale autorizate.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S46",
+      "phase": "GROWTH",
+      "title": "Recomandări voluntare și retenție pe valoare",
+      "status": "TODO",
+      "depends_on": [
+        "S32",
+        "S45"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S46.1",
+          "description": "Pregătește partajarea opt-in a șabloanelor de analiză fără poziții personale sau date nelicențiate; orice stimulent rămâne propunere separată.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S46.2",
+          "description": "Adaugă feedback după utilizare, raport lunar al activității utile și solicitare opțională a motivului anulării, fără blocarea anulării.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S46.3",
+          "description": "Evaluează reînnoiri 30/60/90 zile, marja și reclamațiile; păstrează numai experimentele cu beneficii observate.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Linkurile partajate sunt revocabile și nu includ date private implicit; testimoniale numai reale și cu acord.",
+        "Nicio schemă de upgrade sau cost suplimentar; raportul de valoare nu echivalează activitatea cu profit financiar."
+      ],
+      "code_entry_points": "sharing templates; account lifecycle; product analytics",
+      "evidence_dir": "evidence/S46/",
+      "required_report": "evidence/S46/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Pregătește partajarea opt-in a șabloanelor de analiză fără poziții personale sau date nelicențiate; orice stimulent rămâne propunere separată.",
+      "notes": "Propunere inclusă în plan; nu implementare realizată."
+    },
+    {
+      "id": "S47",
+      "phase": "PRODUCT",
+      "title": "Pre-Earnings separat, păstrat integral",
+      "status": "TODO",
+      "depends_on": [
+        "S37",
+        "S39",
+        "S09"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S47.1",
+          "description": "Mapează calendar, score, Top 10, Pulse, dosar, peer read-through, predicții și track record până la sursă; inventar înainte/după.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S47.2",
+          "description": "Îmbunătățește pagina separată cu subtaburi și stare de eligibilitate; leagă event_id/decision_id de explicații și Capital fără a amesteca predicția cu execuția.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S47.3",
+          "description": "Verifică identitatea evenimentelor, prețuri/splituri, ferestre, LONG/SHORT, denominatori și toate funcțiile vechi.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Nicio funcție Pre-Earnings pierdută; diferențele față de original sunt documentate.",
+        "Istoricul și Top 10 au proveniență verificată; valori suspecte sunt investigate, nu folosite în marketing."
+      ],
+      "code_entry_points": "PRODUCT_PRESERVATION.md; core/agent_manager.py; agents/pre_earnings_agent.py; core/capital_manager.py; frontend/agents.js",
+      "evidence_dir": "evidence/S47/",
+      "required_report": "evidence/S47/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Mapează calendar, score, Top 10, Pulse, dosar, peer read-through, predicții și track record până la sursă; inventar înainte/după.",
+      "notes": "Păstrarea funcțiilor este obligatorie."
+    },
+    {
+      "id": "S48",
+      "phase": "PRODUCT",
+      "title": "Agenți personali și automatizare paper completă",
+      "status": "TODO",
+      "depends_on": [
+        "S11",
+        "S14",
+        "S15",
+        "S37"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S48.1",
+          "description": "Mapează rolurile de analiză, AI/Critic/debate, Risk și Execution; separă politicile personale de mentenanța globală fără a elimina agenți.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S48.2",
+          "description": "Implementează Agents separat, configurare de risc per workspace, activare/oprire personală și trace de execuție; păstrează controalele și protecția ieșirilor.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S48.3",
+          "description": "Testează două conturi, retry, veto, AI indisponibil, stop bot, cote și expirare abonament în timpul pozițiilor deschise; rezervă resurse pentru ieșiri.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Oprirea/configurarea unui client nu schimbă botul ori politica altuia; ordinele sunt idempotente.",
+        "Toate rolurile reale sunt explicate corect; nu se prezintă fiecare worker drept LLM sau trader independent."
+      ],
+      "code_entry_points": "PRODUCT_PRESERVATION.md; core/agent_manager.py; agents/pre_earnings_agent.py; core/capital_manager.py; frontend/agents.js",
+      "evidence_dir": "evidence/S48/",
+      "required_report": "evidence/S48/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Mapează rolurile de analiză, AI/Critic/debate, Risk și Execution; separă politicile personale de mentenanța globală fără a elimina agenți.",
+      "notes": "Păstrarea funcțiilor este obligatorie."
+    },
+    {
+      "id": "S49",
+      "phase": "PRODUCT",
+      "title": "Traseu complet și comparație reproductibilă",
+      "status": "TODO",
+      "depends_on": [
+        "S47",
+        "S48",
+        "S40",
+        "S41"
+      ],
+      "owner": null,
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "S49.1",
+          "description": "Leagă dovezile candidatului, AI/Critic/debate, risc, ordin, poziție și rezultat prin identificatori și timp, inclusiv refuzurile și fallbackurile.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S49.2",
+          "description": "Construiește comparație între politici/strategii în paper pe aceleași date și costuri; afișează eșantion, drawdown și P/L net fără atribuire falsă per agent.",
+          "status": "TODO",
+          "evidence": []
+        },
+        {
+          "id": "S49.3",
+          "description": "Verifică un caz acceptat, unul respins și o ieșire post-earnings din UI până la ledger; testează anti-lookahead și lipsa datelor.",
+          "status": "TODO",
+          "evidence": []
+        }
+      ],
+      "acceptance_criteria": [
+        "Trace-ul reflectă ordinea efectivă și rolurile rulate; niciun consens inventat.",
+        "Comparațiile și demo-ul păstrează rezultatele nereușite; toate funcțiile originale au verificare de regresie."
+      ],
+      "code_entry_points": "PRODUCT_PRESERVATION.md; core/agent_manager.py; agents/pre_earnings_agent.py; core/capital_manager.py; frontend/agents.js",
+      "evidence_dir": "evidence/S49/",
+      "required_report": "evidence/S49/REPORT.md",
+      "test_commands": [],
+      "test_results": [],
+      "changed_files": [],
+      "blockers": [],
+      "next_action": "Leagă dovezile candidatului, AI/Critic/debate, risc, ordin, poziție și rezultat prin identificatori și timp, inclusiv refuzurile și fallbackurile.",
+      "notes": "Păstrarea funcțiilor este obligatorie."
+    }
+  ],
+  "revision": "single-plan-design-growth-2026-09-06"
+}

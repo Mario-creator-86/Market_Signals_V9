@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketMuse Premium | AI Signals for Smart Trading</title>
+    <meta name="description"
+        content="Premium trading signals powered by AI. High win rate, controlled risk, time saved.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f5f0e8;
+            --surface-color: #ffffff;
+            --card-bg: #fdfbf7;
+            --primary-color: #1a2332;
+            --accent-color: #c9a227;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: rgba(201, 162, 39, 0.15);
+            --gold-gradient: linear-gradient(135deg, #c9a227 0%, #f4d03f 50%, #d4af37 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .landing-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .cta-button {
+            background: var(--gold-gradient);
+            color: var(--primary-color);
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 162, 39, 0.35);
+        }
+
+        /* Main Content */
+        .landing-main {
+            padding-top: 70px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            padding: 15px 0 20px;
+        }
+
+        .hero-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .hero-content h1 .highlight {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        .benefits-list {
+            margin-top: 16px;
+            list-style: none;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .benefits-list li i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 15px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            border-radius: 12px;
+            padding: 18px 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(201, 162, 39, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+        }
+
+        .cta-button-large {
+            background: var(--gold-gradient);
+            color: var(--primary-color);
+            padding: 14px 36px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(201, 162, 39, 0.4);
+        }
+
+        /* Footer */
+        .landing-footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="landing-header">
+        <div class="logo">Market<span>Muse</span></div>
+        <a href="index.html" class="cta-button">Access Dashboard</a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="landing-main">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-image">
+                <img src="hero-illustration.png" alt="Trading Premium">
+            </div>
+            <div class="hero-content">
+                <h1>Premium Signals<br><span class="highlight">Powered by AI</span></h1>
+                <ul class="benefits-list">
+                    <li><i class="fa-solid fa-rocket"></i> Increased Profitability</li>
+                    <li><i class="fa-solid fa-shield-halved"></i> Minimized Risk</li>
+                    <li><i class="fa-regular fa-clock"></i> Time Saved</li>
+                    <li><i class="fa-solid fa-lightbulb"></i> Informed Decisions</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="stat-value">75%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="stat-value">8%</div>
+                    <div class="stat-label">Controlled Risk</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                    <div class="stat-value">90%</div>
+                    <div class="stat-label">Time Saved</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Start Trading Smarter</h2>
+            <a href="index.html" class="cta-button-large">
+                <i class="fa-solid fa-play"></i> Access Dashboard
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <p>© 2026 All rights reserved. Backtest-based signals for smart trading.</p>
+    </footer>
+
+    <!-- Audio for Dashboard access -->
+    <audio id="dashboard-audio" src="dashboard-audio.mp3" preload="auto"></audio>
+
+    <script>
+        function playAndNavigate(event) {
+            event.preventDefault();
+            const audio = document.getElementById('dashboard-audio');
+            audio.play();
+            // Navigate after a short delay to let the audio start
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 800);
+        }
+
+        // Attach to all dashboard buttons
+        document.querySelectorAll('a[href="index.html"]').forEach(btn => {
+            btn.onclick = playAndNavigate;
+        });
+    </script>
+</body>
+
+</html>

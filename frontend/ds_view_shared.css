@@ -1,0 +1,412 @@
+/* MarketMuse UI v10 - styles shared by several views that are not design-system primitives. Loaded last.
+ *
+ *   1. data states        no data / delisted price, instrument chip, evidence-excluded chip
+ *   2. per-view notes     capital, trade radar, news, cockpit, watchlist (scoped under the view id)
+ *   3. dialogs            shared small dialog recipe; ticker settings, delete confirm, add ticker message
+ *   4. activity dropdown  notifications list on the home view
+ *   5. analyze modal      fundamentals tab
+ *   6. toast action, offline banner
+ *   7. keyboard focus     elements whose own skin removed or clipped the focus ring
+ *
+ * Tokens only.
+ */
+
+/* ── 1. data states ──────────────────────────────────────────────────── */
+
+/* In place of a price and a change: "No data" / "Delisted or inactive · last traded <date>".
+   Never a status colour: it is the absence of a quote, not a move. */
+html[data-ui="v10"] .ms-price-state {
+    display: inline-block;
+    max-width: 100%;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--ds-text-3);
+    white-space: normal;
+    text-align: inherit;
+    font-variant-numeric: tabular-nums;
+}
+
+html[data-ui="v10"] .ms-instrument-chip,
+html[data-ui="v10"] .ms-evidence-excluded {
+    height: 20px;
+    margin-left: var(--ds-2);
+    background: var(--ds-surface-3);
+    border-color: var(--ds-line-strong);
+    color: var(--ds-text-2);
+    font-weight: 500;
+    vertical-align: middle;
+}
+html[data-ui="v10"] .ms-evidence-excluded { cursor: help; }
+
+html[data-ui="v10"] .ms-exit-since {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-11);
+    color: var(--ds-text-3);
+}
+
+/* ── 2. per-view notes ───────────────────────────────────────────────── */
+
+/* watchlist: the state text takes the price and the change columns */
+html[data-ui="v10"] #view-watchlist .wl-row-v2 > .wl-col-price--state {
+    display: block;
+    grid-column: span 2;
+    text-align: right;
+    padding-right: var(--ds-2);
+}
+html[data-ui="v10"] #view-watchlist .wl-row-v2 > .wl-col-price--state + .wl-col-change { display: none; }
+@media (max-width: 900px) {
+    html[data-ui="v10"] #view-watchlist .wl-row-v2 > .wl-col-price--state { grid-column: price / chg; }
+}
+
+/* hot list: same line as the symbol */
+html[data-ui="v10"] #view-hotlist .hot-card-price-row .ms-price-state,
+html[data-ui="v10"] #hotlist-detail-modal .hot-card-price-row .ms-price-state { font-size: var(--ds-fs-13); }
+
+/* analyze modal: the price tile of a symbol without a quote */
+html[data-ui="v10"] #analysis-modal .an-price-state { margin-top: var(--ds-1); }
+html[data-ui="v10"] #analysis-modal .an-price-state .ms-price-state { font-size: var(--ds-fs-13); color: var(--ds-text-2); }
+html[data-ui="v10"] #analysis-modal .an-state-note { margin-top: var(--ds-2); }
+
+/* cockpit: the state sits on its own line under the position row */
+html[data-ui="v10"] #view-home .cockpit-pos-row.has-price-state { padding-top: var(--ds-1); padding-bottom: var(--ds-1); row-gap: 0; }
+html[data-ui="v10"] #view-home .cockpit-pos-row > .cockpit-pos-state {
+    grid-column: 1 / -1;
+    white-space: normal;
+    text-align: left;
+    font-size: var(--ds-fs-11);
+}
+html[data-ui="v10"] #view-home .cockpit-item-title .ms-price-state { margin-left: var(--ds-2); font-size: var(--ds-fs-11); }
+
+/* capital */
+html[data-ui="v10"] #view-capital .capital-equity-header { flex-wrap: wrap; }
+html[data-ui="v10"] #view-capital .capital-equity-coverage {
+    flex: 1 0 100%;
+    margin: var(--ds-1) 0 0;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-capital .cap-tx-event-cell .ms-evidence-excluded { margin-left: var(--ds-1); }
+html[data-ui="v10"] #view-capital .capital-scanner-row .ms-instrument-chip,
+html[data-ui="v10"] #view-capital .capital-opportunity-head .ms-instrument-chip { margin-left: 0; }
+
+/* trade radar: a thin backtest sample is a quiet note, not a warning */
+html[data-ui="v10"] #view-traderadar .traderadar-backtest-thin { margin-top: 2px; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-traderadar .traderadar-symbol .ms-instrument-chip { font-family: var(--ds-font-tight); }
+
+/* news: the scorer's reasons under the impact chip */
+html[data-ui="v10"] #view-news .news-impact-reasons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--ds-1) var(--ds-2);
+    margin-top: var(--ds-2);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-news .news-impact-reasons-label {
+    font-family: var(--ds-font-tight);
+    font-weight: 600;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-news .news-impact-reasons ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-1) var(--ds-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+html[data-ui="v10"] #view-news .news-impact-reasons li { position: relative; padding-left: var(--ds-3); }
+html[data-ui="v10"] #view-news .news-impact-reasons li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 0.62em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ds-text-3);
+}
+
+/* ── 3. dialogs ──────────────────────────────────────────────────────── */
+html[data-ui="v10"] .modal-content.ms-dialog {
+    width: min(460px, calc(100vw - 32px));
+    max-width: none;
+    padding: 0;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-pop);
+    box-shadow: var(--ds-shadow-pop);
+}
+html[data-ui="v10"] .modal-content.ms-dialog--wide { width: min(760px, calc(100vw - 32px)); }
+html[data-ui="v10"] .ms-dialog .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    margin: 0;
+    padding: var(--ds-3) var(--ds-4) var(--ds-3) var(--ds-5);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] .ms-dialog .modal-header h3 { font-size: var(--ds-fs-16); font-weight: 600; color: var(--ds-text); }
+html[data-ui="v10"] .ms-dialog .modal-body { padding: var(--ds-5); }
+html[data-ui="v10"] .ms-dialog-ticker { font-family: var(--ds-font-num); font-weight: 500; color: var(--ds-text-2); }
+html[data-ui="v10"] .ms-dialog-text {
+    margin: 0 0 var(--ds-5);
+    font-size: var(--ds-fs-14);
+    line-height: 1.5;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] .ms-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--ds-2);
+    margin-top: var(--ds-5);
+}
+html[data-ui="v10"] #delete-confirm-modal .ms-dialog-actions { margin-top: 0; }
+
+/* message inside a dialog (add ticker: "no quote found" + Add anyway) */
+html[data-ui="v10"] .ms-dialog-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    margin-top: var(--ds-3);
+    padding: var(--ds-2) var(--ds-3);
+    background: var(--ds-warn-soft);
+    border: 1px solid var(--ds-warn-line);
+    border-radius: var(--ds-r-control);
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+}
+html[data-ui="v10"] .ms-dialog-message[hidden] { display: none; }
+html[data-ui="v10"] .ms-dialog-message .ds-btn { flex: 0 0 auto; }
+
+/* ticker settings (the legacy sheet sets a white, padded box by id) */
+html[data-ui="v10"] #ticker-settings-modal .modal-content {
+    padding: 0;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-pop);
+    box-shadow: var(--ds-shadow-pop);
+}
+html[data-ui="v10"] #ticker-settings-modal .modal-header {
+    margin: 0;
+    padding: var(--ds-3) var(--ds-4) var(--ds-3) var(--ds-5);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--ds-6);
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-col { display: flex; flex-direction: column; gap: var(--ds-3); min-width: 0; }
+html[data-ui="v10"] #ticker-settings-modal .bt-form-group { margin: 0; }
+html[data-ui="v10"] #ticker-settings-modal .bt-form-group > label,
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-checks > legend {
+    display: block;
+    margin-bottom: var(--ds-1);
+    padding: 0;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0;
+}
+html[data-ui="v10"] #ticker-settings-modal .bt-input { width: 100%; }
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-presets { display: flex; flex-wrap: wrap; gap: var(--ds-2); }
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-effective {
+    padding: var(--ds-2) var(--ds-3);
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-faint);
+    border-radius: var(--ds-r-control);
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-switch-row > label:first-child { margin: 0; }
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-hint {
+    display: block;
+    margin-top: var(--ds-1);
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-heading {
+    margin: var(--ds-2) 0 0;
+    padding-bottom: var(--ds-2);
+    border-bottom: 1px solid var(--ds-line);
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-col > .ms-settings-heading:first-child { margin-top: 0; }
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ds-3); }
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ds-1) var(--ds-3);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-checks > legend { grid-column: 1 / -1; float: left; width: 100%; }
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-checks > label {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    min-height: 28px;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    cursor: pointer;
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-checks--special {
+    grid-template-columns: 1fr;
+    padding-top: var(--ds-3);
+    border-top: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #ticker-settings-modal .ms-settings-check-sub { padding-left: var(--ds-5); color: var(--ds-text-3); }
+html[data-ui="v10"] #ticker-settings-modal input[type="checkbox"]:disabled + * ,
+html[data-ui="v10"] #ticker-settings-modal label:has(input:disabled) { cursor: not-allowed; }
+@media (max-width: 720px) {
+    html[data-ui="v10"] #ticker-settings-modal .ms-settings-grid { grid-template-columns: minmax(0, 1fr); gap: var(--ds-4); }
+}
+
+/* ── 4. activity dropdown ────────────────────────────────────────────── */
+html[data-ui="v10"] .activity-dropdown-panel {
+    width: min(340px, calc(100vw - 32px));
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-pop);
+    box-shadow: var(--ds-shadow-pop);
+    transition: opacity var(--ds-fast) var(--ds-ease);
+    transform: none;
+}
+html[data-ui="v10"] .activity-dropdown-panel.hidden { transform: none; }
+/* the signals card clips its content; the notifications panel has to overflow it */
+html[data-ui="v10"] #view-home .home-signals-card { overflow: visible; }
+html[data-ui="v10"] .activity-dropdown-panel .dropdown-header {
+    padding: var(--ds-2) var(--ds-4);
+    background: var(--ds-surface-2);
+    border-bottom: 1px solid var(--ds-line);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    text-transform: none;
+    letter-spacing: 0;
+}
+html[data-ui="v10"] .activity-dropdown-panel .activity-list { max-height: 340px; overflow-y: auto; }
+html[data-ui="v10"] .ms-activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ds-3);
+    padding: var(--ds-2) var(--ds-4);
+    border-bottom: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] .ms-activity-item:last-child { border-bottom: 0; }
+html[data-ui="v10"] .ms-activity-item:hover { background: var(--ds-surface-2); }
+html[data-ui="v10"] .ms-activity-icon { flex: 0 0 16px; margin-top: 2px; text-align: center; font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] .ms-activity-icon--info { color: var(--ds-info); }
+html[data-ui="v10"] .ms-activity-icon--pos { color: var(--ds-pos); }
+html[data-ui="v10"] .ms-activity-icon--neg { color: var(--ds-neg); }
+html[data-ui="v10"] .ms-activity-icon--warn { color: var(--ds-warn); }
+html[data-ui="v10"] .ms-activity-main { flex: 1 1 auto; min-width: 0; }
+html[data-ui="v10"] .ms-activity-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--ds-2); }
+html[data-ui="v10"] .ms-activity-type { font-size: var(--ds-fs-13); font-weight: 600; color: var(--ds-text); }
+html[data-ui="v10"] .ms-activity-time {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-11);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] .ms-activity-desc { font-size: var(--ds-fs-12); line-height: 1.4; color: var(--ds-text-2); overflow-wrap: anywhere; }
+html[data-ui="v10"] .ms-activity-empty { padding: var(--ds-5) var(--ds-4); text-align: center; font-size: var(--ds-fs-13); color: var(--ds-text-3); }
+
+/* ── 5. analyze modal: fundamentals tab ──────────────────────────────── */
+html[data-ui="v10"] #analysis-modal .an-fund-panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #analysis-modal .an-fund-note { font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #analysis-modal .an-fund-empty { font-size: var(--ds-fs-13); color: var(--ds-text-3); }
+html[data-ui="v10"] #analysis-modal #tab-fundamente > .an-fund-empty--block { padding: var(--ds-5) !important; text-align: center; }
+html[data-ui="v10"] #analysis-modal .an-fund-text { font-size: var(--ds-fs-13); line-height: 1.5; color: var(--ds-text-2); }
+html[data-ui="v10"] #analysis-modal #tab-fundamente > .an-fund-warning {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ds-2);
+    padding: var(--ds-2) var(--ds-3) !important;
+    background: var(--ds-warn-soft) !important;
+    border: 1px solid var(--ds-warn-line) !important;
+    border-radius: var(--ds-r-control) !important;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #analysis-modal .an-fund-warning i { color: var(--ds-warn); font-size: var(--ds-fs-12); }
+
+/* ── 6. toast action, offline banner ─────────────────────────────────── */
+html[data-ui="v10"] #scanner-toast .ms-toast-action {
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    margin-left: var(--ds-3);
+    padding: 0 var(--ds-2);
+    background: var(--ds-surface-2);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text);
+    cursor: pointer;
+}
+html[data-ui="v10"] #scanner-toast .ms-toast-action:hover { background: var(--ds-surface-1); border-color: var(--ds-text-3); }
+
+html[data-ui="v10"] .ms-offline-banner {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    padding: var(--ds-2) var(--ds-4);
+    text-align: center;
+}
+html[data-ui="v10"] .ms-offline-banner.hidden { display: none; }
+
+/* ── 7. keyboard focus ───────────────────────────────────────────────── */
+/* The component recipes set `box-shadow: none` at the same specificity as the global
+   focus ring and come later in the cascade, so buttons, rail links and chips lost the
+   ring (scripted Tab-through, wave 3). Keyboard focus wins over a recipe's shadow. */
+html[data-ui="v10"] :is(a, button, summary, [tabindex], [role="button"], [role="tab"]):focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus) !important;
+}
+/* rail links touch the rail edge, where an outer ring is clipped */
+html[data-ui="v10"] .nav-item:focus-visible { box-shadow: inset 0 0 0 2px var(--ds-amber) !important; }
+/* controls that sit inside a rounded, clipped container (segmented controls,
+   list rows, table header buttons) would show only one edge of an outer ring */
+html[data-ui="v10"] :is(.pm-seg-btn, .premarket-view-btn, .bt-seg-btn, .bt-history-item, .cockpit-row-action,
+    .pe-signal-tab, .cap-pos-row, .wl-header-cell, .tr-add):focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ds-amber) !important;
+}
+/* a switch draws the ring on its track; the input itself is visually hidden */
+html[data-ui="v10"] .switch input:focus-visible + .slider { box-shadow: var(--ds-focus); }
+/* the cockpit skin removes the bell's legacy glow with `box-shadow: none !important` */
+html[data-ui="v10"] #view-home .home-signals-tools :is(.btn-activity, .btn-activity-sound, .btn-mini):focus-visible {
+    box-shadow: var(--ds-focus) !important;
+}
+/* a dialog taller than the window scrolls inside itself (narrow screens) */
+html[data-ui="v10"] .modal-content.ms-dialog { max-height: calc(100vh - 32px); overflow-y: auto; }

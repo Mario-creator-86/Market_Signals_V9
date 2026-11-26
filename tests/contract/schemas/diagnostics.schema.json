@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "status",
+    "uptime_seconds",
+    "version",
+    "agents",
+    "cache_inventory",
+    "request_metrics",
+    "event_loop",
+    "memory"
+  ],
+  "properties": {
+    "status": { "type": "string", "enum": ["ok", "degraded", "down"] },
+    "uptime_seconds": { "type": "number", "minimum": 0 },
+    "version": { "type": "string" },
+    "commit_hash": { "type": ["string", "null"] },
+    "agents": { "type": "object" },
+    "cache_inventory": { "type": "object" },
+    "request_metrics": { "type": "object" },
+    "event_loop": { "type": "object" },
+    "memory": { "type": "object" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,809 @@
+/* MarketMuse UI v10 - view skin: backtest. Loaded after ds_core.css. */
+/*
+ * Lab bench: a fixed 320px parameter column on the left, results on the right.
+ *
+ *   left   one Parameters panel (What / Period / Exits / Mode) whose action
+ *          row stays pinned to the bottom of the column, then the quiet
+ *          evidence + export buttons, the saved runs and the API usage meta
+ *   right  tabs, then per tab: result head (title, context, thin-sample chip),
+ *          notices, one stat strip, tables
+ *
+ * Everything is scoped to #view-backtest and uses tokens only.
+ */
+
+/* ── page head ───────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-last-run {
+    margin: 0;
+    text-align: right;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-backtest .bt-last-run span {
+    margin-left: 6px;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    color: var(--ds-text-2);
+}
+
+/* ── frame ───────────────────────────────────────────────────────────── */
+/* Two panes under the page head, each with its own scroll: the parameters
+   stay beside the results however long a trade list gets, and the view never
+   depends on the height of the head. Under 1280px the results pane would be
+   too narrow for its tables, so the view becomes a normal scrolling page
+   (two columns down to 960px, one below). */
+@media (min-width: 1280px) {
+    html[data-ui="v10"] #view-backtest:not(.hidden) {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - var(--ds-topbar-h));
+        min-height: 520px;
+        padding-bottom: var(--ds-4) !important;
+    }
+    html[data-ui="v10"] #view-backtest > .ds-page-head { flex: 0 0 auto; }
+    html[data-ui="v10"] #view-backtest .backtest-premium-layout {
+        flex: 1 1 auto;
+        grid-template-rows: minmax(0, 1fr);
+    }
+    /* 4px of padding inside each scroll box leaves room for focus rings. */
+    html[data-ui="v10"] #view-backtest .bt-side,
+    html[data-ui="v10"] #view-backtest .bt-results-area {
+        height: 100%;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        margin: -4px;
+        padding: 4px;
+    }
+    /* No padding under the pinned action row, or the form shows below it. */
+    html[data-ui="v10"] #view-backtest .bt-side { margin-bottom: 0; padding-bottom: 0; }
+    html[data-ui="v10"] #view-backtest .bt-side > :last-child { padding-bottom: var(--ds-1); }
+}
+
+html[data-ui="v10"] #view-backtest .backtest-premium-layout {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: var(--ds-5);
+    align-items: start;
+    min-height: 0;
+}
+html[data-ui="v10"] #view-backtest .bt-side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-4);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-backtest .bt-side > * { flex: 0 0 auto; }
+
+/* ── parameters panel ────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-params-panel {
+    position: static;
+    height: auto;
+    padding: 0;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-backtest .bt-params-header {
+    display: block;
+    margin: 0;
+    padding: var(--ds-3) var(--ds-4);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-backtest .bt-params-header h2 {
+    font-size: var(--ds-fs-14);
+    line-height: 1.35;
+}
+html[data-ui="v10"] #view-backtest .bt-params-form {
+    display: block;
+    padding: var(--ds-4) var(--ds-4) 0;
+}
+
+html[data-ui="v10"] #view-backtest .bt-form-group { margin: 0 0 var(--ds-3); min-width: 0; }
+html[data-ui="v10"] #view-backtest .bt-form-group:last-child { margin-bottom: 0; }
+
+html[data-ui="v10"] #view-backtest .bt-group {
+    margin: var(--ds-4) 0 0;
+    padding: var(--ds-3) 0 0;
+    border: 0;
+    border-top: 1px solid var(--ds-line-faint);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-backtest .bt-group > legend {
+    float: left;
+    width: 100%;
+    margin: 0 0 var(--ds-2);
+    padding: 0;
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-backtest .bt-group > legend + * { clear: both; }
+
+html[data-ui="v10"] #view-backtest .bt-input,
+html[data-ui="v10"] #view-backtest .bt-select {
+    width: 100%;
+    height: 32px;
+    min-height: 32px;
+    padding: 0 10px;
+}
+html[data-ui="v10"] #view-backtest input[type="number"].bt-input,
+html[data-ui="v10"] #view-backtest #bt-ticker,
+html[data-ui="v10"] #view-backtest #bt-compare-tickers {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+}
+html[data-ui="v10"] #view-backtest .bt-select:disabled {
+    color: var(--ds-text-disabled);
+    border-color: var(--ds-line);
+    cursor: not-allowed;
+}
+
+html[data-ui="v10"] #view-backtest .bt-inline { display: flex; align-items: center; gap: var(--ds-2); }
+html[data-ui="v10"] #view-backtest .bt-inline > .bt-select { flex: 1 1 auto; min-width: 0; }
+html[data-ui="v10"] #view-backtest .bt-preset-save { flex: 0 0 auto; }
+html[data-ui="v10"] #view-backtest .bt-days-input { flex: 0 0 72px; width: 72px; }
+
+html[data-ui="v10"] #view-backtest .bt-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #view-backtest .bt-pair > .bt-form-group { margin-bottom: 0; }
+
+html[data-ui="v10"] #view-backtest .bt-help {
+    display: block;
+    margin: var(--ds-1) 0 0;
+    font-size: var(--ds-fs-12);
+    line-height: 1.4;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-help--warn { color: var(--ds-warn); }
+
+/* Days: the common periods as one segmented control beside the field. */
+html[data-ui="v10"] #view-backtest .bt-seg {
+    flex: 1 1 auto;
+    display: flex;
+    height: 32px;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--ds-surface-inset);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+}
+html[data-ui="v10"] #view-backtest .bt-seg-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    color: var(--ds-text-2);
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-12);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-backtest .bt-seg-btn:first-child { border-left: 0; }
+html[data-ui="v10"] #view-backtest .bt-seg-btn:hover { background: var(--ds-surface-3); color: var(--ds-text); }
+html[data-ui="v10"] #view-backtest .bt-seg-btn[aria-pressed="true"] {
+    background: var(--ds-amber-soft);
+    color: var(--ds-amber);
+    font-weight: 600;
+}
+html[data-ui="v10"] #view-backtest .bt-seg-btn:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ds-amber);
+    border-radius: 0;
+}
+
+/* Actions: one primary, pinned to the bottom of the column while the
+   parameters are on screen. */
+html[data-ui="v10"] #view-backtest .bt-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    gap: var(--ds-2);
+    margin: var(--ds-4) calc(-1 * var(--ds-4)) 0;
+    padding: var(--ds-3) var(--ds-4);
+    background: var(--ds-surface-1);
+    border-top: 1px solid var(--ds-line);
+    border-radius: 0 0 var(--ds-r-panel) var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-backtest .bt-run-btn {
+    width: auto;
+    margin: 0;
+    transform: none;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-backtest #bt-run-btn { flex: 1 1 auto; min-width: 0; }
+html[data-ui="v10"] #view-backtest #bt-wf-btn { flex: 0 0 auto; }
+html[data-ui="v10"] #view-backtest .bt-run-btn.bt-btn-secondary {
+    background: var(--ds-surface-2);
+    border-color: var(--ds-line-strong);
+    color: var(--ds-text);
+    font-weight: 500;
+}
+html[data-ui="v10"] #view-backtest .bt-run-btn.bt-btn-secondary:hover {
+    background: var(--ds-surface-3);
+    border-color: var(--ds-text-3);
+    color: var(--ds-text);
+    box-shadow: none;
+}
+
+/* ── evidence + export, saved runs, API usage ────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-side-block { margin: 0; padding: 0; border: 0; }
+html[data-ui="v10"] #view-backtest .bt-side-block > h3 {
+    margin: 0 0 var(--ds-2);
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--ds-text-3);
+}
+
+html[data-ui="v10"] #view-backtest .bt-quiet-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+html[data-ui="v10"] #view-backtest .bt-run-btn.bt-quiet-btn {
+    justify-content: flex-start;
+    height: 28px;
+    padding: 0 var(--ds-2);
+    background: transparent;
+    border-color: var(--ds-line);
+    color: var(--ds-text-2);
+    font-size: var(--ds-fs-12);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-backtest .bt-run-btn.bt-quiet-btn:hover {
+    background: var(--ds-surface-2);
+    border-color: var(--ds-line-strong);
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-backtest .bt-quiet-btn--wide { grid-column: 1 / -1; }
+html[data-ui="v10"] #view-backtest .bt-quiet-btn i { width: 14px; text-align: center; color: var(--ds-text-3); }
+
+html[data-ui="v10"] #view-backtest #bt-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: none;
+    padding: 0;
+    overflow: hidden;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-backtest .bt-history-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    min-height: 36px;
+    padding: var(--ds-2) var(--ds-3) var(--ds-2) 10px;
+    text-align: left;
+    font: inherit;
+    color: var(--ds-text);
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--ds-line-faint);
+    border-left: 2px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-backtest .bt-history-item:first-child { border-top: 0; }
+html[data-ui="v10"] #view-backtest .bt-history-item:hover { background: var(--ds-surface-2); }
+html[data-ui="v10"] #view-backtest .bt-history-item:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ds-amber);
+    border-radius: 0;
+}
+html[data-ui="v10"] #view-backtest .bt-history-item.is-selected {
+    background: var(--ds-amber-soft);
+    border-left-color: var(--ds-amber);
+}
+html[data-ui="v10"] #view-backtest .bt-history-line {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ds-2);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-backtest .bt-history-ticker {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-backtest .bt-history-mode {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-backtest .bt-history-when {
+    margin-left: auto;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-backtest .bt-history-period {
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+
+html[data-ui="v10"] #view-backtest #api-usage-widget {
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-usage-cap { margin: 0 0 var(--ds-1); }
+html[data-ui="v10"] #view-backtest .bt-usage-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    padding: 2px 0;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-backtest .bt-usage-num {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+}
+html[data-ui="v10"] #view-backtest .bt-usage-error { color: var(--ds-neg); }
+
+/* ── results: frame and tabs ─────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-results-area {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-4);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-backtest .bt-results-area > * { flex: 0 0 auto; }
+html[data-ui="v10"] #view-backtest .bt-tabs { width: auto; border-radius: 0; }
+html[data-ui="v10"] #view-backtest .bt-tab-content {
+    min-height: 0;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-backtest .bt-tab-pane { padding: 0; }
+html[data-ui="v10"] #view-backtest .bt-results-container { min-height: 0; }
+
+html[data-ui="v10"] #view-backtest #backtest-results > * + *,
+html[data-ui="v10"] #view-backtest #bt-strategies-list > * + *,
+html[data-ui="v10"] #view-backtest #bt-trades-list > * + * { margin-top: var(--ds-3); }
+
+/* ── results: head, notes, meta ──────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-result-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--ds-3);
+}
+html[data-ui="v10"] #view-backtest .bt-result-title {
+    font-size: var(--ds-fs-16);
+    line-height: 1.3;
+    font-weight: 600;
+}
+html[data-ui="v10"] #view-backtest .bt-result-sub {
+    margin: 2px 0 0;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-result-head > .ds-chip { flex: 0 0 auto; margin-top: 2px; }
+html[data-ui="v10"] #view-backtest .bt-count {
+    margin-left: 6px;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-section-title {
+    margin: 0 0 var(--ds-2);
+    font-size: var(--ds-fs-13);
+    line-height: 1.35;
+    font-weight: 600;
+    color: var(--ds-text);
+}
+
+html[data-ui="v10"] #view-backtest .bt-note {
+    padding: 10px var(--ds-3);
+    font-size: var(--ds-fs-13);
+    line-height: 1.45;
+    color: var(--ds-text-2);
+    background: var(--ds-surface-2);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-control);
+}
+html[data-ui="v10"] #view-backtest .bt-note strong { color: var(--ds-text); font-weight: 600; }
+html[data-ui="v10"] #view-backtest .bt-note p { margin: 2px 0 0; color: inherit; }
+html[data-ui="v10"] #view-backtest .bt-note ul { margin: var(--ds-1) 0 0; padding-left: 18px; }
+html[data-ui="v10"] #view-backtest .bt-note li + li { margin-top: 2px; }
+html[data-ui="v10"] #view-backtest .bt-note--warn { background: var(--ds-warn-soft); border-color: var(--ds-warn-line); }
+html[data-ui="v10"] #view-backtest .bt-note--warn strong i { margin-right: 4px; color: var(--ds-warn); }
+html[data-ui="v10"] #view-backtest .bt-note--info { background: var(--ds-info-soft); border-color: var(--ds-info-line); }
+
+html[data-ui="v10"] #view-backtest .bt-meta {
+    margin-bottom: 0;
+    max-width: 110ch;
+    font-size: var(--ds-fs-12);
+    line-height: 1.5;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-meta strong { color: var(--ds-text-2); font-weight: 600; }
+html[data-ui="v10"] #view-backtest .bt-meta--center { text-align: center; max-width: none; margin-top: var(--ds-1); }
+html[data-ui="v10"] #view-backtest .bt-secondary-stats { display: flex; flex-wrap: wrap; gap: var(--ds-1) var(--ds-5); }
+html[data-ui="v10"] #view-backtest .bt-secondary-stats strong {
+    margin-left: 4px;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+}
+html[data-ui="v10"] #view-backtest .bt-picked {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+html[data-ui="v10"] #view-backtest .bt-picked .ds-label { margin-right: 2px; }
+html[data-ui="v10"] #view-backtest .bt-picked .ds-chip strong { font-family: var(--ds-font-num); color: var(--ds-text); }
+
+/* ── results: stat strip ─────────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-stats {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+}
+html[data-ui="v10"] #view-backtest .bt-stats .ds-stat { padding: var(--ds-3); }
+html[data-ui="v10"] #view-backtest .bt-stats .ds-stat-value { white-space: nowrap; }
+html[data-ui="v10"] #view-backtest .bt-stats--nested { background: var(--ds-surface-1); border-radius: var(--ds-r-control); }
+html[data-ui="v10"] #view-backtest .bt-stats--nested .ds-stat-value { font-size: var(--ds-fs-16); }
+
+/* Full colour only on the headline number, quiet colour on repeated values. */
+html[data-ui="v10"] #view-backtest .bt-tone--pos { color: var(--ds-pos); }
+html[data-ui="v10"] #view-backtest .bt-tone--neg { color: var(--ds-neg); }
+html[data-ui="v10"] #view-backtest .bt-tone--pos-quiet,
+html[data-ui="v10"] #view-backtest .bt-pos,
+html[data-ui="v10"] #view-backtest td.bt-pos { color: var(--ds-pos-quiet); }
+html[data-ui="v10"] #view-backtest .bt-tone--neg-quiet,
+html[data-ui="v10"] #view-backtest .bt-neg,
+html[data-ui="v10"] #view-backtest td.bt-neg { color: var(--ds-neg-quiet); }
+
+/* ── results: tables ─────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-table-wrap {
+    overflow: clip;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-backtest .bt-table-wrap--scroll {
+    max-height: 328px;
+    overflow: auto;
+}
+html[data-ui="v10"] #view-backtest .bt-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    height: 34px;
+    border-bottom: 0;
+    box-shadow: inset 0 -1px 0 var(--ds-line);
+}
+html[data-ui="v10"] #view-backtest .bt-table-wrap--scroll .bt-table th { top: 0; }
+/* The Trades tab already scrolls as a pane: its tables run full length and
+   each header sticks while its table is on screen. */
+@media (min-width: 1280px) {
+    html[data-ui="v10"] #view-backtest #bt-trades-list .bt-table-wrap--scroll { max-height: none; overflow: clip; }
+    /* Sticky offsets are measured from inside the pane's 4px padding. */
+    html[data-ui="v10"] #view-backtest .bt-table th,
+    html[data-ui="v10"] #view-backtest #bt-trades-list .bt-table-wrap--scroll .bt-table th { top: -4px; }
+}
+/* Dates may break after the day so a trade table fits a narrower pane. */
+html[data-ui="v10"] #view-backtest .bt-table--trades .bt-when { white-space: normal; min-width: 92px; }
+html[data-ui="v10"] #view-backtest .bt-table th.num { text-align: right; font-family: var(--ds-font-tight); }
+html[data-ui="v10"] #view-backtest .bt-table td { height: 36px; padding: 6px var(--ds-3); }
+html[data-ui="v10"] #view-backtest .bt-table tbody > tr:last-child > td { border-bottom: 0; }
+
+html[data-ui="v10"] #view-backtest .bt-th-sort { padding: 0; }
+html[data-ui="v10"] #view-backtest .bt-sort {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    width: 100%;
+    height: 34px;
+    padding: 0 var(--ds-3);
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+}
+html[data-ui="v10"] #view-backtest th.num .bt-sort { justify-content: flex-end; }
+html[data-ui="v10"] #view-backtest .bt-sort:hover { color: var(--ds-text); }
+html[data-ui="v10"] #view-backtest .bt-sort:focus-visible { box-shadow: inset 0 0 0 2px var(--ds-amber); border-radius: 0; }
+html[data-ui="v10"] #view-backtest .bt-sort-ind {
+    width: 10px;
+    font-family: var(--ds-font);
+    font-size: 0.625rem;
+    line-height: 1;
+    text-align: center;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-th-sort.is-sorted .bt-sort { color: var(--ds-text); }
+html[data-ui="v10"] #view-backtest .bt-th-sort.is-sorted .bt-sort-ind { color: var(--ds-amber); }
+
+html[data-ui="v10"] #view-backtest .bt-row { cursor: pointer; }
+html[data-ui="v10"] #view-backtest .bt-row:focus-visible {
+    outline: 2px solid var(--ds-amber);
+    outline-offset: -2px;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-backtest .bt-strat-name {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    font-weight: 500;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-backtest .bt-strat-name i {
+    width: 10px;
+    font-size: 0.625rem;
+    color: var(--ds-text-3);
+    transition: transform var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-backtest .bt-row:has(+ .bt-expand-panel:not(.hidden)) .bt-strat-name i { transform: rotate(90deg); }
+html[data-ui="v10"] #view-backtest .bt-row:has(+ .bt-expand-panel:not(.hidden)) > td {
+    background: var(--ds-surface-2);
+    border-bottom-color: transparent;
+}
+html[data-ui="v10"] #view-backtest .bt-mode,
+html[data-ui="v10"] #view-backtest .bt-combo,
+html[data-ui="v10"] #view-backtest .bt-ticker {
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+}
+html[data-ui="v10"] #view-backtest .bt-ticker { font-weight: 500; }
+html[data-ui="v10"] #view-backtest .bt-mode { color: var(--ds-text-2); }
+html[data-ui="v10"] #view-backtest .bt-table td .bt-mode + .ds-chip,
+html[data-ui="v10"] #view-backtest .bt-table td .ds-chip + .ds-chip,
+html[data-ui="v10"] #view-backtest .bt-report-head .ds-chip { margin-left: 6px; }
+html[data-ui="v10"] #view-backtest .bt-cell-sub { font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-backtest .bt-when {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-2);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-backtest .bt-dir {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-2);
+}
+/* Walk-forward windows: eleven columns in the results pane. Headers wrap
+   onto two lines and the two periods share a cell so the table fits; when it
+   still cannot, it scrolls sideways inside its frame. */
+html[data-ui="v10"] #view-backtest .bt-table-wrap--x { overflow-x: auto; }
+html[data-ui="v10"] #view-backtest .bt-table--windows th {
+    height: auto;
+    padding: 6px var(--ds-2);
+    white-space: normal;
+    line-height: 1.25;
+    vertical-align: bottom;
+}
+html[data-ui="v10"] #view-backtest .bt-table--windows th:nth-child(2) { min-width: 190px; }
+html[data-ui="v10"] #view-backtest .bt-table--windows td { padding: 6px var(--ds-2); }
+html[data-ui="v10"] #view-backtest .bt-table--windows .bt-combo { font-size: var(--ds-fs-12); white-space: nowrap; }
+html[data-ui="v10"] #view-backtest .bt-periods > span { display: block; color: var(--ds-text); }
+html[data-ui="v10"] #view-backtest .bt-periods > .bt-period-train { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-backtest .bt-reason { margin-left: 6px; font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+
+/* Expanded strategy row: one nested step, no accent stripe. */
+html[data-ui="v10"] #view-backtest .bt-expand-panel { background: transparent; border: 0; }
+html[data-ui="v10"] #view-backtest .bt-expand-panel > td {
+    height: auto;
+    padding: 0;
+    background: var(--ds-surface-2);
+}
+html[data-ui="v10"] #view-backtest .bt-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: var(--ds-1) var(--ds-4) var(--ds-4) 30px;
+}
+html[data-ui="v10"] #view-backtest .bt-detail .bt-section-title { margin: var(--ds-1) 0 -2px; }
+html[data-ui="v10"] #view-backtest .bt-detail .bt-table-wrap { border-radius: var(--ds-r-control); }
+
+/* ── results: trades tab ─────────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+html[data-ui="v10"] #view-backtest .bt-filter-btn {
+    height: 28px;
+    padding: 0 10px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-2);
+    background: var(--ds-surface-2);
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), border-color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-backtest .bt-filter-btn:hover { background: var(--ds-surface-3); border-color: var(--ds-text-3); color: var(--ds-text); }
+html[data-ui="v10"] #view-backtest .bt-filter-btn.active {
+    background: var(--ds-amber-soft);
+    border-color: var(--ds-amber-line);
+    color: var(--ds-amber);
+}
+html[data-ui="v10"] #view-backtest .bt-trade-block + .bt-trade-block { margin-top: var(--ds-4); }
+
+/* ── results: R distribution ─────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-card {
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-backtest .bt-hist { padding: var(--ds-4); }
+html[data-ui="v10"] #view-backtest .bt-hist-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 96px;
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-backtest .bt-hist-col { flex: 1 1 0; display: flex; align-items: flex-end; height: 100%; }
+html[data-ui="v10"] #view-backtest .bt-hist-bar { width: 100%; min-height: 1px; border-radius: 2px 2px 0 0; }
+html[data-ui="v10"] #view-backtest .bt-hist-bar--pos { background: var(--ds-pos-quiet); }
+html[data-ui="v10"] #view-backtest .bt-hist-bar--neg { background: var(--ds-neg-quiet); }
+html[data-ui="v10"] #view-backtest .bt-hist-col.is-empty .bt-hist-bar { background: var(--ds-line); }
+html[data-ui="v10"] #view-backtest .bt-hist-empty { width: 100%; align-self: center; text-align: center; font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+/* 18 bins from -2.5R; the 0R bin starts after the fifth. */
+html[data-ui="v10"] #view-backtest .bt-hist-axis {
+    position: relative;
+    height: 18px;
+    margin-top: var(--ds-1);
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-11);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-hist-tick { position: absolute; top: 0; }
+html[data-ui="v10"] #view-backtest .bt-hist-tick--min { left: 0; }
+html[data-ui="v10"] #view-backtest .bt-hist-tick--zero { left: 27.78%; }
+html[data-ui="v10"] #view-backtest .bt-hist-tick--max { right: 0; }
+
+/* ── results: audit / ledger reports ─────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-report { padding: var(--ds-4); }
+html[data-ui="v10"] #view-backtest .bt-report-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ds-1) var(--ds-3);
+}
+html[data-ui="v10"] #view-backtest .bt-report-head strong { font-weight: 600; color: var(--ds-text); }
+html[data-ui="v10"] #view-backtest .bt-report-reason { margin: var(--ds-2) 0 0; font-size: var(--ds-fs-13); color: var(--ds-text-2); }
+html[data-ui="v10"] #view-backtest .bt-dl {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: var(--ds-1) var(--ds-3);
+    margin: 10px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--ds-line-faint);
+    font-size: var(--ds-fs-12);
+    line-height: 1.5;
+}
+html[data-ui="v10"] #view-backtest .bt-dl dt {
+    font-family: var(--ds-font-tight);
+    font-weight: 600;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-dl dd { margin: 0; color: var(--ds-text-2); min-width: 0; }
+html[data-ui="v10"] #view-backtest .bt-hash { font-family: var(--ds-font-num); overflow-wrap: anywhere; }
+
+/* ── states ──────────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-backtest .bt-placeholder { padding: var(--ds-10) var(--ds-4); }
+html[data-ui="v10"] #view-backtest .bt-placeholder strong {
+    display: block;
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-backtest .bt-placeholder p {
+    max-width: 56ch;
+    margin: var(--ds-1) auto 0;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-backtest .bt-placeholder small { display: block; max-width: 72ch; margin: var(--ds-2) auto 0; }
+
+html[data-ui="v10"] #view-backtest .bt-empty-note,
+html[data-ui="v10"] #view-backtest .bt-loading {
+    padding: var(--ds-4);
+    text-align: center;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+    border: 1px dashed var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-backtest .bt-loading { padding: var(--ds-6) var(--ds-4); }
+html[data-ui="v10"] #view-backtest #bt-history-list .bt-empty-note { padding: var(--ds-3); border: 0; font-size: var(--ds-fs-12); }
+html[data-ui="v10"] #view-backtest .bt-detail .bt-empty-note { padding: var(--ds-3); }
+html[data-ui="v10"] #view-backtest .bt-empty-note--error { color: var(--ds-neg); }
+
+html[data-ui="v10"] #view-backtest .bt-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: var(--ds-3) var(--ds-4);
+    font-size: var(--ds-fs-13);
+    line-height: 1.45;
+    color: var(--ds-text);
+    background: var(--ds-neg-soft);
+    border: 1px solid var(--ds-neg-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-backtest .bt-error i { margin-top: 3px; color: var(--ds-neg); }
+
+/* ── narrower windows ────────────────────────────────────────────────── */
+@media (max-width: 1320px) {
+    html[data-ui="v10"] #view-backtest .bt-stats {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    html[data-ui="v10"] #view-backtest .bt-stats .ds-stat:nth-child(3n + 1) { border-left: 0; }
+    html[data-ui="v10"] #view-backtest .bt-stats .ds-stat:nth-child(n + 4) { border-top: 1px solid var(--ds-line); }
+}
+
+@media (max-width: 1279px) {
+    /* Tables keep their columns and scroll inside their own frame. */
+    html[data-ui="v10"] #view-backtest .bt-table-wrap { overflow-x: auto; }
+}
+
+@media (max-width: 960px) {
+    html[data-ui="v10"] #view-backtest .backtest-premium-layout { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-backtest .bt-actions { position: static; }
+    html[data-ui="v10"] #view-backtest .bt-last-run { text-align: left; }
+    html[data-ui="v10"] #view-backtest .bt-table { min-width: 680px; }
+    html[data-ui="v10"] #view-backtest .bt-detail { padding-left: var(--ds-3); padding-right: var(--ds-3); }
+    html[data-ui="v10"] #view-backtest .bt-detail .bt-table { min-width: 620px; }
+}
+
+@media (max-width: 560px) {
+    html[data-ui="v10"] #view-backtest .bt-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html[data-ui="v10"] #view-backtest .bt-stats .ds-stat:nth-child(3n + 1) { border-left: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-backtest .bt-stats .ds-stat:nth-child(2n + 1) { border-left: 0; }
+    html[data-ui="v10"] #view-backtest .bt-stats .ds-stat:nth-child(n + 3) { border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-backtest .bt-dl { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── visual QA pass ──────────────────────────────────────────────────── */
+/* Below the two-pane frame the page itself scrolls, so the trade tables of the
+   Trades tab run full length there too (twelve 328px boxes, each with its own
+   scroll inside a scrolling page, trapped the scroll on a phone). They keep
+   their sideways scroll. */
+@media (max-width: 1279px) {
+    html[data-ui="v10"] #view-backtest #bt-trades-list .bt-table-wrap--scroll { max-height: none; }
+}
+/* Light theme: amber text on the amber-soft selected fill is below 4.5:1. */
+html[data-ui="v10"][data-theme="light"] #view-backtest .bt-seg-btn[aria-pressed="true"],
+html[data-ui="v10"][data-theme="light"] #view-backtest .bt-filter-btn.active { color: var(--ds-amber-press); }
+
+/* Keyboard focus inside a clipping container: ds_view_shared.css now forces the outer
+   ring with !important on every button/link/tab-stop, which a rounded, overflow-clipped
+   parent cuts down to one or two edges. These keep an inset ring (higher specificity). */
+html[data-ui="v10"] #view-backtest .bt-seg-btn:focus-visible,
+html[data-ui="v10"] #view-backtest .bt-sort:focus-visible,
+html[data-ui="v10"] #view-backtest .bt-history-item:focus-visible { box-shadow: inset 0 0 0 2px var(--ds-amber) !important; }

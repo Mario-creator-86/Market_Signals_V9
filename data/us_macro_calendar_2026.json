@@ -1,0 +1,125 @@
+{
+  "year": 2026,
+  "source": "OMB/OIRA - Schedule of Release Dates for Principal Federal Economic Indicators for 2026 (census.gov/economic-indicators). PCE cross-checked against bea.gov/news/schedule.",
+  "note": "Official fixed release dates. All times 8:30 AM ET unless noted. FOMC decisions are provided separately by the economic_calendar_agent. Update this file each year from the new OMB schedule.",
+  "time_et": "08:30",
+  "events": [
+    {
+      "indicator": "jobs",
+      "title": "US Jobs Report (Nonfarm Payrolls)",
+      "impact": "high",
+      "dates": [
+        "2026-01-09",
+        "2026-02-06",
+        "2026-03-06",
+        "2026-04-03",
+        "2026-05-08",
+        "2026-06-05",
+        "2026-07-02",
+        "2026-08-07",
+        "2026-09-04",
+        "2026-10-02",
+        "2026-11-06",
+        "2026-12-04"
+      ]
+    },
+    {
+      "indicator": "cpi",
+      "title": "US CPI (Consumer Price Index)",
+      "impact": "high",
+      "dates": [
+        "2026-01-13",
+        "2026-02-11",
+        "2026-03-11",
+        "2026-04-10",
+        "2026-05-12",
+        "2026-06-10",
+        "2026-07-14",
+        "2026-08-12",
+        "2026-09-11",
+        "2026-10-14",
+        "2026-11-10",
+        "2026-12-10"
+      ]
+    },
+    {
+      "indicator": "pce",
+      "title": "US PCE (Personal Income & Outlays)",
+      "impact": "high",
+      "dates": [
+        "2026-01-29",
+        "2026-02-26",
+        "2026-03-27",
+        "2026-04-30",
+        "2026-05-28",
+        "2026-06-25",
+        "2026-07-30",
+        "2026-08-26",
+        "2026-09-30",
+        "2026-10-29",
+        "2026-11-25",
+        "2026-12-23"
+      ],
+      "source_url": "https://www.bea.gov/news/schedule"
+    },
+    {
+      "indicator": "retail",
+      "title": "US Retail Sales (Advance)",
+      "impact": "high",
+      "dates": [
+        "2026-01-15",
+        "2026-02-17",
+        "2026-03-16",
+        "2026-04-16",
+        "2026-05-14",
+        "2026-06-17",
+        "2026-07-16",
+        "2026-08-14",
+        "2026-09-16",
+        "2026-10-15",
+        "2026-11-17",
+        "2026-12-16"
+      ]
+    },
+    {
+      "indicator": "ppi",
+      "title": "US PPI (Producer Price Index)",
+      "impact": "medium",
+      "dates": [
+        "2026-01-14",
+        "2026-02-12",
+        "2026-03-12",
+        "2026-04-14",
+        "2026-05-13",
+        "2026-06-11",
+        "2026-07-15",
+        "2026-08-13",
+        "2026-09-10",
+        "2026-10-15",
+        "2026-11-13",
+        "2026-12-15"
+      ]
+    },
+    {
+      "indicator": "gdp",
+      "title": "US GDP",
+      "impact": "medium",
+      "dates": [
+        "2026-01-29",
+        "2026-02-26",
+        "2026-03-27",
+        "2026-04-30",
+        "2026-05-28",
+        "2026-06-25",
+        "2026-07-30",
+        "2026-08-26",
+        "2026-09-30",
+        "2026-10-29",
+        "2026-11-25",
+        "2026-12-23"
+      ],
+      "source_url": "https://www.bea.gov/news/schedule"
+    }
+  ],
+  "source_url": "https://www.census.gov/economic-indicators/"
+}

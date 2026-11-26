@@ -1,0 +1,257 @@
+/*
+ * MarketMuse design system — tokens (UI v10)
+ *
+ * Dark ("desk") is the designed default: this app stays open next to a chart
+ * for a whole session, so surfaces recede and the numbers carry the colour.
+ * Light ("paper") is the override, switched with html[data-theme="light"].
+ *
+ * Everything is scoped to html[data-ui="v10"] so the legacy look can be
+ * restored by removing one attribute.
+ *
+ * Colour roles
+ *   amber   brand + interaction (active nav, focus, primary buttons). Never a status.
+ *   pos/neg gains and losses. Always paired with a sign or arrow, never colour alone.
+ *   warn    needs attention (orange, distinct from brand amber).
+ *   info    neutral information.
+ *   ai      text or numbers produced by a model rather than measured.
+ */
+
+html[data-ui="v10"] {
+    color-scheme: dark;
+
+    /* Surfaces: ink blue, stepping lighter as things come forward */
+    --ds-canvas: #0c121d;
+    --ds-surface-1: #121a28;
+    --ds-surface-2: #182233;
+    --ds-surface-3: #202c40;
+    --ds-surface-inset: #0a0f18;
+    --ds-overlay: rgba(4, 8, 14, 0.72);
+
+    --ds-line: #243146;
+    --ds-line-strong: #33445e;
+    --ds-line-faint: #1a2434;
+
+    --ds-text: #e9eef6;
+    --ds-text-2: #aab6c8;
+    --ds-text-3: #8795a9;
+    --ds-text-disabled: #55627a;
+    --ds-text-on-accent: #1b1403;
+
+    --ds-amber: #f2b33d;
+    --ds-amber-hover: #f7c462;
+    --ds-amber-press: #d99a25;
+    /* amber used as TEXT on a tinted fill (selected chip, tab, today) */
+    --ds-amber-text: #f2b33d;
+    --ds-amber-soft: rgba(242, 179, 61, 0.14);
+    --ds-amber-line: rgba(242, 179, 61, 0.42);
+
+    --ds-pos: #34c796;
+    --ds-pos-soft: rgba(52, 199, 150, 0.14);
+    --ds-pos-line: rgba(52, 199, 150, 0.4);
+    --ds-neg: #f2616f;
+    --ds-neg-soft: rgba(242, 97, 111, 0.14);
+    --ds-neg-line: rgba(242, 97, 111, 0.42);
+    --ds-warn: #ff9350;
+    --ds-warn-soft: rgba(255, 147, 80, 0.14);
+    --ds-warn-line: rgba(255, 147, 80, 0.42);
+    --ds-info: #6fb6ff;
+    --ds-info-soft: rgba(111, 182, 255, 0.14);
+    --ds-info-line: rgba(111, 182, 255, 0.4);
+    --ds-ai: #b094ff;
+    --ds-ai-soft: rgba(176, 148, 255, 0.14);
+    --ds-ai-line: rgba(176, 148, 255, 0.4);
+
+    /* Dimmed versions for values repeated many times in a table */
+    --ds-pos-quiet: #2aa881;
+    --ds-neg-quiet: #d9586a;
+
+    --ds-focus: 0 0 0 2px var(--ds-canvas), 0 0 0 4px var(--ds-amber);
+    --ds-shadow-pop: 0 18px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--ds-line-strong);
+    --ds-shadow-raise: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+
+    /* Type: one superfamily, three widths */
+    --ds-font: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --ds-font-tight: "IBM Plex Sans Condensed", "IBM Plex Sans", "Segoe UI", sans-serif;
+    --ds-font-num: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+
+    --ds-fs-11: 0.6875rem;
+    --ds-fs-12: 0.75rem;
+    --ds-fs-13: 0.8125rem;
+    --ds-fs-14: 0.875rem;
+    --ds-fs-16: 1rem;
+    --ds-fs-20: 1.25rem;
+    --ds-fs-26: 1.625rem;
+    --ds-fs-34: 2.125rem;
+
+    /* Space: 4px grid */
+    --ds-1: 4px;
+    --ds-2: 8px;
+    --ds-3: 12px;
+    --ds-4: 16px;
+    --ds-5: 20px;
+    --ds-6: 24px;
+    --ds-8: 32px;
+    --ds-10: 40px;
+
+    /* Radius grows with the size of the thing */
+    --ds-r-chip: 4px;
+    --ds-r-control: 6px;
+    --ds-r-panel: 10px;
+    --ds-r-pop: 12px;
+
+    --ds-rail-w: 224px;
+    --ds-rail-w-min: 60px;
+    --ds-topbar-h: 52px;
+
+    --ds-ease: cubic-bezier(0.2, 0, 0, 1);
+    --ds-fast: 120ms;
+}
+
+html[data-ui="v10"][data-theme="light"] {
+    color-scheme: light;
+
+    --ds-canvas: #f3f5f8;
+    --ds-surface-1: #ffffff;
+    --ds-surface-2: #f6f8fb;
+    --ds-surface-3: #edf1f6;
+    --ds-surface-inset: #eaeef4;
+    --ds-overlay: rgba(15, 23, 36, 0.45);
+
+    --ds-line: #dde3ec;
+    --ds-line-strong: #c3ccd9;
+    --ds-line-faint: #e9edf3;
+
+    --ds-text: #101826;
+    --ds-text-2: #465265;
+    --ds-text-3: #5c697d;
+    --ds-text-disabled: #9aa5b5;
+    --ds-text-on-accent: #1b1403;
+
+    --ds-amber: #b9770f;
+    --ds-amber-hover: #a2670a;
+    --ds-amber-press: #8a5706;
+    --ds-amber-text: #8a5706;
+    --ds-amber-soft: rgba(185, 119, 15, 0.1);
+    --ds-amber-line: rgba(185, 119, 15, 0.38);
+
+    --ds-pos: #087556;
+    --ds-pos-soft: rgba(11, 138, 99, 0.1);
+    --ds-pos-line: rgba(11, 138, 99, 0.34);
+    --ds-neg: #bd2739;
+    --ds-neg-soft: rgba(207, 51, 69, 0.09);
+    --ds-neg-line: rgba(207, 51, 69, 0.34);
+    --ds-warn: #a94a07;
+    --ds-warn-soft: rgba(194, 86, 10, 0.1);
+    --ds-warn-line: rgba(194, 86, 10, 0.36);
+    --ds-info: #175fb6;
+    --ds-info-soft: rgba(27, 111, 208, 0.09);
+    --ds-info-line: rgba(27, 111, 208, 0.32);
+    --ds-ai: #6a49d8;
+    --ds-ai-soft: rgba(106, 73, 216, 0.09);
+    --ds-ai-line: rgba(106, 73, 216, 0.32);
+
+    --ds-pos-quiet: #087556;
+    --ds-neg-quiet: #bd2739;
+
+    --ds-shadow-pop: 0 18px 48px rgba(16, 24, 38, 0.18), 0 0 0 1px var(--ds-line-strong);
+    --ds-shadow-raise: none;
+}
+
+/*
+ * Bridge: the legacy stylesheets read these names in ~3,000 places.
+ * Pointing them at the new tokens moves every rule that already used a
+ * variable; per-view skins then only have to deal with hard-coded colours.
+ */
+html[data-ui="v10"] {
+    --primary-color: var(--ds-text);
+    --secondary-color: var(--ds-text-2);
+    --accent-color: var(--ds-amber);
+    --accent-hover: var(--ds-amber-hover);
+    --accent-light: var(--ds-amber-soft);
+    --accent-dark: var(--ds-amber-press);
+    --accent-gold-dark: var(--ds-amber);
+    --accent-rgb: 242, 179, 61;
+    --accent-gold-rgb: 242, 179, 61;
+
+    --bg-color: var(--ds-canvas);
+    --surface: var(--ds-surface-1);
+    --surface-color: var(--ds-surface-1);
+    --surface-alt: var(--ds-surface-2);
+    --card-bg: var(--ds-surface-1);
+    --surface-elevated: var(--ds-surface-2);
+
+    --text-primary: var(--ds-text);
+    --text-secondary: var(--ds-text-2);
+    --text-muted: var(--ds-text-3);
+
+    --border-color: var(--ds-line);
+    --border-light: var(--ds-line);
+
+    --success-color: var(--ds-pos);
+    --danger-color: var(--ds-neg);
+    --warning-color: var(--ds-warn);
+    --green-trend: var(--ds-pos);
+    --green-bg: var(--ds-pos-soft);
+    --red-trend: var(--ds-neg);
+    --red-bg: var(--ds-neg-soft);
+
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: var(--ds-shadow-pop);
+    --shadow-gold: none;
+    --shadow-card: none;
+    --shadow-inner: none;
+
+    --gold-gradient: linear-gradient(0deg, var(--ds-amber), var(--ds-amber));
+    --panel-gradient: linear-gradient(0deg, var(--ds-surface-1), var(--ds-surface-1));
+    --bg-gradient: linear-gradient(0deg, var(--ds-canvas), var(--ds-canvas));
+
+    --font-display: var(--ds-font);
+    --font-family: var(--ds-font);
+    --font-mono: var(--ds-font-num);
+
+    --header-height: var(--ds-topbar-h);
+    --container-max: 1760px;
+
+    --color-info: var(--ds-info);
+    --color-info-light: var(--ds-info);
+    --color-info-bg: var(--ds-info-soft);
+    --color-blue: var(--ds-info);
+    --color-blue-dark: var(--ds-info);
+    --color-blue-bg: var(--ds-info-soft);
+    --color-link: var(--ds-info);
+
+    --color-navy: var(--ds-text);
+    --color-slate-800: var(--ds-text);
+    --color-slate-700: var(--ds-text-2);
+    --color-slate-600: var(--ds-text-2);
+    --color-slate-500: var(--ds-text-3);
+    --color-slate-400: var(--ds-text-3);
+    --color-slate-300: var(--ds-line-strong);
+    --color-slate-200: var(--ds-line);
+    --color-slate-100: var(--ds-surface-2);
+    --color-slate-50: var(--ds-surface-2);
+
+    --badge-green-bg: var(--ds-pos-soft);
+    --badge-green-text: var(--ds-pos);
+    --badge-green-border: var(--ds-pos-line);
+    --badge-red-bg: var(--ds-neg-soft);
+    --badge-red-text: var(--ds-neg);
+    --badge-red-border: var(--ds-neg-line);
+    --badge-orange-bg: var(--ds-warn-soft);
+    --badge-orange-text: var(--ds-warn);
+    --badge-yellow-bg: var(--ds-warn-soft);
+    --badge-yellow-text: var(--ds-warn);
+    --badge-blue-bg: var(--ds-info-soft);
+    --badge-blue-text: var(--ds-info);
+    --badge-slate-bg: var(--ds-surface-3);
+    --badge-slate-text: var(--ds-text-2);
+
+    --radius-sm: var(--ds-r-control);
+    --radius-md: var(--ds-r-panel);
+    --radius-lg: var(--ds-r-panel);
+    --radius-xl: var(--ds-r-pop);
+
+    --skeleton-base: var(--ds-surface-2);
+    --skeleton-shimmer: var(--ds-surface-3);
+}

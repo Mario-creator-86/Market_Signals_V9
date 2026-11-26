@@ -1,0 +1,124 @@
+/*
+ * Smart Alerts Component Styles
+ * List of active/triggered price and volatility alerts
+ */
+
+.alerts-grid-view {
+    min-height: 200px;
+}
+
+.premium-table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    background: white;
+}
+
+.premium-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.premium-table th {
+    background: var(--surface-alt);
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.premium-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+.premium-table tr:hover {
+    background: var(--surface-alt);
+}
+
+.badge-win {
+    background: var(--green-bg);
+    color: var(--green-trend);
+    font-weight: 700;
+}
+
+.badge-loss {
+    background: var(--red-bg);
+    color: var(--red-trend);
+    font-weight: 700;
+}
+
+.alert-preview {
+    background: var(--surface-alt);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.btn-mini {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-mini:hover {
+    background: var(--surface-alt);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+}
+.placeholder-text {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
+/* --- Legacy look for the classes that replaced inline styles in app.js
+   (UI v10 restyles these in ds_view_calendar.css) --- */
+.alert-status,
+.tg-state {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: rgba(148, 116, 42, 0.14);
+    color: #8a6a1f;
+}
+
+.alert-status--active,
+.tg-state--ok {
+    background: rgba(34, 160, 94, 0.14);
+    color: #1c7c4c;
+}
+
+.alert-status--triggered,
+.alert-status--off,
+.tg-state--failing,
+.tg-state--none {
+    background: rgba(220, 70, 70, 0.12);
+    color: #b3413f;
+}
+
+.alert-status-sub {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}

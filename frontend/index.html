@@ -1,0 +1,2560 @@
+<!DOCTYPE html>
+<html lang="en" data-ui="v10">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="MarketMuse Premium - market research signals with out-of-sample verification, risk controls and paper trading. Every claim shows its measured evidence. Not financial advice.">
+    <meta name="keywords" content="trading signals, AI trading, stock signals, crypto signals, market analysis">
+    <title>MarketMuse Premium | AI Signals for Smart Trading</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;600;800&display=swap"
+            rel="stylesheet">
+    </noscript>
+    <link rel="stylesheet" href="main.css?v=27.16">
+    <link rel="stylesheet" href="premium_overrides.css?v=1.1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+    <link rel="stylesheet" href="hotlist.css?v=1.3">
+    <link rel="stylesheet" href="styles_skeleton.css?v=1.0">
+    <link rel="stylesheet" href="styles_capital.css?v=3.6">
+    <link rel="stylesheet" href="styles_agents.css?v=1.9">
+    <link rel="stylesheet" href="styles_cockpit.css?v=1.6">
+    <link rel="stylesheet" href="styles_premium.css?v=4.12">
+    <link rel="stylesheet" href="styles_chart_workspace.css?v=4.0">
+    <link rel="stylesheet" href="styles_auth.css?v=1.0">
+    <link rel="stylesheet" href="styles_preearnings.css?v=1.18">
+    <!-- UI v10 design system: loaded last so it restyles the legacy sheets above. -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ds_tokens.css?v=10.2">
+    <link rel="stylesheet" href="ds_core.css?v=10.2">
+    <link rel="stylesheet" href="ds_shell.css?v=10.2">
+    <link rel="stylesheet" href="ds_view_cockpit.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_watchlist.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_scanner.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_news.css?v=10.2">
+    <link rel="stylesheet" href="ds_view_traderadar.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_premarket.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_preearnings.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_hotlist.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_backtest.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_calendar.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_agents.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_capital.css?v=10.1">
+    <link rel="stylesheet" href="ds_view_shared.css?v=10.2">
+    <script>
+        // Apply the saved theme before first paint so the page never flashes.
+        try { if (localStorage.getItem('mm-theme') === 'light') document.documentElement.setAttribute('data-theme', 'light'); } catch (e) { }
+    </script>
+    <script>
+        // Safe stub to avoid inline onclick errors before app.js loads
+        window.ViewRouter = window.ViewRouter || {
+            navigate: function () { },
+            sortBacktest: function () { }
+        };
+    </script>
+    <style>
+        /* Global Settings Tab Redesign */
+        .gs-tab-btn.active {
+            color: var(--accent-color) !important;
+            border-bottom-color: var(--accent-color) !important;
+        }
+
+        .gs-tab-btn:hover {
+            background: rgba(var(--accent-rgb), 0.05) !important;
+            color: var(--accent-color) !important;
+        }
+
+        .skip-nav { position: absolute; top: -40px; left: 0; background: var(--accent-color); color: white; padding: 8px 16px; z-index: 9999; transition: top 0.2s; }
+        .skip-nav:focus { top: 0; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+        @media (max-width: 900px) {
+            .main-nav { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .main-nav::-webkit-scrollbar { display: none; }
+            .nav-item { font-size: 0.7rem; padding: 6px 8px; white-space: nowrap; }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+    <div id="offline-banner" class="hidden ms-offline-banner" role="alert">
+        Offline mode: using cached data. Check your server connection.
+    </div>
+
+    <!-- Header -->
+    <!-- Sidebar overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <header class="app-header">
+        <div class="header-content">
+            <button class="sidebar-toggle-btn" id="sidebarToggleLeft" aria-label="Toggle left sidebar" aria-expanded="false">&#9776;</button>
+            <div class="logo">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+            </div>
+            <nav class="main-nav centered" role="tablist" aria-label="Main navigation">
+                <a href="#" class="nav-item active" onclick="ViewRouter.navigate('home'); return false;"
+                    data-testid="nav-home" role="tab" aria-selected="true">
+                    <i class="fa-solid fa-gauge-high"></i> AI Cockpit</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('watchlist'); return false;"
+                    data-testid="nav-watchlist" role="tab" aria-selected="false">Watchlist</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('scanner'); return false;"
+                    data-testid="nav-scanner" role="tab" aria-selected="false"><i class="fa-solid fa-radar"></i> Scanner</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('news'); return false;"
+                    data-testid="nav-news" role="tab" aria-selected="false"><i class="fa-solid fa-newspaper"></i> News</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('traderadar'); return false;"
+                    data-testid="nav-traderadar" role="tab" aria-selected="false"><i class="fa-solid fa-crosshairs"></i> Trade Radar</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('premarket'); return false;"
+                    data-testid="nav-premarket" role="tab" aria-selected="false"><i class="fa-solid fa-sun"></i> Premarket</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('preearnings'); return false;"
+                    data-testid="nav-preearnings" role="tab" aria-selected="false"><i class="fa-solid fa-wave-square"></i> Pre-Earnings</a>
+                <a href="#" class="nav-item hot-list-nav" onclick="ViewRouter.navigate('hotlist'); return false;"
+                    data-testid="nav-hotlist" role="tab" aria-selected="false"><i class="fa-solid fa-fire"></i> Hot List</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('backtest'); return false;"
+                    data-testid="nav-backtest" role="tab" aria-selected="false">Backtest</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('calendar'); return false;"
+                    data-testid="nav-calendar" role="tab" aria-selected="false"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('agents'); return false;"
+                    data-testid="nav-agents" role="tab" aria-selected="false"><i class="fa-solid fa-microchip"></i> Agents</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('alerts'); return false;"
+                    data-testid="nav-alerts" role="tab" aria-selected="false"><i class="fa-solid fa-bell"></i> Alerts</a>
+                <a href="#" class="nav-item" onclick="ViewRouter.navigate('capital'); return false;"
+                    data-testid="nav-capital" role="tab" aria-selected="false"><i class="fa-solid fa-wallet"></i> Capital</a>
+            </nav>
+            <button class="sidebar-toggle-btn" id="sidebarToggleRight" aria-label="Toggle right sidebar" aria-expanded="false">&#9776;</button>
+        </div>
+    </header>
+
+    <!-- Main Layout (Dashboard Cockpit) -->
+    <main id="view-home" class="main-container centered-layout view-section home-cockpit" role="main"
+        style="max-width: 1440px; margin: 0 auto; padding: 20px 32px;">
+        <span id="main-content" tabindex="-1" class="sr-only"></span>
+
+        <section id="ai-trading-cockpit" class="cockpit-shell" data-testid="ai-trading-cockpit"
+            aria-labelledby="cockpit-title">
+            <div class="cockpit-loading" id="cockpit-loading" role="status" aria-live="polite">
+                <div class="cockpit-loading-head"></div>
+                <div class="cockpit-loading-kpis">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <p>Loading verified cockpit data&hellip;</p>
+            </div>
+
+            <div id="cockpit-content" class="hidden">
+                <header class="cockpit-command-bar ds-page-head">
+                    <div class="cockpit-title-block">
+                        <h1 id="cockpit-title">AI Trading Cockpit</h1>
+                        <p>One evidence-first view of opportunity, risk, execution and system readiness.</p>
+                    </div>
+                    <div class="cockpit-command-actions">
+                        <span id="cockpit-updated-at" class="cockpit-updated-at">Waiting for snapshot</span>
+                        <button id="cockpit-refresh" class="cockpit-btn cockpit-btn--secondary ds-btn" type="button"
+                            data-testid="cockpit-refresh" aria-label="Refresh AI Trading Cockpit">
+                            <i class="fa-solid fa-rotate"></i> Refresh
+                        </button>
+                        <button id="cockpit-kill-switch" class="cockpit-kill-switch ds-btn ds-btn--danger" type="button"
+                            data-testid="cockpit-kill-switch" aria-live="polite">
+                            <i class="fa-solid fa-hand"></i> Stop autonomous trading
+                        </button>
+                    </div>
+                </header>
+
+                <div id="cockpit-kpis" class="cockpit-kpi-grid ds-stats" aria-label="Trading cockpit status"></div>
+
+                <nav class="cockpit-tabs" role="tablist" aria-label="Cockpit workspaces">
+                    <button type="button" class="cockpit-tab is-active" data-cockpit-tab="overview"
+                        role="tab" aria-selected="true">Overview</button>
+                    <button type="button" class="cockpit-tab" data-cockpit-tab="strategy"
+                        role="tab" aria-selected="false">Strategy Lab</button>
+                    <button type="button" class="cockpit-tab" data-cockpit-tab="ledger"
+                        role="tab" aria-selected="false">Decision Ledger</button>
+                    <button type="button" class="cockpit-tab" data-cockpit-tab="research"
+                        role="tab" aria-selected="false">Research Factory</button>
+                    <button type="button" class="cockpit-tab" data-cockpit-tab="health"
+                        role="tab" aria-selected="false">System Health</button>
+                    <button type="button" class="cockpit-tab" data-cockpit-tab="repair"
+                        role="tab" aria-selected="false">Coding Agent</button>
+                </nav>
+
+                <div id="cockpit-status" class="cockpit-status-line" role="status" aria-live="polite"></div>
+                <section id="cockpit-panel-overview" class="cockpit-panel" data-cockpit-panel="overview"></section>
+                <section id="cockpit-panel-strategy" class="cockpit-panel hidden" data-cockpit-panel="strategy"></section>
+                <section id="cockpit-panel-ledger" class="cockpit-panel hidden" data-cockpit-panel="ledger"></section>
+                <section id="cockpit-panel-research" class="cockpit-panel hidden" data-cockpit-panel="research"></section>
+                <section id="cockpit-panel-health" class="cockpit-panel hidden" data-cockpit-panel="health"></section>
+                <section id="cockpit-panel-repair" class="cockpit-panel hidden" data-cockpit-panel="repair"></section>
+            </div>
+
+            <div id="cockpit-error" class="cockpit-error hidden" role="alert">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div><strong>Cockpit unavailable</strong><p id="cockpit-error-message">The verified snapshot could not be loaded.</p></div>
+                <button id="cockpit-error-retry" type="button" class="cockpit-btn cockpit-btn--secondary ds-btn">Retry</button>
+            </div>
+        </section>
+
+        <div class="home-cockpit-grid">
+            <div id="home-top-header" class="home-top-header card premium-card">
+                <div class="home-top-header-item">
+                    <div class="home-top-header-label"><i class="fa-solid fa-earth-americas"></i> Regime</div>
+                    <div id="home-regime-badge" class="home-regime-badge mixed" title="Current market regime (Trending/Ranging/Mixed) based on ADX and Bollinger Band width">Mixed (0%)</div>
+                </div>
+                <div class="home-top-header-item">
+                    <div class="home-top-header-label"><i class="fa-solid fa-gauge-high"></i> Confidence Index</div>
+                    <div id="home-confidence-index" class="home-top-header-value" title="Composite confidence score (0-100) reflecting market direction strength">0 / 100</div>
+                </div>
+                <div class="home-top-header-item">
+                    <div class="home-top-header-label"><i class="fa-solid fa-shield-halved"></i> Active Risk</div>
+                    <div id="home-active-risk-pct" class="home-top-header-value" title="Percentage of total capital currently at risk">0.0%</div>
+                </div>
+            </div>
+
+            <div class="home-main-content">
+                <div class="card premium-card home-market-pulse" id="card-market-pulse">
+                    <div class="home-market-pulse-head">
+                        <div>
+                            <h3>Market pulse <span class="ds-chip ds-chip--ai" title="Narrative written by an AI model, not measured">AI</span></h3>
+                            <p class="home-market-pulse-sub">Macro context, catalysts and watchlist bias</p>
+                        </div>
+                        <button class="btn-mini btn-mini--accent" onclick="ViewRouter.navigate('news')">
+                            <i class="fa-solid fa-chart-line"></i> Open News Cockpit
+                        </button>
+                    </div>
+                    <div id="home-market-narrative-content" class="home-market-narrative-content">
+                        <div class="placeholder-text">Loading market narrative...</div>
+                    </div>
+                </div>
+
+                <div class="signals-section card premium-card home-signals-card">
+                    <div class="active-signals-header">
+                        <div class="home-signals-title">
+                            <h2>Live signals</h2>
+                            <div class="live-status-badge">
+                                <span class="live-dot"></span>
+                                Live
+                            </div>
+                            <span id="signals-stats-header"></span>
+                        </div>
+
+                        <div class="home-signals-tools">
+                            <div id="signals-distribution">
+                                <span>Loading...</span>
+                            </div>
+                            <div class="activity-widget-container">
+                                <button id="btn-sound-toggle" class="btn-activity-sound"
+                                    onclick="UI.toggleActivitySound()" title="Toggle activity sound"
+                                    aria-label="Toggle activity sound">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                </button>
+                                <button id="btn-toggle-activity" class="btn-activity" onclick="UI.toggleActivity()"
+                                    title="Recent notifications"
+                                    aria-label="Toggle activity notifications">
+                                    <i class="fa-regular fa-bell"></i>
+                                </button>
+                                <div id="activity-dropdown" class="activity-dropdown-panel hidden">
+                                    <div class="dropdown-header">Recent notifications</div>
+                                    <div id="timeline-track" class="activity-list"></div>
+                                </div>
+                            </div>
+                            <button class="btn-mini btn-mini--danger" onclick="App.clearAllSignals()"
+                                title="Clear all signals"
+                                aria-label="Clear all signals">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="signals-feed" class="signals-feed-table" aria-live="polite" aria-busy="true">
+                        <div id="active-signals-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Legacy View Home Removed (Combined into Main) -->
+
+
+    <!-- VIEW: WATCHLIST -->
+    <div id="view-watchlist" class="view-section hidden trading-view-shell watchlist-view-shell">
+        <div class="ds-page-head wl-page-head">
+            <div class="wl-page-copy">
+                <h1>Watchlist &amp; MTF dashboard</h1>
+                <p>Price freshness, open signal, 1D / 4H / 1H trend and days to earnings for every ticker you follow.</p>
+            </div>
+            <div class="wl-page-actions">
+                <div class="wl-search">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input type="text" id="watchlist-search" placeholder="Search ticker" aria-label="Search watchlist ticker"
+                        oninput="UI.renderDetailedWatchlist()">
+                </div>
+                <button class="ds-btn ds-btn--primary" onclick="Actions.addTicker()">
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i> Add ticker
+                </button>
+            </div>
+        </div>
+        <div class="wl-main">
+            <div id="detailed-watchlist-content">
+                <!-- Stat strip, toolbar and table are rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: HOT LIST -->
+    <div id="view-hotlist" class="view-section hidden" style="max-width: 1400px; margin: 0 auto; padding: 20px 32px;">
+        <div class="page-header ds-page-head">
+            <div>
+                <h1>Hot list</h1>
+                <p>Your short list of high-conviction tickers, each scored for its next earnings setup.</p>
+            </div>
+            <div class="hl-head-actions">
+                <span id="hotlist-freshness-badge"></span>
+                <div id="hotlist-stats"></div>
+                <button id="hotlist-load-details-btn" class="btn-hotlist-details ds-btn"
+                    onclick="Actions.loadHotListDetails()">Load details</button>
+            </div>
+        </div>
+
+        <div id="hotlist-heat-strip"></div>
+
+        <div id="hotlist-grid" class="hotlist-cards-grid">
+            <div id="hotlist-empty-state"></div>
+        </div>
+    </div>
+
+    <!-- VIEW: BACKTEST -->
+    <div id="view-backtest" class="view-section hidden" style="max-width: 1400px; margin: 0 auto; padding: 20px 32px;">
+
+        <header class="ds-page-head">
+            <div>
+                <h1>Backtest</h1>
+                <p>Replay a strategy on past prices, after trading costs, before you trust it.</p>
+            </div>
+            <div class="bt-last-run" id="bt-last-run">Last run <span id="bt-last-time">-</span></div>
+        </header>
+
+        <!-- Lab bench: parameters in a fixed left column, results on the right -->
+        <div class="backtest-premium-layout">
+
+            <!-- Left: parameters, evidence loaders, saved runs -->
+            <aside class="bt-side" aria-label="Backtest parameters and saved runs">
+              <section class="bt-params-panel" aria-labelledby="bt-params-title">
+                <div class="bt-params-header">
+                    <h2 id="bt-params-title">Parameters</h2>
+                </div>
+
+                <form id="backtest-form" onsubmit="App.runBacktest(event)" class="bt-params-form">
+                    <div class="bt-form-group bt-preset-row">
+                        <label for="bt-presets">Preset</label>
+                        <div class="bt-inline">
+                            <select id="bt-presets" class="bt-select" aria-label="Backtest preset">
+                                <option value="">-- select --</option>
+                            </select>
+                            <button type="button" class="ds-btn bt-preset-save"
+                                onclick="App.saveBacktestPreset()">Save</button>
+                        </div>
+                    </div>
+
+                    <fieldset class="bt-group">
+                        <legend>What</legend>
+                        <div class="bt-form-group">
+                            <label for="bt-ticker">Ticker</label>
+                            <input type="text" id="bt-ticker" class="bt-input" placeholder="e.g. BTC-USD or AAPL" required
+                                data-testid="bt-ticker-input" aria-label="Backtest ticker symbol">
+                        </div>
+                        <div class="bt-form-group">
+                            <label for="bt-compare-tickers">Compare with</label>
+                            <input type="text" id="bt-compare-tickers" class="bt-input"
+                                placeholder="e.g. ETH-USD, AAPL" aria-label="Compare tickers (comma-separated)"
+                                aria-describedby="bt-compare-help">
+                            <small class="bt-help" id="bt-compare-help">Optional, comma-separated. Each ticker is tested on every RSI/MACD mode and its best row is shown.</small>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="bt-group">
+                        <legend>Period</legend>
+                        <div class="bt-form-group">
+                            <label for="bt-days">Days</label>
+                            <div class="bt-inline">
+                                <input type="number" id="bt-days" class="bt-input bt-days-input" value="30" min="7" max="365" aria-label="Backtest days"
+                                    oninput="App._btSyncDaysSeg()">
+                                <div class="bt-seg" role="group" aria-label="Common periods">
+                                    <button type="button" class="bt-seg-btn" data-days="7" onclick="App.setBacktestDays(7)" aria-label="Set backtest to 7 days">7d</button>
+                                    <button type="button" class="bt-seg-btn" data-days="14" onclick="App.setBacktestDays(14)" aria-label="Set backtest to 14 days">14d</button>
+                                    <button type="button" class="bt-seg-btn" data-days="30" onclick="App.setBacktestDays(30)" aria-label="Set backtest to 30 days" aria-pressed="true">30d</button>
+                                    <button type="button" class="bt-seg-btn" data-days="90" onclick="App.setBacktestDays(90)" aria-label="Set backtest to 90 days">90d</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bt-pair">
+                            <div class="bt-form-group">
+                                <label for="bt-train-days">Train days</label>
+                                <input type="number" id="bt-train-days" class="bt-input" value="20" min="5" max="180" aria-label="Train days">
+                            </div>
+                            <div class="bt-form-group">
+                                <label for="bt-test-days">Test days</label>
+                                <input type="number" id="bt-test-days" class="bt-input" value="10" min="5" max="180" aria-label="Test days">
+                            </div>
+                        </div>
+                        <small class="bt-help">Train and test days are used by the walk-forward test only.</small>
+                    </fieldset>
+
+                    <fieldset class="bt-group">
+                        <legend>Exits</legend>
+                        <div class="bt-pair">
+                            <div class="bt-form-group">
+                                <label for="bt-custom-tp" title="Custom take profit percentage">Custom TP %</label>
+                                <input type="number" id="bt-custom-tp" class="bt-input" placeholder="Default" step="any" min="0.01" max="500" aria-label="Custom take profit percentage">
+                            </div>
+                            <div class="bt-form-group">
+                                <label for="bt-custom-sl" title="Custom stop loss percentage">Custom SL %</label>
+                                <input type="number" id="bt-custom-sl" class="bt-input" placeholder="Default" step="any" min="0.01" max="95" aria-label="Custom stop loss percentage">
+                            </div>
+                        </div>
+                        <small class="bt-help">Leave empty to use the exits of the chosen mode.</small>
+                    </fieldset>
+
+                    <fieldset class="bt-group">
+                        <legend>Mode</legend>
+                        <div class="bt-form-group">
+                            <label for="bt-risk">Risk mode</label>
+                            <select id="bt-risk" class="bt-select" onchange="toggleOrbOptions()" aria-label="Risk mode" aria-describedby="bt-risk-help">
+                                <!-- ALL runs the four RSI/MACD risk modes below with three exit
+                                     profiles each (12 rows). It does not include OPENING RANGE or
+                                     FAITHFUL, which are separate engines. The four modes share one
+                                     entry rule and differ only in how far the exits sit. -->
+                                <option value="ALL">ALL (4 RSI/MACD modes x 3 exit profiles)</option>
+                                <option value="PRO">PRO (wider target)</option>
+                                <option value="MEDIUM">MEDIUM (base exits)</option>
+                                <option value="STRONG">STRONG (widest target and stop)</option>
+                                <option value="RELAX">RELAX (tighter target and stop)</option>
+                                <option value="OPENING_RANGE">OPENING RANGE (FVG, US stocks)</option>
+                                <option value="FAITHFUL">FAITHFUL (Crypto Live-Signal Replay)</option>
+                            </select>
+                            <small class="bt-help" id="bt-risk-help">ALL runs the four RSI/MACD modes with three exit profiles each (12 rows). Opening range and Faithful are separate engines and are not part of ALL.</small>
+                        </div>
+
+                        <div class="bt-form-group">
+                            <label for="bt-variant-mode">Variant mode</label>
+                            <select id="bt-variant-mode" class="bt-select" aria-label="Variant mode" disabled
+                                title="STRICT / CUSTOM are the two live signal profiles. They only change the FAITHFUL replay.">
+                                <option value="STRICT">STRICT</option>
+                                <option value="CUSTOM">CUSTOM (User Config)</option>
+                            </select>
+                            <small id="bt-variant-hint" class="bt-help">
+                                Variant Mode applies to FAITHFUL only; the RSI/MACD modes and OPENING RANGE do not use it.
+                            </small>
+                        </div>
+
+                        <!-- ORB Options (hidden by default) -->
+                        <div id="orb-options" class="bt-form-group" style="display:none;">
+                            <label for="bt-orb-entry">FVG entry type</label>
+                            <select id="bt-orb-entry" class="bt-select" aria-label="FVG entry type">
+                                <option value="BOTH">BOTH</option>
+                                <option value="MIDPOINT">MIDPOINT</option>
+                                <option value="CONSERVATIVE">CONSERVATIVE</option>
+                            </select>
+                        </div>
+
+                        <small id="orb-warning" class="bt-help bt-help--warn" style="display:none;">
+                            Opening range is only available for US stocks.
+                        </small>
+                    </fieldset>
+
+                    <div class="bt-actions">
+                        <button type="submit" class="bt-run-btn" id="bt-run-btn" data-testid="bt-run-btn">
+                            <i class="fa-solid fa-play"></i> Run analysis
+                        </button>
+                        <button type="button" class="bt-run-btn bt-btn-secondary" id="bt-wf-btn" onclick="App.runWalkForward(event)"
+                            title="Pick the best mode on the train days, then trade it on the unseen test days">
+                            Walk-forward test
+                        </button>
+                    </div>
+                </form>
+              </section>
+
+              <section class="bt-side-block" aria-labelledby="bt-evidence-title">
+                <h3 id="bt-evidence-title">Evidence and export</h3>
+                <div class="bt-quiet-actions">
+                    <button type="button" class="bt-run-btn bt-btn-secondary bt-quiet-btn bt-quiet-btn--wide" id="bt-oos-audit-btn" data-testid="bt-oos-audit-btn" onclick="App.loadStrictOosAudit()">
+                        <i class="fa-solid fa-shield-halved"></i> Load strict OOS audit
+                    </button>
+                    <button type="button" class="bt-run-btn bt-btn-secondary bt-quiet-btn bt-quiet-btn--wide" id="bt-research-ledger-btn" data-testid="bt-research-ledger-btn" onclick="App.loadResearchValidationLedger()">
+                        <i class="fa-solid fa-flask"></i> Load research ledger
+                    </button>
+                    <button type="button" class="bt-run-btn bt-btn-secondary bt-quiet-btn" onclick="App.exportBacktestCSV()">
+                        <i class="fa-solid fa-file-csv"></i> Export CSV
+                    </button>
+                    <button type="button" class="bt-run-btn bt-btn-secondary bt-quiet-btn" onclick="App.exportBacktestJSON()">
+                        <i class="fa-solid fa-file-code"></i> Export JSON
+                    </button>
+                    <button type="button" class="bt-run-btn bt-btn-secondary bt-quiet-btn bt-quiet-btn--wide" onclick="App.diffLastBacktest()">
+                        <i class="fa-solid fa-code-compare"></i> Compare vs last
+                    </button>
+                </div>
+              </section>
+
+              <!-- Saved runs -->
+              <section class="bt-history-section bt-side-block" aria-labelledby="bt-history-title">
+                <h3 id="bt-history-title">Recent simulations</h3>
+                <div id="bt-history-list">
+                    <div class="bt-empty-note">No saved simulations</div>
+                </div>
+              </section>
+
+              <section class="bt-history-section bt-side-block bt-usage" aria-labelledby="bt-usage-title">
+                <h3 id="bt-usage-title">API usage</h3>
+                <div id="api-usage-widget">
+                    Loading API stats...
+                </div>
+              </section>
+
+                <script>
+                    function toggleOrbOptions() {
+                        const riskMode = document.getElementById('bt-risk').value;
+                        const orbOptions = document.getElementById('orb-options');
+                        const orbWarning = document.getElementById('orb-warning');
+                        if (riskMode === 'OPENING_RANGE') {
+                            orbOptions.style.display = 'block';
+                            orbWarning.style.display = 'block';
+                        } else {
+                            orbOptions.style.display = 'none';
+                            orbWarning.style.display = 'none';
+                        }
+                        // Variant Mode changes nothing outside the FAITHFUL replay:
+                        // keep it disabled there instead of offering a dead control.
+                        const variant = document.getElementById('bt-variant-mode');
+                        const variantHint = document.getElementById('bt-variant-hint');
+                        const faithful = riskMode === 'FAITHFUL';
+                        if (variant) variant.disabled = !faithful;
+                        if (variantHint) variantHint.style.display = faithful ? 'none' : 'block';
+                    }
+                </script>
+            </aside>
+
+            <!-- Right: Results Area -->
+            <main class="bt-results-area">
+
+                <!-- Tab Navigation -->
+                <div class="bt-tabs" role="tablist" aria-label="Backtest results tabs">
+                    <button class="bt-tab active" onclick="BacktestUI.switchTab('overview')" role="tab" aria-selected="true" aria-controls="bt-tab-overview" id="bt-tab-btn-overview">Overview</button>
+                    <button class="bt-tab" onclick="BacktestUI.switchTab('strategies')" role="tab" aria-selected="false" aria-controls="bt-tab-strategies" id="bt-tab-btn-strategies">Strategies</button>
+                    <button class="bt-tab" onclick="BacktestUI.switchTab('trades')" role="tab" aria-selected="false" aria-controls="bt-tab-trades" id="bt-tab-btn-trades">Trades</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="bt-tab-content">
+                    <div id="bt-tab-overview" class="bt-tab-pane active" role="tabpanel" aria-labelledby="bt-tab-btn-overview">
+                        <!-- Equity Curve & Summary will be injected -->
+                        <div id="backtest-results" class="bt-results-container" data-testid="backtest-results-area">
+                            <div class="bt-placeholder">
+                                <strong>No results yet</strong>
+                                <p>Choose a ticker and period, then run the analysis. Saved runs open from Recent simulations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bt-tab-strategies" class="bt-tab-pane" role="tabpanel" aria-labelledby="bt-tab-btn-strategies">
+                        <div id="bt-strategies-list">
+                            <div class="bt-empty-note">No strategies to compare yet. Run an analysis first.</div>
+                        </div>
+                    </div>
+                    <div id="bt-tab-trades" class="bt-tab-pane" role="tabpanel" aria-labelledby="bt-tab-btn-trades">
+                        <div id="bt-trades-list">
+                            <div class="bt-empty-note">No trades yet. Run an analysis first.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+    <!-- VIEW: AGENTS -->
+    <div id="view-agents" class="view-section hidden agents-page-shell">
+        <header class="ds-page-head ag-page-head">
+            <div>
+                <h2>Automation control plane</h2>
+                <p>Control automated execution, inspect operational health, and configure every agent from one place.</p>
+            </div>
+            <div class="ag-page-actions">
+                <span id="agents-last-updated" class="ag-updated">Not synchronized</span>
+                <button id="agents-refresh-btn" class="ds-btn" type="button"
+                    onclick="UI.renderAgents({ force: true })" data-testid="agents-refresh">
+                    <i class="fa-solid fa-rotate" aria-hidden="true"></i> Refresh
+                </button>
+            </div>
+        </header>
+
+        <div id="agents-control-plane" class="ag-control-plane" aria-busy="true">
+            <section id="agents-master-panel" class="ag-master" aria-label="Bot master control">
+                <p class="ag-loading">Loading bot status…</p>
+            </section>
+
+            <section id="agents-kpi-grid" class="ds-stats ag-stats" aria-label="Automation overview">
+                <div class="ds-stat"><div class="ds-label">Market engine</div><div class="ds-stat-value ag-stat-value">—</div></div>
+                <div class="ds-stat"><div class="ds-label">Worker fleet</div><div class="ds-stat-value ag-stat-value">—</div></div>
+                <div class="ds-stat"><div class="ds-label">Circuit breaker</div><div class="ds-stat-value ag-stat-value">—</div></div>
+                <div class="ds-stat"><div class="ds-label">Entry threshold</div><div class="ds-stat-value ag-stat-value">—</div></div>
+            </section>
+
+            <div class="ag-split">
+                <section id="agents-readiness-panel" class="ag-panel" aria-label="Automation readiness">
+                    <p class="ag-loading">Loading readiness gates…</p>
+                </section>
+                <section id="agents-risk-policy" class="ag-panel" aria-label="Risk Manager active policy">
+                    <p class="ag-loading">Loading the active risk policy…</p>
+                </section>
+            </div>
+        </div>
+
+        <section id="agents-opportunity-monitor" class="ag-panel ag-monitor"
+            aria-label="Risk Manager signal monitor">
+            <p class="ag-loading">Loading the signal monitor…</p>
+        </section>
+
+        <section class="ag-panel ag-fleet" aria-labelledby="agents-catalog-title">
+            <div class="ag-panel-head ag-fleet-head">
+                <div>
+                    <h3 id="agents-catalog-title">Agent fleet</h3>
+                    <p id="agents-summary">Loading configuration and runtime status…</p>
+                </div>
+                <div class="ag-toolbar">
+                    <label class="ag-search">
+                        <span class="sr-only">Search agents</span>
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input id="agents-search-input" type="search" placeholder="Search agents" autocomplete="off"
+                            oninput="UI.filterAgents(this.value)" data-testid="agents-search">
+                    </label>
+                    <div class="ag-segmented" role="group" aria-label="Filter agents">
+                        <button type="button" class="agents-filter active" data-filter="all" onclick="UI.setAgentsFilter('all', this)">All <span class="ag-count" data-agents-count="all"></span></button>
+                        <button type="button" class="agents-filter" data-filter="running" onclick="UI.setAgentsFilter('running', this)">Running <span class="ag-count" data-agents-count="running"></span></button>
+                        <button type="button" class="agents-filter" data-filter="attention" onclick="UI.setAgentsFilter('attention', this)">Attention <span class="ag-count" data-agents-count="attention"></span></button>
+                        <button type="button" class="agents-filter" data-filter="disabled" onclick="UI.setAgentsFilter('disabled', this)">Disabled <span class="ag-count" data-agents-count="disabled"></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="agents-grid" class="agents-grid ag-fleet-list" data-testid="agents-grid">
+                <p class="ag-loading">Loading agent status…</p>
+            </div>
+            <div id="agents-empty" class="ag-empty hidden">
+                <h4>No agents match this view</h4>
+                <p>Clear the search or choose another status filter.</p>
+            </div>
+        </section>
+        <div id="agents-live-region" class="sr-only" aria-live="polite"></div>
+    </div>
+
+    <!-- VIEW: MARKET SCANNER (Full View) -->
+    <div id="view-scanner" class="view-section hidden trading-view-shell scanner-view-shell">
+        <div class="ds-page-head scanner-page-head">
+            <div class="scanner-page-copy">
+                <h2>Market scanner</h2>
+                <p>Biggest movers right now: Binance and KuCoin USDT pairs (24h change) and US stocks from Yahoo (quotes delayed about 15 minutes).</p>
+            </div>
+            <div class="scanner-page-actions">
+                <div id="scanner-agent-status" class="agent-status-header">
+                    <span id="scanner-freshness-badge"></span>
+                </div>
+                <button id="scanner-refresh-btn" class="btn-mini btn-mini--accent" onclick="Actions.refreshScanner()" aria-label="Refresh scanner data">
+                    <i class="fa-solid fa-rotate"></i> Refresh now
+                </button>
+            </div>
+        </div>
+        <div id="scanner-status-alert" class="agent-status-alert"></div>
+        <div id="scanner-summary-strip" class="scanner-summary-strip ds-stats">
+            <div class="scanner-summary-loading">Loading scanner snapshot…</div>
+        </div>
+
+        <!-- Top movers: three static ranked boards (top 10 per venue by absolute change).
+             "Show all" opens the venue's full table in the tabs below. -->
+        <div class="tape-board-wrap">
+        <div class="tape-board">
+            <section class="tape-col" aria-labelledby="tape-title-binance">
+                <div class="tape-col-head">
+                    <h3 class="tape-col-title binance" id="tape-title-binance">Binance</h3>
+                    <span class="tape-col-sub">top movers 24h</span>
+                    <button type="button" class="tape-col-all" onclick="UI.showScannerTabFromBoard('crypto')" aria-label="Show all Binance movers">Show all <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></button>
+                </div>
+                <div class="tape-col-list" id="crypto-marquee"><div class="tape-msg">Loading…</div></div>
+            </section>
+            <section class="tape-col" aria-labelledby="tape-title-kucoin">
+                <div class="tape-col-head">
+                    <h3 class="tape-col-title kucoin" id="tape-title-kucoin">KuCoin</h3>
+                    <span class="tape-col-sub">top movers 24h</span>
+                    <button type="button" class="tape-col-all" onclick="UI.showScannerTabFromBoard('kucoin')" aria-label="Show all KuCoin movers">Show all <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></button>
+                </div>
+                <div class="tape-col-list" id="kucoin-marquee"><div class="tape-msg">Loading…</div></div>
+            </section>
+            <section class="tape-col" aria-labelledby="tape-title-stocks">
+                <div class="tape-col-head">
+                    <h3 class="tape-col-title stocks" id="tape-title-stocks">US stocks</h3>
+                    <span class="tape-col-sub">top movers today</span>
+                    <button type="button" class="tape-col-all" onclick="UI.showScannerTabFromBoard('stocks')" aria-label="Show all US stock movers">Show all <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></button>
+                </div>
+                <div class="tape-col-list" id="stocks-marquee"><div class="tape-msg">Loading…</div></div>
+            </section>
+        </div>
+        </div>
+
+        <!-- Venue tabs and sort -->
+        <div class="scanner-tabs scanner-tabs-toolbar">
+            <div class="scanner-tablist" role="tablist" aria-label="Scanner market tabs">
+                <button id="tab-crypto" class="scanner-tab active" onclick="UI.switchScannerTab('crypto')" role="tab" aria-selected="true">
+                    Binance <span id="crypto-count" class="scanner-tab-count">0</span>
+                </button>
+                <button id="tab-kucoin" class="scanner-tab" onclick="UI.switchScannerTab('kucoin')" role="tab" aria-selected="false">
+                    KuCoin <span id="kucoin-count" class="scanner-tab-count">0</span>
+                </button>
+                <button id="tab-stocks" class="scanner-tab" onclick="UI.switchScannerTab('stocks')" role="tab" aria-selected="false">
+                    US stocks <span id="stocks-count" class="scanner-tab-count">0</span>
+                </button>
+            </div>
+
+            <div class="scanner-sort-controls">
+                <label for="scanner-sort-select">Sort by</label>
+                <select id="scanner-sort-select" onchange="UI.changeScannerSort(this.value)" class="bt-select"
+                    aria-label="Sort scanner results">
+                    <option value="volatility">Biggest move (absolute %)</option>
+                    <option value="gainers">Top gainers</option>
+                    <option value="losers">Top losers</option>
+                    <option value="active">Most traded</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Full table of the selected venue -->
+        <div class="scanner-main-shell">
+            <div id="full-scanner-grid" class="scanner-list-wrapper">
+                <!-- All tickers will be populated here as a table -->
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: ALERTS -->
+    <div id="view-alerts" class="view-section hidden" style="max-width: 1400px; margin: 0 auto; padding: 20px 32px;">
+        <div class="page-header ds-page-head">
+            <div>
+                <h1>Smart alerts</h1>
+                <p>Be notified when a price or a daily move is reached. Alerts are checked on every watchlist scan
+                    while the engine is running.</p>
+            </div>
+            <button class="btn-primary" onclick="UI.showAddAlertModal()">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i> Create alert
+            </button>
+        </div>
+
+        <div class="alerts-layout">
+            <section class="card alerts-panel" aria-label="Alerts">
+                <div id="alerts-list-container" class="alerts-grid-view">
+                    <!-- Populated by JS -->
+                    <div class="alerts-state">Loading alerts…</div>
+                </div>
+            </section>
+
+            <section class="card tg-panel" aria-labelledby="tg-panel-title">
+                <div class="tg-head">
+                    <h3 id="tg-panel-title">Telegram delivery</h3>
+                    <span id="tg-state-badge" class="tg-state">Checking…</span>
+                </div>
+                <div class="tg-body">
+                    <p class="tg-help">Sends the events you select to your Telegram chat. Create a bot with
+                        @BotFather, then paste its token and your chat ID.</p>
+
+                    <label class="tg-check tg-check--main">
+                        <input type="checkbox" id="tg-enabled">
+                        <span>Enable Telegram delivery</span>
+                    </label>
+
+                    <div class="tg-fields">
+                        <div class="tg-field">
+                            <label for="tg-token">Bot token</label>
+                            <input type="password" id="tg-token" autocomplete="off" placeholder="">
+                        </div>
+                        <div class="tg-field">
+                            <label for="tg-chat-id">Chat ID</label>
+                            <input type="text" id="tg-chat-id" autocomplete="off" placeholder="e.g. 123456789">
+                        </div>
+                    </div>
+
+                    <fieldset class="tg-events">
+                        <legend>Events to send</legend>
+                        <label class="tg-check">
+                            <input type="checkbox" id="tg-route-alerts">
+                            <span>Price alerts</span>
+                        </label>
+                        <label class="tg-check">
+                            <input type="checkbox" id="tg-route-signals">
+                            <span>Signal entries</span>
+                        </label>
+                        <label class="tg-check">
+                            <input type="checkbox" id="tg-route-capital">
+                            <span>Capital exits and P&amp;L</span>
+                        </label>
+                        <label class="tg-check">
+                            <input type="checkbox" id="tg-route-news">
+                            <span>Breaking news</span>
+                        </label>
+                    </fieldset>
+
+                    <div class="tg-actions">
+                        <button class="btn-primary" id="tg-save-btn" onclick="Actions.saveTelegramDelivery()">Save settings</button>
+                        <button class="btn-secondary" id="tg-test-btn" onclick="Actions.testTelegramDelivery()">Send test message</button>
+                    </div>
+                    <p id="tg-status" class="tg-status" role="status"></p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- VIEW: CAPITAL -->
+    <div id="view-capital" class="view-section hidden">
+        <div class="capital-page-shell">
+            <div class="ds-page-head capital-page-header-bar">
+                <div>
+                    <h1>Paper trading terminal</h1>
+                    <p>Paper account equity, open positions and every recorded transaction. No real money moves here.</p>
+                </div>
+                <div class="capital-page-header-actions">
+                    <button class="ds-btn" data-testid="open-paper-chart-terminal" onclick="ChartWorkspace.open('BTC-USD')">
+                        Chart trading
+                    </button>
+                    <button class="ds-btn ds-btn--ghost" onclick="Actions.syncCapital()" title="Reload balance, positions and history from the server. Read-only: nothing from this browser is written to the server.">
+                        Sync with server
+                    </button>
+                    <button class="ds-btn ds-btn--ghost cap-btn-danger-ghost" data-testid="capital-reset-button" onclick="Actions.openCapitalResetModal()" aria-label="Reset capital balance">
+                        Reset balance…
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="capital-content-shell">
+            <!-- 1. Account summary: one stat strip, equity is the hero number -->
+            <div class="ds-stats capital-overview-grid">
+                <div class="ds-stat capital-stat-card stat-balance">
+                    <div class="stat-label" title="Deployable cash + margin reserved in open Capital positions + gross mark-to-market P&amp;L. Research cohorts excluded.">Portfolio equity</div>
+                    <div id="capital-equity-value" class="stat-value">$0.00</div>
+                    <div id="capital-equity-sub" class="stat-sub"></div>
+                </div>
+                <div class="ds-stat capital-stat-card stat-pnl">
+                    <div class="stat-label" title="Net estimate for open Capital positions: mark-to-market P&amp;L minus the entry fee already paid and the estimated exit fee. Portfolio Equity adds the gross mark-to-market P&amp;L instead, because cash has already paid the entry fees.">Open P&amp;L</div>
+                    <div id="capital-open-pnl" class="stat-value text-green">$0.00</div>
+                    <div id="capital-open-pnl-sub" class="stat-sub"></div>
+                </div>
+                <div class="ds-stat capital-stat-card stat-positions">
+                    <div class="stat-label" title="Margin reserved in open Capital positions as a share of Portfolio Equity.">Exposure</div>
+                    <div id="capital-exposure-value" class="stat-value">0%</div>
+                    <div id="capital-exposure-sub" class="stat-sub"></div>
+                </div>
+                <div class="ds-stat capital-stat-card">
+                    <div class="stat-label">Win rate</div>
+                    <div id="capital-win-rate" class="stat-value">n/a</div>
+                    <div id="capital-win-rate-sub" class="stat-sub" data-testid="capital-win-rate-sample"></div>
+                </div>
+            </div>
+
+            <!-- Paper reconciliation conflict: what disagrees and how to resolve it (empty when healthy) -->
+            <div id="capital-reconciliation-banner" aria-live="polite"></div>
+
+            <!-- Equity Curve -->
+            <div id="capital-equity-curve" class="capital-section capital-equity-card-shell" aria-live="polite">
+                <div class="capital-detail-empty">Loading the equity curve…</div>
+            </div>
+
+            <!-- Open positions (table) and the decision record of the selected one -->
+            <div class="capital-section capital-positions-section">
+                <div class="capital-section-header">
+                    <h3>
+                        <span class="cap-sentence">Active Capital Positions</span>
+                        <span id="capital-positions-count" class="capital-position-count" aria-label="Deployable Capital position count">0</span>
+                        <span id="capital-research-count" class="capital-research-count" aria-label="Research position count">0 research</span>
+                    </h3>
+                    <p class="cap-section-meta">Select a row to read why it was opened and how it is tracked.</p>
+                </div>
+                <div id="capital-trade-cards" class="capital-trade-cards" aria-live="polite" aria-busy="true">
+                    <div class="capital-detail-empty">
+                        No active positions. Use the order ticket or wait for a signal that passes the gates.
+                    </div>
+                </div>
+            </div>
+
+            <div class="capital-section capital-explain-section">
+                <div class="capital-section-header">
+                    <h3>Position record</h3>
+                    <p class="cap-section-meta">Entry reason, evidence, risk and live tracking for the selected position.</p>
+                </div>
+                <div id="capital-explainability-panel" class="capital-explainability-panel">
+                    <div class="capital-detail-empty">
+                        Select a position above to see why it entered, the allocated amount, risk and the agent scores.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unified transaction history -->
+            <div id="capital-history-section" class="capital-section capital-transaction-section">
+                <div class="capital-section-header">
+                    <div>
+                        <h3><span class="cap-sentence">Capital Transaction History</span></h3>
+                        <p class="capital-transaction-caption">Latest 100 reconciled transactions for Capital and research, newest first (older rows are not retained). Research transactions never alter deployable Capital.</p>
+                    </div>
+                    <button class="ds-btn ds-btn--sm" onclick="Actions.exportCapitalHistory()" aria-label="Export capital history as CSV">
+                        Export CSV
+                    </button>
+                </div>
+                <div class="capital-table-scroll capital-transaction-scroll">
+                    <table class="capital-table">
+                        <thead>
+                            <tr>
+                                <th>Date and time</th>
+                                <th>Event</th>
+                                <th>Details</th>
+                                <th class="num">Amount</th>
+                                <th style="text-align:right;">Raw Cash</th>
+                            </tr>
+                        </thead>
+                        <tbody id="capital-history-body">
+                            <tr><td colspan="5" class="cap-table-empty">Loading transaction history…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3. Order Terminal -->
+            <div class="capital-terminal glass-effect">
+                <div class="capital-terminal-head">
+                    <h3>Manual paper order</h3>
+                    <p class="cap-section-meta">Fills at a verified live bid/ask. Stocks and commodities follow market hours.</p>
+                </div>
+                <div class="terminal-group terminal-group--wide">
+                    <label for="capital-open-ticker">Symbol</label>
+                    <input id="capital-open-ticker" class="terminal-input" placeholder="AAPL or BTC-USD" aria-label="Ticker symbol">
+                </div>
+                <div class="terminal-group">
+                    <label for="capital-open-direction">Direction</label>
+                    <select id="capital-open-direction" class="terminal-input" aria-label="Trade direction">
+                        <option value="long">Long</option>
+                        <option value="short">Short</option>
+                    </select>
+                </div>
+                <div class="terminal-group terminal-group--narrow">
+                    <label for="capital-open-leverage">Leverage</label>
+                    <input id="capital-open-leverage" type="number" min="1" max="5" value="1" class="terminal-input" aria-label="Leverage">
+                </div>
+                <div class="terminal-group">
+                    <label for="capital-open-size">Order size (USD)</label>
+                    <input id="capital-open-size" type="number" min="10" step="100" value="1000" class="terminal-input" aria-label="Order size in USD">
+                </div>
+                <div class="terminal-group terminal-group--narrow">
+                    <label for="capital-open-stop-pct">Stop %</label>
+                    <input id="capital-open-stop-pct" type="number" min="0.1" step="0.1" value="2.0" class="terminal-input" aria-label="Stop loss percentage">
+                </div>
+                <div class="terminal-group terminal-group--narrow">
+                    <label for="capital-open-target-pct">Target %</label>
+                    <input id="capital-open-target-pct" type="number" min="0.1" step="0.1" value="4.0" class="terminal-input" aria-label="Take profit percentage">
+                </div>
+                <div class="terminal-group terminal-group--wide">
+                    <label for="capital-open-reason">Reason</label>
+                    <input id="capital-open-reason" class="terminal-input" placeholder="Clean trend pullback" aria-label="Trade reason or setup">
+                </div>
+                <button class="btn-terminal" data-testid="capital-open-submit" onclick="Actions.openCapitalPosition()">
+                    Open paper position
+                </button>
+            </div>
+
+            <div class="capital-section capital-autopilot-section">
+                <div class="capital-section-header">
+                    <h3>Autonomous paper bot</h3>
+                    <div class="capital-autopilot-controls">
+                        <div id="capital-autopilot-status" class="capital-status-pill">checking…</div>
+                        <button id="capital-bot-start" class="capital-control-btn is-start" data-testid="capital-bot-start" onclick="Actions.setCapitalBotRunning(true)">
+                            Start paper bot
+                        </button>
+                        <button id="capital-bot-stop" class="capital-control-btn is-stop" data-testid="capital-bot-stop" onclick="Actions.setCapitalBotRunning(false)">
+                            Stop bot
+                        </button>
+                        <button id="capital-cycle-run" class="capital-control-btn" data-testid="capital-cycle-run" onclick="Actions.runCapitalAutonomousCycle()">
+                            Run signal cycle
+                        </button>
+                    </div>
+                </div>
+                <div id="capital-opportunities" class="capital-opportunities-grid">
+                    <div class="capital-detail-empty">
+                        Loading signal decisions and scanner movers…
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: NEWS -->
+    <div id="view-news" class="view-section hidden">
+        <div class="news-cockpit-header ds-page-head">
+            <div class="news-header-copy">
+                <h1>Market Newsroom</h1>
+                <p>Prioritized catalysts, watchlist coverage and evidence-backed AI context in one decision workspace.</p>
+            </div>
+            <div class="news-header-actions">
+                <span id="news-last-updated" class="news-last-updated-badge">Checking data freshness…</span>
+                <div class="export-dropdown">
+                    <button id="btn-export-news" class="btn-auth news-secondary-action ds-btn" onclick="UI.toggleNewsExportPanel()" aria-label="Export news data">
+                        <i class="fa-solid fa-download"></i> Export
+                    </button>
+                    <div id="news-export-panel" class="hidden news-export-panel">
+                        <h4>Export news</h4>
+                        <label>Time range</label>
+                        <select id="export-days" class="bt-select" aria-label="Export time range in days">
+                            <option value="1">1 day</option>
+                            <option value="3">3 days</option>
+                            <option value="7" selected>7 days</option>
+                            <option value="14">14 days</option>
+                            <option value="30">30 days</option>
+                            <option value="90">90 days</option>
+                        </select>
+                        <label>Tickers (comma-separated, empty = all)</label>
+                        <input type="text" id="export-tickers" class="bt-input" placeholder="AAPL,BTC-USD" aria-label="Export tickers filter">
+                        <label>Impact</label>
+                        <div class="news-export-impacts">
+                            <label><input type="checkbox" class="export-impact" value="critical" checked>
+                                Critical</label>
+                            <label><input type="checkbox" class="export-impact" value="high" checked> High</label>
+                            <label><input type="checkbox" class="export-impact" value="medium" checked> Medium</label>
+                            <label><input type="checkbox" class="export-impact" value="low" checked> Low</label>
+                        </div>
+                        <div class="news-export-options">
+                            <label><input type="checkbox" id="export-include-tldr"> Include the AI summary</label>
+                            <label><input type="checkbox" id="export-include-action"> Include the actionability score</label>
+                            <label><input type="checkbox" id="export-include-horizon"> Include the time horizon</label>
+                        </div>
+                        <button onclick="UI.downloadNewsExport()" class="btn-auth ds-btn">
+                            <i class="fa-solid fa-file-arrow-down"></i> Download as text file
+                        </button>
+                    </div>
+                </div>
+                <button class="btn-auth news-primary-action ds-btn ds-btn--primary" onclick="UI.refreshNewsPage(event)" aria-label="Refresh news data">
+                    <i class="fa-solid fa-rotate"></i> Refresh
+                </button>
+            </div>
+        </div>
+
+        <section class="news-overview-grid ds-stats" aria-label="News coverage overview">
+            <article class="news-overview-card ds-stat">
+                <span class="news-overview-label ds-label">Coverage</span>
+                <strong id="news-metric-total" class="ds-stat-value">—</strong>
+                <small id="news-metric-range" class="ds-stat-note">selected window</small>
+            </article>
+            <article class="news-overview-card ds-stat">
+                <span class="news-overview-label ds-label">Market-moving</span>
+                <strong id="news-metric-moving" class="ds-stat-value">—</strong>
+                <small id="news-metric-moving-note" class="ds-stat-note">high-impact stories</small>
+            </article>
+            <article class="news-overview-card ds-stat">
+                <span class="news-overview-label ds-label">Watchlist</span>
+                <strong id="news-metric-watchlist" class="ds-stat-value">—</strong>
+                <small id="news-metric-watchlist-note" class="ds-stat-note">covered symbols</small>
+            </article>
+            <article class="news-overview-card ds-stat">
+                <span class="news-overview-label ds-label">Sources</span>
+                <strong id="news-metric-sources" class="ds-stat-value">—</strong>
+                <small id="news-metric-source-note" class="ds-stat-note">independent publishers</small>
+            </article>
+        </section>
+
+        <!-- One status line: agent state, then ingest health (which sources answer, fail with the last error, or are not configured, and the refresh-cycle progress) -->
+        <div class="news-status-row">
+            <div id="news-agent-status" class="agent-status-header"></div>
+            <div id="news-source-health" class="news-source-health" role="status" aria-label="News source health" hidden></div>
+        </div>
+
+        <!-- One toolbar: focus, search, time range, filters, layout. -->
+        <div class="news-toolbar" id="news-toolbar">
+            <nav class="news-focus-rail" aria-label="News focus mode">
+                <button class="news-focus-btn active" data-news-focus="top" onclick="UI.setNewsFocusMode('top')">Top stories</button>
+                <button class="news-focus-btn" data-news-focus="all" onclick="UI.setNewsFocusMode('all')">All news</button>
+                <button class="news-focus-btn" data-news-focus="new" onclick="UI.setNewsFocusMode('new')" title="Stories that arrived while this page was open">New <span id="news-new-count" class="news-new-count" hidden></span></button>
+                <button class="news-focus-btn" data-news-focus="watchlist" onclick="UI.setNewsFocusMode('watchlist')">Watchlist</button>
+                <button class="news-focus-btn" data-news-focus="breaking" onclick="UI.setNewsFocusMode('breaking')">Breaking</button>
+                <button class="news-focus-btn" data-news-focus="earnings" onclick="UI.setNewsFocusMode('earnings')">Earnings</button>
+                <button class="news-focus-btn" data-news-focus="macro" onclick="UI.setNewsFocusMode('macro')">Macro</button>
+                <button class="news-focus-btn" data-news-focus="saved" onclick="UI.setNewsFocusMode('saved')">Saved</button>
+            </nav>
+            <div class="news-toolbar-group news-search-group">
+                <input id="news-filter-search" class="bt-input" type="search" placeholder="Search news" title="Search by keyword or ticker"
+                    oninput="UI.applyNewsFilters()" aria-label="Search news by keyword or ticker">
+            </div>
+            <div class="news-toolbar-group news-time-group">
+                <div class="news-toolbar-chips" id="news-time-window" role="tablist" aria-label="News time window">
+                    <button class="news-chip active" data-window="24h" onclick="UI.setNewsTimeWindow('24h')" role="tab" aria-selected="true">24h</button>
+                    <button class="news-chip" data-window="3d" onclick="UI.setNewsTimeWindow('3d')" role="tab" aria-selected="false">3d</button>
+                    <button class="news-chip" data-window="7d" onclick="UI.setNewsTimeWindow('7d')" role="tab" aria-selected="false">7d</button>
+                    <button class="news-chip" data-window="30d" onclick="UI.setNewsTimeWindow('30d')" role="tab" aria-selected="false">30d</button>
+                </div>
+            </div>
+            <div class="news-toolbar-end">
+            <details class="news-filters-details" id="news-filters-details">
+                <summary><i class="fa-solid fa-sliders"></i> Filters <b class="news-filters-count" id="news-filters-count" hidden></b></summary>
+                <div class="news-filters-body">
+                    <div class="news-toolbar-group">
+                        <span class="news-toolbar-label">Ticker</span>
+                        <select id="news-follow-ticker" class="bt-select" onchange="UI.onNewsTickerSelectionChange()" aria-label="Filter news by ticker">
+                            <option value="ALL">ALL</option>
+                            <option value="MARKET">MARKET</option>
+                        </select>
+                    </div>
+                    <div class="news-toolbar-group">
+                        <span class="news-toolbar-label">Impact</span>
+                        <div class="news-toolbar-chips">
+                            <label class="news-impact-check"><input type="checkbox" data-impact="critical" checked onchange="UI.applyNewsFilters()">Critical</label>
+                            <label class="news-impact-check"><input type="checkbox" data-impact="high" checked onchange="UI.applyNewsFilters()">High</label>
+                            <label class="news-impact-check"><input type="checkbox" data-impact="medium" checked onchange="UI.applyNewsFilters()">Medium</label>
+                            <label class="news-impact-check"><input type="checkbox" data-impact="low" checked onchange="UI.applyNewsFilters()">Low</label>
+                        </div>
+                    </div>
+                    <div class="news-toolbar-group">
+                        <span class="news-toolbar-label">Category</span>
+                        <select id="news-category-select" class="bt-select" onchange="UI.onNewsCategorySelect(this.value)" aria-label="Filter news by category">
+                            <option value="ALL">All categories</option>
+                            <option value="EARNINGS">Earnings</option>
+                            <option value="FED">Fed</option>
+                            <option value="FDA">FDA</option>
+                            <option value="MERGER">Merger</option>
+                            <option value="ANALYST">Analyst</option>
+                            <option value="MACRO">Macro</option>
+                            <option value="SECTOR">Sector</option>
+                            <option value="COMMODITY">Commodity</option>
+                            <option value="CRYPTO">Crypto</option>
+                            <option value="BLOCKCHAIN">Blockchain</option>
+                            <option value="IPO">IPO</option>
+                            <option value="DIVIDEND">Dividend</option>
+                            <option value="GENERAL">General</option>
+                        </select>
+                    </div>
+                    <div class="news-toolbar-group">
+                        <span class="news-toolbar-label">Source</span>
+                        <select id="news-source-select" class="bt-select" onchange="UI.onNewsSourceSelectionChange(this.value)" aria-label="Filter news by source">
+                            <option value="ALL">ALL SOURCES</option>
+                        </select>
+                    </div>
+                    <div class="news-toolbar-group news-toolbar-options">
+                        <label class="news-toggle-check" title="Hide stories the news agent marked as a duplicate of another story (also applies to the header counts)"><input type="checkbox" id="news-hide-duplicates" checked onchange="UI.applyNewsFilters()">Hide duplicates</label>
+                        <label class="news-toggle-check" title="Only stories tagged with a symbol on your watchlist"><input type="checkbox" id="news-only-watchlist" onchange="UI.applyNewsFilters()">Watchlist only</label>
+                        <label class="news-toggle-check" title="Only stories whose actionability score reaches the configured threshold"><input type="checkbox" id="news-only-actionable" onchange="UI.applyNewsFilters()">Actionable only</label>
+                        <button class="news-reset-btn ds-btn ds-btn--sm" onclick="UI.resetNewsFilters()" title="Reset filters"><i class="fa-solid fa-filter-circle-xmark"></i> Reset</button>
+                    </div>
+                </div>
+            </details>
+            <label class="news-toggle-check news-hide-social-toggle" title="Hide social posts (user opinions from the community feed, marked Social). They are shown by default, visually secondary to publisher news. Also applies to the header counts."><input type="checkbox" id="news-hide-social" onchange="UI.setNewsHideSocial(this.checked)">Hide social <span id="news-social-count" class="news-social-count"></span></label>
+            <div class="news-toolbar-group news-view-switcher-group">
+                <div class="news-view-switcher" role="tablist" aria-label="News view layout">
+                    <button id="btn-news-view-split" class="news-view-btn active" onclick="UI.setNewsViewMode('split')" title="Split: story list with the briefing beside it" aria-label="Split layout" role="tab" aria-selected="true">
+                        <i class="fa-solid fa-table-columns"></i>
+                    </button>
+                    <button id="btn-news-view-cards" class="news-view-btn" onclick="UI.setNewsViewMode('cards')" title="Cards: stories in a grid" aria-label="Cards layout" role="tab" aria-selected="false">
+                        <i class="fa-solid fa-grip"></i>
+                    </button>
+                    <button id="btn-news-view-stream" class="news-view-btn" onclick="UI.setNewsViewMode('stream')" title="Stream: one compact line per story" aria-label="Stream layout" role="tab" aria-selected="false">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- One-click ticker filter chips (watchlist first, then most-covered) -->
+        <div id="news-ticker-chips" class="news-ticker-chips" aria-label="Quick ticker filters"></div>
+
+        <!-- Market narrative: a model reading of the headlines, marked as such; never a verdict -->
+        <div class="news-narrative-panel">
+            <section id="news-market-narrative" class="news-pulse-strip">
+                <div class="news-pulse-head">
+                    <span id="news-narrative-updated" class="news-pulse-time"></span>
+                    <span id="news-narrative-status" class="news-regime-badge">Loading…</span>
+                </div>
+                <p id="news-market-narrative-content" class="news-pulse-text">Reading the market headlines…</p>
+            </section>
+            <!-- Narrative provenance: evidence count, AI-vs-headline-sentiment disagreement, or "unavailable" -->
+            <div id="news-narrative-note" class="news-narrative-note" hidden></div>
+        </div>
+
+        <div class="news-cockpit-layout news-layout-split" id="news-main-layout">
+            <!-- Left Pane: Feed Stream -->
+            <main class="news-cockpit-center news-cockpit-feed-pane">
+
+                <!-- Breaking / High Impact terminal panel — inside the left feed pane -->
+                <section id="news-breaking-section" class="news-breaking-inline hidden">
+                    <div class="news-breaking-header">
+                        <span class="news-breaking-label">Market-moving now</span>
+                        <span id="news-breaking-count" class="news-breaking-count"></span>
+                        <span class="news-breaking-hint">High or critical impact, or flagged breaking · last 24 hours</span>
+                    </div>
+                    <div id="news-breaking-list" class="news-breaking-grid"></div>
+                </section>
+
+                <section class="news-feed-full">
+                    <div class="news-feed-header">
+                        <div class="news-feed-header-left">
+                            <span class="news-panel-title">Intelligence feed</span>
+                            <span id="news-feed-count" class="news-feed-count"></span>
+                        </div>
+                        <div class="news-feed-header-right">
+                            <span class="news-feed-sort-indicator">Newest first</span>
+                        </div>
+                    </div>
+                    <div id="news-mood-bar" class="news-mood-bar" aria-label="Aggregate news sentiment"></div>
+                    <div id="news-page-feed-content" class="news-feed-scroll" aria-live="polite" aria-busy="true">
+                        <div class="news-placeholder">
+                            <p>Loading news…</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Right Pane: Dedicated Sticky AI Intelligence Briefing -->
+            <aside id="news-insight-section" class="news-insight-expandable news-cockpit-insight-pane">
+                <div class="news-insight-sticky-card">
+                    <div class="news-insight-expand-header" onclick="UI.toggleNewsInsight()" role="button" tabindex="0" aria-label="Show or hide the AI Intelligence Briefing"
+                        onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); UI.toggleNewsInsight(); }">
+                        <div class="news-insight-header-title">
+                            <span>AI intelligence briefing</span>
+                        </div>
+                        <span class="news-insight-live-badge" hidden>EVIDENCE-BASED</span>
+                    </div>
+                    <div id="news-insight-panel" class="news-insight-body">
+                        <div class="news-placeholder">
+                            <p>Select a story to answer three questions: what happened, what it means for the market, and the likely ticker direction.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Hidden elements for backward compatibility -->
+        <div class="hidden" id="news-legacy-elements" aria-hidden="true">
+            <div id="news-watchlist-feed-content"></div>
+            <input id="news-actionability-threshold" type="range" min="0" max="100" step="5" value="60" aria-label="Actionability threshold percentage">
+            <select id="news-stream-mode"><option value="single">Single stream</option></select>
+            <select id="news-history-scope"><option value="watchlist">Watchlist</option></select>
+            <div id="news-suppression-summary"></div>
+            <div id="news-filtered-note"></div>
+            <div id="news-history-progress"></div>
+            <div id="news-history-progress-label"></div>
+            <div id="news-history-progress-fill"></div>
+            <div id="news-category-chips">
+                <button class="news-chip active" data-category="ALL"></button>
+            </div>
+        </div>
+    </div>
+    <div id="view-traderadar" class="view-section hidden trading-view-shell traderadar-view-shell">
+        <div class="ds-page-head traderadar-page-head">
+            <div class="traderadar-page-copy">
+                <h2>Trade radar</h2>
+                <p>Scanner movers scored long or short, each with a trade plan and the technical, news, calendar and
+                    backtest evidence behind it.</p>
+            </div>
+            <div class="traderadar-page-actions">
+                <button id="traderadar-refresh-btn" class="ds-btn" onclick="Actions.refreshTradeRadar(false)" aria-label="Refresh trade radar"
+                    title="Run a radar cycle now: score the candidates that are due">
+                    Refresh
+                </button>
+                <button id="traderadar-force-btn" class="ds-btn ds-btn--ghost" onclick="Actions.refreshTradeRadar(true)" aria-label="Force refresh trade radar"
+                    title="Force: re-fetch the data and re-score every candidate now, ignoring the cooldown. Can take a few minutes.">
+                    Force
+                </button>
+            </div>
+        </div>
+
+        <div id="traderadar-summary-strip" class="traderadar-summary-strip ds-stats">
+            <div class="traderadar-loading">Loading summary…</div>
+        </div>
+
+        <div class="traderadar-toolbar">
+            <div class="traderadar-filter">
+                <span class="ds-label" id="traderadar-filter-label">Symbol</span>
+                <div id="traderadar-symbol-chips" class="traderadar-chips" role="group" aria-labelledby="traderadar-filter-label"></div>
+                <select id="traderadar-symbol-filter" class="bt-select"
+                    onchange="UI.renderTradeRadar()" aria-label="Filter trade radar by symbol">
+                    <option value="ALL">All symbols</option>
+                </select>
+            </div>
+            <div id="traderadar-meta" class="traderadar-meta-shell"><span class="traderadar-loading">Loading Trade Radar…</span></div>
+        </div>
+
+        <div class="traderadar-main-shell">
+            <div id="traderadar-list" class="traderadar-list-shell">
+                <div class="traderadar-skeleton" aria-label="Loading candidates">
+                    <div class="traderadar-skeleton-card"></div>
+                    <div class="traderadar-skeleton-card"></div>
+                    <div class="traderadar-skeleton-card"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="view-premarket" class="view-section hidden premarket-view">
+        <div class="ds-page-head premarket-header">
+            <div class="pm-head-copy">
+                <h1>Premarket scanner</h1>
+                <p>Session gap radar: long, short and watch candidates from movers, news and earnings. Outside the
+                    US pre-market (04:00–09:30 ET) the figures are labelled after-hours or last-session.</p>
+            </div>
+            <div class="pm-head-actions">
+                <div id="premarket-agent-status" class="agent-status-header"></div>
+                <button id="premarket-refresh-btn" class="ds-btn ds-btn--primary" onclick="Actions.refreshPremarket()" aria-label="Refresh premarket data">
+                    <i class="fa-solid fa-rotate"></i> Refresh
+                </button>
+            </div>
+            <div id="premarket-meta" class="premarket-meta-strip">Loading premarket scanner…</div>
+        </div>
+
+        <div id="premarket-status-alert" class="agent-status-alert pm-strip"></div>
+
+        <div id="premarket-summary" class="ds-stats premarket-summary-strip"></div>
+
+        <div id="premarket-pulse" class="premarket-pulse-card"></div>
+
+        <div id="premarket-reported-today" class="premarket-reported-wrap"></div>
+
+        <div id="premarket-toolbar" class="premarket-toolbar"></div>
+
+        <div class="premarket-workspace">
+            <div class="premarket-workspace-main premarket-main-card">
+                <div id="premarket-sections" class="premarket-sections-grid"></div>
+            </div>
+            <aside class="premarket-workspace-side">
+                <div class="card premarket-details-card">
+                    <div id="premarket-details" class="premarket-details-panel">
+                        <div class="placeholder-text">Select a candidate to see its details.</div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div id="view-preearnings" class="view-section hidden">
+        <header class="ds-page-head pe-page-head">
+            <div>
+                <h1>Pre-earnings</h1>
+                <p>Upcoming earnings reports ranked by trader score, with gap risk, direction bias and the AI read for every name.</p>
+            </div>
+            <div class="pe-head-actions">
+                <button id="preearnings-coverage-btn" class="ds-btn" onclick="Actions.warmupPreEarningsCoverage()" aria-label="Backfill missing data for under-covered tickers"
+                    title="Fetches history/news for under-covered tickers">
+                    Backfill missing data
+                </button>
+                <button id="preearnings-refresh-btn" class="ds-btn ds-btn--primary" onclick="Actions.refreshPreEarnings()" aria-label="Refresh pre-earnings data">
+                    Refresh + enrich
+                </button>
+            </div>
+        </header>
+
+        <div class="ds-stats pe-stats">
+            <div class="ds-stat" title="Candidates currently analyzed from the complete earnings calendar">
+                <div class="ds-label">Analyzed candidates</div>
+                <div id="pe-stat-total" class="ds-stat-value">0</div>
+            </div>
+            <div class="ds-stat" title="Tickers with GapRisk ≥ 70 (estimated opening-gap risk, 0-100)">
+                <div class="ds-label">High gap risk (70+)</div>
+                <div id="pe-stat-high-risk" class="ds-stat-value">0</div>
+            </div>
+            <div class="ds-stat" title="Tickers whose final blended signal is LONG">
+                <div class="ds-label">Long bias</div>
+                <div id="pe-stat-bullish" class="ds-stat-value">0</div>
+            </div>
+            <div class="ds-stat" title="Mean confidence over tickers that have a computed confidence score">
+                <div class="ds-label">Average confidence</div>
+                <div id="pe-stat-avg-conf" class="ds-stat-value">0%</div>
+            </div>
+            <div class="ds-stat" title="Tickers with no verified historical sample — gap risk is not scored for these">
+                <div class="ds-label">Gap risk not scored</div>
+                <div id="pe-stat-na-risk" class="ds-stat-value">0</div>
+            </div>
+        </div>
+
+        <div class="pe-status-line">
+            <div id="preearnings-agent-status" class="agent-status-header"></div>
+            <div id="preearnings-meta" class="pe-status-meta">Loading pre-earnings…</div>
+            <div id="pe-reported-strip" class="pe-reported-strip" style="display:none;">
+                <button id="pe-reported-chip" class="pe-reported-chip" onclick="UI.togglePreEarningsReported()" type="button"
+                    aria-expanded="false" aria-controls="pe-reported-list"></button>
+                <div id="pe-reported-list" class="pe-reported-list hidden"></div>
+            </div>
+        </div>
+        <div id="preearnings-status-alert" class="agent-status-alert"></div>
+
+        <!-- Decision board first: it is the answer the user came for. -->
+        <section id="preearnings-top10" class="pe-top10-card" aria-label="Top 10 pre-earnings setups"></section>
+        <section id="preearnings-pulse" class="pe-pulse-card" aria-label="Pre-earnings pulse (AI)" style="display:none;"></section>
+
+        <!-- Filter toolbar (the block the UI contract calls "Filter Command Center"). -->
+        <div class="pe-filter-card">
+            <div class="pe-filter-head">
+                <button class="pe-filter-toggle" id="pe-filter-command-title" type="button" aria-expanded="true" aria-controls="preearnings-filters"
+                    onclick="const open = this.closest('.pe-filter-card').classList.toggle('is-collapsed') === false; this.setAttribute('aria-expanded', String(open));">
+                    <span class="pe-filter-caret" aria-hidden="true">▾</span> Filters
+                </button>
+                <div class="pe-filter-count" id="pe-filter-count" role="status" aria-live="polite" title="Visible companies in the current earnings slate">Showing &mdash;</div>
+                <button class="ds-btn ds-btn--ghost ds-btn--sm pe-filter-reset" id="pe-filter-reset" type="button" onclick="UI.resetPreEarningsFilters()" aria-label="Reset all filters">Reset filters</button>
+            </div>
+
+            <div id="preearnings-filters" class="pe-filter-grid" aria-labelledby="pe-filter-command-title">
+                <section class="pe-filter-group pe-filter-group--scope" aria-labelledby="pe-filter-scope-title">
+                    <h3 class="pe-filter-group-title" id="pe-filter-scope-title">Calendar and universe</h3>
+                    <div class="pe-filter-group-body">
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-range">Range</label>
+                            <select id="preearnings-filter-range" class="bt-select pe-filter-select" onchange="UI.renderPreEarnings()" aria-label="Earnings date range filter">
+                                <option value="1">Next 1 day</option>
+                                <option value="3">Next 3 days</option>
+                                <option value="7">Next 7 days</option>
+                                <option value="10">Next 10 days</option>
+                                <option value="14">Next 14 days</option>
+                                <option value="21">Next 21 days</option>
+                                <option value="30" selected>Next 30 days</option>
+                            </select>
+                        </div>
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-session">Session</label>
+                            <select id="preearnings-filter-session" class="bt-select pe-filter-select" onchange="UI.renderPreEarnings()" aria-label="Earnings session filter">
+                                <option value="ALL">All sessions</option>
+                                <option value="BMO">Before open (BMO)</option>
+                                <option value="AMC">After close (AMC)</option>
+                            </select>
+                        </div>
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-sector">Sector</label>
+                            <select id="preearnings-filter-sector" class="bt-select pe-filter-select" onchange="UI.renderPreEarnings()" aria-label="Earnings sector filter">
+                                <option value="ALL">ALL</option>
+                            </select>
+                        </div>
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-cap">Market cap</label>
+                            <select id="preearnings-filter-cap" class="bt-select pe-filter-select" onchange="UI.applyCapPreset(this.value)" aria-label="Earnings market cap preset">
+                                <option value="ALL">All market caps</option>
+                                <option value="MEGA">Mega/large (&ge;$10B)</option>
+                                <option value="MID">Mid ($2B&ndash;$10B)</option>
+                                <option value="SMALL">Small/micro (&lt;$2B)</option>
+                            </select>
+                        </div>
+                        <div class="pe-filter-field pe-filter-field--cap-range">
+                            <span class="pe-filter-label" id="pe-filter-cap-range-label">Custom cap range, $B</span>
+                            <div class="pe-filter-cap-group" role="group" aria-labelledby="pe-filter-cap-range-label">
+                                <input id="preearnings-filter-cap-min" class="pe-filter-cap-input" type="number" min="0" step="0.1" placeholder="Min"
+                                    aria-label="Minimum market cap in billions USD"
+                                    oninput="document.getElementById('preearnings-filter-cap').value='ALL'; UI.schedulePreEarningsRender()">
+                                <span class="pe-filter-cap-sep" aria-hidden="true">to</span>
+                                <input id="preearnings-filter-cap-max" class="pe-filter-cap-input" type="number" min="0" step="0.1" placeholder="Any"
+                                    aria-label="Maximum market cap in billions USD"
+                                    oninput="document.getElementById('preearnings-filter-cap').value='ALL'; UI.schedulePreEarningsRender()">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pe-filter-group pe-filter-group--signal" aria-labelledby="pe-filter-signal-title">
+                    <h3 class="pe-filter-group-title" id="pe-filter-signal-title">Signal quality</h3>
+                    <div class="pe-filter-group-body">
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-direction">Direction</label>
+                            <select id="preearnings-filter-direction" class="bt-select pe-filter-select" onchange="UI.renderPreEarnings()" aria-label="Earnings direction filter">
+                                <option value="ALL">All directions</option>
+                                <option value="LONG">Long</option>
+                                <option value="SHORT">Short</option>
+                                <option value="NEUTRAL">Neutral</option>
+                                <option value="INSUFFICIENT_DATA">Insufficient data</option>
+                            </select>
+                        </div>
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-risk">Risk tier</label>
+                            <select id="preearnings-filter-risk" class="bt-select pe-filter-select" onchange="UI.renderPreEarnings()" aria-label="Earnings gap risk tier filter">
+                                <option value="ALL">All tiers</option>
+                                <option value="high">High</option>
+                                <option value="med">Medium</option>
+                                <option value="low">Low</option>
+                                <option value="none">Not scored (N/A)</option>
+                            </select>
+                        </div>
+                        <div class="pe-filter-field pe-filter-field--slider">
+                            <label class="pe-filter-label" for="preearnings-filter-gap" title="Unscored (N/A) names always pass this filter">
+                                <span>Min gap risk</span>
+                                <span class="pe-filter-threshold"><span class="pe-filter-range-val" id="preearnings-gap-val">0</span><span>+</span></span>
+                            </label>
+                            <input id="preearnings-filter-gap" class="pe-filter-range" type="range" min="0" max="100" step="2" value="0"
+                                aria-label="Minimum heuristic gap risk score"
+                                oninput="document.getElementById('preearnings-gap-val').textContent=this.value; UI.schedulePreEarningsRender();">
+                            <div class="pe-filter-slider-note">Names without a score always pass</div>
+                        </div>
+                        <div class="pe-filter-field pe-filter-field--slider">
+                            <label class="pe-filter-label" for="preearnings-filter-confidence">
+                                <span>Min confidence</span>
+                                <span class="pe-filter-threshold"><span class="pe-filter-range-val" id="preearnings-confidence-val">0</span><span>%+</span></span>
+                            </label>
+                            <input id="preearnings-filter-confidence" class="pe-filter-range" type="range" min="0" max="100" step="5" value="0"
+                                aria-label="Minimum confidence percentage"
+                                oninput="document.getElementById('preearnings-confidence-val').textContent=this.value; UI.schedulePreEarningsRender();">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pe-filter-group pe-filter-group--view" aria-labelledby="pe-filter-view-title">
+                    <h3 class="pe-filter-group-title" id="pe-filter-view-title">View and search</h3>
+                    <div class="pe-filter-group-body">
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-search">Symbol search</label>
+                            <input id="preearnings-filter-search" class="pe-filter-cap-input" type="search" placeholder="Ticker symbol&hellip;"
+                                oninput="UI.schedulePreEarningsRender()" aria-label="Earnings symbol search">
+                        </div>
+                        <div class="pe-filter-field">
+                            <label class="pe-filter-label" for="preearnings-filter-sort">Rank by</label>
+                            <select id="preearnings-filter-sort" class="bt-select pe-filter-select" onchange="UI.renderPreEarnings()" aria-label="Earnings sort">
+                                <option value="gap">Gap risk</option>
+                                <option value="trader">Trader score</option>
+                                <option value="bias">Bias strength</option>
+                                <option value="ai">Confidence</option>
+                                <option value="date">Earnings date</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Signal lists (one tabbed table) with the selected row's detail inset below. -->
+        <section class="pe-signals" aria-label="Signal lists">
+            <div id="preearnings-sections" class="pe-signal-lists"></div>
+            <div id="preearnings-details" class="preearnings-details-panel">
+                <div class="placeholder-text">Select a row to see its evidence, AI view and verification dossier.</div>
+            </div>
+        </section>
+
+        <!-- History / Track-Record panel (Task #11): settled-outcome accuracy
+             per verdict (LONG/SHORT) and per confidence band, the recent history
+             of verified predictions, and the AI summary + future recommendations
+             (separate prompt). Loaded via UI.loadPreEarningsTrackRecord(). -->
+        <section id="preearnings-trackrecord" class="pe-trackrecord" aria-labelledby="pe-trackrecord-title">
+            <div class="pe-trackrecord-head">
+                <h2 id="pe-trackrecord-title">History and track record</h2>
+                <span id="pe-tr-samples" class="pe-trackrecord-samples">—</span>
+            </div>
+            <div id="pe-trackrecord-body">
+                <div class="pe-insufficient">Loading track record…</div>
+            </div>
+        </section>
+
+        <!-- AI Model selector: shows the currently selected LLM (Ollama) and lets
+             the user change it from the available models list. Drives the AI
+             verdict + score blend for this tab. Demoted below the track record:
+             an advanced control, not the first thing a trader needs. -->
+        <div class="pe-ai-model-bar">
+            <label class="pe-ai-model-label" for="preearnings-ai-model">Global AI model</label>
+            <select id="preearnings-ai-model" class="bt-select"
+                aria-label="Select the global AI (Ollama) model used throughout the application"
+                onchange="UI.savePreEarningsAiModel()">
+                <option value="">Loading…</option>
+            </select>
+            <span class="pe-ai-model-status">
+                <span id="preearnings-ai-status-dot" class="pe-ai-status-dot" aria-hidden="true"></span>
+                <span id="preearnings-ai-status-text">Checking…</span>
+            </span>
+            <button class="ds-btn ds-btn--sm" type="button" onclick="UI.loadPreEarningsAiModel(true)" title="Refresh local and Ollama Cloud model catalogs" aria-label="Refresh Pre-Earnings AI model list">Refresh list</button>
+        </div>
+    </div>
+    <div id="view-calendar" class="view-section hidden" style="max-width: 1400px; margin: 0 auto; padding: 20px 32px;">
+        <div class="calendar-page-header ds-page-head">
+            <div class="cal-head-title">
+                <h1 id="cal-current-month" aria-live="polite">Loading…</h1>
+                <p>Market calendar: US macro releases and company earnings dates, three months per page.</p>
+            </div>
+            <div class="calendar-controls" role="group" aria-label="Calendar navigation">
+                <button id="cal-prev-btn" class="btn-icon-small" onclick="Actions.calendarPrevMonth()" aria-label="Previous 3 months" title="Previous 3 months"><i
+                        class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                <button class="btn-secondary" onclick="Actions.calendarGoToday()" aria-label="Go to today">Today</button>
+                <button id="cal-next-btn" class="btn-icon-small" onclick="Actions.calendarNextMonth()" aria-label="Next 3 months" title="Next 3 months"><i
+                        class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+
+        <div class="cal-toolbar">
+            <div class="calendar-legend" aria-label="Colour key">
+                <span class="cal-key-item"><span class="dot-indicator economic"></span> Economic</span>
+                <span class="cal-key-item"><span class="dot-indicator earnings"></span> Earnings</span>
+                <span class="cal-key-item"><span class="cal-star" aria-hidden="true">★</span> On your watchlist</span>
+                <span class="cal-key-item"><span class="dot-indicator ipo"></span> IPO</span>
+            </div>
+            <div id="calendar-status-note" class="cal-status"></div>
+        </div>
+
+        <div class="calendar-grid-container">
+            <!-- Grid Wrapper for 3 Months -->
+            <div id="calendar-months-wrapper" class="calendar-months-wrapper">
+                <!-- Dynamic Content injected by JS -->
+                <div class="cal-state">Loading calendar…</div>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <!-- Calendar Modal -->
+    <div id="calendar-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="calendar-modal-title">Economic calendar (USA)</h3>
+                <button class="btn-icon" onclick="Actions.closeCalendar()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="calendar-events-list">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticker Settings Modal -->
+    <div id="ticker-settings-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="ticker-settings-modal-title">
+        <div class="modal-content ms-dialog ms-dialog--wide">
+            <div class="modal-header">
+                <h3 id="ticker-settings-modal-title">Ticker settings · <span id="setting-ticker-display" class="ms-dialog-ticker"></span></h3>
+                <button class="btn-icon" onclick="Actions.closeSettings()" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="ticker-settings-form" onsubmit="Actions.saveTickerSettings(event)">
+                    <input type="hidden" id="setting-ticker-id" aria-hidden="true">
+
+                    <div class="ms-settings-grid">
+                        <!-- LEFT COLUMN: Basic Settings -->
+                        <div class="ms-settings-col">
+                            <div class="bt-form-group">
+                                <label>Quick presets</label>
+                                <div class="ms-settings-presets">
+                                    <button type="button" class="btn-mini"
+                                        onclick="Actions.applyTickerPreset('scalp')">Scalp</button>
+                                    <button type="button" class="btn-mini"
+                                        onclick="Actions.applyTickerPreset('swing')">Swing</button>
+                                    <button type="button" class="btn-mini"
+                                        onclick="Actions.applyTickerPreset('earnings')">Earnings play</button>
+                                </div>
+                            </div>
+                            <div id="effective-settings-box" class="ms-settings-effective">
+                                Effective: signals ON | MinWR 0 | TP default | SL default
+                            </div>
+
+                            <div class="bt-form-group ms-settings-switch-row">
+                                <label for="setting-signals-enabled">Signal generation</label>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-signals-enabled" checked aria-label="Toggle signal generation">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="bt-form-group">
+                                <label for="setting-min-wr">Min win rate (%)</label>
+                                <input type="number" id="setting-min-wr" class="bt-input" placeholder="ex: 50" min="0" aria-label="Minimum win rate percentage"
+                                    max="100">
+                                <small class="ms-settings-hint">Signals below this win rate are ignored.</small>
+                            </div>
+
+                            <h4 class="ms-settings-heading">Override TP/SL</h4>
+
+                            <div class="ms-settings-pair">
+                                <div class="bt-form-group">
+                                    <label for="setting-tp">Custom TP (%)</label>
+                                    <input type="number" id="setting-tp" class="bt-input" placeholder="Default"
+                                        step="0.1" min="0" aria-label="Custom take profit percentage">
+                                </div>
+                                <div class="bt-form-group">
+                                    <label for="setting-sl">Custom SL (%)</label>
+                                    <input type="number" id="setting-sl" class="bt-input" placeholder="Default"
+                                        step="0.1" min="0" aria-label="Custom stop loss percentage">
+                                </div>
+                            </div>
+                            <small class="ms-settings-hint">Leave empty to use the strategy's own levels.</small>
+                        </div>
+
+                        <!-- RIGHT COLUMN: Strategies -->
+                        <div class="ms-settings-col">
+                            <h4 class="ms-settings-heading">Allowed strategies</h4>
+
+                            <fieldset class="ms-settings-checks">
+                                <legend>Risk mode</legend>
+                                <label><input type="checkbox" class="setting-risk" value="PRO"> Pro</label>
+                                <label><input type="checkbox" class="setting-risk" value="STRONG"> Strong</label>
+                                <label><input type="checkbox" class="setting-risk" value="MEDIUM"> Medium</label>
+                                <label><input type="checkbox" class="setting-risk" value="RELAX"> Relax</label>
+                            </fieldset>
+
+                            <fieldset class="ms-settings-checks">
+                                <legend>Trade mode</legend>
+                                <label><input type="checkbox" class="setting-trade" value="PULLBACK"> Pullback</label>
+                                <label><input type="checkbox" class="setting-trade" value="BREAKOUT"> Breakout</label>
+                                <label><input type="checkbox" class="setting-trade" value="CONTRA"> Contra</label>
+                            </fieldset>
+
+                            <!-- Special Strategies Section -->
+                            <fieldset class="special-strategies-section ms-settings-checks ms-settings-checks--special">
+                                <legend>Special strategies (stocks only)</legend>
+                                <label>
+                                    <input type="checkbox" class="setting-risk special-strat" value="OPENING_RANGE"
+                                        onchange="UI.handleStrategyLogic('ticker')">
+                                    Opening range
+                                </label>
+                                <label class="ms-settings-check-sub">
+                                    <input type="checkbox" class="setting-trade special-strat-trade" value="ORB_FVG"
+                                        disabled checked>
+                                    ORB FVG (enabled with opening range)
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="ms-dialog-actions">
+                        <button type="button" class="ds-btn" onclick="Actions.closeSettings()">Cancel</button>
+                        <button type="submit" class="ds-btn ds-btn--primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Strategy Notes Modal (Professional Notebook Redesign) -->
+    <div id="strategy-notes-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="strategy-notes-modal-title">
+        <div class="modal-content nb-modal">
+            <div class="modal-header">
+                <h3 id="strategy-notes-modal-title">Notebook - <span id="strategy-ticker-display" class="nb-ticker"></span></h3>
+                <button class="btn-icon" onclick="Actions.closeStrategyModal()" aria-label="Close"><i
+                        class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body nb-body">
+                <input type="hidden" id="strategy-ticker-id">
+
+                <!-- Notebook Compose Area (Expandable Form) -->
+                <div class="notebook-compose">
+                    <div class="compose-header">
+                        <h4>Add a note or a trade</h4>
+                        <select id="note-type-select" class="bt-input" aria-label="Note type"
+                            onchange="UI.handleNoteTypeChange()">
+                            <option value="NOTE">Analysis note</option>
+                            <option value="LONG">Long position</option>
+                            <option value="SHORT">Short position</option>
+                        </select>
+                    </div>
+
+                    <div id="notebook-form" class="notebook-form">
+                        <!-- Fields for Trade Cards (Hidden for Note type) -->
+                        <div class="trade-only-fields hidden" style="display: contents;">
+                            <div class="bt-form-group">
+                                <label>Outcome</label>
+                                <div class="note-outcome-buttons">
+                                    <button type="button" class="note-outcome-btn pending active" data-status="PENDING"
+                                        onclick="UI.setTradeOutcome('PENDING')">In progress</button>
+                                    <button type="button" class="note-outcome-btn win" data-status="WIN"
+                                        onclick="UI.setTradeOutcome('WIN')">Won</button>
+                                    <button type="button" class="note-outcome-btn loss" data-status="LOSS"
+                                        onclick="UI.setTradeOutcome('LOSS')">Lost</button>
+                                </div>
+                                <input type="hidden" id="note-status" value="PENDING">
+                            </div>
+                            <div class="bt-form-group">
+                                <label>PnL (auto)</label>
+                                <input type="text" id="note-pnl" class="bt-input" placeholder="Ex: +5.2% or +120$" aria-label="PnL value">
+                            </div>
+                            <div class="bt-form-group">
+                                <label>Entry price</label>
+                                <input type="number" step="0.0001" id="note-entry" class="bt-input"
+                                    placeholder="Ex: 102.50" aria-label="Entry price">
+                            </div>
+                            <div class="bt-form-group">
+                                <label>Closing price</label>
+                                <input type="number" step="0.0001" id="note-exit" class="bt-input"
+                                    placeholder="Ex: 108.00" aria-label="Closing price">
+                            </div>
+                            <div class="bt-form-group">
+                                <label>Closing date</label>
+                                <input type="datetime-local" id="note-closed-at" class="bt-input" aria-label="Closing date and time">
+                            </div>
+                            <div class="bt-form-group">
+                                <label>Earnings context</label>
+                                <select id="note-earnings" class="bt-input" aria-label="Earnings context">
+                                    <option value="NO">No relation</option>
+                                    <option value="BEFORE">Before earnings</option>
+                                    <option value="AFTER">After earnings</option>
+                                </select>
+                            </div>
+                            <div class="bt-form-group">
+                                <label>Days to or from earnings</label>
+                                <input type="text" id="note-earnings-days" class="bt-input" placeholder="e.g. 2 days" aria-label="Days to or from earnings">
+                            </div>
+                        </div>
+
+                        <div class="bt-form-group notebook-form-full">
+                            <label id="note-desc-label">Observations</label>
+                            <textarea id="note-description" class="bt-input nb-textarea"
+                                placeholder="Describe the context, trade reasons, or your observations..." aria-label="Note description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="nb-compose-actions">
+                        <button type="button" class="ds-btn hidden" id="notebook-cancel-edit-btn"
+                            onclick="Actions.cancelNotebookEdit()">Cancel editing</button>
+                        <button type="button" class="ds-btn ds-btn--primary" id="notebook-submit-btn"
+                            onclick="Actions.addNotebookEntry()">Add to notebook</button>
+                    </div>
+                </div>
+
+                <!-- Notebook List Container -->
+                <div class="section-title nb-list-title">Saved notes and trades</div>
+
+                <div id="notebook-list" class="notebook-list">
+                    <!-- Cards will be injected here via JS -->
+                    <div class="ds-empty">No notes or trades saved for this ticker yet. Write the first one above.</div>
+                </div>
+
+                <div class="nb-foot">
+                    <button type="button" class="ds-btn"
+                        onclick="Actions.closeStrategyModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Settings Modal (Tabbed Redesign) -->
+    <div id="global-settings-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="global-settings-modal-title">
+        <div class="modal-content gs-dialog">
+            <div class="modal-header">
+                <h3 id="global-settings-modal-title">Global watchlist settings</h3>
+                <button class="btn-icon" onclick="Actions.closeGlobalSettings()" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body gs-body">
+                <form id="global-settings-form" class="gs-form" onsubmit="Actions.saveGlobalSettings(event)">
+
+                    <!-- Warning Banner -->
+                    <div
+                        class="gs-scope-note">
+                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                        <span>These settings apply to <strong>all
+                                tickers</strong>.</span>
+                    </div>
+
+                    <!-- Tab Navigation -->
+                    <div
+                        class="ds-tabs gs-tabs" role="tablist" aria-label="Global settings tabs">
+                        <button type="button" id="gs-tab-general-btn" class="gs-tab-btn active" data-tab="gs-tab-general"
+                            onclick="UI.switchGlobalSettingsTab('gs-tab-general', this)"
+                            data-gs-tab-btn
+                            role="tab" aria-selected="true" aria-controls="gs-tab-general">
+                            General
+                        </button>
+                        <button type="button" id="gs-tab-strategies-btn" class="gs-tab-btn" data-tab="gs-tab-strategies"
+                            onclick="UI.switchGlobalSettingsTab('gs-tab-strategies', this)"
+                            data-gs-tab-btn
+                            role="tab" aria-selected="false" aria-controls="gs-tab-strategies">
+                            Strategies
+                        </button>
+                        <button type="button" id="gs-tab-ai-btn" class="gs-tab-btn" data-tab="gs-tab-ai"
+                            onclick="UI.switchGlobalSettingsTab('gs-tab-ai', this)"
+                            data-gs-tab-btn
+                            role="tab" aria-selected="false" aria-controls="gs-tab-ai">
+                            AI model
+                        </button>
+                    </div>
+
+                    <!-- TAB 1: General -->
+                    <div id="gs-tab-general" class="gs-tab-content" role="tabpanel" aria-labelledby="gs-tab-general-btn">
+                        <section class="gs-section">
+                            <div class="gs-switch-row">
+                                <label class="gs-switch-label" for="global-setting-signals-enabled">Signal generation</label>
+                                <label class="switch">
+                                    <input type="checkbox" id="global-setting-signals-enabled" checked aria-label="Toggle signal generation">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="gs-grid">
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-setting-min-wr">Min win rate (%)</label>
+                                    <input type="number" id="global-setting-min-wr" class="bt-input" placeholder="ex: 50"
+                                        min="0" max="100" aria-label="Minimum win rate percentage">
+                                    <small class="gs-help">Signals below this win rate will be blocked</small>
+                                    <small class="gs-error" data-gs-error-for="global-setting-min-wr" role="alert"></small>
+                                </div>
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-setting-risk-pct">Base position size (% of capital)</label>
+                                    <input type="number" id="global-setting-risk-pct" class="bt-input" placeholder="ex: 2"
+                                        min="0.1" max="100" step="0.1" value="2" aria-label="Base position size as a percentage of capital">
+                                    <small class="gs-help">Starting size of a new position; capped by Max position size. Loss at the stop is limited by Max risk / trade.</small>
+                                    <small class="gs-error" data-gs-error-for="global-setting-risk-pct" role="alert"></small>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="gs-section">
+                            <h4>Override TP/SL</h4>
+                            <div class="gs-grid">
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-setting-tp">Take profit (%)</label>
+                                    <input type="number" id="global-setting-tp" class="bt-input" placeholder="ex: 6" min="0"
+                                        max="100" step="0.1" aria-label="Global take profit percentage">
+                                    <small class="gs-help">Leave empty for no take-profit override</small>
+                                    <small class="gs-error" data-gs-error-for="global-setting-tp" role="alert"></small>
+                                </div>
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-setting-sl">Stop loss (%)</label>
+                                    <input type="number" id="global-setting-sl" class="bt-input" placeholder="ex: 3" min="0"
+                                        max="100" step="0.1" aria-label="Global stop loss percentage">
+                                    <small class="gs-help">Leave empty for no stop-loss override</small>
+                                    <small class="gs-error" data-gs-error-for="global-setting-sl" role="alert"></small>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="gs-section">
+                            <h4>V2 signal engine</h4>
+                            <div class="gs-grid">
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-signal-mode">Signal mode</label>
+                                    <select id="global-signal-mode" class="bt-input" aria-label="Signal mode">
+                                        <option value="V1">V1</option>
+                                        <option value="V2">V2</option>
+                                        <option value="BOTH_AUTO_BEST">BOTH_AUTO_BEST</option>
+                                    </select>
+                                </div>
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-v2-min-rr">Min RR</label>
+                                    <input type="number" id="global-v2-min-rr" class="bt-input" step="0.1" min="1.0"
+                                        max="10" placeholder="2.0" aria-label="Minimum risk-reward ratio">
+                                    <small class="gs-help">Minimum risk/reward ratio, 1 to 10</small>
+                                    <small class="gs-error" data-gs-error-for="global-v2-min-rr" role="alert"></small>
+                                </div>
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-v2-target-wr">Target WR</label>
+                                    <input type="number" id="global-v2-target-wr" class="bt-input" step="0.01" min="0.1"
+                                        max="0.99" placeholder="0.60" aria-label="Target win rate">
+                                    <small class="gs-help">Target win rate as a fraction, 0.10 to 0.99</small>
+                                    <small class="gs-error" data-gs-error-for="global-v2-target-wr" role="alert"></small>
+                                </div>
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-v2-event-block">Event block (hours)</label>
+                                    <input type="number" id="global-v2-event-block" class="bt-input" step="1" min="0"
+                                        max="72" placeholder="6" aria-label="Event block hours">
+                                    <small class="gs-help">Hours before and after market events where signals are blocked</small>
+                                    <small class="gs-error" data-gs-error-for="global-v2-event-block" role="alert"></small>
+                                </div>
+                                <div class="bt-form-group gs-field">
+                                    <label for="global-v2-max-signals">Max signals / day</label>
+                                    <input type="number" id="global-v2-max-signals" class="bt-input" step="1" min="1"
+                                        max="50" placeholder="4" aria-label="Maximum signals per day">
+                                    <small class="gs-help">Per asset class, 1 to 50</small>
+                                    <small class="gs-error" data-gs-error-for="global-v2-max-signals" role="alert"></small>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- TAB 2: Strategies -->
+                    <div id="gs-tab-strategies" class="gs-tab-content" style="display:none;" role="tabpanel" aria-labelledby="gs-tab-strategies-btn">
+                        <section class="gs-section">
+                            <div class="gs-grid">
+                                <div class="gs-field">
+                                    <h4>Risk mode</h4>
+                                    <div class="gs-check-grid gs-check-grid--two">
+                                        <label class="gs-check">
+                                            <input type="checkbox" class="global-setting-risk" value="PRO"> Pro
+                                        </label>
+                                        <label class="gs-check">
+                                            <input type="checkbox" class="global-setting-risk" value="STRONG"> Strong
+                                        </label>
+                                        <label class="gs-check">
+                                            <input type="checkbox" class="global-setting-risk" value="MEDIUM"> Medium
+                                        </label>
+                                        <label class="gs-check">
+                                            <input type="checkbox" class="global-setting-risk" value="RELAX"> Relax
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="gs-field">
+                                    <h4>Trade mode</h4>
+                                    <div class="gs-check-grid">
+                                        <label class="gs-check">
+                                            <input type="checkbox" class="global-setting-trade" value="PULLBACK"> Pullback
+                                        </label>
+                                        <label class="gs-check">
+                                            <input type="checkbox" class="global-setting-trade" value="BREAKOUT"> Breakout
+                                        </label>
+                                        <label class="gs-check">
+                                            <input type="checkbox" class="global-setting-trade" value="CONTRA"> Contra
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Special Strategies -->
+                        <section class="gs-section">
+                            <h4>Special strategies</h4>
+                            <p class="gs-help">Stocks only. Opening range replaces the standard risk and trade modes while it is on.</p>
+                            <div class="gs-check-grid">
+                                <label class="gs-check">
+                                    <input type="checkbox" class="global-setting-risk special-strat"
+                                        value="OPENING_RANGE" onchange="UI.handleStrategyLogic('global')">
+                                    Opening range
+                                </label>
+                                <label class="gs-check gs-check--child">
+                                    <input type="checkbox" class="global-setting-trade special-strat-trade"
+                                        value="ORB_FVG" disabled checked>
+                                    ORB FVG (enabled automatically)
+                                </label>
+                            </div>
+                        </section>
+
+                        <!-- V2 Strategies by Asset -->
+                        <div class="gs-section">
+                            <h4>V2 strategies by asset</h4>
+                            <p class="gs-help">Select active strategies for each asset class.</p>
+                            <div id="v2-strategy-groups" class="gs-grid">
+                                <div class="gs-asset-group">
+                                    <div
+                                        class="gs-asset-name">
+                                        US stocks</div>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="US_STOCKS"
+                                            value="S1_TREND_PULLBACK">S1</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="US_STOCKS"
+                                            value="S2_BREAKOUT_RETEST">S2</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="US_STOCKS"
+                                            value="S3_VOL_SQUEEZE">S3</label>
+                                    <label title="Liquidity Sweep + Structure Reversal"
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="US_STOCKS"
+                                            value="S7_LIQUIDITY_SWEEP_REVERSAL">S7</label>
+                                    <label title="SuperTrend Flip + Break of Structure"
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="US_STOCKS"
+                                            value="S8_SUPERTREND_BOS">S8</label>
+                                </div>
+                                <div class="gs-asset-group">
+                                    <div
+                                        class="gs-asset-name">
+                                        Crypto futures</div>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="CRYPTO_FUTURES"
+                                            value="S2_BREAKOUT_RETEST">S2</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="CRYPTO_FUTURES"
+                                            value="S3_VOL_SQUEEZE">S3</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="CRYPTO_FUTURES"
+                                            value="S4_MEAN_REVERSION">S4</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="CRYPTO_FUTURES"
+                                            value="S5_MOMENTUM_CONTINUATION">S5</label>
+                                    <label title="Liquidity Sweep + Structure Reversal"
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="CRYPTO_FUTURES"
+                                            value="S7_LIQUIDITY_SWEEP_REVERSAL">S7</label>
+                                    <label title="SuperTrend Flip + Break of Structure"
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="CRYPTO_FUTURES"
+                                            value="S8_SUPERTREND_BOS">S8</label>
+                                </div>
+                                <div class="gs-asset-group">
+                                    <div
+                                        class="gs-asset-name">
+                                        Forex majors</div>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="FOREX_MAJORS"
+                                            value="S1_TREND_PULLBACK">S1</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="FOREX_MAJORS"
+                                            value="S2_BREAKOUT_RETEST">S2</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="FOREX_MAJORS"
+                                            value="S4_MEAN_REVERSION">S4</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="FOREX_MAJORS"
+                                            value="S6_FX_SESSION_BREAKOUT">S6</label>
+                                </div>
+                                <div class="gs-asset-group">
+                                    <div
+                                        class="gs-asset-name">
+                                        Commodities</div>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="COMMODITIES"
+                                            value="S1_TREND_PULLBACK">S1</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="COMMODITIES"
+                                            value="S4_MEAN_REVERSION">S4</label>
+                                    <label
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="COMMODITIES"
+                                            value="S5_MOMENTUM_CONTINUATION">S5</label>
+                                    <label title="Liquidity Sweep + Structure Reversal"
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="COMMODITIES"
+                                            value="S7_LIQUIDITY_SWEEP_REVERSAL">S7</label>
+                                    <label title="SuperTrend Flip + Break of Structure"
+                                        class="gs-check-inline"><input
+                                            type="checkbox" class="v2-strategy-check" data-asset="COMMODITIES"
+                                            value="S8_SUPERTREND_BOS">S8</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: AI Model -->
+                    <div id="gs-tab-ai" class="gs-tab-content" style="display:none;" role="tabpanel" aria-labelledby="gs-tab-ai-btn">
+                        <section class="gs-section">
+                            <div id="ollama-status-indicator" class="gs-status" role="status">
+                                <span id="ollama-status-dot" class="gs-status-dot" data-state="checking" aria-hidden="true"></span>
+                                <span id="ollama-status-text">Checking AI providers...</span>
+                            </div>
+                            <div class="gs-grid">
+                                <div class="bt-form-group gs-field gs-field--wide">
+                                    <label for="global-ai-provider">AI provider</label>
+                                    <select id="global-ai-provider" class="bt-input" aria-label="AI provider selection"
+                                        onchange="UI.onGlobalAiProviderChange()">
+                                        <option value="">Loading providers...</option>
+                                    </select>
+                                    <small class="gs-help">Ollama runs locally without a
+                                        key. Cloud providers (OpenAI, Anthropic, Gemini, xAI, DeepSeek, Mistral, OpenRouter,
+                                        KIMI, z.ai) need an API key set below.</small>
+                                </div>
+
+                                <div class="bt-form-group gs-field gs-field--wide" id="global-ai-key-group" style="display:none;">
+                                    <label for="global-ai-api-key">API key</label>
+                                    <div class="gs-control-row">
+                                        <input type="password" id="global-ai-api-key" class="bt-input"
+                                            placeholder="Paste API key..." autocomplete="off"
+                                            aria-label="Provider API key (stored server-side only)">
+                                        <button class="ds-btn" type="button" onclick="UI.saveGlobalAiApiKey()"
+                                            title="Save the key server-side (write-only)">Save key</button>
+                                        <button class="ds-btn ds-btn--ghost" type="button" onclick="UI.clearGlobalAiApiKey()"
+                                            title="Remove the stored key">Clear</button>
+                                    </div>
+                                    <small id="global-ai-key-hint" class="gs-help"></small>
+                                </div>
+
+                                <div class="bt-form-group gs-field gs-field--wide">
+                                    <label for="global-ollama-model">Global AI model</label>
+                                    <div class="gs-control-row">
+                                        <select id="global-ollama-model" class="bt-input" aria-label="AI model selection">
+                                            <option value="">Loading models...</option>
+                                        </select>
+                                        <button class="ds-btn" type="button" onclick="UI.testGlobalAiProvider()"
+                                            title="Test the connection and refresh the model list">Test</button>
+                                        <button class="ds-btn" type="button" onclick="UI.applyGlobalAiModel()"
+                                            title="Use the selected provider and model as the global AI">Set as global AI</button>
+                                    </div>
+                                    <small class="gs-help">One owner-selected model used
+                                        throughout the application, including Pre-Earnings and news.</small>
+                                    <small id="global-ai-subscription-note" class="gs-help" hidden></small>
+                                </div>
+
+                                <div class="bt-form-group gs-field" id="global-ollama-timeout-group">
+                                    <label for="global-ollama-timeout">Timeout (seconds)</label>
+                                    <input type="number" id="global-ollama-timeout" class="bt-input" step="10" min="30"
+                                        max="600" placeholder="120" aria-label="AI model timeout in seconds">
+                                    <small class="gs-help">Maximum wait time per
+                                        AI generation.</small>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="gs-section">
+                            <div class="gs-section-head">
+                                <div>
+                                    <h4>Per-agent AI model assignment</h4>
+                                    <p class="gs-help">Assign specific models to each agent role (e.g. fast local for Coding Agent, large cloud model for Critic / Quant).</p>
+                                </div>
+                                <button class="ds-btn" type="button" onclick="UI.saveAgentAiAssignments()" title="Save all per-agent model assignments">Save agent models</button>
+                            </div>
+                            <div id="agent-ai-assignments-container" class="gs-roles">
+                                <p class="gs-help">Loading agent roles...</p>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="gs-foot">
+                        <span id="global-settings-preview" class="gs-preview">Preview:
+                            fill in settings and press Preview.</span>
+                        <div class="gs-foot-actions">
+                            <button type="button" class="ds-btn ds-btn--ghost"
+                                onclick="Actions.previewGlobalSettings()">Preview</button>
+                            <button type="button" class="ds-btn"
+                                onclick="Actions.closeGlobalSettings()">Cancel</button>
+                            <button type="submit" class="ds-btn ds-btn--primary">Apply to all</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-confirm-modal" class="modal-overlay hidden" role="alertdialog" aria-modal="true" aria-labelledby="delete-confirm-modal-title" aria-describedby="delete-confirm-message" data-testid="delete-confirm-modal">
+        <div class="modal-content ms-dialog">
+            <div class="modal-header">
+                <h3 id="delete-confirm-modal-title">Please confirm</h3>
+                <button class="btn-icon" onclick="UI.closeDeleteConfirm()" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="delete-confirm-message" class="ms-dialog-text">
+                    Are you sure you want to delete this signal?
+                </p>
+                <div class="ms-dialog-actions">
+                    <button id="delete-confirm-cancel" type="button" class="ds-btn"
+                        data-testid="delete-confirm-cancel"
+                        onclick="UI.closeDeleteConfirm()">
+                        Cancel
+                    </button>
+                    <button id="delete-confirm-btn" type="button" class="ds-btn ds-btn--danger" data-testid="delete-confirm-confirm"
+                        onclick="UI.confirmDelete()">
+                        <i class="fa-solid fa-trash" aria-hidden="true"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Ticker Modal -->
+    <div id="add-ticker-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="add-ticker-modal-title">
+        <div class="modal-content wl-dialog">
+            <div class="modal-header">
+                <h3 id="add-ticker-modal-title">Add ticker</h3>
+                <button class="btn-icon" onclick="Actions.closeAddTickerModal()" aria-label="Close"><i
+                        class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <label class="wl-dialog-label" for="add-ticker-input">Ticker symbol</label>
+                <input type="text" id="add-ticker-input" class="wl-dialog-input" placeholder="AAPL" autocomplete="off" spellcheck="false"
+                    onkeydown="if(event.key === 'Enter') Actions.confirmAddTicker()" aria-label="Enter ticker symbol to add">
+                <p class="wl-dialog-hint">Stocks use the exchange symbol (AAPL, TSLA, NVDA). Crypto uses the pair (BTC-USD, ETH-USD).</p>
+                <div id="add-ticker-message" class="ms-dialog-message" role="alert" hidden></div>
+                <div class="wl-dialog-actions">
+                    <button class="ds-btn" onclick="Actions.closeAddTickerModal()">Cancel</button>
+                    <button class="ds-btn ds-btn--primary" onclick="Actions.confirmAddTicker()">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i> Add ticker
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Signal Action Modal -->
+    <div id="home-signal-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="home-signal-modal-title">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 id="home-signal-modal-title"><i class="fa-solid fa-wave-square" style="color:var(--accent-color); margin-right:8px;"></i> Signal
+                    Actions</h3>
+                <button class="btn-icon" onclick="UI.closeHomeSignalModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="home-signal-modal-body"></div>
+                <div style="margin-top:18px; display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; gap:10px; justify-content:flex-start; flex-wrap:nowrap;">
+                        <button class="btn-mini" onclick="UI.openSignalAnalyzeView()"><i
+                                class="fa-solid fa-magnifying-glass-chart"></i> Analyze</button>
+                        <button class="btn-mini" onclick="UI.suppressSignalTicker()"><i class="fa-solid fa-ban"></i>
+                            Suppress Ticker</button>
+                    </div>
+                    <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:nowrap;">
+                        <button class="btn-mini btn-mini--danger"
+                            onclick="UI.closeSignalManual()"><i class="fa-solid fa-xmark"></i> Close Manual</button>
+                        <button class="btn-auth" onclick="UI.closeHomeSignalModal()">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="text-align:center; padding:40px 32px; color:var(--text-muted); font-size:0.85rem; border-top:1px solid var(--border-light); background:var(--surface-color);">
+        <p style="margin-bottom:8px;"><strong style="color:var(--primary-color);">MarketMuse</strong> Premium</p>
+        <p>&copy; 2026 All rights reserved. Backtest-based signals for smart trading.</p>
+    </footer>
+
+
+    <!-- MODAL: ADD ALERT -->
+    <div id="modal-add-alert" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-add-alert-title">
+        <div class="modal-content premium-modal">
+            <div class="modal-header">
+                <h3 id="modal-add-alert-title">Create alert</h3>
+                <button class="btn-close-modal" onclick="UI.hideAddAlertModal()" aria-label="Close">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="alert-ticker">Ticker</label>
+                    <input type="text" id="alert-ticker" class="bt-input" placeholder="e.g. BTC-USD or AAPL"
+                        aria-label="Alert ticker symbol">
+                </div>
+                <div class="form-group">
+                    <label for="alert-type">Alert type</label>
+                    <select id="alert-type" class="bt-select" aria-label="Alert type">
+                        <option value="PRICE_UP">Price crosses up &uarr;</option>
+                        <option value="PRICE_DOWN">Price crosses down &darr;</option>
+                        <option value="VOLATILITY">Daily move of X% or more (up or down)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="alert-target-label" for="alert-target">Target price ($)</label>
+                    <input type="number" id="alert-target" class="bt-input" step="any" placeholder="0.00"
+                        aria-label="Alert target value">
+                </div>
+
+                <p class="alert-preview">Triggers once when the condition is met, then switches off. Works for
+                    tickers in your watchlist; checked on every watchlist scan while the engine is running
+                    (stale prices are ignored).</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" type="button" onclick="UI.hideAddAlertModal()">Cancel</button>
+                <button class="btn-primary" type="button" onclick="Actions.saveAlert()">Create alert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Capital Reset Modal -->
+    <div id="capital-reset-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="capital-reset-modal-title">
+        <div class="modal-content cap-reset-dialog">
+            <div class="modal-header">
+                <h3 id="capital-reset-modal-title">Reset paper balance</h3>
+                <button class="btn-icon" onclick="document.getElementById('capital-reset-modal').classList.add('hidden')" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="cap-reset-intro">
+                    Start the paper account again from a new cash balance.
+                </p>
+                <p id="capital-reset-impact" data-testid="capital-reset-impact" role="alert" class="cap-reset-impact">
+                    This cannot be undone. A reset deletes every open position without closing it, the stored record of closed trades (win rate and track record restart from zero) and the equity curve.
+                </p>
+                <div class="form-group cap-reset-field">
+                    <label for="capital-reset-amount">New balance (USD)</label>
+                    <input type="number" id="capital-reset-amount" class="bt-input" value="10000" min="1" step="any" aria-label="New balance amount in USD">
+                </div>
+                <div class="cap-reset-actions">
+                    <button type="button" class="ds-btn" onclick="document.getElementById('capital-reset-modal').classList.add('hidden')">Cancel</button>
+                    <button class="ds-btn ds-btn--danger" data-testid="capital-reset-confirm"
+                            onclick="Actions.resetCapital(document.getElementById('capital-reset-amount').value);">
+                        Delete positions and history, reset balance
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manual protection-level editor for open Capital positions. -->
+    <div id="capital-risk-modal" class="capital-risk-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="capital-risk-title">
+        <section class="capital-risk-dialog">
+            <header class="capital-risk-header">
+                <div class="capital-risk-heading">
+                    <h3 id="capital-risk-title">Edit SL / TP</h3>
+                </div>
+                <button type="button" class="capital-risk-close" onclick="Actions.closeCapitalRiskEditor()" aria-label="Close level editor">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+
+            <div class="capital-risk-body">
+                <div class="capital-risk-position">
+                    <div><span>Market</span><strong id="capital-risk-symbol">--</strong></div>
+                    <div><span>Direction</span><strong id="capital-risk-direction">--</strong></div>
+                    <div><span>Entry</span><strong id="capital-risk-entry">--</strong></div>
+                    <div><span>Live price</span><strong id="capital-risk-current">--</strong></div>
+                </div>
+
+                <div class="capital-risk-fields">
+                    <label for="capital-risk-stop">
+                        <span><i class="fa-solid fa-circle-stop"></i> Stop loss price</span>
+                        <input id="capital-risk-stop" type="number" min="0" step="any" inputmode="decimal" oninput="Actions.previewCapitalRiskLevels()">
+                        <small id="capital-risk-stop-gap">Distance from live price: --</small>
+                    </label>
+                    <label for="capital-risk-target">
+                        <span><i class="fa-solid fa-bullseye"></i> Take profit price</span>
+                        <input id="capital-risk-target" type="number" min="0" step="any" inputmode="decimal" oninput="Actions.previewCapitalRiskLevels()">
+                        <small id="capital-risk-target-gap">Distance from live price: --</small>
+                    </label>
+                </div>
+
+                <div class="capital-risk-quick">
+                    <span>Quick levels from live price</span>
+                    <div role="group" aria-label="SL and TP percentage presets">
+                        <button type="button" onclick="Actions.applyCapitalRiskPreset(0.8, 1.6)">Scalp <small>0.8 / 1.6%</small></button>
+                        <button type="button" onclick="Actions.applyCapitalRiskPreset(1.5, 3)">Intraday <small>1.5 / 3%</small></button>
+                        <button type="button" onclick="Actions.applyCapitalRiskPreset(3, 6)">Swing <small>3 / 6%</small></button>
+                        <button id="capital-risk-breakeven" type="button" onclick="Actions.applyCapitalBreakEven()"><i class="fa-solid fa-scale-balanced"></i> Break-even SL</button>
+                    </div>
+                </div>
+
+                <label class="capital-risk-reason" for="capital-risk-reason">
+                    <span>Update note <small>optional</small></span>
+                    <input id="capital-risk-reason" maxlength="240" placeholder="Why are you changing these levels?">
+                </label>
+
+                <div id="capital-risk-summary" class="capital-risk-summary">
+                    <div><span>Stop distance</span><strong id="capital-risk-summary-stop">--</strong></div>
+                    <div><span>Target distance</span><strong id="capital-risk-summary-target">--</strong></div>
+                    <div><span>Risk / Reward</span><strong id="capital-risk-summary-rr">--</strong></div>
+                </div>
+
+                <div id="capital-risk-validation" class="capital-risk-validation" role="status">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Levels are validated against a verified live price before saving.</span>
+                </div>
+                <div class="capital-risk-override-note">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Saving makes these levels authoritative and disables trailing or AI exit overrides for this position.</span>
+                </div>
+            </div>
+
+            <div class="capital-risk-footer">
+                <button type="button" class="capital-risk-cancel" onclick="Actions.closeCapitalRiskEditor()">Cancel</button>
+                <button id="capital-risk-save" type="button" class="capital-risk-save" data-testid="capital-risk-save" onclick="Actions.saveCapitalRiskLevels()">
+                    <i class="fa-solid fa-shield"></i> Save protection levels
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Internal multi-asset OHLC chart and manual paper order terminal. -->
+    <div id="chart-workspace-modal" class="chart-workspace-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="chart-workspace-title">
+        <section class="chart-workspace" aria-live="polite">
+            <header class="chart-workspace__header">
+                <div class="chart-workspace__identity">
+                    <h2 id="chart-workspace-title">Chart trading</h2>
+                    <span class="paper-mode-badge">Paper money</span>
+                </div>
+                <div class="chart-workspace__actions">
+                    <div id="chart-timeframes" class="chart-timeframes" role="group" aria-label="Chart timeframe">
+                        <button data-timeframe="1m">1m</button><button data-timeframe="5m" class="is-active">5m</button>
+                        <button data-timeframe="15m">15m</button><button data-timeframe="30m">30m</button><button data-timeframe="1h">1h</button>
+                        <button data-timeframe="4h">4h</button><button data-timeframe="1d">1d</button>
+                    </div>
+                    <button id="chart-focus-toggle" class="chart-header-action" type="button" aria-label="Toggle chart focus mode" title="Toggle chart focus mode"><i class="fa-solid fa-expand"></i></button>
+                    <a id="chart-tv-external" class="chart-header-action" href="https://www.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT" target="_blank" rel="noopener noreferrer" aria-label="Open in TradingView" title="Open in TradingView (new tab)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <button id="chart-refresh" class="chart-header-action" type="button" aria-label="Refresh chart data" title="Refresh market data"><i class="fa-solid fa-rotate"></i></button>
+                    <button class="chart-header-action chart-header-close" type="button" onclick="ChartWorkspace.close()" aria-label="Close chart"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </header>
+            <div class="chart-market-picker">
+                <div class="chart-symbol-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input id="chart-symbol-input" value="BTC-USD" autocomplete="off" spellcheck="false" aria-label="Trading symbol">
+                    <button id="chart-symbol-load" type="button"><span>Load</span><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <div class="chart-market-presets" role="group" aria-label="Quick markets">
+                    <button type="button" data-chart-symbol="BTC-USD">BTC</button>
+                    <button type="button" data-chart-symbol="ETH-USD">ETH</button>
+                    <button type="button" data-chart-symbol="AAPL">AAPL</button>
+                    <button type="button" data-chart-symbol="NVDA">NVDA</button>
+                    <button type="button" data-chart-symbol="GC=F">Gold</button>
+                    <button type="button" data-chart-symbol="CL=F">Oil</button>
+                </div>
+                <div id="chart-workspace-status" class="chart-workspace__status">
+                    <span class="chart-status-pulse"></span><span>Loading market data...</span>
+                </div>
+            </div>
+            <section class="chart-workspace__stage" aria-label="Interactive market chart">
+                <div class="chart-workspace__controls">
+                    <div class="chart-tv-indicator" aria-hidden="true">
+                        TradingView chart
+                    </div>
+                </div>
+                <div id="tv-chart-container" class="tv-chart-container" aria-label="TradingView interactive chart">
+                    <div class="tv-chart-loading" id="tv-chart-loading">
+                        <span></span><small>Loading chart…</small>
+                    </div>
+                </div>
+                <div id="chart-workspace-legend" class="chart-workspace__legend" aria-label="Active chart signals"></div>
+            </section>
+
+            <aside class="paper-order-ticket" aria-label="Paper order ticket">
+                <div class="paper-order-head">
+                    <div><h3>Order ticket</h3><small>Paper order, filled at a verified market price</small></div>
+                    <span id="chart-order-asset" class="paper-asset-badge">CRYPTO</span>
+                </div>
+                <div class="paper-quote-strip">
+                    <div><span>Market price</span><strong id="chart-order-price">—</strong></div>
+                    <div><span>Free capital</span><strong id="chart-order-balance">—</strong></div>
+                </div>
+                <div class="paper-side-toggle" role="group" aria-label="Order direction">
+                    <button type="button" data-paper-direction="long" class="is-active">LONG</button>
+                    <button type="button" data-paper-direction="short">SHORT</button>
+                </div>
+                <label class="paper-field"><span>Position notional (USD)</span><input id="chart-order-size" type="number" min="10" step="10" value="100" inputmode="decimal"></label>
+                <div class="paper-size-presets" role="group" aria-label="Position size presets">
+                    <button type="button" data-paper-size="100">$100</button>
+                    <button type="button" data-paper-size="250">$250</button>
+                    <button type="button" data-paper-size="500">$500</button>
+                    <button type="button" data-paper-size-percent="10">10% capital</button>
+                </div>
+                <div class="paper-field">
+                    <span>Leverage <strong id="chart-order-leverage-label">2x</strong></span>
+                    <input id="chart-order-leverage" type="range" min="1" max="5" step="1" value="2">
+                    <div class="paper-leverage-presets">
+                        <button type="button" data-paper-leverage="1">1x</button><button type="button" data-paper-leverage="2" class="is-active">2x</button>
+                        <button type="button" data-paper-leverage="3">3x</button><button type="button" data-paper-leverage="5">5x</button>
+                    </div>
+                </div>
+                <div class="paper-field-row">
+                    <label class="paper-field"><span>Stop loss %</span><input id="chart-order-stop" type="number" min="0.1" step="0.1" value="2.0"></label>
+                    <label class="paper-field"><span>Take profit %</span><input id="chart-order-target" type="number" min="0.1" step="0.1" value="4.0"></label>
+                </div>
+                <div class="paper-risk-presets" role="group" aria-label="Risk reward presets">
+                    <button type="button" data-risk-stop="0.8" data-risk-target="1.6">Scalp <small>1:2</small></button>
+                    <button type="button" data-risk-stop="1.5" data-risk-target="3">Intraday <small>1:2</small></button>
+                    <button type="button" data-risk-stop="3" data-risk-target="6">Swing <small>1:2</small></button>
+                </div>
+                <label class="paper-field"><span>Trade thesis</span><input id="chart-order-reason" maxlength="240" placeholder="Why are you taking this trade?"></label>
+                <div class="paper-order-estimate">
+                    <div><span>Required margin</span><strong id="chart-order-margin">$50.00</strong></div>
+                    <div><span>Risk at stop</span><strong id="chart-order-risk">$2.00</strong></div>
+                    <div><span>Reward at target</span><strong id="chart-order-reward">$4.00</strong></div>
+                    <div><span>Risk / Reward</span><strong id="chart-order-rr">1 : 2.00</strong></div>
+                    <div class="paper-order-levels"><span>Indicative SL / TP</span><strong id="chart-order-levels">—</strong></div>
+                </div>
+                <button id="chart-order-submit" type="button" class="paper-submit is-long" data-testid="chart-paper-order-submit">Open long paper position</button>
+                <div id="chart-order-status" class="paper-order-status"><i class="fa-solid fa-shield-halved"></i><span>Actual fill uses a verified live bid/ask. Stocks and commodities follow market hours.</span></div>
+                <div class="paper-symbol-positions">
+                    <div class="paper-symbol-positions__head"><span>Positions on this market</span><button id="chart-positions-refresh" type="button" aria-label="Refresh positions"><i class="fa-solid fa-rotate"></i></button></div>
+                    <div id="chart-symbol-positions"><div class="paper-position-empty">No open positions for this symbol.</div></div>
+                </div>
+            </aside>
+        </section>
+    </div>
+
+    <!-- Stage 6: UI Polish utilities (skeleton loaders, empty states, freshness badges) -->
+    <script src="auth_client.js?v=1.1"></script>
+    <script src="skeleton_utils.js?v=1.2"></script>
+    <!-- Main App Logic -->
+    <script src="app.js?v=39.6"></script>
+    <script src="hotlist_dossier.js?v=1.7"></script>
+    <script src="cockpit.js?v=1.25"></script>
+    <script src="chart_workspace.js?v=5.5"></script>
+    <script src="ui_shell.js?v=10.2"></script>
+    <script src="agents.js?v=3.0"></script>
+    <script src="api_stats_widget.js?v=7.5"></script>
+</body>
+
+</html>

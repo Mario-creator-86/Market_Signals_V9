@@ -1,0 +1,853 @@
+/* MarketMuse UI v10 - view skin: scanner. Loaded after ds_core.css.
+ *
+ * Structure of the view (top to bottom):
+ *   page head      title + one sentence | agent status, status menu, freshness, "Refresh now"
+ *   status alert   one warn strip, only while the scan is degraded
+ *   stat strip     listed movers | up / down | average move | biggest move (the one coloured number)
+ *   boards         Binance | KuCoin | US stocks: static top-10 ranked lists, "Show all" opens the tab
+ *   tabs + sort    tab recipe on the left, sort select on the right, one line
+ *   table          full list of the selected venue, sticky header
+ *
+ * Everything is scoped to #view-scanner and uses tokens only.
+ */
+
+/* ── page head ───────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-scanner .scanner-page-copy { min-width: 0; }
+html[data-ui="v10"] #view-scanner .scanner-page-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--ds-2) var(--ds-3);
+}
+/* styles_alerts.css gives every .btn-mini a fixed 32px width; text buttons need their own. */
+html[data-ui="v10"] #view-scanner .btn-mini { width: auto; min-width: max-content; min-height: 0; }
+html[data-ui="v10"] #view-scanner #scanner-refresh-btn {
+    flex: none;
+    height: 32px;
+    padding: 0 12px;
+    font-size: var(--ds-fs-13);
+}
+
+/* Agent status: state chip, live activity, optional reason, "Status" menu, age of the scan.
+   The markup comes from the shared UI.renderAgentStatusHeader; here it sits inline in the head. */
+html[data-ui="v10"] #view-scanner .agent-status-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ds-2);
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    min-height: 32px;
+    min-width: 0;
+}
+html[data-ui="v10"] #view-scanner .agent-badge {
+    display: inline-block;
+    min-width: 0;
+    height: 20px;
+    padding: 0 7px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+}
+/* "OK" stays as written; the longer state words are shown in sentence case. */
+html[data-ui="v10"] #view-scanner .agent-badge:not(.agent-badge--ok) { text-transform: lowercase; }
+html[data-ui="v10"] #view-scanner .agent-badge:not(.agent-badge--ok)::first-letter { text-transform: uppercase; }
+html[data-ui="v10"] #view-scanner .agent-badge--ok { background: var(--ds-pos-soft); border-color: var(--ds-pos-line); color: var(--ds-pos); }
+html[data-ui="v10"] #view-scanner .agent-badge--degraded { background: var(--ds-warn-soft); border-color: var(--ds-warn-line); color: var(--ds-warn); }
+html[data-ui="v10"] #view-scanner .agent-badge--error { background: var(--ds-neg-soft); border-color: var(--ds-neg-line); color: var(--ds-neg); }
+/* Paused is the neutral chip of the shared recipe (ds_core), as on News and Pre-earnings. */
+html[data-ui="v10"] #view-scanner .agent-badge--paused { background: var(--ds-surface-3); border-color: var(--ds-line-strong); color: var(--ds-text-3); }
+
+html[data-ui="v10"] #view-scanner .agent-status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .agent-status-chip b { color: var(--ds-text-2); font-weight: 500; }
+/* The activity and clockwork facts are text; only the reason keeps its marker. */
+html[data-ui="v10"] #view-scanner .agent-status-chip i { display: none; }
+html[data-ui="v10"] #view-scanner .agent-status-chip--reason i { display: inline; font-size: var(--ds-fs-11); }
+html[data-ui="v10"] #view-scanner .agent-status-chip--warning b { color: var(--ds-warn); }
+html[data-ui="v10"] #view-scanner .agent-status-chip--reason {
+    display: inline-block;
+    max-width: 340px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-scanner .agent-status-chip--reason i { margin-right: 6px; color: var(--ds-warn); }
+
+html[data-ui="v10"] #view-scanner .agent-status-details { margin-left: 0; position: relative; }
+html[data-ui="v10"] #view-scanner .agent-status-details summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 8px;
+    border: 1px solid var(--ds-line-strong);
+    border-radius: var(--ds-r-control);
+    background: var(--ds-surface-2);
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 500;
+    color: var(--ds-text-2);
+    transition: background var(--ds-fast) var(--ds-ease), border-color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-scanner .agent-status-details summary::after { font-size: 9px; opacity: 1; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-scanner .agent-status-details summary:hover,
+html[data-ui="v10"] #view-scanner .agent-status-details[open] summary {
+    background: var(--ds-surface-3);
+    border-color: var(--ds-text-3);
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner .agent-status-details-body {
+    right: 0;
+    top: calc(100% + 6px);
+    z-index: 30;
+    display: grid;
+    gap: 6px;
+    width: max-content;
+    min-width: 220px;
+    max-width: min(360px, 86vw);
+    padding: var(--ds-3);
+    border: 0;
+    border-radius: var(--ds-r-pop);
+    background: var(--ds-surface-2);
+    box-shadow: var(--ds-shadow-pop);
+}
+html[data-ui="v10"] #view-scanner .agent-status-details-body .agent-status-chip {
+    display: flex;
+    justify-content: flex-start;
+    gap: var(--ds-2);
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .agent-status-details-body .agent-status-chip b {
+    margin-left: auto;
+    padding-left: var(--ds-4);
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner #scanner-freshness-badge { display: inline-flex; margin: 0; }
+html[data-ui="v10"] #view-scanner #scanner-freshness-badge:empty { display: none; }
+html[data-ui="v10"] #view-scanner .freshness-badge::before { content: none; }
+
+/* ── strips: degraded scan, stale feed, closed market ────────────────── */
+html[data-ui="v10"] #view-scanner .agent-status-alert,
+html[data-ui="v10"] #view-scanner .scanner-notice {
+    margin: 0 0 var(--ds-3);
+    padding: var(--ds-2) var(--ds-3);
+    border: 1px solid var(--ds-line);
+    border-left: 2px solid var(--ds-warn);
+    border-radius: var(--ds-r-control);
+    background: var(--ds-surface-1);
+    color: var(--ds-text-2);
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    line-height: 1.45;
+}
+html[data-ui="v10"] #view-scanner .agent-status-alert:empty { display: none; }
+html[data-ui="v10"] #view-scanner .agent-status-alert i { margin-right: 6px; color: var(--ds-warn); font-size: var(--ds-fs-12); }
+html[data-ui="v10"] #view-scanner .scanner-notice { display: flex; align-items: baseline; gap: var(--ds-2); }
+html[data-ui="v10"] #view-scanner .scanner-notice i { flex: none; width: 14px; text-align: center; font-size: var(--ds-fs-12); color: var(--ds-warn); }
+html[data-ui="v10"] #view-scanner .scanner-notice--info { border-left-color: var(--ds-info); }
+html[data-ui="v10"] #view-scanner .scanner-notice--info i { color: var(--ds-info); }
+
+/* ── stat strip ──────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-scanner .scanner-summary-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin: 0 0 var(--ds-4);
+}
+html[data-ui="v10"] #view-scanner .scanner-summary-loading {
+    grid-column: 1 / -1;
+    padding: var(--ds-4);
+    color: var(--ds-text-3);
+    font-size: var(--ds-fs-13);
+}
+html[data-ui="v10"] #view-scanner .scanner-summary-card {
+    padding: var(--ds-3) var(--ds-4);
+    border: 0;
+    border-left: 1px solid var(--ds-line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    min-width: 0;
+}
+html[data-ui="v10"] #view-scanner .scanner-summary-card:first-child { border-left: 0; }
+html[data-ui="v10"] #view-scanner .scanner-summary-label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .scanner-summary-value {
+    margin-top: 2px;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-20);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner .scanner-summary-subvalue {
+    margin-top: 2px;
+    font-size: var(--ds-fs-12);
+    line-height: 1.4;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .scanner-summary-subvalue::first-letter { text-transform: uppercase; }
+html[data-ui="v10"] #view-scanner .scanner-stat-move {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--ds-3);
+}
+html[data-ui="v10"] #view-scanner .scanner-stat-sym {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-scanner .scanner-stat-chg { white-space: nowrap; }
+html[data-ui="v10"] #view-scanner .scanner-stat-chg.is-pos { color: var(--ds-pos); }
+html[data-ui="v10"] #view-scanner .scanner-stat-chg.is-neg { color: var(--ds-neg); }
+
+/* ── boards: three static ranked lists ───────────────────────────────── */
+/* The wrapper is the size container: the number of boards per row follows the width the
+   view really has (rail open or collapsed), not the window width. */
+html[data-ui="v10"] #view-scanner .tape-board-wrap {
+    container-type: inline-size;
+    margin: 0 0 var(--ds-6);
+}
+html[data-ui="v10"] #view-scanner .tape-board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--ds-3);
+    margin: 0;
+    perspective: none;
+}
+/* Too narrow for three: the two crypto venues share a row, US stocks takes the next. */
+@container (max-width: 1040px) {
+    html[data-ui="v10"] #view-scanner .tape-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html[data-ui="v10"] #view-scanner .tape-board > .tape-col:nth-child(3) { grid-column: 1 / -1; }
+}
+@container (max-width: 700px) {
+    html[data-ui="v10"] #view-scanner .tape-board { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-scanner .tape-board > .tape-col:nth-child(3) { grid-column: auto; }
+}
+html[data-ui="v10"] #view-scanner .tape-col {
+    container-type: inline-size;
+    min-width: 0;
+    padding: 0;
+    background: var(--ds-surface-1);
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    box-shadow: none;
+    transform: none;
+    transition: none;
+    will-change: auto;
+    overflow: hidden;
+}
+html[data-ui="v10"] #view-scanner .tape-col-head {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    min-height: 40px;
+    margin: 0;
+    padding: 0 var(--ds-1) 0 var(--ds-3);
+    border-bottom: 1px solid var(--ds-line);
+}
+html[data-ui="v10"] #view-scanner .tape-col-title {
+    flex: none;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner .tape-col-sub {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--ds-fs-12);
+    font-style: normal;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .tape-col-all {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: var(--ds-r-control);
+    background: transparent;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-12);
+    font-weight: 500;
+    color: var(--ds-text-2);
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-scanner .tape-col-all i { font-size: 10px; color: var(--ds-text-3); }
+html[data-ui="v10"] #view-scanner .tape-col-all:hover { background: var(--ds-surface-3); color: var(--ds-text); }
+
+html[data-ui="v10"] #view-scanner .tape-col-list {
+    position: static;
+    height: auto;
+    overflow: visible;
+    transform-style: flat;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+html[data-ui="v10"] #view-scanner .tape-cascade {
+    display: block;
+    animation: none;
+    transform: none;
+}
+/* One grid per board, rows as subgrids: the price and change columns take the width of
+   their widest value, so a list of $0.00004506 prices and one of $48.15 both line up. */
+html[data-ui="v10"] #view-scanner .tape-set {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr) 40px max-content max-content 28px;
+    column-gap: 6px;
+}
+html[data-ui="v10"] #view-scanner .tape-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 var(--ds-1) 0 var(--ds-3);
+    border-bottom: 1px solid var(--ds-line-faint);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-scanner .tape-row:last-child { border-bottom: 0; }
+html[data-ui="v10"] #view-scanner .tape-row:hover {
+    background: var(--ds-surface-2);
+    transform: none;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-scanner .tr-rank {
+    min-width: 2ch;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    text-align: right;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .tr-sym {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+html[data-ui="v10"] #view-scanner .tr-ticker {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner .tr-spark {
+    display: block;
+    width: 40px;
+    min-width: 0;
+    height: 20px;
+    overflow: visible;
+}
+html[data-ui="v10"] #view-scanner .tr-spark svg { display: block; width: 100%; height: 20px; overflow: visible; opacity: 1; }
+html[data-ui="v10"] #view-scanner .tr-spark-svg polyline {
+    fill: none;
+    stroke: var(--ds-text-3);
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+}
+html[data-ui="v10"] #view-scanner .tr-spark-svg.up polyline { stroke: var(--ds-pos-quiet); }
+html[data-ui="v10"] #view-scanner .tr-spark-svg.down polyline { stroke: var(--ds-neg-quiet); }
+html[data-ui="v10"] #view-scanner .tr-spark-svg.warming polyline { stroke: var(--ds-line-strong); stroke-dasharray: 2 3; }
+html[data-ui="v10"] #view-scanner .tr-price,
+html[data-ui="v10"] #view-scanner .tr-chip {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    text-align: right;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-scanner .tr-price { color: var(--ds-text); animation: none; }
+html[data-ui="v10"] #view-scanner .tr-chip {
+    min-width: 0;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-scanner .tr-chip.up { color: var(--ds-pos-quiet); background: transparent; }
+html[data-ui="v10"] #view-scanner .tr-chip.down { color: var(--ds-neg-quiet); background: transparent; }
+html[data-ui="v10"] #view-scanner .tr-add,
+html[data-ui="v10"] #view-scanner .btn-icon-mini {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ds-r-control);
+    background: transparent;
+    color: var(--ds-text-3);
+    font-size: var(--ds-fs-11);
+    opacity: 1;
+    cursor: pointer;
+    transition: background var(--ds-fast) var(--ds-ease), color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-scanner .tr-add:hover,
+html[data-ui="v10"] #view-scanner .btn-icon-mini:hover {
+    background: var(--ds-surface-3);
+    border-color: transparent;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner .tape-msg {
+    padding: var(--ds-3);
+    font-size: var(--ds-fs-13);
+    line-height: 1.45;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .tape-msg--warn { color: var(--ds-warn); }
+html[data-ui="v10"] #view-scanner .tape-msg--error {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-3);
+    color: var(--ds-neg);
+}
+
+/* Instrument tags (tokenised stock, stablecoin pair) on boards and tables. */
+html[data-ui="v10"] #view-scanner .scanner-tag {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    height: 18px;
+    padding: 0 6px;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-11);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: var(--ds-r-chip);
+    border: 1px solid var(--ds-line-strong);
+    background: var(--ds-surface-3);
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-scanner .scanner-tag--tokenised {
+    background: var(--ds-info-soft);
+    border-color: var(--ds-info-line);
+    color: var(--ds-info);
+}
+
+/* A tagged row (tokenised stock, stablecoin) on a board of ordinary width gives its
+   sparkline cell to the symbol and its tag, so neither is cut to a few letters. */
+@container (max-width: 460px) {
+    html[data-ui="v10"] #view-scanner .tape-row:has(.scanner-tag) .tr-sym { grid-column: span 2; }
+    html[data-ui="v10"] #view-scanner .tape-row:has(.scanner-tag) .tr-spark { display: none; }
+}
+/* Narrow board: the sparkline gives its room to the symbol, so a 12-character pair next
+   to a $0.000009720 price is still written in full. */
+@container (max-width: 372px) {
+    html[data-ui="v10"] #view-scanner .tape-set { grid-template-columns: max-content minmax(0, 1fr) max-content max-content 28px; }
+    html[data-ui="v10"] #view-scanner .tr-spark { display: none; }
+}
+@supports not (grid-template-columns: subgrid) {
+    html[data-ui="v10"] #view-scanner .tape-set { display: block; }
+    html[data-ui="v10"] #view-scanner .tape-row {
+        grid-template-columns: 20px minmax(0, 1fr) 40px 96px 72px 28px;
+        column-gap: 6px;
+    }
+}
+
+/* ── tabs + sort ─────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-scanner .scanner-tabs-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--ds-2) var(--ds-3);
+    margin: 0 0 var(--ds-3);
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid var(--ds-line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    scroll-margin-top: calc(var(--ds-topbar-h) + var(--ds-3));
+}
+html[data-ui="v10"] #view-scanner .scanner-tablist { display: flex; gap: 2px; }
+html[data-ui="v10"] #view-scanner .scanner-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 12px;
+    margin-bottom: -1px;
+    font-family: var(--ds-font);
+    font-size: var(--ds-fs-13);
+    font-weight: 500;
+    color: var(--ds-text-3);
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+    cursor: pointer;
+    transition: color var(--ds-fast) var(--ds-ease);
+}
+html[data-ui="v10"] #view-scanner .scanner-tab:hover { color: var(--ds-text); background: transparent; }
+html[data-ui="v10"] #view-scanner .scanner-tab.active {
+    color: var(--ds-text);
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid var(--ds-amber);
+    box-shadow: none;
+    font-weight: 600;
+}
+/* The rules above reset box-shadow, which is also how the global focus ring is drawn. */
+html[data-ui="v10"] #view-scanner .scanner-tab:focus-visible {
+    box-shadow: var(--ds-focus);
+    border-radius: var(--ds-r-control);
+}
+html[data-ui="v10"] #view-scanner .scanner-tab-count {
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--ds-fs-12);
+    font-weight: 400;
+    color: var(--ds-text-3);
+}
+html[data-ui="v10"] #view-scanner .scanner-sort-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-2);
+    padding-bottom: var(--ds-1);
+}
+html[data-ui="v10"] #view-scanner .scanner-sort-controls label {
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12);
+    font-weight: 600;
+    color: var(--ds-text-3);
+}
+/* 32px like every other select (control recipe); it still fits the 36px tab row. */
+html[data-ui="v10"] #view-scanner #scanner-sort-select {
+    width: auto;
+    height: 32px;
+    min-height: 32px;
+    padding: 2px 8px;
+    border-radius: var(--ds-r-control);
+    cursor: pointer;
+}
+
+/* ── full table ──────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-scanner .scanner-main-shell,
+html[data-ui="v10"] #view-scanner .scanner-list-wrapper {
+    max-width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+/* premium_overrides.css styles this table with !important (white panel, cream header,
+   14px/20px cells, a hover that scales the row); the same properties need it here to win. */
+html[data-ui="v10"] #view-scanner .scanner-list-container {
+    min-width: 0;
+    border: 1px solid var(--ds-line);
+    border-radius: var(--ds-r-panel);
+    background: var(--ds-surface-1) !important;
+    box-shadow: none;
+    /* clip, not hidden: rounds the corners without becoming a scroll container, so the
+       header still sticks to the page's top bar. */
+    overflow: clip;
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: transparent;
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table thead { display: table-header-group; }
+html[data-ui="v10"] #view-scanner .scanner-list-table tbody { display: table-row-group; }
+html[data-ui="v10"] #view-scanner .scanner-list-table tr {
+    display: table-row;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table th {
+    position: sticky;
+    top: var(--ds-topbar-h);
+    z-index: 2;
+    padding: 8px 12px !important;
+    text-align: left;
+    font-family: var(--ds-font-tight);
+    font-size: var(--ds-fs-12) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    text-transform: none;
+    white-space: nowrap;
+    color: var(--ds-text-3) !important;
+    background: var(--ds-surface-2) !important;
+    border-bottom: 1px solid var(--ds-line) !important;
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table th.num { text-align: right; }
+/* Column widths (fixed layout): the numeric columns share the width evenly, so the eye
+   travels the same distance between them; in the stocks table the name takes the slack. */
+html[data-ui="v10"] #view-scanner .scanner-list-table .col-rank { width: 56px; }
+html[data-ui="v10"] #view-scanner .scanner-list-table .col-symbol { width: 28%; }
+html[data-ui="v10"] #view-scanner .scanner-list-table .col-action { width: 92px; }
+html[data-ui="v10"] #view-scanner .scanner-list-table--stocks .col-symbol { width: 108px; }
+html[data-ui="v10"] #view-scanner .scanner-list-table--stocks .col-price { width: 12%; }
+html[data-ui="v10"] #view-scanner .scanner-list-table--stocks .col-volume { width: 13%; }
+html[data-ui="v10"] #view-scanner .scanner-list-table--stocks .col-change { width: 15%; }
+html[data-ui="v10"] #view-scanner .scanner-list-table--stocks .col-source { width: 132px; }
+html[data-ui="v10"] #view-scanner .scanner-list-table td {
+    display: table-cell;
+    height: 36px;
+    padding: 4px 12px !important;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text);
+    vertical-align: middle;
+    border-bottom: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table td::before { content: none; display: none; }
+html[data-ui="v10"] #view-scanner .scanner-list-table td.num {
+    text-align: right;
+    font-family: var(--ds-font-num);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table tr:last-child td { border-bottom: 0; }
+html[data-ui="v10"] #view-scanner .scanner-row { cursor: pointer; border-bottom: 0 !important; }
+html[data-ui="v10"] #view-scanner .scanner-row:hover {
+    position: static;
+    z-index: auto;
+    background-color: transparent !important;
+    box-shadow: none;
+    transform: none;
+    transition: none;
+}
+
+html[data-ui="v10"] #view-scanner .scanner-list-table .col-rank,
+html[data-ui="v10"] #view-scanner .scanner-list-table .cell-rank { padding-right: 4px !important; }
+html[data-ui="v10"] #view-scanner .scanner-list-table td.cell-rank { font-size: var(--ds-fs-12); color: var(--ds-text-3); }
+html[data-ui="v10"] #view-scanner .scanner-list-table td.cell-ticker {
+    margin: 0;
+    font-size: var(--ds-fs-13);
+    font-weight: 400;
+    border-bottom: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table tr:last-child td.cell-ticker { border-bottom: 0; }
+html[data-ui="v10"] #view-scanner .scanner-symbol-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--ds-2);
+    min-width: 0;
+}
+html[data-ui="v10"] #view-scanner .ticker-name {
+    flex: 0 0 auto;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-13);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner .scanner-row-meta {
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-scanner .cell-ticker .scanner-row-meta {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+html[data-ui="v10"] #view-scanner .scanner-row-name {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table td.cell-volume { color: var(--ds-text-2); }
+html[data-ui="v10"] #view-scanner .scanner-na { color: var(--ds-text-3); }
+html[data-ui="v10"] #view-scanner .change-tag {
+    display: inline;
+    padding: 0;
+    background: transparent;
+    font-weight: 400;
+    color: var(--ds-text-2);
+}
+html[data-ui="v10"] #view-scanner .change-tag.is-pos { color: var(--ds-pos-quiet); }
+html[data-ui="v10"] #view-scanner .change-tag.is-neg { color: var(--ds-neg-quiet); }
+html[data-ui="v10"] #view-scanner .cell-change .scanner-row-meta {
+    display: block;
+    font-family: var(--ds-font-num);
+    font-size: var(--ds-fs-11);
+    line-height: 1.3;
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table td.cell-source {
+    font-size: var(--ds-fs-12);
+    color: var(--ds-text-3);
+    white-space: nowrap;
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table td.cell-action {
+    display: table-cell;
+    padding: 2px 8px 2px 0 !important;
+    text-align: right;
+    white-space: nowrap;
+    border-top: 0;
+    border-bottom: 1px solid var(--ds-line-faint);
+}
+html[data-ui="v10"] #view-scanner .scanner-list-table tr:last-child td.cell-action { border-bottom: 0; }
+
+html[data-ui="v10"] #view-scanner .scanner-table-caption,
+html[data-ui="v10"] #view-scanner .scanner-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ── states ──────────────────────────────────────────────────────────── */
+html[data-ui="v10"] #view-scanner .scanner-empty {
+    padding: var(--ds-6) var(--ds-4);
+    text-align: center;
+    font-size: var(--ds-fs-13);
+    color: var(--ds-text-3);
+    background: transparent;
+    border: 1px dashed var(--ds-line);
+    border-radius: var(--ds-r-panel);
+}
+html[data-ui="v10"] #view-scanner .scanner-empty--error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ds-1);
+}
+html[data-ui="v10"] #view-scanner .scanner-empty--error i { font-size: var(--ds-fs-16); color: var(--ds-neg); }
+html[data-ui="v10"] #view-scanner .scanner-empty--error p {
+    margin: var(--ds-1) 0 0;
+    font-size: var(--ds-fs-14);
+    font-weight: 600;
+    color: var(--ds-text);
+}
+html[data-ui="v10"] #view-scanner .scanner-empty--error .btn-mini { margin-top: var(--ds-2); }
+
+/* ── responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+    html[data-ui="v10"] #view-scanner .scanner-summary-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html[data-ui="v10"] #view-scanner .scanner-summary-card:nth-child(odd) { border-left: 0; }
+    html[data-ui="v10"] #view-scanner .scanner-summary-card:nth-child(n+3) { border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-scanner .scanner-list-container { overflow-x: auto; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table { table-layout: auto; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table th { top: 0; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table .col-source,
+    html[data-ui="v10"] #view-scanner .scanner-list-table .cell-source { display: none; }
+    html[data-ui="v10"] #view-scanner .scanner-page-actions { justify-content: flex-start; }
+}
+@media (max-width: 600px) {
+    html[data-ui="v10"] #view-scanner .scanner-summary-strip { grid-template-columns: minmax(0, 1fr); }
+    html[data-ui="v10"] #view-scanner .scanner-summary-card { border-left: 0; }
+    html[data-ui="v10"] #view-scanner .scanner-summary-card:nth-child(n+2) { border-top: 1px solid var(--ds-line); }
+    html[data-ui="v10"] #view-scanner .scanner-list-table .col-rank,
+    html[data-ui="v10"] #view-scanner .scanner-list-table .cell-rank,
+    html[data-ui="v10"] #view-scanner .scanner-list-table .col-name,
+    html[data-ui="v10"] #view-scanner .scanner-list-table .cell-name,
+    html[data-ui="v10"] #view-scanner .scanner-list-table .col-volume,
+    html[data-ui="v10"] #view-scanner .scanner-list-table .cell-volume { display: none; }
+    html[data-ui="v10"] #view-scanner .ticker-name { max-width: 14ch; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table .col-symbol { width: auto; }
+    html[data-ui="v10"] #view-scanner .cell-ticker .scanner-row-meta { display: none; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table th { padding: 8px !important; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table td { padding: 4px 6px !important; }
+    /* The row itself opens the chart; on a phone only "add to watchlist" keeps a button. */
+    html[data-ui="v10"] #view-scanner .scanner-list-table .btn-icon-mini.secondary { display: none; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table .col-action { width: 36px; }
+    html[data-ui="v10"] #view-scanner .scanner-list-table td.cell-action { padding: 2px 4px 2px 0 !important; }
+    html[data-ui="v10"] #view-scanner .scanner-page-actions { width: 100%; justify-content: space-between; }
+    html[data-ui="v10"] #view-scanner .scanner-sort-controls label { display: none; }
+}
+
+/* ── visual QA pass ──────────────────────────────────────────────────── */
+/* Phone: a row with a tag after the symbol ("Tokenised stock") made the table
+   wider than its panel, which pushed the % and the add button out of sight.
+   The tag now wraps under the symbol and the table fits. */
+@media (max-width: 600px) {
+    html[data-ui="v10"] #view-scanner .scanner-symbol-block { flex-wrap: wrap; row-gap: 2px; }
+}
+
+/* Keyboard focus inside a clipping container: ds_view_shared.css now forces the outer
+   ring with !important on every button/link/tab-stop, which a rounded, overflow-clipped
+   parent cuts down to one or two edges. These keep an inset ring (higher specificity). */
+html[data-ui="v10"] #view-scanner .tr-add:focus-visible { box-shadow: inset 0 0 0 2px var(--ds-amber) !important; }
